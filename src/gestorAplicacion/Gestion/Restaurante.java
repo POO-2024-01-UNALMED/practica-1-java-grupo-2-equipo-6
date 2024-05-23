@@ -65,7 +65,7 @@ public class Restaurante {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Restaurante{");
-        sb.append("zona=").append(zona);
+//        sb.append("zona=").append(zona);
         sb.append(", zonaVIP=").append(zonaVIP);
         sb.append(", calificacion=").append(calificacion);
         sb.append('}');

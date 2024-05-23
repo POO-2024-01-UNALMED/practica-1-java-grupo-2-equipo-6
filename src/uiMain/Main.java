@@ -162,6 +162,7 @@ public class Main {
     public static Restaurante elegirZona(Restaurante restaurante) {
         boolean encendido = true;
         do {
+            //Se muestran las ciudades de las que se tienen datos
             System.out.println("Ciudades:");
             listadoCiudades();
             System.out.println("Escriba un número para elegir la ciudad.\nEn caso de no encontrar la ciudad " +
@@ -173,7 +174,11 @@ public class Main {
                 limpiarPantalla();
                 if (!(eleccion1 == 0)) { //Si se encuentra la ciudad
                     Ciudad ciudad = ciudades.get(eleccion1 - 1);
-                    restaurante = parametrosBasicos(ciudad, restaurante);
+                    if (ciudad.getRestaurantes().isEmpty()) { //Si la ciudad no tiene restaurantes
+                        restaurante = parametrosBasicos(ciudad, restaurante);
+                    } else { //Si la ciudad tiene restaurantes
+                        //Análisis de reservas
+                    }
 
                 } else { //Si no se encuentra la ciudad
                     System.out.println("Por favor ingrese el nombre de la ciudad.");
@@ -212,17 +217,28 @@ public class Main {
         } else {
             limpiarPantalla();
             if (!(eleccionZona1 == 0)) { //Si se encuentra la zona
-                restaurante.setCiudad(ciudad);
-                restaurante.setZona(ciudad.getZonas().get(eleccionZona1 - 1));
-                System.out.println("¿El restaurante tendrá zona VIP?\n1. Sí.\n2. No.\nEscriba un número para elegir.");
-                int tieneVIP = readInt();
-                if (tieneVIP == 1) {
-                    restaurante.setZonaVIP(true);
-                } else if (tieneVIP == 2) {
-                } else {
-                    System.out.println("Número no válido");
+                Zona zonaElegida = ciudad.getZonas().get(eleccionZona1 - 1);
+                //Se evalúa si existen restaurantes enlazados a esta zona.
+                if (zonaElegida.getRestaurantes().isEmpty()) { //Si la zona elegida no tiene restaurantes
+                    //Se enlaza la ciudad al restaurante
+                    restaurante.setCiudad(ciudad);
+                    //Se enlaza la zona al restaurante
+                    restaurante.setZona(ciudad.getZonas().get(eleccionZona1 - 1));
+                    //Se enlaza el restaurante a la zona
+                    ciudad.getZonas().get(eleccionZona1 - 1).getRestaurantes().add(restaurante);
+                    //Se establecen los parámetros básicos del restaurante
+                    System.out.println("¿El restaurante tendrá zona VIP?\n1. Sí.\n2. No.\nEscriba un número para elegir.");
+                    int tieneVIP = readInt();
+                    if (tieneVIP == 1) {
+                        restaurante.setZonaVIP(true);
+                    } else if (tieneVIP == 2) {
+                    } else {
+                        System.out.println("Número no válido");
+                    }
+                    restaurante.setCalificacion((int) (Math.random() * 5) + 1);
+                } else { //Si la zona elegida tiene restaurantes
+                    //Análisis de reservas
                 }
-                restaurante.setCalificacion((int) (Math.random() * 5) + 1);
 
             } else { //Si no se encuentra la zona
                 System.out.println("Por favor ingrese el nombre de la zona.");
@@ -231,7 +247,7 @@ public class Main {
                 int poblacionZona = readInt();
                 ciudad.getZonas().add(new Zona(poblacionZona, capitalize(nombreZona), ciudad));
                 ciudad.actualizarPoblacion();
-                restaurante.setCiudad(ciudad);
+//                restaurante.setCiudad(ciudad);
                 System.out.println("Zonas de " + ciudad.getNombre() + ":");
                 listadoZonasCiudad(ciudad);
                 System.out.println("Escriba un número para elegir la zona.\nEn caso de no encontrar la zona " +
@@ -240,9 +256,16 @@ public class Main {
                 if (eleccionZona2 > ciudades.size() || eleccionZona2 < 0) {
                     System.out.println("Ingrese un número válido [1 - " + ciudad.getZonas().size() + "].");
                 } else {
-                    restaurante.setZona(ciudad.getZonas().get(eleccionZona2 - 1));
                     limpiarPantalla();
-                    System.out.println("¿El restaurante tendrá zona VIP?\n1. Sí.\n2. No.\nEscriba un número para elegir.");
+                    //Se enlaza la ciudad al restaurante
+                    restaurante.setCiudad(ciudad);
+                    //Se enlaza la zona al restaurante
+                    restaurante.setZona(ciudad.getZonas().get(eleccionZona2 - 1));
+                    //Se enlaza el restaurante a la zona
+                    ciudad.getZonas().get(eleccionZona2 - 1).getRestaurantes().add(restaurante);
+                    //Se establecen los parámetros básicos del restaurante
+                    System.out.println("¿El restaurante tendrá zona VIP?\n1. Sí.\n2. No.\nEscriba un número para " +
+                            "elegir.");
                     int tieneVIP = readInt();
                     if (tieneVIP == 1) {
                         restaurante.setZonaVIP(true);
@@ -253,7 +276,6 @@ public class Main {
                     }
                     restaurante.setCalificacion((int) (Math.random() * 5) + 1);
                 }
-
             }
         }
         return restaurante;

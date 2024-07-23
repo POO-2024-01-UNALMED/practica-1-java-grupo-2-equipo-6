@@ -1,15 +1,19 @@
 package uiMain;
 
 import gestorAplicacion.Entorno.Ciudad;
+import gestorAplicacion.Gestion.Mesa;
 import gestorAplicacion.Gestion.Restaurante;
 import gestorAplicacion.Entorno.Zona;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Main {
-    static ArrayList<Ciudad> ciudades = new ArrayList<Ciudad>();
-    static ArrayList<Zona> zonas = new ArrayList<Zona>();
-    static ArrayList<String> nombreZonas = new ArrayList<String>();
+    static LocalDateTime localDateTime = LocalDateTime.now(); //Fecha a la hora de ejectuar el programa
+    static ArrayList<Ciudad> ciudades = new ArrayList<Ciudad>(); //Lista de ciudades
+    static ArrayList<Zona> zonas = new ArrayList<Zona>(); //Lista de zonas
+    static ArrayList<String> nombreZonas = new ArrayList<String>(); //Lista con el nombre de las zonas
+
     static {
         //Creamos ciudades de muestra
         Ciudad ciudad1 = new Ciudad("Medellín");
@@ -36,7 +40,37 @@ public class Main {
             }
         }
 
+        //Creamos un restaurante de muestra
+        Restaurante restauranteMuestra = new Restaurante();
+        restauranteMuestra.setZonaVIP(true);
+
+        //Creamos una disposición default para el restaurante de muestra
+        ArrayList<ArrayList<String>> disposicion = new ArrayList<ArrayList<String>>();
+        disposicion.add(new ArrayList(Arrays.asList(
+                new String[]{"╔", "═", "╦", "╗", "║", "╠", "╬", "╣", "╚", "╩", "╝", " "})));
+        disposicion.add(new ArrayList(Arrays.asList(
+                new String[]{"B", "B", "B", "B", "B", "B", "B", "B", "B", "B"})));
+        disposicion.add(new ArrayList(Arrays.asList(
+                new String[]{"B", " ", "V", " ", "V", " ", "V", " ", "V", "B"})));
+        disposicion.add(new ArrayList(Arrays.asList(
+                new String[]{"W", " ", " ", " ", " ", " ", " ", " ", " ", "W"})));
+        disposicion.add(new ArrayList(Arrays.asList(
+                new String[]{"B", " ", "T", " ", "T", " ", "T", " ", "T", "B"})));
+        disposicion.add(new ArrayList(Arrays.asList(
+                new String[]{"B", " ", " ", " ", " ", " ", " ", " ", " ", "B"})));
+        disposicion.add(new ArrayList(Arrays.asList(
+                new String[]{"B", " ", "T", " ", "T", " ", "T", " ", " ", "B"})));
+        disposicion.add(new ArrayList(Arrays.asList(
+                new String[]{"B", " ", " ", " ", " ", " ", " ", " ", " ", "B"})));
+        disposicion.add(new ArrayList(Arrays.asList(
+                new String[]{"W", " ", "T", " ", "T", " ", "T", " ", " ", "W"})));
+        disposicion.add(new ArrayList(Arrays.asList(
+                new String[]{"B", " ", " ", " ", " ", " ", " ", " ", " ", "B"})));
+        disposicion.add(new ArrayList(Arrays.asList(
+                new String[]{"B", "B", "B", "B", "B", "B", "B", "E", "B", "B"})));
+        restauranteMuestra.setDisposicion(disposicion);
     }
+
     public static void main(String[] args) {
         menuPrincipal();
     }
@@ -74,7 +108,7 @@ public class Main {
                     break;
                 case 4:
                     limpiarPantalla();
-                    agregarSede();
+                    Restaurante restaurante = agregarSede();
                     encendido = false;
                     break;
                 case 5:
@@ -94,12 +128,25 @@ public class Main {
             }
         } while (encendido);
     }
+
     static Scanner consola = new Scanner(System.in);
 
     static String readString() {
         return consola.nextLine();
     }
+
     static int readInt() {
+        String numero = readString();
+        try {
+            return Integer.parseInt(numero);
+        } catch (NumberFormatException ex) {
+            System.out.println("Ingrese un número enteor válido. Ej: 172, 92, 5");
+            return readInt();
+        }
+    }
+
+    static int readInt(String string) {
+        System.out.println(string);
         String numero = readString();
         try {
             return Integer.parseInt(numero);
@@ -112,14 +159,13 @@ public class Main {
     static String capitalize(String text) {
         char[] letrasIndividuales = text.toLowerCase().toCharArray();
         boolean espacioBlanco = true;
-        for(int i = 0; i < letrasIndividuales.length; i++) {
-            if(Character.isLetter(letrasIndividuales[i])) {
-                if(espacioBlanco) {
+        for (int i = 0; i < letrasIndividuales.length; i++) {
+            if (Character.isLetter(letrasIndividuales[i])) {
+                if (espacioBlanco) {
                     letrasIndividuales[i] = Character.toUpperCase(letrasIndividuales[i]);
                     espacioBlanco = false;
                 }
-            }
-            else {
+            } else {
                 espacioBlanco = true;
             }
         }
@@ -127,7 +173,8 @@ public class Main {
     }
 
     //Funcionalidad 4: Agregar Sede
-    public static void agregarSede() {
+    public static Restaurante agregarSede() {
+        Restaurante restaurante = new Restaurante();
         boolean encendido = true;
         do {
             System.out.println("""
@@ -140,9 +187,9 @@ public class Main {
                 case 1:
                     limpiarPantalla();
                     System.out.println("Interacción 1.");
-                    Restaurante restaurante = elegirZona(new Restaurante());
-
-                    System.out.println(restaurante);
+                    restaurante = elegirZona(restaurante);
+                    establecerDisposicion(restaurante);
+                    editarRestaurante(restaurante);
                     encendido = false;
                     break;
                 case 2:
@@ -155,7 +202,9 @@ public class Main {
                     System.out.println("Ingrese un número válido [1 - 2].");
                     break;
             }
+
         } while (encendido);
+        return restaurante;
     }
 
     //Funcionalidad 4. Interacción 1: Elegir Zona
@@ -203,6 +252,39 @@ public class Main {
             }
         } while (encendido);
         return restaurante;
+    }
+
+    //Obtener los promedios de las diferentes características según los restaurantes existentes.
+    public static int[] obtenerPromedios() {
+        int[] valores = new int[5];
+        int ancho = 0; //0
+        int alto = 0; //1
+        int mesasEstandar = 0; //2
+        int mesasVIP = 0; //3
+        int ventanas = 0; //4
+
+        for (Zona zona : zonas) {
+            for (Restaurante restaurante : zona.getRestaurantes()) {
+                valores[0] = valores[0] + restaurante.getCoordX();
+                valores[1] = valores[1] + restaurante.getCoordY();
+                for (Mesa mesa : restaurante.getMesas()) {
+                    if (!mesa.isVIP()) {
+                        valores[2]++;
+                    } else {
+                        valores[3]++;
+                    }
+                }
+                for (int i = 1; i < restaurante.getCoordY() + 1; i++) {
+                    for (String string : restaurante.getDisposicion().get(i)) {
+                        if (string.equals("W")) {
+                            valores[4]++;
+                        }
+                    }
+                }
+            }
+        }
+
+        return valores;
     }
 
     //Este método se encarga de definir los parámetros básicos del restaurante: Ciudad, Zona, Zona VIP y Calificación
@@ -269,16 +351,197 @@ public class Main {
                     int tieneVIP = readInt();
                     if (tieneVIP == 1) {
                         restaurante.setZonaVIP(true);
-                    } else if (tieneVIP == 2) {
-
-                    } else {
-                        System.out.println("Número no válido");
-                    }
+                    } else {}
                     restaurante.setCalificacion((int) (Math.random() * 5) + 1);
                 }
             }
         }
+        System.out.println(restaurante.getCiudad());
+        System.out.println(restaurante.getZona());
         return restaurante;
+    }
+
+    //Funcionalidad 4. Interacción 2: Establecer Disposicion
+    public static Restaurante establecerDisposicion(Restaurante restaurante) {
+        limpiarPantalla();
+        if (Restaurante.restaurantesCreados > 3) {
+            int[] promedios = obtenerPromedios();
+            System.out.println("DISPOSICIÓN RECOMENDADA:\nTamaño:\n\tAncho = " + promedios[0] + "\n\tLargo = "
+                    + promedios[1] + "\nMesas:\n\tEstándar = " + promedios[2] + "\n\tVIP = " + promedios[3] +
+                    " (En caso de tener Zona VIP)\nVentanas = " + promedios[4]);
+        } else {
+            System.out.println("""
+                    DISPOSICIÓN RECOMENDADA:
+                    Tamaño:
+                        Ancho = 10
+                        Largo = 10
+                    Mesas:
+                        Estándar = 10
+                        VIP = 4 (En caso de tener Zona VIP)
+                    Ventanas = 4""");
+        }
+        return restaurante;
+    }
+
+    //Este método se encarga de modificar el plano de un restaurante al momento de ser creado
+    public static void editarRestaurante(Restaurante restaurante) {
+        int coordX = readInt("Ingresa el ancho del restaurante:");
+        int coordY = readInt("Ingresa el largo del restaurante:");
+        int modCoordX;
+        int modCoordY;
+        ArrayList<String> chars = new ArrayList<String>();
+        restaurante.getDisposicion().add(chars);
+        chars.add("╔"); //0 - Top Left
+        chars.add("═"); //1 - Top Line
+        chars.add("╦"); //2 - Top Intersection
+        chars.add("╗"); //3 - Top Right
+        chars.add("║"); //4 - Line
+        chars.add("╠"); //5 - Right Intersection
+        chars.add("╬"); //6 - Middle Intersection
+        chars.add("╣"); //7 - Left Intersection
+        chars.add("╚"); //8 - Bottom Left
+        chars.add("╩"); //9 - Bottom Intersection
+        chars.add("╝"); //10 - Bottom Right
+        chars.add(" "); //11 - Blank
+        for (int i = 0; i < coordY; i++) {
+            ArrayList<String> listaActual = new ArrayList<String>();
+            restaurante.getDisposicion().add(listaActual);
+            if (restaurante.getDisposicion().size() == 2) {
+                for (int j = 0; j < coordX; j++) {
+                    listaActual.add("B");
+                }
+            } else if (restaurante.getDisposicion().size() > 2 && restaurante.getDisposicion().size() < coordY + 1) {
+                listaActual.add("B");
+                for (int j = 2; j < coordX; j++) {
+                    listaActual.add(" ");
+                }
+                listaActual.add("B");
+            } else {
+                for (int j = 0; j < coordX; j++) {
+                    listaActual.add("B");
+                }
+            }
+        }
+        String topRow = chars.get(0) + chars.get(1) + chars.get(1) + chars.get(1);
+        for (int i = 2; i < coordX; i++) {
+            topRow = topRow + chars.get(2) + chars.get(1) + chars.get(1) + chars.get(1);
+        }
+        topRow = topRow + chars.get(2) + chars.get(1) + chars.get(1) + chars.get(1) + chars.get(3);
+
+        String separator = chars.get(5) + chars.get(1) + chars.get(1) + chars.get(1);
+        for (int i = 2; i < coordX; i++) {
+            separator = separator + chars.get(6) + chars.get(1) + chars.get(1) + chars.get(1);
+        }
+        separator = separator + chars.get(6) + chars.get(1) + chars.get(1) + chars.get(1) + chars.get(7);
+        String bottomRow = chars.get(8) + chars.get(1) + chars.get(1) + chars.get(1);
+        for (int i = 2; i < coordX; i++) {
+            bottomRow = bottomRow + chars.get(9) + chars.get(1) + chars.get(1) + chars.get(1);
+        }
+        bottomRow = bottomRow + chars.get(9) + chars.get(1) + chars.get(1) + chars.get(1) + chars.get(10);
+
+        imprimirDisposicionRestaurante(restaurante.getDisposicion(), coordX, coordY, chars, topRow, separator,
+                bottomRow);
+        cambiarElemento(restaurante.getDisposicion(), coordX, coordY, chars, topRow, separator, bottomRow);
+
+        boolean modifying = true;
+        do {
+            System.out.println("¿Desea realizar otra modificación?\n1. Sí.\n2. No.\nEscriba un número para elegir " +
+                    "su opción");
+            int decision = readInt();
+            switch (decision) {
+                case 1:
+                    cambiarElemento(restaurante.getDisposicion(), coordX, coordY, chars, topRow, separator, bottomRow);
+                    break;
+                case 2:
+                    modifying = false;
+                    break;
+                default:
+                    System.out.println("Ingresa un número válido [1 - 2].");
+                    break;
+            }
+        } while (modifying);
+    }
+
+    //Este método es un complemento de editarRestaurante
+    private static void cambiarElemento(ArrayList<ArrayList<String>> planoRestaurante, int coordX, int coordY,
+                                        ArrayList<String> chars, String topRow, String separator, String bottomRow) {
+        int modCoordX;
+        int modCoordY;
+        int tileType;
+
+        System.out.println("Escribe la coordenada en X:");
+        modCoordX = readInt();
+        System.out.println("Escribe la coordenada en Y:");
+        modCoordY = readInt();
+
+        if (modCoordY < 1 || modCoordY > coordY || modCoordX < 1 || modCoordX > coordX) {
+            System.out.println("Escribe valores válidos para ambas coordenadas\nX = [1 - " + coordX + "]\n" +
+                    "Y = [1 - " + coordY + "]");
+            cambiarElemento(planoRestaurante, coordX, coordY, chars, topRow, separator, bottomRow);
+        } else {
+            if (modCoordY == 1 || modCoordY == coordY || modCoordX == 1 || modCoordX == coordX) {
+                System.out.println("Reemplazar por:\n1. Pared (B).\n2. Ventana (W).\n3. Entrada (E).");
+                tileType = readInt();
+                switch (tileType) {
+                    case 1:
+                        planoRestaurante.get(modCoordY).set(modCoordX-1, "B");
+                        break;
+                    case 2:
+                        planoRestaurante.get(modCoordY).set(modCoordX-1, "W");
+                        break;
+                    case 3:
+                        planoRestaurante.get(modCoordY).set(modCoordX-1, "E");
+                        break;
+                    default:
+                        System.out.println("Dato inválido. Se reemplazará por una pared.");
+                        planoRestaurante.get(modCoordY).set(modCoordX-1, "B");
+                }
+            } else {
+                System.out.println("Reemplazar por:\n1. Espacio Vacío ( ).\n2. Mesa Estándar (T).\n" +
+                        "3. Mesa VIP (V).");
+                tileType = readInt();
+                switch (tileType) {
+                    case 1:
+                        planoRestaurante.get(modCoordY).set(modCoordX - 1, " ");
+                        break;
+                    case 2:
+                        planoRestaurante.get(modCoordY).set(modCoordX - 1, "T");
+                        break;
+                    case 3:
+                        planoRestaurante.get(modCoordY).set(modCoordX - 1, "V");
+                        break;
+                    default:
+                        System.out.println("Dato inválido. Se reemplazará por un espacio vacío.");
+                        planoRestaurante.get(modCoordY).set(modCoordX - 1, " ");
+                }
+            }
+            limpiarPantalla();
+            imprimirDisposicionRestaurante(planoRestaurante, coordX, coordY, chars, topRow, separator, bottomRow);
+        }
+    }
+
+    //Este método es un complemento de editarRestaurante
+    private static void imprimirDisposicionRestaurante(ArrayList<ArrayList<String>> planoRestaurante, int coordX,
+                                                       int coordY, ArrayList<String> chars, String topRow,
+                                                       String separator, String bottomRow) {
+
+        System.out.println(topRow);
+        for (int i = 1; i <= coordY; i++) {
+            int j = 0;
+            String borderRow = chars.get(4) + chars.get(11) + planoRestaurante.get(i).get(j) + chars.get(11);
+            for (int k = 2; k < coordX; k++) {
+                j++;
+                borderRow = borderRow + chars.get(4) + chars.get(11) + planoRestaurante.get(i).get(j) + chars.get(11);
+            }
+            borderRow = borderRow + chars.get(4) + chars.get(11) + planoRestaurante.get(i).get(j+1) + chars.get(11) +
+                    chars.get(4);
+            System.out.println(borderRow);
+            if (i == coordY) {
+                System.out.println(bottomRow);
+            } else {
+                System.out.println(separator);
+            }
+        }
     }
 
     //Este método se encarga de organizar en orden alfabético el listado de ciudades para luego imprimir un listado
@@ -311,11 +574,11 @@ public class Main {
     }
 
     //Este método se encarga de limpiar la pantalla del ejecutable.
-    public static void limpiarPantalla(){
+    public static void limpiarPantalla() {
         try {
             String sistemaOperativo = System.getProperty("os.name");
-            ArrayList<String> comando= new ArrayList<>();
-            if(sistemaOperativo.contains("Windows")){
+            ArrayList<String> comando = new ArrayList<>();
+            if (sistemaOperativo.contains("Windows")) {
                 comando.add("cmd");
                 comando.add("/C");
                 comando.add("cls");
@@ -326,8 +589,7 @@ public class Main {
             Process iniciarProceso = pb.inheritIO().start();
             iniciarProceso.waitFor();
         } catch (Exception e) {
-            System.out.println("Error al limpiar la pantalla"+e.getMessage());
+            System.out.println("Error al limpiar la pantalla" + e.getMessage());
         }
     }
-
 }

@@ -13,17 +13,23 @@ public class Restaurante {
     public static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
     public static ArrayList<Plato> menu = new ArrayList<Plato>();
     public static ArrayList<Mesa> mesas = new ArrayList<Mesa>();
-    public static ArrayList<ArrayList<Casilla>> disposicion = new ArrayList<ArrayList<Casilla>>();
+    private ArrayList<ArrayList<String>> disposicion = new ArrayList<ArrayList<String>>();
+    public static int restaurantesCreados;
     private Ciudad ciudad;
     private Zona zona;
     private boolean zonaVIP;
     private int calificacion;
+    private int coordX;
+    private int coordY;
     private ArrayList<Ingrediente> bodega = new ArrayList<Ingrediente>();
     private ArrayList<Reserva> reservas = new ArrayList<Reserva>();
 
     //Constructores
-    public Restaurante() {}
+    public Restaurante() {
+        restaurantesCreados++;
+    }
     public Restaurante(Ciudad ciudad, Zona zona, boolean zonaVIP) {
+        restaurantesCreados++;
         this.ciudad = ciudad;
         this.zona = zona;
         this.zonaVIP = zonaVIP;
@@ -61,11 +67,36 @@ public class Restaurante {
     public void setCalificacion(int calificacion) {
         this.calificacion = calificacion;
     }
+    public ArrayList<ArrayList<String>> getDisposicion() {
+        return disposicion;
+    }
+    public void setDisposicion(ArrayList<ArrayList<String>> disposicion) {
+        this.disposicion = disposicion;
+    }
+    public int getCoordX() {
+        return coordX;
+    }
+    public void setCoordX(int coordX) {
+        this.coordX = coordX;
+    }
+    public int getCoordY() {
+        return coordY;
+    }
+    public void setCoordY(int coordY) {
+        this.coordY = coordY;
+    }
+    public static ArrayList<Mesa> getMesas() {
+        return mesas;
+    }
+    public static void setMesas(ArrayList<Mesa> mesas) {
+        Restaurante.mesas = mesas;
+    }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Restaurante{");
-//        sb.append("zona=").append(zona);
+        final StringBuilder sb = new StringBuilder("{Información del Restaurante: ");
+        sb.append("ciudad=").append(ciudad.getNombre());
+        sb.append(", zona=").append(zona.getNombre());
         sb.append(", zonaVIP=").append(zonaVIP);
         sb.append(", calificacion=").append(calificacion);
         sb.append('}');

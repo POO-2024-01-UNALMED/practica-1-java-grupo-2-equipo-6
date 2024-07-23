@@ -30,9 +30,9 @@ public class Ciudad extends Zona {
     }
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append(nombre);
-        sb.append(", poblacion = ").append(poblacion);
+        final StringBuilder sb = new StringBuilder("{Información de la Ciudad: ");
+        sb.append("poblacion = ").append(poblacion);
+        sb.append(", nombre = '").append(nombre).append("'}");
         return sb.toString();
     }
 }

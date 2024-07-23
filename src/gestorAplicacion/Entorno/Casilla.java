@@ -1,4 +1,3 @@
 package gestorAplicacion.Entorno;
 
-public class Casilla {
-}
+public enum Casilla {PARED, VENTANA, PUERTA, VACIO}

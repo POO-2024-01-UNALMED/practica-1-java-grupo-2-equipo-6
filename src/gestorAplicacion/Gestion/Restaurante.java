@@ -14,6 +14,7 @@ public class Restaurante {
     public static ArrayList<Plato> menu = new ArrayList<Plato>();
     public static ArrayList<Mesa> mesas = new ArrayList<Mesa>();
     private ArrayList<ArrayList<String>> disposicion = new ArrayList<ArrayList<String>>();
+    private ArrayList<Casilla> casillas = new ArrayList<Casilla>();
     public static int restaurantesCreados;
     private Ciudad ciudad;
     private Zona zona;
@@ -91,6 +92,12 @@ public class Restaurante {
     public static void setMesas(ArrayList<Mesa> mesas) {
         Restaurante.mesas = mesas;
     }
+    public ArrayList<Casilla> getCasillas() {
+        return casillas;
+    }
+    public void setCasillas(ArrayList<Casilla> casillas) {
+        this.casillas = casillas;
+    }
 
     @Override
     public String toString() {
@@ -99,6 +106,7 @@ public class Restaurante {
         sb.append(", zona=").append(zona.getNombre());
         sb.append(", zonaVIP=").append(zonaVIP);
         sb.append(", calificacion=").append(calificacion);
+        sb.append(", mesas=").append(mesas);
         sb.append('}');
         return sb.toString();
     }

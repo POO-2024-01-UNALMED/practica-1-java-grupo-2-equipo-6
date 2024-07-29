@@ -98,6 +98,12 @@ public class Restaurante {
     public void setCasillas(ArrayList<Casilla> casillas) {
         this.casillas = casillas;
     }
+    public static ArrayList<Plato> getMenu() {
+        return menu;
+    }
+    public static void setMenu(ArrayList<Plato> menu) {
+        Restaurante.menu = menu;
+    }
 
     @Override
     public String toString() {
@@ -107,6 +113,7 @@ public class Restaurante {
         sb.append(", zonaVIP=").append(zonaVIP);
         sb.append(", calificacion=").append(calificacion);
         sb.append(", mesas=").append(mesas);
+        sb.append(", menu=").append(menu);
         sb.append('}');
         return sb.toString();
     }

@@ -2,7 +2,9 @@ package uiMain;
 
 import gestorAplicacion.Entorno.Casilla;
 import gestorAplicacion.Entorno.Ciudad;
+import gestorAplicacion.Gestion.Ingrediente;
 import gestorAplicacion.Gestion.Mesa;
+import gestorAplicacion.Gestion.Plato;
 import gestorAplicacion.Gestion.Restaurante;
 import gestorAplicacion.Entorno.Zona;
 
@@ -16,7 +18,8 @@ public class Main {
     static LocalDateTime localDateTime = LocalDateTime.now(); //Fecha a la hora de ejectuar el programa
     static ArrayList<Ciudad> ciudades = new ArrayList<Ciudad>(); //Lista de ciudades
     static ArrayList<Zona> zonas = new ArrayList<Zona>(); //Lista de zonas
-    static ArrayList<String> nombreZonas = new ArrayList<String>(); //Lista con el nombre de las zonas
+    static ArrayList<Plato> platos = new ArrayList<Plato>(); //Lista de platos
+    static ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>(); //Lista de ingredientes
 
     static {
         //Creamos ciudades de muestra
@@ -29,11 +32,6 @@ public class Main {
         zonas.add(new Zona(4378, "Robledo", ciudad1));
         zonas.add(new Zona(7426, "Aranjuez", ciudad1));
         zonas.add(new Zona(193134, "Kennedy", ciudad2));
-
-        //Agregamos el nombre de las zonas al array nombreZonas
-        for (Zona zona : zonas) {
-            nombreZonas.add(zona.getNombre());
-        }
 
         //Agregamos las zonas creadas al array zonas de su respectiva ciudad
         for (Ciudad ciudad : ciudades) {

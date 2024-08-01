@@ -3,7 +3,7 @@ package gestorAplicacion.Gestion;
 import java.util.ArrayList;
 
 public class Plato {
-    //Atributos
+    // Atributos
     private String nombre;
     private int precio;
     private ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
@@ -11,8 +11,9 @@ public class Plato {
     private boolean recomendado;
     private int cantidadCalificaciones;
     private int vecesPedido;
+    private String tipo;
 
-    //Constructor
+    // Constructor
 
     public Plato(String nombre, int precio, ArrayList<Ingrediente> ingredientes) {
         this.nombre = nombre;
@@ -20,46 +21,59 @@ public class Plato {
         this.ingredientes = ingredientes;
     }
 
-    //Métodos
+    // Métodos
     public String getNombre() {
         return nombre;
     }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
     public int getPrecio() {
         return precio;
     }
+
     public void setPrecio(int precio) {
         this.precio = precio;
     }
+
     public ArrayList<Ingrediente> getIngredientes() {
         return ingredientes;
     }
+
     public void setIngredientes(ArrayList<Ingrediente> ingredientes) {
         this.ingredientes = ingredientes;
     }
+
     public float getCalificacion() {
         return calificacion;
     }
+
     public void setCalificacion(float calificacion) {
         this.calificacion = calificacion;
     }
+
     public boolean isRecomendado() {
         return recomendado;
     }
+
     public void setRecomendado(boolean recomendado) {
         this.recomendado = recomendado;
     }
+
     public int getCantidadCalificaciones() {
         return cantidadCalificaciones;
     }
+
     public void setCantidadCalificaciones(int cantidadCalificaciones) {
         this.cantidadCalificaciones = cantidadCalificaciones;
     }
+
     public int getVecesPedido() {
         return vecesPedido;
     }
+
     public void setVecesPedido(int vecesPedido) {
         this.vecesPedido = vecesPedido;
     }
@@ -72,5 +86,10 @@ public class Plato {
         sb.append(", ingredientes=").append(ingredientes);
         sb.append('}');
         return sb.toString();
+    }
+
+    public String getTipo() {
+        return this.tipo;
+
     }
 }

@@ -14,6 +14,14 @@ public class Plato {
     private String tipo;
 
     // Constructor
+    public Plato() {}
+
+    public Plato(String nombre, int precio, ArrayList<Ingrediente> ingredientes, float calificacion) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.ingredientes = ingredientes;
+        this.calificacion = calificacion;
+    }
 
     public Plato(String nombre, int precio, ArrayList<Ingrediente> ingredientes) {
         this.nombre = nombre;

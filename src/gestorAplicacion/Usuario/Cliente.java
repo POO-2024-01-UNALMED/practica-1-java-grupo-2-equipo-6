@@ -3,7 +3,7 @@ package gestorAplicacion.Usuario;
 public class Cliente extends Persona {
 
     // constructor
-
+    public Cliente(){}
     public Cliente(int cc, String nombre) {
         this.cedula = cc;
         this.nombre = nombre;
@@ -18,4 +18,8 @@ public class Cliente extends Persona {
         return cadena;
     }
 
+    @Override
+    public int getCedula() {
+        return cedula;
+    }
 }

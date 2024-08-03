@@ -7,6 +7,7 @@ import gestorAplicacion.Gestion.Plato;
 import gestorAplicacion.Gestion.Restaurante;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Scanner;
 
@@ -121,6 +122,25 @@ public class Utilidad {
             });
             for (int i = 0; i < ingredientes.size(); i++) {
                 System.out.println(String.valueOf(i + 1) + ". " + ingredientes.get(i).getNombre() + '.');
+            }
+        }
+    }
+
+    //Este método se encarga de organizar en orden de calificación el listado de platos para luego imprimir un listado
+    //numerado desde 1 hasta 10 (máximo), con el nombre de estos.
+    public static void listadoPlatosCalificacion() {
+        platos.sort(new Comparator<Plato>() {
+            @Override
+            public int compare(Plato o1, Plato o2) {
+                    return Float.compare(o1.getCalificacion(), o2.getCalificacion());
+                }
+        });
+        for (int i = 0; i < 10; i++) {
+            if (i < platos.size()) {
+                System.out.println(String.valueOf(i + 1) + ". " + platos.reversed().get(i).getNombre() + ": " +
+                        platos.reversed().get(i).getCalificacion() + " Estrellas.");
+            } else {
+                break;
             }
         }
     }

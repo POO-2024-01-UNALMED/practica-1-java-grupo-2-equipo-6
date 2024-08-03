@@ -140,6 +140,7 @@ public class Funcionalidad4 {
         int eleccionZona1 = readInt();
         if (eleccionZona1 > ciudades.size() || eleccionZona1 < 0) {
             System.out.println("Ingrese un número válido [1 - " + ciudad.getZonas().size() + "].");
+            parametrosBasicos(ciudad, restaurante);
         } else {
             limpiarPantalla();
             if (!(eleccionZona1 == 0)) { //Si se encuentra la zona
@@ -230,8 +231,18 @@ public class Funcionalidad4 {
 
     //Este método se encarga de modificar el plano de un restaurante al momento de ser creado
     public static void editarRestaurante(Restaurante restaurante) {
-        int coordX = readInt("Ingresa el ancho del restaurante:");
-        int coordY = readInt("Ingresa el largo del restaurante:");
+        boolean encendido = true;
+        int coordX, coordY;
+        do {
+            coordX = readInt("Ingresa el ancho del restaurante:");
+            coordY = readInt("Ingresa el largo del restaurante:");
+            if (coordX > 4 && coordY > 4) {
+                encendido = false;
+            } else {
+                System.out.println("El valor mínimo de ancho y largo es de 5.");
+            }
+        } while (encendido);
+
         int modCoordX;
         int modCoordY;
         ArrayList<String> chars = new ArrayList<String>();
@@ -455,6 +466,7 @@ public class Funcionalidad4 {
     private static void establecerMenuYEncargos(Restaurante restaurante) {
         if (Restaurante.restaurantesCreados > 2) {
             listadoPlatos();
+            listadoPlatosCalificacion();
             //Análisis menús existentes
         } else {
             int platosNuevos = readInt("Ingrese la cantidad de platos a crear:");
@@ -464,6 +476,7 @@ public class Funcionalidad4 {
                 listadoIngredientes();
                 Plato plato = crearPlato();
                 restaurante.getMenu().add(plato);
+                platos.add(plato);
 
             }
 
@@ -524,7 +537,7 @@ public class Funcionalidad4 {
                 }
                 break;
         }
-        Plato plato = new Plato(nombre, precio, ingredientesPlato);
+        Plato plato = new Plato(nombre, precio, ingredientesPlato, (int) (Math.random() * 5) + 1);
         return plato;
     }
 

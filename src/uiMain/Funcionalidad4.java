@@ -82,7 +82,7 @@ public class Funcionalidad4 {
                     //Este ciclo for se encarga de la creación de las zonas de la nueva ciudad.
                     for (int i = 1; i <= cantidadZonas; i++) {
                         System.out.println("Por favor ingrese el nombre de la zona #" + i + '.');
-                        String nombreZona = readString();
+                        String nombreZona = capitalize(readString());
                         System.out.println("Por favor ingrese la población de la zona #" + i + '.');
                         int poblacionZona = readInt();
                         ciudad.getZonas().add(new Zona(poblacionZona, capitalize(nombreZona), ciudad));
@@ -169,7 +169,7 @@ public class Funcionalidad4 {
 
             } else { //Si no se encuentra la zona
                 System.out.println("Por favor ingrese el nombre de la zona.");
-                String nombreZona = readString();
+                String nombreZona = capitalize(readString());
                 System.out.println("Por favor ingrese la población de la zona.");
                 int poblacionZona = readInt();
                 ciudad.getZonas().add(new Zona(poblacionZona, capitalize(nombreZona), ciudad));
@@ -465,80 +465,148 @@ public class Funcionalidad4 {
     //Funcionalidad 4. Interacción 3: Establecer Menú y Encargos
     private static void establecerMenuYEncargos(Restaurante restaurante) {
         if (Restaurante.restaurantesCreados > 2) {
-            listadoPlatos();
             listadoPlatosCalificacion();
-            //Análisis menús existentes
+            System.out.println("¿Desea conservar el menú generado?\n1. Sí.\n2. No.");
+            int eleccion1 = readInt();
+            switch (eleccion1) {
+                case 1: //Si se quiere adoptar el menú generado
+                    for (int i = 0; i < 10; i++) {
+                        if (i < platos.size()) {
+                            restaurante.getMenu().add(platos.reversed().get(i));
+                        } else {
+                            break;
+                        }
+                    }
+                    break;
+                case 2: //Si no se quiere adoptar el menú generado
+                    listadoPlatos();
+                    boolean encendido = true;
+                    do {
+                        System.out.println("\nElija la situación que mejor se acomode a su situación con respecto a " +
+                                "la creación del menú y la lista presentada:\n1. Todos los platos están presentes." +
+                                "\n2. Algunos platos están presentes.\n3. Ningún plato está presente.");
+                        int eleccion2 = readInt();
+                        int numPlatos;
+                        switch (eleccion2) {
+                            case 1:
+                                numPlatos = readInt("Ingrese la cantidad de platos que desea agregar:");
+                                System.out.println("Escriba el número de lista donde está cada uno de los " +
+                                        numPlatos + " platos necesarios.");
+                                for (int i = 0; i < numPlatos; i++) {
+                                    int indice = readInt("Ingresa el número del plato #" + (i + 1));
+                                    restaurante.getMenu().add(platos.get(indice - 1));
+                                }
+                                encendido = false;
+                                break;
+                            case 2:
+                                encendido = false;
+                                break;
+                            case 3:
+                                encendido = false;
+                                break;
+                            default:
+                                System.out.println("Ingrese un número válido [1 - 3].");
+                                encendido = true;
+                                break;
+                        }
+                    } while (encendido);
+
+
+                    int platosNuevos = readInt("Ingrese la cantidad de platos a crear:");
+                    for (int i = 0; i < platosNuevos; i++) {
+                        listadoPlatos();
+                        listadoIngredientes();
+                        Plato plato = crearPlato();
+                        restaurante.getMenu().add(plato);
+                        platos.add(plato);
+                    }
+                    break;
+                default:
+                    System.out.println("Ingrese un número válido [1 - 2].");
+                    establecerMenuYEncargos(restaurante);
+            }
         } else {
             int platosNuevos = readInt("Ingrese la cantidad de platos a crear:");
-
             for (int i = 0; i < platosNuevos; i++) {
                 listadoPlatos();
                 listadoIngredientes();
                 Plato plato = crearPlato();
                 restaurante.getMenu().add(plato);
                 platos.add(plato);
-
             }
-
             System.out.println(restaurante);
         }
     }
 
     private static Plato crearPlato() {
         System.out.println("Ingrese el nombre del plato, sin tildes.");
-        String nombre = readString();
-        System.out.println("Ingrese el precio del plato, sin decimales.");
-        int precio = readInt();
-        System.out.println("Ingrese la cantidad de ingredientes que tiene el plato.");
-        int numIngredientes = readInt();
-        limpiarPantalla();
-        listadoIngredientes();
-        ArrayList<Ingrediente> ingredientesPlato = new ArrayList<Ingrediente>();
-        System.out.println("Elija la situación que más se acomode a su situación actual con respecto a la lista " +
-                "presentada:\n1. Todos los ingredientes están presentes.\n2. Algunos ingredientes están presentes" +
-                "\n3. Ningún ingrediente está presente.");
-        int eleccion = readInt();
-        switch (eleccion) {
-            case 1:
-                System.out.println("Escriba el número de lista donde está cada uno de los " + numIngredientes +
-                        " ingredientes necesarios.");
-                for (int i = 0; i < numIngredientes; i++) {
-                    int indice = readInt("Ingresa el número del ingrediente #" + (i + 1));
-                    ingredientesPlato.add(ingredientes.get(indice - 1));
-                }
+        String nombre = capitalize(readString());
+        boolean existe = false;
+        int indiceExiste = 0;
+        Plato platoRetorno = new Plato();
+        for (Plato plato : platos) {
+            if (plato.getNombre().equals(nombre)) {
+                existe = true;
+                indiceExiste = platos.indexOf(plato);
                 break;
-            case 2:
-                int numIngExistentes = readInt("Ingrese la cantidad de ingredientes que ya están presentes.");
-                System.out.println("Escriba el número de lista donde está cada uno de los " + numIngExistentes +
-                        "ingredientes necesarios.");
-                for (int i = 0; i < numIngExistentes; i++) {
-                    int indice = readInt("Ingresa el número del ingrediente #" + (i + 1));
-                    ingredientesPlato.add(ingredientes.get(indice - 1));
-                }
-                for (int i = 0; i < (numIngredientes - numIngExistentes); i++) {
-                    System.out.println("Ingrese el nombre del nuevo ingrediente.");
-                    String nombreIngrediente = readString();
-                    System.out.println("Ingrese el precio unitario del nuevo ingrediente.");
-                    int precioIngrediente = readInt();
-                    Ingrediente ingrediente = new Ingrediente(nombreIngrediente, precioIngrediente);
-                    ingredientes.add(ingrediente);
-                    ingredientesPlato.add(ingrediente);
-                }
-                break;
-            case 3:
-                for (int i = 0; i < numIngredientes; i++) {
-                    System.out.println("Ingrese el nombre del nuevo ingrediente.");
-                    String nombreIngrediente = readString();
-                    System.out.println("Ingrese el precio unitario del nuevo ingrediente.");
-                    int precioIngrediente = readInt();
-                    Ingrediente ingrediente = new Ingrediente(nombreIngrediente, precioIngrediente);
-                    ingredientes.add(ingrediente);
-                    ingredientesPlato.add(ingrediente);
-                }
-                break;
+            }
         }
-        Plato plato = new Plato(nombre, precio, ingredientesPlato, (int) (Math.random() * 5) + 1);
-        return plato;
+        if (!existe) {
+            System.out.println("Ingrese el precio del plato, sin decimales.");
+            int precio = readInt();
+            System.out.println("Ingrese la cantidad de ingredientes que tiene el plato.");
+            int numIngredientes = readInt();
+            limpiarPantalla();
+            listadoIngredientes();
+            ArrayList<Ingrediente> ingredientesPlato = new ArrayList<Ingrediente>();
+            System.out.println("\nElija la situación que mejor se acomode a su situación actual con respecto a la " +
+                    "lista presentada:\n1. Todos los ingredientes están presentes.\n2. Algunos ingredientes están" +
+                    " presentes.\n3. Ningún ingrediente está presente.");
+            int eleccion = readInt();
+            switch (eleccion) {
+                case 1:
+                    System.out.println("Escriba el número de lista donde está cada uno de los " + numIngredientes +
+                            " ingredientes necesarios.");
+                    for (int i = 0; i < numIngredientes; i++) {
+                        int indice = readInt("Ingresa el número del ingrediente #" + (i + 1));
+                        ingredientesPlato.add(ingredientes.get(indice - 1));
+                    }
+                    break;
+                case 2:
+                    int numIngExistentes = readInt("Ingrese la cantidad de ingredientes que ya están presentes.");
+                    System.out.println("Escriba el número de lista donde está cada uno de los " + numIngExistentes +
+                            "ingredientes necesarios.");
+                    for (int i = 0; i < numIngExistentes; i++) {
+                        int indice = readInt("Ingresa el número del ingrediente #" + (i + 1));
+                        ingredientesPlato.add(ingredientes.get(indice - 1));
+                    }
+                    for (int i = 0; i < (numIngredientes - numIngExistentes); i++) {
+                        System.out.println("Ingrese el nombre del nuevo ingrediente.");
+                        String nombreIngrediente = capitalize(readString());
+                        System.out.println("Ingrese el precio unitario del nuevo ingrediente.");
+                        int precioIngrediente = readInt();
+                        Ingrediente ingrediente = new Ingrediente(nombreIngrediente, precioIngrediente);
+                        ingredientes.add(ingrediente);
+                        ingredientesPlato.add(ingrediente);
+                    }
+                    break;
+                case 3:
+                    for (int i = 0; i < numIngredientes; i++) {
+                        System.out.println("Ingrese el nombre del nuevo ingrediente.");
+                        String nombreIngrediente = capitalize(readString());
+                        System.out.println("Ingrese el precio unitario del nuevo ingrediente.");
+                        int precioIngrediente = readInt();
+                        Ingrediente ingrediente = new Ingrediente(nombreIngrediente, precioIngrediente);
+                        ingredientes.add(ingrediente);
+                        ingredientesPlato.add(ingrediente);
+                    }
+                    break;
+            }
+            platoRetorno = new Plato(nombre, precio, ingredientesPlato, (int) (Math.random() * 5) + 1);
+        } else {
+            platoRetorno = platos.get(indiceExiste);
+        }
+        return platoRetorno;
     }
 
 }

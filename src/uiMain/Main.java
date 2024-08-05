@@ -2,17 +2,17 @@ package uiMain;
 
 import gestorAplicacion.Entorno.Casilla;
 import gestorAplicacion.Entorno.Ciudad;
-import gestorAplicacion.Gestion.Ingrediente;
-import gestorAplicacion.Gestion.Mesa;
-import gestorAplicacion.Gestion.Plato;
-import gestorAplicacion.Gestion.Restaurante;
+import gestorAplicacion.Gestion.*;
 import gestorAplicacion.Entorno.Zona;
+import gestorAplicacion.Usuario.Cliente;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static uiMain.Funcionalidad3.*;
 import static uiMain.Funcionalidad4.*;
 import static uiMain.Utilidad.*;
+
 
 public class Main {
     static LocalDateTime localDateTime = LocalDateTime.now(); //Fecha a la hora de ejectuar el programa
@@ -33,6 +33,8 @@ public class Main {
         zonas.add(new Zona(7426, "Aranjuez", ciudad1));
         zonas.add(new Zona(193134, "Kennedy", ciudad2));
 
+        System.out.println("Sexo");
+
         //Agregamos las zonas creadas al array zonas de su respectiva ciudad
         for (Ciudad ciudad : ciudades) {
             for (Zona zona : zonas) {
@@ -41,6 +43,63 @@ public class Main {
                 }
             }
         }
+        Restaurante restaurante1 = new Restaurante();
+        Mesa mesa1 = new Mesa(0, 0, 0, false, 4);
+        restaurante1.agregarMesa(mesa1);
+        mesa1.setRestaurante(restaurante1);
+
+
+        //Creamos clientes de muestra para la mesa 1
+        ArrayList <Cliente> clientesMesa1 = new ArrayList<Cliente>();
+        Cliente cliente1 = new Cliente("Juan", 001, "Estrella", "1234567");
+        cliente1.setMesa(mesa1);
+        clientesMesa1.add(cliente1);
+        Cliente cliente2 = new Cliente("Pedro", 002, "Estrellita", "7654321");
+        cliente2.setMesa(mesa1);
+        clientesMesa1.add(cliente2);
+        Cliente cliente3 = new Cliente("María", 003, "9876543");
+        cliente3.setMesa(mesa1);
+        clientesMesa1.add(cliente3);
+        mesa1.setClientes(clientesMesa1);
+
+        //Creamos ingredientes y platos de muestra
+        Ingrediente Tomate = new Ingrediente("Tomate", 500);
+        Ingrediente Lechuga = new Ingrediente("Lechuga", 300);
+        ArrayList<Ingrediente> ingredientesEnsalada = new ArrayList<Ingrediente>();
+        ingredientesEnsalada.add(Tomate);
+        ingredientesEnsalada.add(Lechuga);
+        Plato Ensalada = new Plato("Ensalada", 19000, ingredientesEnsalada);
+
+        Ingrediente Carne = new Ingrediente("Carne", 1000);
+        Ingrediente Pan = new Ingrediente("Pan", 500);
+        ArrayList<Ingrediente> ingredientesHamburguesa = new ArrayList<Ingrediente>();
+        ingredientesHamburguesa.add(Carne);
+        ingredientesHamburguesa.add(Pan);
+        Plato Hamburguesa = new Plato("Hamburguesa", 25000, ingredientesHamburguesa);
+
+        Ingrediente Arroz = new Ingrediente("Arroz", 800);
+        Ingrediente Pollo = new Ingrediente("Pollo", 700);
+        ArrayList<Ingrediente> ingredientesArroz = new ArrayList<Ingrediente>();
+        ingredientesArroz.add(Arroz);
+        ingredientesArroz.add(Pollo);
+        Plato ArrozConPollo = new Plato("Arroz con pollo", 20000, ingredientesArroz);
+
+        //Creamos pedidos de muestra
+        Pedido pedido1 = new Pedido();
+        Pedido pedido2 = new Pedido();
+        Pedido pedido3 = new Pedido();
+
+        pedido1.agregarPlato(Ensalada);
+        pedido2.agregarPlato(Hamburguesa);
+        pedido3.agregarPlato(ArrozConPollo);
+
+        //Creamos facturas de muestra
+        Factura factura1 = new Factura(pedido1, "Efectivo", false, 0);
+        Factura factura2 = new Factura(pedido2, "Tarjeta", false, 0);
+        Factura factura3 = new Factura(pedido3, "Efectivo", false, 0);
+        cliente1.setFactura(factura1);
+        cliente2.setFactura(factura2);
+        cliente3.setFactura(factura3);
 
         //Creamos un restaurante de muestra
         Restaurante restauranteMuestra = new Restaurante();
@@ -108,6 +167,7 @@ public class Main {
                 case 3:
                     limpiarPantalla();
                     System.out.println("Interacción 3.");
+                    dejarRestaurante();
                     encendido = false;
                     break;
                 case 4:

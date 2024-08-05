@@ -393,7 +393,7 @@ public class Funcionalidad4 {
                         restaurante.getDisposicion().get(modCoordY).set(modCoordX - 1, "T");
                         restaurante.getCasillas().remove(casilla);
                         restaurante.getMesas().remove(casilla);
-                        mesa = new Mesa(0, modCoordX, modCoordY, false);
+                        mesa = new Mesa(0, modCoordX, modCoordY, false, 4);
                         restaurante.getCasillas().add(mesa);
                         restaurante.getMesas().add(mesa);
                         break;
@@ -402,14 +402,14 @@ public class Funcionalidad4 {
                             restaurante.getDisposicion().get(modCoordY).set(modCoordX - 1, "V");
                             restaurante.getCasillas().remove(casilla);
                             restaurante.getMesas().remove(casilla);
-                            mesa = new Mesa(0, modCoordX, modCoordY, true);
+                            mesa = new Mesa(0, modCoordX, modCoordY, true, 4);
                             restaurante.getCasillas().add(mesa);
                             restaurante.getMesas().add(mesa);
                         } else { //En caso de que el restaurante no tenga zona VIP, se agregará una mesa estándar.
                             restaurante.getDisposicion().get(modCoordY).set(modCoordX - 1, "T");
                             restaurante.getCasillas().remove(casilla);
                             restaurante.getMesas().remove(casilla);
-                            mesa = new Mesa(0, modCoordX, modCoordY, false);
+                            mesa = new Mesa(0, modCoordX, modCoordY, false, 4);
                             restaurante.getCasillas().add(mesa);
                             restaurante.getMesas().add(mesa);
                         }

@@ -20,7 +20,7 @@ public class Utilidad {
         return consola.nextLine();
     }
 
-    static int readInt() {
+    public static int readInt() {
         String numero = readString();
         try {
             return Integer.parseInt(numero);
@@ -38,6 +38,16 @@ public class Utilidad {
         } catch (NumberFormatException ex) {
             System.out.println("Ingrese un número enteor válido. Ej: 172, 92, 5");
             return readInt();
+        }
+    }
+
+    static float readFloat(){
+        String numero = readString();
+        try {
+            return Float.parseFloat(numero);
+        } catch (NumberFormatException ex) {
+            System.out.println("Ingrese un número decimal válido. Ej: 2.5, 7.2, 5.1");
+            return readFloat();
         }
     }
 

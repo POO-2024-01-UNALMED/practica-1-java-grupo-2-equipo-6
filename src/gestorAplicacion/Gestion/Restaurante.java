@@ -19,11 +19,14 @@ public class Restaurante {
     private Ciudad ciudad;
     private Zona zona;
     private boolean zonaVIP;
-    private int calificacion;
+    private float calificacion;
     private int coordX;
     private int coordY;
     private ArrayList<Ingrediente> bodega = new ArrayList<Ingrediente>();
     private ArrayList<Reserva> reservas = new ArrayList<Reserva>();
+    private ArrayList<String> reseñas = new ArrayList<String>();
+    private ArrayList<Plato> platosRecomendados = new ArrayList<Plato>();
+    private ArrayList<Plato> platosDescuento = new ArrayList<Plato>();
 
     // Constructores
     public Restaurante() {
@@ -166,11 +169,11 @@ public class Restaurante {
         this.ciudad = ciudad;
     }
 
-    public int getCalificacion() {
+    public float getCalificacion() {
         return calificacion;
     }
 
-    public void setCalificacion(int calificacion) {
+    public void setCalificacion(float calificacion) {
         this.calificacion = calificacion;
     }
 
@@ -222,6 +225,38 @@ public class Restaurante {
         Restaurante.menu = menu;
     }
 
+    public void añadirReseña(String reseña) {
+        reseñas.add(reseña);
+    }
+
+    public void agregarPlatoRecomendado(Plato plato) {
+        platosRecomendados.add(plato);
+    }
+    public void eliminarPlatoRecomendado(Plato plato) {
+        platosRecomendados.remove(plato);
+    }
+    public void agregarPlatoDescuento(Plato plato) {
+        platosDescuento.add(plato);
+    }
+    public void eliminarPlatoDescuento(Plato plato) {
+        platosDescuento.remove(plato);
+    }
+    public ArrayList<Plato> getPlatosRecomendados() {
+        return platosRecomendados;
+    }
+    public ArrayList<Plato> getPlatosDescuento() {
+        return platosDescuento;
+    }
+    public void eliminarPlato(Plato plato) {
+        menu.remove(plato);
+    }
+    public void agregarPlato(Plato plato) {
+        menu.add(plato);
+    }
+    public void agregarMesa(Mesa mesa) {
+        mesas.add(mesa);
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{Información del Restaurante: ");
@@ -234,6 +269,8 @@ public class Restaurante {
         sb.append('}');
         return sb.toString();
     }
+
+
     // FUNCIONALIDAD NUMERO 4: agregarSede
     // Interacción 1: elegirCiudad
 

@@ -12,6 +12,8 @@ public class Plato {
     private int cantidadCalificaciones;
     private int vecesPedido;
     private String tipo;
+    private int pedidosRecomendados;
+    private int valorEnPuntosCliente;
 
     // Constructor
     public Plato() {}
@@ -27,6 +29,18 @@ public class Plato {
         this.nombre = nombre;
         this.precio = precio;
         this.ingredientes = ingredientes;
+    }
+
+    public Plato(String nombre, int precio, ArrayList<Ingrediente> ingredientes, float calificacion, boolean recomendado,
+                 int cantidadCalificaciones, int vecesPedido, int pedidosRecomendados) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.ingredientes = ingredientes;
+        this.calificacion = calificacion;
+        this.recomendado = recomendado;
+        this.cantidadCalificaciones = cantidadCalificaciones;
+        this.vecesPedido = vecesPedido;
+        this.pedidosRecomendados = pedidosRecomendados;
     }
 
     // Métodos
@@ -59,7 +73,8 @@ public class Plato {
     }
 
     public void setCalificacion(float calificacion) {
-        this.calificacion = calificacion;
+        this.calificacion = (getCalificacion()+calificacion)/(cantidadCalificaciones+1);
+        cantidadCalificaciones++;
     }
 
     public boolean isRecomendado() {
@@ -86,6 +101,34 @@ public class Plato {
         this.vecesPedido = vecesPedido;
     }
 
+    public void agregarIngrediente(Ingrediente ingrediente) {
+        this.ingredientes.add(ingrediente);
+    }
+
+    public void eliminarIngrediente(Ingrediente ingrediente) {
+        this.ingredientes.remove(ingrediente);
+    }
+
+    public void aumentarVecesPedido() {
+        this.vecesPedido++;
+    }
+
+    public void aumentarPedidosRecomendados() {
+        this.pedidosRecomendados++;
+    }
+
+    public int getPedidosRecomendados() {
+        return pedidosRecomendados;
+    }
+
+    public int getValorEnPuntosCliente() {
+        return valorEnPuntosCliente;
+    }
+
+    public void setValorEnPuntosCliente(int valorEnPuntosCliente) {
+        this.valorEnPuntosCliente = valorEnPuntosCliente;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Plato{");
@@ -98,6 +141,5 @@ public class Plato {
 
     public String getTipo() {
         return this.tipo;
-
     }
 }

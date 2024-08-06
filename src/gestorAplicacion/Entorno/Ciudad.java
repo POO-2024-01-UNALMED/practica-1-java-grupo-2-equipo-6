@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class Ciudad extends Zona {
     //Atributos
     private ArrayList<Zona> zonas = new ArrayList<Zona>();
+    private String NombreCiudad;
     //Construtores
     public Ciudad(){}
     public Ciudad(String nombre) {
@@ -34,5 +35,8 @@ public class Ciudad extends Zona {
         sb.append("poblacion = ").append(poblacion);
         sb.append(", nombre = '").append(nombre).append("'}");
         return sb.toString();
+    }
+    public String getNombreCiudad() {
+        return NombreCiudad;
     }
 }

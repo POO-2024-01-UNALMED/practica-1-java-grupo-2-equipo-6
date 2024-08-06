@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public class Zona {
     //Atributos
+    protected String nombreZona;
+    public Restaurante RestauranteZona;
     protected int poblacion;
     protected String nombre;
     private ArrayList<Restaurante> restaurantes = new ArrayList<Restaurante>();
@@ -20,6 +22,10 @@ public class Zona {
         this.poblacion = poblacion;
         this.nombre = nombre;
         this.ciudad = ciudad;
+    }
+    public Zona(Restaurante RestauranteZona, String nombreZona){
+        this.nombreZona = nombreZona;
+        this.RestauranteZona = RestauranteZona;
     }
     //Métodos
     public Ciudad getCiudad() {
@@ -56,5 +62,8 @@ public class Zona {
         sb.append(", ciudad = ").append(ciudad);
         sb.append('}');
         return sb.toString();
+    }
+    public String getNombreRestaurante(){
+        return RestauranteZona.getNombreRestaurante();
     }
 }

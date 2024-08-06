@@ -3,6 +3,7 @@ package gestorAplicacion.Gestion;
 import java.util.ArrayList;
 
 public class Factura {
+    Evento evento;
     //  Atributos
     private static int numeroFactura = 0;
     private int valor = 0;
@@ -86,6 +87,13 @@ public class Factura {
     }
     public void setPagada(boolean pagada){
         this.pagada = pagada;
+    }
+    public Factura(Evento evento){
+        this.evento = evento;
+    }
+
+    public void setEvento(Evento evento) {
+        this.evento = evento;
     }
 
 

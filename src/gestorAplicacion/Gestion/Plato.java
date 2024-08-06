@@ -14,6 +14,9 @@ public class Plato {
     private String tipo;
     private int pedidosRecomendados;
     private int valorEnPuntosCliente;
+    private int porciones;
+    private int cantidadDePlato;
+
 
     // Constructor
     public Plato() {}
@@ -41,6 +44,19 @@ public class Plato {
         this.cantidadCalificaciones = cantidadCalificaciones;
         this.vecesPedido = vecesPedido;
         this.pedidosRecomendados = pedidosRecomendados;
+    }
+    public Plato(String nombre, int precio, ArrayList<Ingrediente> ingredientes, int porciones, int cantidadDePlato) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.ingredientes = ingredientes;
+        this.porciones = porciones;
+        this.cantidadDePlato = cantidadDePlato;
+    }
+    public Plato(String nombre, int precio, int porciones, int cantidadDePlato){
+        this.nombre = nombre;
+        this.precio = precio;
+        this.porciones = porciones;
+        this.cantidadDePlato = cantidadDePlato;
     }
 
     // Métodos
@@ -141,5 +157,17 @@ public class Plato {
 
     public String getTipo() {
         return this.tipo;
+    }
+    public void descontarPlato(){
+        cantidadDePlato--;
+    }
+    public int getPorciones(){
+        return porciones;
+    }
+    public void setPorciones(int porciones){
+        this.porciones = porciones;
+    }
+    public int getCantidadDePlato(){
+        return cantidadDePlato;
     }
 }

@@ -27,6 +27,10 @@ public class Restaurante {
     private ArrayList<String> reseñas = new ArrayList<String>();
     private ArrayList<Plato> platosRecomendados = new ArrayList<Plato>();
     private ArrayList<Plato> platosDescuento = new ArrayList<Plato>();
+    private String nombreRestaurante;
+    private int Capacidad;
+    private Cliente cliente;
+
 
     // Constructores
     public Restaurante() {
@@ -38,6 +42,16 @@ public class Restaurante {
         this.ciudad = ciudad;
         this.zona = zona;
         this.zonaVIP = zonaVIP;
+    }
+    public Restaurante(int Capacidad, String nombreRestaurante){
+        this.Capacidad =  Capacidad;
+        this.nombreRestaurante = nombreRestaurante;
+    }
+    public Restaurante(int capacidad, String nombreRestaurante, ArrayList<Reserva> reservas){
+        this.Capacidad = capacidad;
+        this.nombreRestaurante = nombreRestaurante;
+        this.reservas = reservas;
+
     }
 
     // Métodos
@@ -224,6 +238,9 @@ public class Restaurante {
     public static void setMenu(ArrayList<Plato> menu) {
         Restaurante.menu = menu;
     }
+    public String getNombreRestaurante(){
+        return nombreRestaurante;
+    }
 
     public void añadirReseña(String reseña) {
         reseñas.add(reseña);
@@ -268,6 +285,18 @@ public class Restaurante {
         sb.append(", menu=").append(menu);
         sb.append('}');
         return sb.toString();
+    }
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+    public void agregarReserva(Reserva nuevaReserva) {
+        reservas.add(nuevaReserva);
+    }
+    public String getCliente(){
+        return cliente.getNombre() + "dadada" + cliente.getCedula();
+    }
+    public int getCapacidad(){
+        return Capacidad;
     }
 
 

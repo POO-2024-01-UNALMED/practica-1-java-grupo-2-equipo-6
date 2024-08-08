@@ -7,7 +7,6 @@ import gestorAplicacion.Gestion.Plato;
 import gestorAplicacion.Gestion.Restaurante;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Scanner;
 
@@ -117,6 +116,41 @@ public class Utilidad {
                 System.out.println(String.valueOf(i + 1) + ". " + ciudad.getZonas().get(i).getNombre() + '.');
             }
             ciudad.actualizarPoblacion();
+        }
+    }
+
+    public static ArrayList<Zona> listadoZonasConRestauranteCiudad(Ciudad ciudad) {
+        ArrayList<Zona> zonasConRestaurante = new ArrayList<Zona>();
+        for (Zona zona : ciudad.getZonas()) {
+            if (!zona.getRestaurantes().isEmpty()) {
+                zonasConRestaurante.add(zona);
+            }
+        }
+        zonasConRestaurante.sort(new Comparator<Zona>() {
+            @Override
+            public int compare(Zona o1, Zona o2) {
+                return o1.getNombre().compareToIgnoreCase(o2.getNombre());
+            }
+        });
+        for (int i = 0; i < zonasConRestaurante.size(); i++) {
+            System.out.println(String.valueOf(i + 1) + ". " + zonasConRestaurante.get(i).getNombre() + '.');
+        }
+        ciudad.actualizarPoblacion();
+        return zonasConRestaurante;
+    }
+
+    public static void listadoRestaurantesZona(Zona zona) {
+        if (!zona.getRestaurantes().isEmpty()) {
+            zona.getRestaurantes().sort(new Comparator<Restaurante>() {
+                @Override
+                public int compare(Restaurante o1, Restaurante o2) {
+                    return o1.getNombre().compareToIgnoreCase(o2.getNombre());
+                }
+            });
+            for (int i = 0; i < zona.getRestaurantes().size(); i++) {
+                System.out.println(String.valueOf(i + 1) + ". " + zona.getRestaurantes().get(i).getNombre() +
+                        '.');
+            }
         }
     }
 

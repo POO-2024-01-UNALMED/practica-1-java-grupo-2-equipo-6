@@ -23,7 +23,7 @@ public class Main {
     static ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>(); //Lista de ingredientes
 
     static ArrayList<Reserva> reservasUsaquen = new ArrayList<Reserva>();
-    static ArrayList<Plato> platosCumple = new ArrayList<Plato>(); //Lista de platos
+    static ArrayList<Plato> platosCumple = new ArrayList<Plato>(); //Lista de platos cumpleaños
     static ArrayList<Evento> eventos = new ArrayList<Evento>();
     static ArrayList<Plato> vinos_champanas_meeting = new ArrayList<Plato>();
     static {
@@ -37,8 +37,6 @@ public class Main {
         zonas.add(new Zona(4378, "Robledo", ciudad1));
         zonas.add(new Zona(7426, "Aranjuez", ciudad1));
         zonas.add(new Zona(193134, "Kennedy", ciudad2));
-
-        System.out.println("Sexo");
 
         //Agregamos las zonas creadas al array zonas de su respectiva ciudad
         for (Ciudad ciudad : ciudades) {

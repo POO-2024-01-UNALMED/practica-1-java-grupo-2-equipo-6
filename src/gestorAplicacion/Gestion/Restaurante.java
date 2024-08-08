@@ -27,8 +27,8 @@ public class Restaurante {
     private ArrayList<String> reseñas = new ArrayList<String>();
     private ArrayList<Plato> platosRecomendados = new ArrayList<Plato>();
     private ArrayList<Plato> platosDescuento = new ArrayList<Plato>();
-    private String nombreRestaurante;
-    private int Capacidad;
+    private String nombre;
+    private int capacidad;
     private Cliente cliente;
 
 
@@ -36,20 +36,24 @@ public class Restaurante {
     public Restaurante() {
         restaurantesCreados++;
     }
+    public Restaurante(String nombre) {
 
+    }
     public Restaurante(Ciudad ciudad, Zona zona, boolean zonaVIP) {
         restaurantesCreados++;
         this.ciudad = ciudad;
         this.zona = zona;
         this.zonaVIP = zonaVIP;
     }
-    public Restaurante(int Capacidad, String nombreRestaurante){
-        this.Capacidad =  Capacidad;
-        this.nombreRestaurante = nombreRestaurante;
+    public Restaurante(int capacidad, String nombre){
+        restaurantesCreados++;
+        this.capacidad =  capacidad;
+        this.nombre = nombre;
     }
-    public Restaurante(int capacidad, String nombreRestaurante, ArrayList<Reserva> reservas){
-        this.Capacidad = capacidad;
-        this.nombreRestaurante = nombreRestaurante;
+    public Restaurante(int capacidad, String nombre, ArrayList<Reserva> reservas){
+        restaurantesCreados++;
+        this.capacidad = capacidad;
+        this.nombre = nombre;
         this.reservas = reservas;
 
     }
@@ -238,8 +242,8 @@ public class Restaurante {
     public static void setMenu(ArrayList<Plato> menu) {
         Restaurante.menu = menu;
     }
-    public String getNombreRestaurante(){
-        return nombreRestaurante;
+    public String getNombre(){
+        return nombre;
     }
 
     public void añadirReseña(String reseña) {
@@ -296,11 +300,6 @@ public class Restaurante {
         return cliente.getNombre() + "dadada" + cliente.getCedula();
     }
     public int getCapacidad(){
-        return Capacidad;
+        return capacidad;
     }
-
-
-    // FUNCIONALIDAD NUMERO 4: agregarSede
-    // Interacción 1: elegirCiudad
-
 }

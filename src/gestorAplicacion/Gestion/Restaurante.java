@@ -130,28 +130,28 @@ public class Restaurante {
 
             case "Fuerte":
                 for (Plato p : menu) {
-                    if (p.getTipo() == "Entrada") {
+                    if (p.getTipo() == "Fuerte") {
                         System.out.println(p);
                     }
                 }
 
             case "Bebidas":
                 for (Plato p : menu) {
-                    if (p.getTipo() == "Entrada") {
+                    if (p.getTipo() == "Bebidas") {
                         System.out.println(p);
                     }
                 }
 
             case "Postre":
                 for (Plato p : menu) {
-                    if (p.getTipo() == "Entrada") {
+                    if (p.getTipo() == "Postre") {
                         System.out.println(p);
                     }
                 }
 
             case "Infantil":
                 for (Plato p : menu) {
-                    if (p.getTipo() == "Entrada") {
+                    if (p.getTipo() == "Infantil") {
                         System.out.println(p);
                     }
                 }

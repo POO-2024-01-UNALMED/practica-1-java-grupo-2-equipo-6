@@ -12,7 +12,6 @@ import gestorAplicacion.Gestion.Evento;
 import java.util.Scanner;
 
 import static uiMain.Main.*;
-import static uiMain.Utilidad.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +103,7 @@ public class Funcionalidad5 {
                 case 1:
                     if (ciudadRequerida != null) {
                         restauranteElegido = getRestaurante(ciudadRequerida);
-                        print(restauranteElegido.getNombreRestaurante());
+                        print(restauranteElegido.getNombre());
                     } else {
                         printLn("Algo anda mal");
                     }

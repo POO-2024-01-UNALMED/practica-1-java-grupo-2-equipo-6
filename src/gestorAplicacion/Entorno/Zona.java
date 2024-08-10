@@ -64,6 +64,6 @@ public class Zona {
         return sb.toString();
     }
     public String getNombreRestaurante(){
-        return RestauranteZona.getNombreRestaurante();
+        return RestauranteZona.getNombre();
     }
 }

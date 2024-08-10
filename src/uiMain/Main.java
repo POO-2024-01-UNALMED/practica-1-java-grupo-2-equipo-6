@@ -9,6 +9,7 @@ import gestorAplicacion.Usuario.Cliente;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static uiMain.Funcionalidad1.reservarMesa;
 import static uiMain.Funcionalidad3.*;
 import static uiMain.Funcionalidad4.*;
 import static uiMain.Utilidad.*;
@@ -23,7 +24,7 @@ public class Main {
     static ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>(); //Lista de ingredientes
 
     static ArrayList<Reserva> reservasUsaquen = new ArrayList<Reserva>();
-    static ArrayList<Plato> platosCumple = new ArrayList<Plato>(); //Lista de platos
+    static ArrayList<Plato> platosCumple = new ArrayList<Plato>(); //Lista de platos cumpleaños
     static ArrayList<Evento> eventos = new ArrayList<Evento>();
     static ArrayList<Plato> vinos_champanas_meeting = new ArrayList<Plato>();
     static {
@@ -38,8 +39,6 @@ public class Main {
         zonas.add(new Zona(7426, "Aranjuez", ciudad1));
         zonas.add(new Zona(193134, "Kennedy", ciudad2));
 
-        System.out.println("Sexo");
-
         //Agregamos las zonas creadas al array zonas de su respectiva ciudad
         for (Ciudad ciudad : ciudades) {
             for (Zona zona : zonas) {
@@ -48,10 +47,13 @@ public class Main {
                 }
             }
         }
-        Restaurante restaurante1 = new Restaurante();
+        Restaurante restaurante1 = new Restaurante(ciudad1, ciudad1.getZonas().getFirst(), true,
+                "El Comecuernos");
         Mesa mesa1 = new Mesa(0, 0, 0, false, 4);
         restaurante1.agregarMesa(mesa1);
         mesa1.setRestaurante(restaurante1);
+        ciudad1.getRestaurantes().add(restaurante1);
+        ciudad1.getZonas().get(0).getRestaurantes().add(restaurante1);
 
 
         //Creamos clientes de muestra para la mesa 1
@@ -241,9 +243,7 @@ public class Main {
             switch (eleccion) {
                 case 1:
                     limpiarPantalla();
-                    System.out.println("Interacción 1.");
-                    System.out.println(ciudades.getLast().getZonas());
-                    encendido = false;
+                    reservarMesa();
                     break;
                 case 2:
                     limpiarPantalla();
@@ -252,7 +252,6 @@ public class Main {
                     break;
                 case 3:
                     limpiarPantalla();
-                    System.out.println("Interacción 3.");
                     dejarRestaurante();
                     encendido = false;
                     break;

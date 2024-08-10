@@ -21,4 +21,19 @@ public class Pedido {
     public void setPlatos(ArrayList<Plato> platos){
         this.platos = platos;
     }
+
+
+    
+    @Override
+    public String toString() {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("productos\n");
+        
+        for (Plato p: platos){
+           sb.append(p.getNombre() + "   $ " + p.getPrecio()+ "\n") ;
+        }
+        
+        return sb.toString();
+    }
 }

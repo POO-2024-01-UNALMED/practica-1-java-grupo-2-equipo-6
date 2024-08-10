@@ -41,20 +41,33 @@ public class Funcionalidad1 {
                                 boolean encendido2 = true;
                                 do {
                                     limpiarPantalla();
-                                    System.out.println("Zonas de " + ciudad.getNombre());
+                                    System.out.println("Zonas de " + ciudad.getNombre() + ":");
                                     ArrayList<Zona> zonasConRestaurante = listadoZonasConRestauranteCiudad(ciudad);
                                     int eleccion3 = readInt("Escriba un número para elegir la zona.");
-                                    if (eleccion3 > zonasConRestaurante.size() || eleccion3 < 1) {
+                                    if (eleccion3 > zonasConRestaurante.size() || eleccion3 < 1) { //Si no se encuentra la zona
                                         System.out.println("Ingrese un número válido [1 - " + zonasConRestaurante.size() +
                                                 "].");
-                                    } else {
+                                    } else { //Si se encuentra la zona
                                         limpiarPantalla();
                                         Zona zona = zonasConRestaurante.get(eleccion3 - 1);
-                                        
+                                        boolean encendido3 = true;
+                                        do {
+                                            limpiarPantalla();
+                                            System.out.println("Restaurantes de " + zona.getNombre() + ":");
+                                            listadoRestaurantesZona(zona);
+                                            int eleccion4 = readInt("Escriba un número para elegir el " +
+                                                    "restaurante.");
+                                            if (eleccion4 > zonasConRestaurante.size() || eleccion4 < 1) { //Si no se encuentra el restaurante
+                                                System.out.println("Ingrese un número válido [1 - " +
+                                                        zona.getRestaurantes().size() + "].");
+                                            } else { //Si se encuentra el restaurante
+                                                seleccionMesa(zona.getRestaurantes().get(eleccion4 - 1));
+                                                encendido3 = false;
+                                            }
+                                        } while (encendido3);
                                         encendido2 = false;
                                     }
                                 } while (encendido2);
-
                             }
                         } else { //Si no se encuentra la ciudad
                             System.out.println("Lo sentimos, pero estas son las únicas ciudades donde tenemos " +
@@ -83,11 +96,10 @@ public class Funcionalidad1 {
                     System.out.println("Ingrese un número válido [1 - 2].");
                     break;
             }
-
         } while (encendido1);
     }
 
-    public static void seleccionMesa() {
-
+    public static void seleccionMesa(Restaurante restaurante) {
+        System.out.println(restaurante);
     }
 }

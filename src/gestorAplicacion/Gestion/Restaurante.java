@@ -39,16 +39,17 @@ public class Restaurante {
     public Restaurante(String nombre) {
 
     }
+    public Restaurante(int capacidad, String nombre){
+        restaurantesCreados++;
+        this.capacidad =  capacidad;
+        this.nombre = nombre;
+    }
+
     public Restaurante(Ciudad ciudad, Zona zona, boolean zonaVIP) {
         restaurantesCreados++;
         this.ciudad = ciudad;
         this.zona = zona;
         this.zonaVIP = zonaVIP;
-    }
-    public Restaurante(int capacidad, String nombre){
-        restaurantesCreados++;
-        this.capacidad =  capacidad;
-        this.nombre = nombre;
     }
     public Restaurante(int capacidad, String nombre, ArrayList<Reserva> reservas){
         restaurantesCreados++;
@@ -56,6 +57,13 @@ public class Restaurante {
         this.nombre = nombre;
         this.reservas = reservas;
 
+    }
+    public Restaurante(Ciudad ciudad, Zona zona, boolean zonaVIP, String nombre) {
+        restaurantesCreados++;
+        this.ciudad = ciudad;
+        this.zona = zona;
+        this.zonaVIP = zonaVIP;
+        this.nombre = nombre;
     }
 
     // Métodos

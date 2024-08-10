@@ -9,6 +9,7 @@ import gestorAplicacion.Usuario.Cliente;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static uiMain.Funcionalidad1.reservarMesa;
 import static uiMain.Funcionalidad3.*;
 import static uiMain.Funcionalidad4.*;
 import static uiMain.Utilidad.*;
@@ -46,10 +47,13 @@ public class Main {
                 }
             }
         }
-        Restaurante restaurante1 = new Restaurante();
+        Restaurante restaurante1 = new Restaurante(ciudad1, ciudad1.getZonas().getFirst(), true,
+                "El Comecuernos");
         Mesa mesa1 = new Mesa(0, 0, 0, false, 4);
         restaurante1.agregarMesa(mesa1);
         mesa1.setRestaurante(restaurante1);
+        ciudad1.getRestaurantes().add(restaurante1);
+        ciudad1.getZonas().get(0).getRestaurantes().add(restaurante1);
 
 
         //Creamos clientes de muestra para la mesa 1
@@ -240,7 +244,7 @@ public class Main {
                 case 1:
                     limpiarPantalla();
                     System.out.println("Interacción 1.");
-                    System.out.println(ciudades.getLast().getZonas());
+                    reservarMesa();
                     encendido = false;
                     break;
                 case 2:
@@ -257,6 +261,7 @@ public class Main {
                 case 4:
                     limpiarPantalla();
                     Restaurante restaurante = agregarSede();
+
                     break;
                 case 5:
                     limpiarPantalla();

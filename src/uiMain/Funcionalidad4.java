@@ -153,6 +153,8 @@ public class Funcionalidad4 {
                     restaurante.setZona(ciudad.getZonas().get(eleccionZona1 - 1));
                     //Se enlaza el restaurante a la zona
                     ciudad.getZonas().get(eleccionZona1 - 1).getRestaurantes().add(restaurante);
+                    //Se enlaza el restaurante a la ciudad
+                    ciudad.getRestaurantes().add(restaurante);
                     //Se establecen los parámetros básicos del restaurante
                     System.out.println("¿El restaurante tendrá zona VIP?\n1. Sí.\n2. No.\nEscriba un número para elegir.");
                     int tieneVIP = readInt();

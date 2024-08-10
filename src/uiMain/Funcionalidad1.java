@@ -72,15 +72,15 @@ public class Funcionalidad1 {
                         } else { //Si no se encuentra la ciudad
                             System.out.println("Lo sentimos, pero estas son las únicas ciudades donde tenemos " +
                                     "restaurantes de nuestra cadena.");
-                            int eleccion4 = readInt("¿Desea elegir otra ciudad?\n1. Sí.\n2. No.\nEscriba un " +
-                                    "número para elegir su opción.");
-                            switch (eleccion4) {
-                                case 1:
-                                    reservarMesa();
-                                    break;
-                                default:
-                                    menuPrincipal();
-                                    break;
+                            int eleccion4 = readInt("""
+                                    ¿Desea elegir otra ciudad?
+                                    1. Sí.
+                                    2. No.
+                                    Escriba un número para elegir su opción.""");
+                            if (eleccion4 == 1) {
+                                reservarMesa();
+                            } else {
+                                menuPrincipal();
                             }
                         }
                         encendido1 = false;
@@ -100,6 +100,17 @@ public class Funcionalidad1 {
     }
 
     public static void seleccionMesa(Restaurante restaurante) {
+        System.out.println("Ingrese el nombre del cliente:");
+        String nombre = capitalize(readString());
+        System.out.println("Ingrese la cédula del cliente:");
+        int cedula = readInt();
+        System.out.println("Ingrese la placa del vehículo del cliente (en caso de no tener escribir 0):");
+        String placaVehiculo = readString();
+        System.out.println("Ingrese la cantidad de acompañantes del cliente:");
+        int numAcompanantes = readInt();
+        for (int i = 0; i < numAcompanantes; i++) {
+
+        }
         System.out.println(restaurante);
     }
 }

@@ -243,9 +243,7 @@ public class Main {
             switch (eleccion) {
                 case 1:
                     limpiarPantalla();
-                    System.out.println("Interacción 1.");
                     reservarMesa();
-                    encendido = false;
                     break;
                 case 2:
                     limpiarPantalla();
@@ -254,14 +252,12 @@ public class Main {
                     break;
                 case 3:
                     limpiarPantalla();
-                    System.out.println("Interacción 3.");
                     dejarRestaurante();
                     encendido = false;
                     break;
                 case 4:
                     limpiarPantalla();
                     Restaurante restaurante = agregarSede();
-
                     break;
                 case 5:
                     limpiarPantalla();

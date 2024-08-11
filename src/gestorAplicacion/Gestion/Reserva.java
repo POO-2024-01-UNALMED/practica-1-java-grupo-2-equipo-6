@@ -3,25 +3,28 @@ package gestorAplicacion.Gestion;
 import gestorAplicacion.Usuario.Cliente;
 
 import java.util.ArrayList;
-public class Reserva{
-    public ArrayList<Cliente> clientes;
-    public Cliente cliente;
-    //Preguntarle a Colo por esta vaina del Date
-    public String fecha;
+import java.util.Date;
 
-    public Reserva(Cliente cliente, String fecha){
-        this.cliente = cliente;
+public class Reserva {
+    public ArrayList<Cliente> clientes;
+    //Preguntarle a Colo por esta vaina del Date
+    public Date fecha;
+
+    public Reserva(ArrayList<Cliente> clientes, Date fecha){
         this.fecha = fecha;
         this.clientes = new ArrayList<>();
     }
     public Reserva(){}
-    public String getFecha(){
+    public Date getFecha(){
         return fecha;
     }
-    public void setFecha(String fecha){
+    public void setFecha(Date fecha){
         this.fecha = fecha;
     }
-    public void setCliente(Cliente cliente){
-        this.cliente = cliente;
+    public ArrayList<Cliente> getClientes() {
+        return clientes;
+    }
+    public void setClientes(ArrayList<Cliente> clientes) {
+        this.clientes = clientes;
     }
 }

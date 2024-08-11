@@ -29,7 +29,7 @@ public class Restaurante {
     private ArrayList<Plato> platosDescuento = new ArrayList<Plato>();
     private String nombre;
     private int capacidad;
-    private Cliente cliente;
+
 
 
     // Constructores
@@ -298,16 +298,18 @@ public class Restaurante {
         sb.append('}');
         return sb.toString();
     }
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
+
     public void agregarReserva(Reserva nuevaReserva) {
         reservas.add(nuevaReserva);
     }
-    public String getCliente(){
-        return cliente.getNombre() + "dadada" + cliente.getCedula();
-    }
+
     public int getCapacidad(){
         return capacidad;
+    }
+    public static ArrayList<Cliente> getClientes() {
+        return clientes;
+    }
+    public static void setClientes(ArrayList<Cliente> clientes) {
+        Restaurante.clientes = clientes;
     }
 }

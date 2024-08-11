@@ -119,17 +119,25 @@ public class Funcionalidad1 {
         System.out.println("Ingrese la cantidad de acompañantes del cliente:");
         int numAcompanantes = readInt("Ingrese la cantidad de acompañantes. No debe ser mayor a 6.\nEn caso de" +
                 " ingresar un número mayor a 6, este será ignorado y se establecerá en 6.");
-        if (numAcompanantes < 0) {
-            
-        } else {
+        if (numAcompanantes > 0) {
             if (numAcompanantes > 6) {numAcompanantes = 6;}
             for (int i = 0; i < numAcompanantes; i++) {
                 System.out.println("Ingrese el nombre del acompañante #" + (i + 1) + ":");
                 String nombreAcompanante = readString();
                 System.out.println("Ingrese la cédula del acompañante #" + (i + 1) + ":");
                 int cedulaAcompanante = readInt();
+                Cliente acompanante = new Cliente(nombreAcompanante, cedulaAcompanante);
+                acompanante = clienteCedula(acompanante);
+                if (existeCliente(acompanante)) {
+                    clientes.add(acompanante);
+                } else {
+                    Restaurante.getClientes().add(acompanante);
+                    clientes.add(acompanante);
+                }
             }
         }
+
+        System.out.println("¿Qué tipo de mesa quiere usar?\n1. Estándar.\n2. VIP.");
 
         System.out.println(restaurante);
     }

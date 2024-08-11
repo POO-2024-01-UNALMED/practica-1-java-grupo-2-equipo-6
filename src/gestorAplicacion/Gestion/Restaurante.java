@@ -122,7 +122,7 @@ public class Restaurante {
         System.out.print("Se necesita el siguiente dato:\nNombre: ");
         String nombre = consola.nextLine();
 
-        clientes.add(new Cliente(cc, nombre));
+        clientes.add(new Cliente(nombre, cc));
         System.out.println("Cliente agregado exitosamente.");
 
         return clientes.get(clientes.size() - 1);

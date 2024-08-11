@@ -21,7 +21,7 @@ public class Cliente extends Persona {
     // Constructores
     public Cliente(){};
 
-    public Cliente (int cedula, String nombre){
+    public Cliente (String nombre, int cedula){
         super(nombre, cedula);
         this.afiliacion = "Ninguna";
         this.placaVehiculo = "Ninguna";

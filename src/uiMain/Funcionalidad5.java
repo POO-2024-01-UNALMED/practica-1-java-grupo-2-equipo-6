@@ -9,12 +9,13 @@ import gestorAplicacion.Gestion.Factura;
 import gestorAplicacion.Usuario.Cliente;
 import gestorAplicacion.Gestion.Evento;
 
-import java.util.Scanner;
+import java.text.ParseException;
+import java.util.*;
 
 import static uiMain.Main.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import static uiMain.Utilidad.readInt;
+import static uiMain.Utilidad.readString;
+import static uiMain.Utilidad.readDate;
 
 public class Funcionalidad5 {
     static Scanner input = new Scanner(System.in);
@@ -24,22 +25,6 @@ public class Funcionalidad5 {
 
     static void print(Object obj) {
         System.out.println(obj);
-    }
-
-    static byte readByte() {
-        return input.nextByte();
-    }
-
-    static int readInt() {
-        return input.nextInt();
-    }
-
-    static String readString() {
-        return input.next();
-    }
-
-    static double readDouble() {
-        return input.nextDouble();
     }
 
     public static Restaurante CrearEvento() {
@@ -79,7 +64,7 @@ public class Funcionalidad5 {
         } while (encendido);
         return restaurante;
     }
-    public static Restaurante recomendarLocalizacion(Restaurante restaurante) {
+    public static Restaurante recomendarLocalizacion(Restaurante restaurante) throws ParseException {
         Cliente clientePP = new Cliente();
         Reserva reservaPP = new Reserva();
         Restaurante restauranteElegido = new Restaurante();
@@ -130,8 +115,14 @@ public class Funcionalidad5 {
         double cedulaCliente = readInt();
         printLn("Nombre: ");
         String nombreCliente = readString();
-        printLn("Día de la reserva (dd/mm/aa)");
-        String fechaReserva = readString();
+        printLn("Fecha de la reserva:");
+        int day = readInt("Ingrese el día en números:");
+        int month = readInt("Ingrese el mes en números:");
+        int year = readInt("Ingrese el año en números:");
+        printLn("Hora de la reserva:");
+        int hours = readInt("Ingrese la hora en números:");
+        int minutes = readInt("Ingrese el minuto en números:");
+        Date fechaReserva = readDate(year, month, day, hours, minutes);
         clientePP.setNombre(nombreCliente);
         clientePP.setCedula((int) cedulaCliente);
         reservaPP.setFecha(fechaReserva);

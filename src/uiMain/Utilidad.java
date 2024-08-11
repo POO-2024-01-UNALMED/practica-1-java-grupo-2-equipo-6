@@ -5,10 +5,11 @@ import gestorAplicacion.Entorno.Zona;
 import gestorAplicacion.Gestion.Ingrediente;
 import gestorAplicacion.Gestion.Plato;
 import gestorAplicacion.Gestion.Restaurante;
+import gestorAplicacion.Usuario.Cliente;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static uiMain.Main.*;
 
@@ -48,6 +49,12 @@ public class Utilidad {
             System.out.println("Ingrese un número decimal válido. Ej: 2.5, 7.2, 5.1");
             return readFloat();
         }
+    }
+
+    static Date readDate(int year, int month, int day, int hours, int minutes) throws ParseException {
+        String fecha = year + "/" + month + "/" + day + " " + hours + ":" + minutes;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        return sdf.parse(fecha);
     }
 
     static String capitalize(String text) {
@@ -223,6 +230,22 @@ public class Utilidad {
 
     public static void avanzarTiempo() {
 
+    }
+
+    public static boolean existeCliente(Cliente clienteActual) {
+        for (Cliente cliente : Restaurante.getClientes()) {
+            return clienteActual.getCedula() == cliente.getCedula();
+        }
+        return false;
+    }
+
+    public static Cliente clienteCedula(Cliente clienteActual) {
+        for (Cliente cliente : Restaurante.getClientes()) {
+            if (clienteActual.getCedula() == cliente.getCedula()) {
+                return cliente;
+            }
+        }
+        return clienteActual;
     }
 
 }

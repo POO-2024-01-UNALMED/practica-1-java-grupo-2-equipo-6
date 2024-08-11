@@ -3,6 +3,7 @@ package uiMain;
 import gestorAplicacion.Entorno.Ciudad;
 import gestorAplicacion.Entorno.Zona;
 import gestorAplicacion.Gestion.Restaurante;
+import gestorAplicacion.Usuario.Cliente;
 
 import java.util.ArrayList;
 
@@ -100,17 +101,36 @@ public class Funcionalidad1 {
     }
 
     public static void seleccionMesa(Restaurante restaurante) {
+        ArrayList<Cliente> clientes = new ArrayList<Cliente>();
         System.out.println("Ingrese el nombre del cliente:");
         String nombre = capitalize(readString());
         System.out.println("Ingrese la cédula del cliente:");
         int cedula = readInt();
         System.out.println("Ingrese la placa del vehículo del cliente (en caso de no tener escribir 0):");
         String placaVehiculo = readString();
-        System.out.println("Ingrese la cantidad de acompañantes del cliente:");
-        int numAcompanantes = readInt();
-        for (int i = 0; i < numAcompanantes; i++) {
-
+        Cliente cliente = new Cliente(nombre, cedula, placaVehiculo);
+        if (existeCliente(cliente)) {
+            cliente = clienteCedula(cliente);
+            clientes.add(cliente);
+        } else {
+            Restaurante.getClientes().add(cliente);
+            clientes.add(cliente);
         }
+        System.out.println("Ingrese la cantidad de acompañantes del cliente:");
+        int numAcompanantes = readInt("Ingrese la cantidad de acompañantes. No debe ser mayor a 6.\nEn caso de" +
+                " ingresar un número mayor a 6, este será ignorado y se establecerá en 6.");
+        if (numAcompanantes < 0) {
+            
+        } else {
+            if (numAcompanantes > 6) {numAcompanantes = 6;}
+            for (int i = 0; i < numAcompanantes; i++) {
+                System.out.println("Ingrese el nombre del acompañante #" + (i + 1) + ":");
+                String nombreAcompanante = readString();
+                System.out.println("Ingrese la cédula del acompañante #" + (i + 1) + ":");
+                int cedulaAcompanante = readInt();
+            }
+        }
+
         System.out.println(restaurante);
     }
 }

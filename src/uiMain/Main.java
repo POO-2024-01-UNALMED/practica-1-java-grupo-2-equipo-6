@@ -57,17 +57,17 @@ public class Main {
 
 
         //Creamos clientes de muestra para la mesa 1
-        ArrayList <Cliente> clientesMesa1 = new ArrayList<Cliente>();
-        Cliente cliente1 = new Cliente("Juan", 001, "Estrella", "1234567");
-        cliente1.setMesa(mesa1);
-        clientesMesa1.add(cliente1);
-        Cliente cliente2 = new Cliente("Pedro", 002, "Estrellita", "7654321");
-        cliente2.setMesa(mesa1);
-        clientesMesa1.add(cliente2);
-        Cliente cliente3 = new Cliente("María", 003, "9876543");
-        cliente3.setMesa(mesa1);
-        clientesMesa1.add(cliente3);
-        mesa1.setClientes(clientesMesa1);
+        ArrayList <Cliente> clientes1 = new ArrayList<Cliente>();
+        clientes1.add(new Cliente("Juan", 001, "Estrella", "1234567"));
+        clientes1.getFirst().setMesa(mesa1);
+
+        ArrayList <Cliente> clientes2 = new ArrayList<Cliente>();
+        clientes2.add(new Cliente("Pedro", 002, "Estrellita", "7654321"));
+        clientes2.getFirst().setMesa(mesa1);
+
+        ArrayList <Cliente> clientes3 = new ArrayList<Cliente>();
+        clientes3.add(new Cliente("María", 003, "9876543"));
+        clientes3.getFirst().setMesa(mesa1);
 
         //Creamos ingredientes y platos de muestra
         Ingrediente Tomate = new Ingrediente("Tomate", 500);
@@ -104,9 +104,9 @@ public class Main {
         Factura factura1 = new Factura(pedido1, "Efectivo", false, 0);
         Factura factura2 = new Factura(pedido2, "Tarjeta", false, 0);
         Factura factura3 = new Factura(pedido3, "Efectivo", false, 0);
-        cliente1.setFactura(factura1);
-        cliente2.setFactura(factura2);
-        cliente3.setFactura(factura3);
+        clientes1.getFirst().setFactura(factura1);
+        clientes2.getFirst().setFactura(factura2);
+        clientes3.getFirst().setFactura(factura3);
 
         //Creamos un restaurante de muestra
         Restaurante restauranteMuestra = new Restaurante();
@@ -163,9 +163,9 @@ public class Main {
         MDE.addZona(moravia_mde);
         //Agregar al ArrayList ciudades
 
-        Reserva reserva1 = new Reserva(cliente1, "Día 28/07/2024 Hora 8:00");
-        Reserva reserva2 = new Reserva(cliente2, "Día 29/07/2024 Hora 9:00");
-        Reserva reserva3 = new Reserva(cliente3, "Día 30/07/2024 Hora 10:00");
+        Reserva reserva1 = new Reserva(clientes1, new Date(2024, 7, 28, 8, 0));
+        Reserva reserva2 = new Reserva(clientes2, new Date(2024, 7, 29, 9, 0));
+        Reserva reserva3 = new Reserva(clientes3, new Date(2024, 7, 30, 10, 0));
         reservasUsaquen.add(reserva1);
         reservasUsaquen.add(reserva2);
         reservasUsaquen.add(reserva3);
@@ -216,8 +216,6 @@ public class Main {
 
         Evento eventoMeeting = new Evento("Meetigns Empresarial", 450000, vinos_champanas_meeting);
         eventos.add(eventoMeeting);
-
-
     }
 
     public static void main(String[] args) {

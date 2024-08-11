@@ -6,6 +6,9 @@ import gestorAplicacion.Entorno.Zona;
 import gestorAplicacion.Usuario.Cliente;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Restaurante {
@@ -127,49 +130,147 @@ public class Restaurante {
 
         return clientes.get(clientes.size() - 1);
 
+
     }
+   
+    public static void platosOferta() {
+    
+        for (Plato p : menu) {
 
-    public static void platosOferta(String tipo) {
+            if (p.getTipo().equals("Entrada")) {
+                System.out.println((menu.indexOf(p)) + " " + p);}}
+        
+        for (Plato p : menu) {
+            
+            if (p.getTipo().equals("Fuerte")) {
+                System.out.println((menu.indexOf(p)) + " " + p);}}
+        
+        for (Plato p : menu) {
+            
+            if (p.getTipo().equals("Bebidas")) {
+                System.out.println((menu.indexOf(p)) + " " + p);}}
+        
+        for (Plato p : menu) {
+            
+            if (p.getTipo().equals("Postre")) {
+                System.out.println((menu.indexOf(p)) + " " + p);}}
+        
+        for (Plato p : menu) {
+            
+            if (p.getTipo().equals("Infantil")) {
+                System.out.println((menu.indexOf(p)) + " " + p);}}
 
+
+    }
+       
+    
+	public static Pedido platosOferta(String tipo) {
+
+    	ArrayList<Plato> platos = new ArrayList<Plato>();   	
+        Pedido pedido = new Pedido();
+        
         switch (tipo) {
+        
+        	case "Entrada":
+        			System.out.println("Entradas Disponibles\n");
+        			for (Plato p : menu) {
+            		
+        				if (p.getTipo().equals("Entrada")) {
+        					platos.add(p);
+        				}
+            		
+        			}
+        			
 
-            case "Entrada":
-                for (Plato p : menu) {
-                    if (p.getTipo() == "Entrada") {
-                        System.out.println(p);
-                    }
-                }
+            case "Plato fuerte":
+    			System.out.println("Plato fuertes Disponibles\n");
+    			for (Plato p : menu) {
+        		
+    				if (p.getTipo().equals("Plato fuerte")) {
+    					platos.add(p);
+    				}
+        		
+    			}
+    			break;
 
-            case "Fuerte":
-                for (Plato p : menu) {
-                    if (p.getTipo() == "Fuerte") {
-                        System.out.println(p);
-                    }
-                }
-
-            case "Bebidas":
-                for (Plato p : menu) {
-                    if (p.getTipo() == "Bebidas") {
-                        System.out.println(p);
-                    }
-                }
-
+            case "Bebida":
+    			System.out.println("Bebidas Disponibles\n");
+    			for (Plato p : menu) {
+        		
+    				if (p.getTipo().equals("Bebida")) {
+    					platos.add(p);
+    				}
+        		
+    			}
+    			break;
             case "Postre":
-                for (Plato p : menu) {
-                    if (p.getTipo() == "Postre") {
-                        System.out.println(p);
-                    }
-                }
-
+    			System.out.println("Postres Disponibles\n");
+    			for (Plato p : menu) {
+        		
+    				if (p.getTipo().equals("Postre")) {
+    					platos.add(p);
+    				}
+        		
+    			}
+    			break;
             case "Infantil":
-                for (Plato p : menu) {
-                    if (p.getTipo() == "Infantil") {
-                        System.out.println(p);
-                    }
-                }
+    			System.out.println("Menú infantil\n");
+    			for (Plato p : menu) {
+        		
+    				if (p.getTipo().equals("Infantil")) {
+    					platos.add(p);
+    				}
+        		
+    			}
+    			break;
+                
+         
+        }   
+        
+        if (platos.isEmpty()) {
+			System.out.println("No contamos con Platos de este tipo por el momento.");}
+        else {
+            for (Plato p: platos) {
+         		 System.out.println( platos.indexOf(p)+1    +". " +  p.informacion());
+           } 
+           
+           System.out.println("- Ingrese el número del plato que desea.");
+           int numPlato = readInt();
+           System.out.println("- Ingrese la cantidad deseada (1, 2...)");
+           int cantidad = readInt();
+           
+          
+           
+           int contador = 1;
+          
+           while (contador <= cantidad) {
+           	Plato platoPedido = platos.get(numPlato-1);   // Almacena el plato deseado
+               pedido.agregarPlato(platoPedido);
+           	
+           	
+           	contador++;
+           	System.out.print("Su Pedido hasta ahora\nProductos\n"+pedido+"\n");
+           	
+           }
+         
+        	
+        	
         }
+        
 
-    }
+        
+        
+        return pedido;
+   
+        
+        
+        
+      }
+    
+        
+        
+
+    
 
     public boolean isZonaVIP() {
         return zonaVIP;

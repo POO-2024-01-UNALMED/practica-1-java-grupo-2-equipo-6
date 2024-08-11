@@ -109,4 +109,13 @@ public class Factura {
         this.setValor(valor);
         return valor;
     }
+
+    @Override
+    public String toString(){
+        
+        String factura = ("Número factura "+ Factura.numeroFactura + "\n" + pedido.toString() + "Total :      $  " + getValor());
+
+        return factura;
+    }
+
 }

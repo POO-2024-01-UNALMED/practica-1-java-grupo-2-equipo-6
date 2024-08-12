@@ -56,7 +56,6 @@ public class Main {
         ciudad1.getRestaurantes().add(restaurante1);
         ciudad1.getZonas().get(0).getRestaurantes().add(restaurante1);
 
-
         //Creamos clientes de muestra para la mesa 1
         ArrayList <Cliente> clientes1 = new ArrayList<Cliente>();
         clientes1.add(new Cliente("Juan", 001, Cliente.Afiliacion.ESTRELLA, "1234567"));
@@ -261,6 +260,7 @@ public class Main {
                 case 4:
                     limpiarPantalla();
                     Restaurante restaurante4 = agregarSede();
+                    restaurante4.actualizarFechasDisponibles();
                     break;
                 case 5:
                     limpiarPantalla();

@@ -11,6 +11,7 @@ import gestorAplicacion.Gestion.Restaurante;
 import static uiMain.Main.*;
 import static uiMain.Utilidad.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Funcionalidad4 {
@@ -417,6 +418,7 @@ public class Funcionalidad4 {
                         mesa = new Mesa(0, modCoordX, modCoordY, false, 4);
                         restaurante.getCasillas().add(mesa);
                         restaurante.getMesas().add(mesa);
+                        mesa.setFechasDisponibles(generarFechas());
                         break;
                     case 3:
                         if (restaurante.isZonaVIP()) {
@@ -426,6 +428,7 @@ public class Funcionalidad4 {
                             mesa = new Mesa(0, modCoordX, modCoordY, true, 4);
                             restaurante.getCasillas().add(mesa);
                             restaurante.getMesas().add(mesa);
+                            mesa.setFechasDisponibles(generarFechas());
                         } else { //En caso de que el restaurante no tenga zona VIP, se agregará una mesa estándar.
                             restaurante.getDisposicion().get(modCoordY).set(modCoordX - 1, "T");
                             restaurante.getCasillas().remove(casilla);
@@ -433,6 +436,7 @@ public class Funcionalidad4 {
                             mesa = new Mesa(0, modCoordX, modCoordY, false, 4);
                             restaurante.getCasillas().add(mesa);
                             restaurante.getMesas().add(mesa);
+                            mesa.setFechasDisponibles(generarFechas());
                         }
                         break;
                     default:
@@ -446,6 +450,29 @@ public class Funcionalidad4 {
             imprimirDisposicionRestaurante(restaurante.getDisposicion(), coordX, coordY, chars, topRow, separator,
                     bottomRow);
         }
+    }
+
+    //Este método se encarga de crear las fechas, junto con las horas, en que una mesa está disponible.
+    private static ArrayList<ArrayList<Integer>> generarFechas() {
+        ArrayList<ArrayList<Integer>> fechasDisponibles = new ArrayList<ArrayList<Integer>>();
+        LocalDate hoy = LocalDate.now();
+        LocalDate fin = hoy.plusMonths(6);
+        while (!hoy.isAfter(fin)) {
+            ArrayList<Integer> fechas = new ArrayList<Integer>();
+            fechas.add(hoy.getYear());
+            fechas.add(hoy.getMonthValue());
+            fechas.add(hoy.getDayOfMonth());
+            fechas.add(10);
+            fechas.add(12);
+            fechas.add(14);
+            fechas.add(16);
+            fechas.add(18);
+            fechas.add(20);
+            fechasDisponibles.add(fechas);
+            hoy = hoy.plusDays(1);
+        }
+
+        return fechasDisponibles;
     }
 
     //Este método se encarga de eliminar casillas obsoletas.

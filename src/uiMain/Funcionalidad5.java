@@ -13,9 +13,7 @@ import java.text.ParseException;
 import java.util.*;
 
 import static uiMain.Main.*;
-import static uiMain.Utilidad.readInt;
-import static uiMain.Utilidad.readString;
-import static uiMain.Utilidad.readDate;
+import static uiMain.Utilidad.*;
 
 public class Funcionalidad5 {
     static Scanner input = new Scanner(System.in);
@@ -121,8 +119,7 @@ public class Funcionalidad5 {
         int year = readInt("Ingrese el año en números:");
         printLn("Hora de la reserva:");
         int hours = readInt("Ingrese la hora en números:");
-        int minutes = readInt("Ingrese el minuto en números:");
-        Date fechaReserva = readDate(year, month, day, hours, minutes);
+        Date fechaReserva = readDateTime(year, month, day, hours);
         clientePP.setNombre(nombreCliente);
         clientePP.setCedula((int) cedulaCliente);
         reservaPP.setFecha(fechaReserva);

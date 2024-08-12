@@ -5,7 +5,10 @@ import gestorAplicacion.Entorno.Zona;
 import gestorAplicacion.Gestion.Restaurante;
 import gestorAplicacion.Usuario.Cliente;
 
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static uiMain.Main.ciudades;
 import static uiMain.Main.menuPrincipal;
@@ -143,18 +146,30 @@ public class Funcionalidad1 {
         switch (eleccion1) {
             case 1:
                 cercania = readInt("Tiene preferencia por estar cerca de:\n1. Puerta.\n2. Ventana.\n3. Ninguna.");
-
+                switch (cercania) {
+                    case 1:
+                        calcularDistancia(restaurante, cercania, tipoMesa);
+                        break;
+                    case 2:
+                        calcularDistancia(restaurante, cercania, tipoMesa);
+                        break;
+                    case 3:
+                        break;
+                    default:
+                        break;
+                }
                 break;
             case 2:
                 if (restaurante.isZonaVIP()) {
                     tipoMesa = true;
                     cercania = readInt("Tiene preferencia por estar cerca de:\n1. Puerta.\n2. Ventana.\n" +
                             "3. Ninguna.");
-                    switch (cercania){
+                    switch (cercania) {
                         case 1:
-
+                            calcularDistancia(restaurante, cercania, tipoMesa);
                             break;
                         case 2:
+                            calcularDistancia(restaurante, cercania, tipoMesa);
                             break;
                         case 3:
                             break;
@@ -168,7 +183,18 @@ public class Funcionalidad1 {
         }
 
         System.out.println(restaurante);
+    }
 
+    public static void seleccionFecha() throws ParseException {
+        ArrayList<Date> fechas = new ArrayList<Date>();
+        String[] horarios = {"10:00", "12:00", "14:00", "16:00", "18:00", "20:00"};
 
+        LocalDate hoy = LocalDate.now();
+        LocalDate fin = hoy.plusMonths(6);
+
+        while (!hoy.isAfter(fin)) {
+            fechas.add(readDate(hoy.getYear(), hoy.getMonthValue(), hoy.getDayOfMonth()));
+            hoy = hoy.plusDays(1);
+        }
     }
 }

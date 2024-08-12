@@ -11,14 +11,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import static uiMain.Utilidad.intersectarListas;
+
 public class Restaurante {
     // Atributos
     public static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
     public static ArrayList<Plato> menu = new ArrayList<Plato>();
+    public static int restaurantesCreados;
     public ArrayList<Mesa> mesas = new ArrayList<Mesa>();
     private ArrayList<ArrayList<String>> disposicion = new ArrayList<ArrayList<String>>();
     private ArrayList<Casilla> casillas = new ArrayList<Casilla>();
-    public static int restaurantesCreados;
+    private ArrayList<ArrayList<String>> fechasDisponibles = new ArrayList<ArrayList<String>>();
     private Ciudad ciudad;
     private Zona zona;
     private boolean zonaVIP;
@@ -344,12 +347,12 @@ public class Restaurante {
         this.casillas = casillas;
     }
 
-    public static ArrayList<Plato> getMenu() {
+    public ArrayList<Plato> getMenu() {
         return menu;
     }
 
-    public static void setMenu(ArrayList<Plato> menu) {
-        Restaurante.menu = menu;
+    public void setMenu(ArrayList<Plato> menu) {
+        this.menu = menu;
     }
     public String getNombre(){
         return nombre;
@@ -403,7 +406,6 @@ public class Restaurante {
     public void agregarReserva(Reserva nuevaReserva) {
         reservas.add(nuevaReserva);
     }
-
     public int getCapacidad(){
         return capacidad;
     }
@@ -412,5 +414,49 @@ public class Restaurante {
     }
     public static void setClientes(ArrayList<Cliente> clientes) {
         Restaurante.clientes = clientes;
+    }
+    public ArrayList<ArrayList<String>> getFechasDisponibles() {
+        return fechasDisponibles;
+    }
+    public void setFechasDisponibles(ArrayList<ArrayList<String>> fechasDisponibles) {
+        this.fechasDisponibles = fechasDisponibles;
+    }
+
+    public void actualizarFechasDisponibles() {
+        ArrayList<ArrayList<Integer>> totalFechasDisponiblesMesas = new ArrayList<ArrayList<Integer>>();
+        for (Mesa mesa : this.getMesas()) {
+            totalFechasDisponiblesMesas = intersectarListas(totalFechasDisponiblesMesas, mesa.getFechasDisponibles());
+        }
+
+        ArrayList<ArrayList<Integer>> nuevoArray = new ArrayList<ArrayList<Integer>>();
+        int añoActual = totalFechasDisponiblesMesas.get(0).get(0);
+        int mesActual = totalFechasDisponiblesMesas.get(0).get(1);
+        ArrayList<Integer> listaActual = new ArrayList<Integer>();
+        listaActual.add(añoActual);
+        listaActual.add(mesActual);
+
+        for (ArrayList<Integer> fila : totalFechasDisponiblesMesas) {
+            int anio = fila.get(0);
+            int mes = fila.get(1);
+            int dia = fila.get(2);
+
+            // Si el año o el mes cambian, agregamos la lista actual al nuevo array y creamos una nueva lista
+            if (anio != añoActual || mes != mesActual) {
+                nuevoArray.add(listaActual);
+                listaActual = new ArrayList<Integer>();
+                listaActual.add(anio);
+                listaActual.add(mes);
+                añoActual = anio;
+                mesActual = mes;
+            }
+
+            listaActual.add(dia);
+        }
+
+        nuevoArray.add(listaActual);
+
+        for (ArrayList<Integer> fila : nuevoArray) {
+            System.out.println(fila);
+        }
     }
 }

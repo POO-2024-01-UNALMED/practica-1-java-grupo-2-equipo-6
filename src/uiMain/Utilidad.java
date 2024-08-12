@@ -11,6 +11,7 @@ import gestorAplicacion.Usuario.Cliente;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 import static uiMain.Main.*;
@@ -27,7 +28,7 @@ public class Utilidad {
         try {
             return Integer.parseInt(numero);
         } catch (NumberFormatException ex) {
-            System.out.println("Ingrese un número enteor válido. Ej: 172, 92, 5");
+            System.out.println("Ingrese un número entero válido. Ej: 172, 92, 5");
             return readInt();
         }
     }
@@ -38,7 +39,7 @@ public class Utilidad {
         try {
             return Integer.parseInt(numero);
         } catch (NumberFormatException ex) {
-            System.out.println("Ingrese un número enteor válido. Ej: 172, 92, 5");
+            System.out.println("Ingrese un número entero válido. Ej: 172, 92, 5");
             return readInt();
         }
     }
@@ -53,10 +54,22 @@ public class Utilidad {
         }
     }
 
-    static Date readDate(int year, int month, int day, int hours, int minutes) throws ParseException {
-        String fecha = day + "/" + month + "/" + year + " " + hours + ":" + minutes;
+    static Date readDateTime(int year, int month, int day, int hours) throws ParseException {
+        String fecha = day + "/" + month + "/" + year + " " + hours + ":" + 0;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         return sdf.parse(fecha);
+    }
+
+    static Date readDate(int year, int month, int day) throws ParseException {
+        String fecha = day + "/" + month + "/" + year;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.parse(fecha);
+    }
+
+    static Date readTime(int hours) throws ParseException {
+        String hora = hours + ":" + 0;
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        return sdf.parse(hora);
     }
 
     static String capitalize(String text) {
@@ -229,10 +242,6 @@ public class Utilidad {
         }
     }
 
-    public static void avanzarTiempo() {
-
-    }
-
     public static boolean existeCliente(Cliente clienteActual) {
         for (Cliente cliente : Restaurante.getClientes()) {
             return clienteActual.getCedula() == cliente.getCedula();
@@ -295,5 +304,15 @@ public class Utilidad {
             }
         }
         return menorDistancia;
+    }
+
+    public static ArrayList<ArrayList<Integer>> intersectarListas(ArrayList<ArrayList<Integer>> lista1,
+                                                                  ArrayList<ArrayList<Integer>> lista2) {
+        // Crear un LinkedHashSet para evitar duplicados y mantener el orden de inserción
+        Set<ArrayList<Integer>> set = new LinkedHashSet<>(lista1);
+        set.addAll(lista2);
+        // Convertir el Set de nuevo a ArrayList
+        ArrayList<ArrayList<Integer>> listaCombinada= new ArrayList<>(set);
+        return listaCombinada;
     }
 }

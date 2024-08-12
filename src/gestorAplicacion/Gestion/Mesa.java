@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Mesa extends Casilla {
     //Atributos
     public static int contadorMesa = 1;
+    private ArrayList<ArrayList<Integer>> fechasDisponibles = new ArrayList<ArrayList<Integer>>();
     private int numMesa;
     private boolean VIP;
     private ArrayList<Factura> facturas = new ArrayList<Factura>();
@@ -107,5 +108,11 @@ public class Mesa extends Casilla {
     }
     public void setDistanciaVentana(int distanciaVentana) {
         this.distanciaVentana = distanciaVentana;
+    }
+    public ArrayList<ArrayList<Integer>> getFechasDisponibles() {
+        return fechasDisponibles;
+    }
+    public void setFechasDisponibles(ArrayList<ArrayList<Integer>> fechasDisponibles) {
+        this.fechasDisponibles = fechasDisponibles;
     }
 }

@@ -21,7 +21,7 @@ public class Restaurante {
     public ArrayList<Mesa> mesas = new ArrayList<Mesa>();
     private ArrayList<ArrayList<String>> disposicion = new ArrayList<ArrayList<String>>();
     private ArrayList<Casilla> casillas = new ArrayList<Casilla>();
-    private ArrayList<ArrayList<String>> fechasDisponibles = new ArrayList<ArrayList<String>>();
+    private ArrayList<ArrayList<Integer>> fechasDisponibles = new ArrayList<ArrayList<Integer>>();
     private Ciudad ciudad;
     private Zona zona;
     private boolean zonaVIP;
@@ -415,10 +415,10 @@ public class Restaurante {
     public static void setClientes(ArrayList<Cliente> clientes) {
         Restaurante.clientes = clientes;
     }
-    public ArrayList<ArrayList<String>> getFechasDisponibles() {
+    public ArrayList<ArrayList<Integer>> getFechasDisponibles() {
         return fechasDisponibles;
     }
-    public void setFechasDisponibles(ArrayList<ArrayList<String>> fechasDisponibles) {
+    public void setFechasDisponibles(ArrayList<ArrayList<Integer>> fechasDisponibles) {
         this.fechasDisponibles = fechasDisponibles;
     }
 
@@ -429,10 +429,10 @@ public class Restaurante {
         }
 
         ArrayList<ArrayList<Integer>> nuevoArray = new ArrayList<ArrayList<Integer>>();
-        int añoActual = totalFechasDisponiblesMesas.get(0).get(0);
+        int anioActual = totalFechasDisponiblesMesas.get(0).get(0);
         int mesActual = totalFechasDisponiblesMesas.get(0).get(1);
         ArrayList<Integer> listaActual = new ArrayList<Integer>();
-        listaActual.add(añoActual);
+        listaActual.add(anioActual);
         listaActual.add(mesActual);
 
         for (ArrayList<Integer> fila : totalFechasDisponiblesMesas) {
@@ -441,12 +441,12 @@ public class Restaurante {
             int dia = fila.get(2);
 
             // Si el año o el mes cambian, agregamos la lista actual al nuevo array y creamos una nueva lista
-            if (anio != añoActual || mes != mesActual) {
+            if (anio != anioActual || mes != mesActual) {
                 nuevoArray.add(listaActual);
                 listaActual = new ArrayList<Integer>();
                 listaActual.add(anio);
                 listaActual.add(mes);
-                añoActual = anio;
+                anioActual = anio;
                 mesActual = mes;
             }
 
@@ -458,5 +458,7 @@ public class Restaurante {
         for (ArrayList<Integer> fila : nuevoArray) {
             System.out.println(fila);
         }
+
+        this.setFechasDisponibles(nuevoArray);
     }
 }

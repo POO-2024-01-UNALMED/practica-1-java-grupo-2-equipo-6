@@ -5,6 +5,7 @@ import gestorAplicacion.Entorno.Zona;
 import gestorAplicacion.Gestion.Restaurante;
 import gestorAplicacion.Usuario.Cliente;
 
+import java.awt.*;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -143,58 +144,40 @@ public class Funcionalidad1 {
         int eleccion1 = readInt("¿Qué tipo de mesa quiere usar?\n1. Estándar.\n2. VIP.");
         boolean tipoMesa = false;
         int cercania;
-        switch (eleccion1) {
-            case 1:
-                cercania = readInt("Tiene preferencia por estar cerca de:\n1. Puerta.\n2. Ventana.\n3. Ninguna.");
-                switch (cercania) {
-                    case 1:
-                        calcularDistancia(restaurante, cercania, tipoMesa);
-                        break;
-                    case 2:
-                        calcularDistancia(restaurante, cercania, tipoMesa);
-                        break;
-                    case 3:
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            case 2:
-                if (restaurante.isZonaVIP()) {
-                    tipoMesa = true;
-                    cercania = readInt("Tiene preferencia por estar cerca de:\n1. Puerta.\n2. Ventana.\n" +
-                            "3. Ninguna.");
-                    switch (cercania) {
-                        case 1:
-                            calcularDistancia(restaurante, cercania, tipoMesa);
-                            break;
-                        case 2:
-                            calcularDistancia(restaurante, cercania, tipoMesa);
-                            break;
-                        case 3:
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                break;
-            default:
-                break;
-        }
+        seleccionFecha(restaurante);
 
         System.out.println(restaurante);
     }
 
-    public static void seleccionFecha() throws ParseException {
-        ArrayList<Date> fechas = new ArrayList<Date>();
-        String[] horarios = {"10:00", "12:00", "14:00", "16:00", "18:00", "20:00"};
-
-        LocalDate hoy = LocalDate.now();
-        LocalDate fin = hoy.plusMonths(6);
-
-        while (!hoy.isAfter(fin)) {
-            fechas.add(readDate(hoy.getYear(), hoy.getMonthValue(), hoy.getDayOfMonth()));
-            hoy = hoy.plusDays(1);
+    public static void seleccionFecha(Restaurante restaurante) {
+        ArrayList<Integer> anios = new ArrayList<Integer>();
+        ArrayList<Integer> meses = new ArrayList<Integer>();
+        for (ArrayList<Integer> fechasMes : restaurante.getFechasDisponibles()) {
+            if (!anios.contains(fechasMes.get(0))) {
+                anios.add(fechasMes.get(0));
+            }
+            if (!meses.contains(fechasMes.get(1))) {
+                meses.add(fechasMes.get(1));
+            }
         }
+        System.out.println("Años disponibles:");
+        for (int i = 0; i < anios.size(); i++) {
+            System.out.println(i + "." + anios.get(i) + ".");
+        }
+        int eleccion1 = readInt("Escriba un número para elegir su opción.");
+        boolean encendido1 = true;
+        do {
+            if (eleccion1 == anios.getFirst()) {
+                System.out.println("Meses disponibles:");
+                for (int i = 0; i < meses.size(); i++) {
+                    System.out.println(i + "." + meses.get(i) + ".");
+                }
+                int eleccion2 = readInt("Escriba un número para elegir su opción.");
+                boolean encendido2 = true;
+                encendido1 = false;
+            } else {
+                
+            }
+        } while (encendido1);
     }
 }

@@ -33,4 +33,15 @@ public class Casilla {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Casilla{");
+        sb.append("tipo='").append(tipo).append('\'');
+        sb.append(", coordX=").append(coordX);
+        sb.append(", coordY=").append(coordY);
+        sb.append('}');
+        return sb.toString();
+    }
 }

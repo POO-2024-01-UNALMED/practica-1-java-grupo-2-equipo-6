@@ -127,8 +127,8 @@ public class Funcionalidad5 {
         clientePP.setCedula((int) cedulaCliente);
         reservaPP.setFecha(fechaReserva);
         restauranteElegido.agregarReserva(reservaPP);
-        restauranteElegido.setCliente(clientePP);
-        printLn(restauranteElegido.getCliente());
+//        restauranteElegido.setCliente(clientePP);
+//        printLn(restauranteElegido.getCliente());
         return restauranteElegido;
         //Segunda parte, donde se muestran las reservas y se crea al cliente
     }

@@ -137,8 +137,38 @@ public class Funcionalidad1 {
             }
         }
 
-        System.out.println("¿Qué tipo de mesa quiere usar?\n1. Estándar.\n2. VIP.");
+        int eleccion1 = readInt("¿Qué tipo de mesa quiere usar?\n1. Estándar.\n2. VIP.");
+        boolean tipoMesa = false;
+        int cercania;
+        switch (eleccion1) {
+            case 1:
+                cercania = readInt("Tiene preferencia por estar cerca de:\n1. Puerta.\n2. Ventana.\n3. Ninguna.");
+
+                break;
+            case 2:
+                if (restaurante.isZonaVIP()) {
+                    tipoMesa = true;
+                    cercania = readInt("Tiene preferencia por estar cerca de:\n1. Puerta.\n2. Ventana.\n" +
+                            "3. Ninguna.");
+                    switch (cercania){
+                        case 1:
+
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                break;
+            default:
+                break;
+        }
 
         System.out.println(restaurante);
+
+
     }
 }

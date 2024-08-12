@@ -11,7 +11,7 @@ public class Funcionalidad3 {
         boolean encendido = true;
         do {
             System.out.println("""
-                    ¿Algún cliente desea dejar el restaurante?
+                    ¿Algún cliente desea dejar un restaurante?
                     1. Sí.
                     2. No.
                     Escriba un número para elegir su opción.""");
@@ -19,18 +19,11 @@ public class Funcionalidad3 {
             switch (eleccion) {
                 case 1:
                     limpiarPantalla();
-                    System.out.println("Ingrese el número de la mesa que va a dejar el restaurante");
-                    int numeroMesa = readInt();
-                    for (Mesa mesas : Restaurante.mesas){
-                        if (mesas.getNumMesa() == numeroMesa){
-                            cobrarFactura(mesas);
-                            break;
-                        }
-                        else {
-                            System.out.println("No se encontró la mesa.");
-                        }
-                        menuPrincipal();
-                    }
+                    System.out.println("Ingrese el número de cédula del cliente que va a dejar el restaurante");
+                    int cedula = readInt();
+                    Cliente cliente = clienteCedula(new Cliente("", cedula));
+                    Mesa mesa = cliente.getMesa();
+                    cobrarFactura(mesa);
                     encendido = false;
                     break;
                 case 2:
@@ -191,7 +184,7 @@ public class Funcionalidad3 {
                         while (mesa.getValorTotal() > 0 && personasProcesadas < numeroPersonas) {
                             for (int j = 0; j < numeroPersonas; j++) {
                                 System.out.println("Ingrese la cédula de la persona que pagará la factura.");
-                                cedula = readInt();  // Asegúrate de tener el método readInt() definido adecuadamente
+                                cedula = readInt();
 
                                 // Verificar si la cédula ingresada corresponde a algún cliente
                                 boolean cedulaValida = false;
@@ -215,6 +208,7 @@ public class Funcionalidad3 {
                                         mesa.setValorTotal(mesa.getValorTotal() - valor + (valor - valorFinalPersona));
                                         System.out.println("El pago final fue: " + valorFinalPersona);
                                         System.out.println("El valor restante de la factura es: " + mesa.getValorTotal());
+
                                     }
                                     personasProcesadas++;
                                     if (mesa.getValorTotal() <= 0) {
@@ -258,8 +252,7 @@ public class Funcionalidad3 {
                     break;
                 case 2:
                     limpiarPantalla();
-                    System.out.println("Ingrese la cédula del cliente que realizará el pago.");
-                    int cedulaCliente = readInt();
+                    int cedulaCliente = readInt("Ingrese la cédula del cliente que realizará el pago.");
                     for (Cliente cliente : mesa.getClientes()) {
                         if (cliente.getCedula() == cedulaCliente) {
                             escogerMetodoPago(cliente);
@@ -293,8 +286,8 @@ public class Funcionalidad3 {
                             System.out.println("La factura ha sido pagada. Esperamos que vuelvan pronto!!!");
                         }
                         encendido = false;
-                        break;
                     }
+                    break;
                 default:
                     System.out.println("Número no válido.");
                     break;
@@ -389,7 +382,7 @@ public class Funcionalidad3 {
                                                         switch (confirmacion) {
                                                             case 1:
                                                                 System.out.println("Transacción confirmada.");
-                                                                cliente.setAfiliacion("Estrellita");
+                                                                cliente.setAfiliacion(Cliente.Afiliacion.ESTRELLITA);
                                                                 transaccionConfirmada = true;
                                                                 break;
                                                             case 2:
@@ -414,7 +407,7 @@ public class Funcionalidad3 {
                                                         switch (confirmacion) {
                                                             case 1:
                                                                 System.out.println("Transacción confirmada.");
-                                                                cliente.setAfiliacion("Estrella");
+                                                                cliente.setAfiliacion(Cliente.Afiliacion.ESTRELLA);
                                                                 transaccionConfirmada2 = true;
                                                                 break;
                                                             case 2:
@@ -439,7 +432,7 @@ public class Funcionalidad3 {
                                                         switch (confirmacion) {
                                                             case 1:
                                                                 System.out.println("Transacción confirmada.");
-                                                                cliente.setAfiliacion("Super estrellota");
+                                                                cliente.setAfiliacion(Cliente.Afiliacion.SUPERESTRELLOTA);
                                                                 transaccionConfirmada3 = true;
                                                                 break;
                                                             case 2:
@@ -468,7 +461,7 @@ public class Funcionalidad3 {
                     break;
                 case 2:
                     for (Cliente cliente : mesa.getClientes()){
-                        if (cliente.getAfiliacion() == "Ninguna"){
+                        if (cliente.getAfiliacion() == Cliente.Afiliacion.NINGUNA){
                             System.out.println("¿" + cliente.getNombre() + ", desea afiliarse?");
                             System.out.println("""
                                     1. Sí.
@@ -497,7 +490,7 @@ public class Funcionalidad3 {
                                                 switch (confirmacion) {
                                                     case 1:
                                                         System.out.println("Transacción confirmada.");
-                                                        cliente.setAfiliacion("Estrellita");
+                                                        cliente.setAfiliacion(Cliente.Afiliacion.ESTRELLITA);
                                                         transaccionConfirmada = true;
                                                         break;
                                                     case 2:
@@ -521,7 +514,7 @@ public class Funcionalidad3 {
                                                 switch (confirmacion) {
                                                     case 1:
                                                         System.out.println("Transacción confirmada.");
-                                                        cliente.setAfiliacion("Estrella");
+                                                        cliente.setAfiliacion(Cliente.Afiliacion.ESTRELLA);
                                                         transaccionConfirmada2 = true;
                                                         break;
                                                     case 2:
@@ -544,7 +537,7 @@ public class Funcionalidad3 {
                                                 switch (confirmacion) {
                                                     case 1:
                                                         System.out.println("Transacción confirmada.");
-                                                        cliente.setAfiliacion("Super estrellota");
+                                                        cliente.setAfiliacion(Cliente.Afiliacion.SUPERESTRELLOTA);
                                                         transaccionConfirmada3 = true;
                                                         break;
                                                     case 2:
@@ -709,10 +702,10 @@ public class Funcionalidad3 {
 
     public static int aplicarDescuentosCuenta(Cliente cliente, int valorPorPersona) {
         int valorFinal = 0;
-        if (cliente.getAfiliacion() != "Ninguna") {
+        if (cliente.getAfiliacion() != Cliente.Afiliacion.NINGUNA) {
             valorFinal = valorPorPersona;
             System.out.println("Se aplicaron descuentos por su nivel de afiliación.");
-            if (cliente.getAfiliacion().equals("Estrellita")) {
+            if (cliente.getAfiliacion() == Cliente.Afiliacion.ESTRELLITA) {
                 switch (cliente.getFactura().getMetodoPago()) {
                     case "Efectivo" -> {
                         if (cliente.getFactura().getValor() < 30000) {
@@ -744,7 +737,7 @@ public class Funcionalidad3 {
                     case "Puntos" -> {
                     }
                 }
-            } else if (cliente.getAfiliacion().equals("Estrella")) {
+            } else if (cliente.getAfiliacion() == Cliente.Afiliacion.ESTRELLA) {
                 switch (cliente.getFactura().getMetodoPago()) {
                     case "Efectivo" -> {
                         if (cliente.getFactura().getValor() < 30000) {
@@ -776,7 +769,7 @@ public class Funcionalidad3 {
                     case "Puntos" -> {
                     }
                 }
-            } else if (cliente.getAfiliacion().equals("Super estrellota")) {
+            } else if (cliente.getAfiliacion() == Cliente.Afiliacion.SUPERESTRELLOTA) {
                 switch (cliente.getFactura().getMetodoPago()) {
                     case "Efectivo" -> {
                         if (cliente.getFactura().getValor() < 30000) {

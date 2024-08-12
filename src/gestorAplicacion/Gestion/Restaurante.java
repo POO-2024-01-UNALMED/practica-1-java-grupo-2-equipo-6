@@ -15,7 +15,7 @@ public class Restaurante {
     // Atributos
     public static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
     public static ArrayList<Plato> menu = new ArrayList<Plato>();
-    public static ArrayList<Mesa> mesas = new ArrayList<Mesa>();
+    public ArrayList<Mesa> mesas = new ArrayList<Mesa>();
     private ArrayList<ArrayList<String>> disposicion = new ArrayList<ArrayList<String>>();
     private ArrayList<Casilla> casillas = new ArrayList<Casilla>();
     public static int restaurantesCreados;
@@ -231,7 +231,7 @@ public class Restaurante {
 			System.out.println("No contamos con Platos de este tipo por el momento.");}
         else {
             for (Plato p: platos) {
-         		 System.out.println( platos.indexOf(p)+1    +". " +  p.informacion());
+         		 System.out.println( platos.indexOf(p)+1    +". " +  p.toString());
            } 
            
            System.out.println("- Ingrese el número del plato que desea.");
@@ -328,12 +328,12 @@ public class Restaurante {
         this.coordY = coordY;
     }
 
-    public static ArrayList<Mesa> getMesas() {
+    public ArrayList<Mesa> getMesas() {
         return mesas;
     }
 
-    public static void setMesas(ArrayList<Mesa> mesas) {
-        Restaurante.mesas = mesas;
+    public void setMesas(ArrayList<Mesa> mesas) {
+        this.mesas = mesas;
     }
 
     public ArrayList<Casilla> getCasillas() {

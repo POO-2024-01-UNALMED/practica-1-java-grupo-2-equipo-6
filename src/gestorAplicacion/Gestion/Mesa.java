@@ -17,6 +17,9 @@ public class Mesa extends Casilla {
     private Reserva reserva;
     private Restaurante restaurante;
     private ArrayList<Integer> coordenada = new ArrayList<Integer>();
+    private int distanciaPuerta = 9999;
+    private int distanciaVentana = 9999;
+
 
     //Constructor
     public Mesa(){}
@@ -42,72 +45,67 @@ public class Mesa extends Casilla {
     public void setNumMesa(int numMesa) {
         this.numMesa = numMesa;
     }
-
     public void agregarFactura(Factura factura){
         facturas.add(factura);
     }
-
     public void setNumAsientos(int numAsientos){
         this.numAsientos = numAsientos;
     }
-
     public int getNumAsientos(){
         return numAsientos;
     }
-
     public void setReserva(Reserva reserva){
         this.reserva = reserva;
     }
-
     public Reserva getReserva(){
         return reserva;
     }
-
     public void setRestaurante(Restaurante restaurante){
         this.restaurante = restaurante;
     }
-
     public Restaurante getRestaurante(){
         return restaurante;
     }
-
     public boolean getVIP(){
         return VIP;
     }
-
     public void setCoordenada(ArrayList<Integer> coordenada){
         this.coordenada = coordenada;
     }
-
     public ArrayList<Integer> getCoordenada(){
         return coordenada;
     }
-
     public void agregarCliente(Cliente cliente){
         clientes.add(cliente);
     }
-
     public ArrayList<Cliente> getClientes(){
         return clientes;
     }
-
     public void setClientes(ArrayList<Cliente> clientes){
         this.clientes = clientes;
     }
-
     public void setFacturas(ArrayList<Factura> facturas){
         this.facturas = facturas;
     }
-
     public ArrayList<Factura> getFacturas(){
         return facturas;
     }
-
     public void setValorTotal(int valorTotal){
         this.valorTotal = valorTotal;
     }
-
     public int getValorTotal(){
         return valorTotal;
+    }
+    public int getDistanciaPuerta() {
+        return distanciaPuerta;
+    }
+    public void setDistanciaPuerta(int distanciaPuerta) {
+        this.distanciaPuerta = distanciaPuerta;
+    }
+    public int getDistanciaVentana() {
+        return distanciaVentana;
+    }
+    public void setDistanciaVentana(int distanciaVentana) {
+        this.distanciaVentana = distanciaVentana;
     }
 }

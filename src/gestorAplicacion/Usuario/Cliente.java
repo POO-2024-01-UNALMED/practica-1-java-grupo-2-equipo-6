@@ -8,42 +8,41 @@ import gestorAplicacion.Gestion.Restaurante;
 import java.util.ArrayList;
 
 public class Cliente extends Persona {
-
     // Atributos
     private Factura factura;
     private Mesa mesa;
     private Restaurante restaurante;
-    private String afiliacion;
+    private Enum afiliacion;
     private int puntosAcumulados;
     private ArrayList<Plato> platosFavoritos = new ArrayList<Plato>();
     private String placaVehiculo;
 
+
     // Constructores
     public Cliente(){};
-
     public Cliente (String nombre, int cedula){
         super(nombre, cedula);
-        this.afiliacion = "Ninguna";
+        this.afiliacion = Afiliacion.NINGUNA;
         this.placaVehiculo = "Ninguna";
     }
-    public Cliente (String nombre, int cedula, String afiliacion, String placaVehiculo){
+    public Cliente (String nombre, int cedula, Enum afiliacion, String placaVehiculo){
         super(nombre, cedula);
         this.afiliacion = afiliacion;
         this.placaVehiculo = placaVehiculo;
     }
     public Cliente (String nombre, int cedula, String placaVehiculo){
         super(nombre, cedula);
-        this.afiliacion = "Ninguna";
+        this.afiliacion = Afiliacion.NINGUNA;
         this.placaVehiculo = placaVehiculo;
     }
-    // Metodos
+
+    // Métodos
     public void mostrarInformacion(){
         System.out.println("Nombre: " + nombre);
         System.out.println("Cedula: " + cedula);
         System.out.println("Afiliacion: " + afiliacion);
         System.out.println("Placa del vehiculo: " + placaVehiculo);
     }
-
     public void setFactura(Factura factura){
         this.factura = factura;
     }
@@ -68,11 +67,11 @@ public class Cliente extends Persona {
         return restaurante;
     }
 
-    public void setAfiliacion(String afiliacion){
+    public void setAfiliacion(Enum afiliacion){
         this.afiliacion = afiliacion;
     }
 
-    public String getAfiliacion(){
+    public Enum getAfiliacion(){
         return afiliacion;
     }
 
@@ -103,4 +102,7 @@ public class Cliente extends Persona {
     public void agregarPlatoFavorito(Plato plato){
         platosFavoritos.add(plato);
     }
+
+    //Enum
+    public enum Afiliacion {NINGUNA, ESTRELLITA, ESTRELLA, SUPERESTRELLOTA}
 }

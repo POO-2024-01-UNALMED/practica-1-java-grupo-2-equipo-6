@@ -71,6 +71,7 @@ public class Funcionalidad4 {
                         restaurante = parametrosBasicos(ciudad, restaurante);
                     } else { //Si la ciudad tiene restaurantes
                         //Análisis de reservas
+                        restaurante = parametrosBasicos(ciudad, restaurante);
                     }
 
                 } else { //Si no se encuentra la ciudad
@@ -167,6 +168,24 @@ public class Funcionalidad4 {
                     restaurante.setCalificacion((int) (Math.random() * 5) + 1);
                 } else { //Si la zona elegida tiene restaurantes
                     //Análisis de reservas
+                    //Se enlaza la ciudad al restaurante
+                    restaurante.setCiudad(ciudad);
+                    //Se enlaza la zona al restaurante
+                    restaurante.setZona(ciudad.getZonas().get(eleccionZona1 - 1));
+                    //Se enlaza el restaurante a la zona
+                    ciudad.getZonas().get(eleccionZona1 - 1).getRestaurantes().add(restaurante);
+                    //Se enlaza el restaurante a la ciudad
+                    ciudad.getRestaurantes().add(restaurante);
+                    //Se establecen los parámetros básicos del restaurante
+                    System.out.println("¿El restaurante tendrá zona VIP?\n1. Sí.\n2. No.\nEscriba un número para elegir.");
+                    int tieneVIP = readInt();
+                    if (tieneVIP == 1) {
+                        restaurante.setZonaVIP(true);
+                    } else if (tieneVIP == 2) {
+                    } else {
+                        System.out.println("Número no válido");
+                    }
+                    restaurante.setCalificacion((int) (Math.random() * 5) + 1);
                 }
 
             } else { //Si no se encuentra la zona
@@ -176,7 +195,7 @@ public class Funcionalidad4 {
                 int poblacionZona = readInt();
                 ciudad.getZonas().add(new Zona(poblacionZona, capitalize(nombreZona), ciudad));
                 ciudad.actualizarPoblacion();
-//                restaurante.setCiudad(ciudad);
+                restaurante.setCiudad(ciudad);
                 System.out.println("Zonas de " + ciudad.getNombre() + ":");
                 listadoZonasCiudad(ciudad);
                 System.out.println("Escriba un número para elegir la zona.\nEn caso de no encontrar la zona " +

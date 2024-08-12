@@ -1,8 +1,10 @@
 package uiMain;
 
+import gestorAplicacion.Entorno.Casilla;
 import gestorAplicacion.Entorno.Ciudad;
 import gestorAplicacion.Entorno.Zona;
 import gestorAplicacion.Gestion.Ingrediente;
+import gestorAplicacion.Gestion.Mesa;
 import gestorAplicacion.Gestion.Plato;
 import gestorAplicacion.Gestion.Restaurante;
 import gestorAplicacion.Usuario.Cliente;
@@ -52,8 +54,8 @@ public class Utilidad {
     }
 
     static Date readDate(int year, int month, int day, int hours, int minutes) throws ParseException {
-        String fecha = year + "/" + month + "/" + day + " " + hours + ":" + minutes;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        String fecha = day + "/" + month + "/" + year + " " + hours + ":" + minutes;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         return sdf.parse(fecha);
     }
 
@@ -112,18 +114,17 @@ public class Utilidad {
     //Este método se encarga de organizar en orden alfabético el listado de zonas de una ciudad en específico para
     // luego imprimir un listado de estas numeradas desde el 1.
     public static void listadoZonasCiudad(Ciudad ciudad) {
-        if (!ciudad.getZonas().isEmpty()) {
-            ciudad.getZonas().sort(new Comparator<Zona>() {
-                @Override
-                public int compare(Zona o1, Zona o2) {
-                    return o1.getNombre().compareToIgnoreCase(o2.getNombre());
-                }
-            });
-            for (int i = 0; i < ciudad.getZonas().size(); i++) {
-                System.out.println(String.valueOf(i + 1) + ". " + ciudad.getZonas().get(i).getNombre() + '.');
+        ciudad.getZonas().sort(new Comparator<Zona>() {
+            @Override
+            public int compare(Zona o1, Zona o2) {
+                return o1.getNombre().compareToIgnoreCase(o2.getNombre());
             }
-            ciudad.actualizarPoblacion();
+        });
+        for (int i = 0; i < ciudad.getZonas().size(); i++) {
+            System.out.println(String.valueOf(i + 1) + ". " + ciudad.getZonas().get(i).getNombre() + '.');
         }
+        ciudad.actualizarPoblacion();
+
     }
 
     public static ArrayList<Zona> listadoZonasConRestauranteCiudad(Ciudad ciudad) {
@@ -248,4 +249,51 @@ public class Utilidad {
         return clienteActual;
     }
 
+    public static int calcularDistancia(Restaurante restaurante, int preferencia, boolean tipoMesa){
+        ArrayList<Mesa> mesas = new ArrayList<Mesa>();
+        int menorDistancia = 9999;
+        for (Mesa mesa : restaurante.getMesas()) {
+            if (mesa.isVIP() == tipoMesa) {
+                mesas.add(mesa);
+            }
+        }
+        if (preferencia == 1) { //Puerta
+            ArrayList<Casilla> puertas = new ArrayList<Casilla>();
+            for (Casilla casilla : restaurante.getCasillas()){
+                if (casilla.getTipo().equals("PUERTA")) {
+                    puertas.add(casilla);
+                }
+            }
+            //Ver mesas más cercanas a una puerta
+            for (Casilla casilla : puertas){
+                for (Mesa mesa : mesas){
+                    int distanciaPuerta = Math.abs((casilla.getCoordX() - mesa.getCoordX()) +
+                            (casilla.getCoordY() - mesa.getCoordX()));
+                    mesa.setDistanciaPuerta(distanciaPuerta);
+                    if (distanciaPuerta < menorDistancia){
+                        menorDistancia = distanciaPuerta;
+                    }
+                }
+            }
+        } else { //Ventana
+            ArrayList<Casilla> ventanas = new ArrayList<Casilla>();
+            for (Casilla casilla : restaurante.getCasillas()) {
+                if (casilla.getTipo().equals("VENTANA")) {
+                    ventanas.add(casilla);
+                }
+            }
+            //Ver mesas más cercanas a una ventana
+            for (Casilla casilla : ventanas) {
+                for (Mesa mesa : mesas) {
+                    int distanciaVentana = Math.abs(casilla.getCoordX() - mesa.getCoordX()) +
+                            Math.abs(casilla.getCoordY() - mesa.getCoordY());
+                    mesa.setDistanciaVentana(distanciaVentana);
+                    if (distanciaVentana < menorDistancia) {
+                        menorDistancia = distanciaVentana;
+                    }
+                }
+            }
+        }
+        return menorDistancia;
+    }
 }

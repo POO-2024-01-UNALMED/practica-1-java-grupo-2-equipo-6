@@ -170,4 +170,5 @@ public class Plato {
     public int getCantidadDePlato(){
         return cantidadDePlato;
     }
+
 }

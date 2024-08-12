@@ -49,6 +49,7 @@ public class Main {
         }
         Restaurante restaurante1 = new Restaurante(ciudad1, ciudad1.getZonas().getFirst(), true,
                 "El Comecuernos");
+
         Mesa mesa1 = new Mesa(0, 0, 0, false, 4);
         restaurante1.agregarMesa(mesa1);
         mesa1.setRestaurante(restaurante1);
@@ -58,16 +59,18 @@ public class Main {
 
         //Creamos clientes de muestra para la mesa 1
         ArrayList <Cliente> clientes1 = new ArrayList<Cliente>();
-        clientes1.add(new Cliente("Juan", 001, "Estrella", "1234567"));
+        clientes1.add(new Cliente("Juan", 001, Cliente.Afiliacion.ESTRELLA, "1234567"));
         clientes1.getFirst().setMesa(mesa1);
+        mesa1.setClientes(clientes1);
+        Restaurante.getClientes().add(clientes1.getFirst());
 
-        ArrayList <Cliente> clientes2 = new ArrayList<Cliente>();
-        clientes2.add(new Cliente("Pedro", 002, "Estrellita", "7654321"));
-        clientes2.getFirst().setMesa(mesa1);
+        clientes1.add(new Cliente("Pedro", 002, Cliente.Afiliacion.ESTRELLITA, "7654321"));
+        clientes1.get(1).setMesa(mesa1);
+        Restaurante.getClientes().add(clientes1.get(1));
 
-        ArrayList <Cliente> clientes3 = new ArrayList<Cliente>();
-        clientes3.add(new Cliente("María", 003, "9876543"));
-        clientes3.getFirst().setMesa(mesa1);
+        clientes1.add(new Cliente("María", 003, "9876543"));
+        clientes1.get(2).setMesa(mesa1);
+        Restaurante.getClientes().add(clientes1.get(2));
 
         //Creamos ingredientes y platos de muestra
         Ingrediente Tomate = new Ingrediente("Tomate", 500);
@@ -104,16 +107,19 @@ public class Main {
         Factura factura1 = new Factura(pedido1, "Efectivo", false, 0);
         Factura factura2 = new Factura(pedido2, "Tarjeta", false, 0);
         Factura factura3 = new Factura(pedido3, "Efectivo", false, 0);
-        clientes1.getFirst().setFactura(factura1);
-        clientes2.getFirst().setFactura(factura2);
-        clientes3.getFirst().setFactura(factura3);
+        clientes1.get(0).setFactura(factura1);
+        clientes1.get(1).setFactura(factura2);
+        clientes1.get(2).setFactura(factura3);
 
         //Creamos un restaurante de muestra
-        Restaurante restauranteMuestra = new Restaurante();
-        restauranteMuestra.setZonaVIP(true);
+        Restaurante restauranteMuestra = new Restaurante(ciudad1, ciudad1.getZonas().get(0), true, "Muestra");
+        ciudad1.getZonas().get(0).getRestaurantes().add(restauranteMuestra);
 
         //Creamos una disposición default para el restaurante de muestra
         ArrayList<ArrayList<String>> disposicion = new ArrayList<ArrayList<String>>();
+
+        //B = Border/Pared, W = Window/Ventana, T = Standard Table/Mesa Estándar, V = VIP Table/Mesa VIP, E = Entrance/Entrada
+
         disposicion.add(new ArrayList(Arrays.asList(
                 new String[]{"╔", "═", "╦", "╗", "║", "╠", "╬", "╣", "╚", "╩", "╝", " "})));
         disposicion.add(new ArrayList(Arrays.asList(
@@ -136,6 +142,7 @@ public class Main {
                 new String[]{"B", " ", " ", " ", " ", " ", " ", " ", " ", "B"})));
         disposicion.add(new ArrayList(Arrays.asList(
                 new String[]{"B", "B", "B", "B", "B", "B", "B", "E", "B", "B"})));
+
         restauranteMuestra.setDisposicion(disposicion);
 
         //Consultar con Colo como es esto
@@ -164,11 +171,11 @@ public class Main {
         //Agregar al ArrayList ciudades
 
         Reserva reserva1 = new Reserva(clientes1, new Date(2024, 7, 28, 8, 0));
-        Reserva reserva2 = new Reserva(clientes2, new Date(2024, 7, 29, 9, 0));
-        Reserva reserva3 = new Reserva(clientes3, new Date(2024, 7, 30, 10, 0));
+//        Reserva reserva2 = new Reserva(clientes2, new Date(2024, 7, 29, 9, 0));
+//        Reserva reserva3 = new Reserva(clientes3, new Date(2024, 7, 30, 10, 0));
         reservasUsaquen.add(reserva1);
-        reservasUsaquen.add(reserva2);
-        reservasUsaquen.add(reserva3);
+//        reservasUsaquen.add(reserva2);
+//        reservasUsaquen.add(reserva3);
 
         //Ingredientes Torta Pequeña Cumpleaños
         Ingrediente harinaTortaPequena = new Ingrediente("Harina", 5000);
@@ -245,8 +252,6 @@ public class Main {
                     break;
                 case 2:
                     limpiarPantalla();
-                    System.out.println("Funcionalidad 2.");
-                    encendido = false;
                     break;
                 case 3:
                     limpiarPantalla();
@@ -255,7 +260,7 @@ public class Main {
                     break;
                 case 4:
                     limpiarPantalla();
-                    Restaurante restaurante = agregarSede();
+                    Restaurante restaurante4 = agregarSede();
                     break;
                 case 5:
                     limpiarPantalla();

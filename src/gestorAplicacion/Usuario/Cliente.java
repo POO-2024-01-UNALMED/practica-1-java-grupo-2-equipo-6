@@ -5,9 +5,10 @@ import gestorAplicacion.Gestion.Mesa;
 import gestorAplicacion.Gestion.Plato;
 import gestorAplicacion.Gestion.Restaurante;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Cliente extends Persona {
+public class Cliente extends Persona implements Serializable {
     // Atributos
     private Factura factura;
     private Mesa mesa;

@@ -2,10 +2,11 @@ package gestorAplicacion.Gestion;
 
 import gestorAplicacion.Usuario.Cliente;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Reserva {
+public class Reserva implements Serializable {
     public ArrayList<Cliente> clientes;
     //Preguntarle a Colo por esta vaina del Date
     public Date fecha;

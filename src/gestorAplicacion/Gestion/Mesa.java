@@ -3,9 +3,10 @@ package gestorAplicacion.Gestion;
 import gestorAplicacion.Entorno.Casilla;
 import gestorAplicacion.Usuario.Cliente;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Mesa extends Casilla {
+public class Mesa extends Casilla implements Serializable {
     //Atributos
     public static int contadorMesa = 1;
     private ArrayList<ArrayList<Integer>> fechasDisponibles = new ArrayList<ArrayList<Integer>>();

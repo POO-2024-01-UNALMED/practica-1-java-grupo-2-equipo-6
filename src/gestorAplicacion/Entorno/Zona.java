@@ -2,9 +2,10 @@ package gestorAplicacion.Entorno;
 
 import gestorAplicacion.Gestion.Restaurante;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Zona {
+public class Zona implements Serializable {
     //Atributos
     protected String nombreZona;
     public Restaurante RestauranteZona;

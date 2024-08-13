@@ -1,8 +1,9 @@
 package gestorAplicacion.Gestion;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Plato {
+public class Plato implements Serializable {
     // Atributos
     private String nombre;
     private int precio;

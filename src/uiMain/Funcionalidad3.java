@@ -562,6 +562,7 @@ public class Funcionalidad3 {
         mesa.setClientes(null);
         for (Cliente cliente : mesa.getClientes()){
             cliente.setMesa(null);
+            cliente.setFactura(null);
         }
     }
 

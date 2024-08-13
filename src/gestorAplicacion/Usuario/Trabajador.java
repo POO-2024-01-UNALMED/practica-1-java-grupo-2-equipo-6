@@ -1,8 +1,9 @@
 package gestorAplicacion.Usuario;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-    public class Trabajador extends Persona {
+    public class Trabajador extends Persona implements Serializable {
         private String especialidad;
         private int salario;
         private boolean ocupado;

@@ -5,6 +5,7 @@ import gestorAplicacion.Entorno.Ciudad;
 import gestorAplicacion.Entorno.Zona;
 import gestorAplicacion.Usuario.Cliente;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.Scanner;
 
 import static uiMain.Utilidad.intersectarListas;
 
-public class Restaurante {
+public class Restaurante implements Serializable {
     // Atributos
     public static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
     public static ArrayList<Plato> menu = new ArrayList<Plato>();
@@ -22,6 +23,7 @@ public class Restaurante {
     private ArrayList<ArrayList<String>> disposicion = new ArrayList<ArrayList<String>>();
     private ArrayList<Casilla> casillas = new ArrayList<Casilla>();
     private ArrayList<ArrayList<Integer>> fechasDisponibles = new ArrayList<ArrayList<Integer>>();
+    private ArrayList<Boolean> parqueadero = new ArrayList<Boolean>(10);
     private Ciudad ciudad;
     private Zona zona;
     private boolean zonaVIP;
@@ -388,6 +390,9 @@ public class Restaurante {
     }
     public void agregarMesa(Mesa mesa) {
         mesas.add(mesa);
+    }
+    public ArrayList<Boolean> getParqueadero() {
+        return parqueadero;
     }
 
     @Override

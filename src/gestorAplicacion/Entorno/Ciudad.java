@@ -2,9 +2,10 @@ package gestorAplicacion.Entorno;
 
 import gestorAplicacion.Entorno.Zona;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Ciudad extends Zona {
+public class Ciudad extends Zona implements Serializable {
     //Atributos
     private ArrayList<Zona> zonas = new ArrayList<Zona>();
     private String NombreCiudad;

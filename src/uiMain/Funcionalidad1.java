@@ -67,6 +67,7 @@ public class Funcionalidad1 {
                                                         zona.getRestaurantes().size() + "].");
                                             } else { //Si se encuentra el restaurante
                                                 seleccionMesa(zona.getRestaurantes().get(eleccion4 - 1));
+                                                // seleccion fecha
                                                 encendido3 = false;
                                             }
                                         } while (encendido3);
@@ -156,28 +157,126 @@ public class Funcionalidad1 {
             if (!anios.contains(fechasMes.get(0))) {
                 anios.add(fechasMes.get(0));
             }
-            if (!meses.contains(fechasMes.get(1))) {
-                meses.add(fechasMes.get(1));
-            }
         }
         System.out.println("Años disponibles:");
         for (int i = 0; i < anios.size(); i++) {
-            System.out.println(i + "." + anios.get(i) + ".");
+            System.out.println(i + ". " + anios.get(i) + ".");
         }
-        int eleccion1 = readInt("Escriba un número para elegir su opción.");
+        int eleccion1 = readInt("Escriba un número para elegir su opción [1 - " + anios.size() + "].");
+        int eleccion2 = 0;
         boolean encendido1 = true;
         do {
-            if (eleccion1 == anios.getFirst()) {
-                System.out.println("Meses disponibles:");
-                for (int i = 0; i < meses.size(); i++) {
-                    System.out.println(i + "." + meses.get(i) + ".");
+            System.out.println("Meses disponibles:");
+            int i = 1;
+            for (ArrayList<Integer> fechasMes : restaurante.getFechasDisponibles()) {
+                if (eleccion1 == fechasMes.get(0)) {
+                    System.out.println(i + ". " + fechasMes.get(1) + ".");
+                    meses.add(fechasMes.get(1));
+                    i++;
                 }
-                int eleccion2 = readInt("Escriba un número para elegir su opción.");
-                boolean encendido2 = true;
-                encendido1 = false;
+            }
+            eleccion2 = readInt("Escriba un número para elegir su opción [1 - " + i + "].");
+            if (eleccion2 > meses.size() || eleccion2 < 1) {
+                System.out.println("Ingrese un número válido");
             } else {
-                
+                encendido1 = false;
             }
         } while (encendido1);
+        boolean encendido2 = true;
+        do {
+            System.out.println("Días disponibles:");
+            int indiceMes = 0;
+            for (int i = 0; i < restaurante.getFechasDisponibles().size(); i++) {
+                if (eleccion2 == restaurante.getFechasDisponibles().get(i).get(1)) {
+                    indiceMes = i;
+                }
+            }
+            for (int i = 2; i < restaurante.getFechasDisponibles().get(indiceMes).size(); i++) {
+                System.out.println(i - 1 + ". " + restaurante.getFechasDisponibles().get(indiceMes).get(i) + ".");
+            }
+            int eleccion3 = readInt("Escriba un número para elegir su opción [1 - " +
+                    restaurante.getFechasDisponibles().get(indiceMes).size() + "].");
+            if (eleccion3 > restaurante.getFechasDisponibles().get(indiceMes).size() || eleccion3 < 1) {
+                System.out.println("Ingrese un número válido");
+            } else {
+                encendido2 = false;
+            }
+        } while (encendido2);
+    }
+
+    // Interacción 2
+    public static void extrasReserva(Cliente cliente, Restaurante restaurante){
+        System.out.println("Desde la cadena de restaurantes ofrecemos los servicios de: ");
+        System.out.println("""
+                1. Reserva de Parqueadero.
+                2. Decoraciones para la mesa.
+                3. No desea ningún servicio extra.""");
+        int eleccion = readInt();
+        switch (eleccion){
+            case 1:
+                System.out.println("Reserva de Parqueadero");
+                if (cliente.getAfiliacion() == Cliente.Afiliacion.NINGUNA){
+                    System.out.println("El servicio tiene un coste de $10.000. ¿Desea reservar el parqueadero?");
+                    System.out.println("""
+                            1. Sí.
+                            2. No.""");
+                    int eleccion2 = readInt();
+                    String placa = "";
+                    if (eleccion2 == 1){
+                        if (cliente.getPlacaVehiculo().equals("Ninguna")){
+                            System.out.println("Ingrese la placa del vehículo:");
+                            placa = readString();
+                            cliente.setPlacaVehiculo(placa);
+                        } else {
+                            placa = cliente.getPlacaVehiculo();
+                        }
+                        for (int i = 0; i < restaurante.getParqueadero().size(); i++) {
+                            if (restaurante.getParqueadero().get(i) == false) {
+                                System.out.println("Parqueadero reservado con éxito para el vehículo con placa: " +
+                                        placa + ".");
+                                break;
+                            }
+                        }
+                        System.out.println("Parqueadero reservado con éxito.");
+                    } else {
+                        extrasReserva(cliente, restaurante);
+                    }
+                }
+                break;
+            case 2:
+                System.out.println("Decoraciones para la mesa");
+                if (cliente.getAfiliacion() != Cliente.Afiliacion.NINGUNA){
+                    System.out.println("Obtuvo un 15% de descuento en las decoraciones para mesa. El costo es de $42.500");
+                } else {
+                    System.out.println("El costo de las decoraciones es de $50.000");
+                }
+                System.out.println("¿Desea decorar la mesa?");
+                System.out.println("""
+                        1. Sí.
+                        2. No.""");
+                int eleccion3 = readInt();
+                switch (eleccion3){
+                    case 1:
+                        System.out.println("Decoraciones para la mesa reservadas con éxito.");
+                        break;
+                    case 2:
+                        extrasReserva(cliente, restaurante);
+                        break;
+                    default:
+                        System.out.println("Ingrese un número válido.");
+                        extrasReserva(cliente, restaurante);
+                        break;
+                }
+
+
+                break;
+            case 3:
+                System.out.println("No desea ningún servicio extra");
+                break;
+            default:
+                System.out.println("Ingrese un número válido.");
+                extrasReserva(cliente, restaurante);
+                break;
+        }
     }
 }

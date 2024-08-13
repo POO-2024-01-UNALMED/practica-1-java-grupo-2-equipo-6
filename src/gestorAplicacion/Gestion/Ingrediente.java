@@ -1,9 +1,10 @@
 package gestorAplicacion.Gestion;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Ingrediente {
+public class Ingrediente implements Serializable {
     //Atributos
     private String nombre;
     private int precio;

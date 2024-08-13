@@ -9,7 +9,11 @@ import gestorAplicacion.Usuario.Cliente;
 import java.time.LocalDateTime;
 import java.util.*;
 
+
 import static uiMain.Funcionalidad1.reservarMesa;
+
+import static uiMain.Funcionalidad2.*;
+
 import static uiMain.Funcionalidad3.*;
 import static uiMain.Funcionalidad4.*;
 import static uiMain.Utilidad.*;
@@ -251,6 +255,10 @@ public class Main {
                     break;
                 case 2:
                     limpiarPantalla();
+                    System.out.println("Funcionalidad 2.");
+                    ordenarComida();
+                    encendido = false;
+
                     break;
                 case 3:
                     limpiarPantalla();

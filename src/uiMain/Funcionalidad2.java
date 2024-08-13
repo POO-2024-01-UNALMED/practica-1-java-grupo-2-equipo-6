@@ -5,9 +5,14 @@ import gestorAplicacion.Usuario.Cliente;
 
 
 public class Funcionalidad2 {
-
+	public static void ordenarComida() {
+		//Tenés que hacer que al principio se seleccione de qué restaurante se está hablando pa pasaselo como parámetro
+		//Al establecerCliente.
+		Restaurante restaurante = new Restaurante();
+		establecerCliente(restaurante);
+	}
     public static Cliente establecerCliente(Restaurante restaurante) {
-    		System.out.println("Ingrese el numero de cédulo de la persona que desea ordenar: ");
+    		System.out.println("Ingrese el numero de cédula de la persona que desea ordenar: ");
     		int cedula = Utilidad.readInt();
     		Cliente cliente = new Cliente();
     	

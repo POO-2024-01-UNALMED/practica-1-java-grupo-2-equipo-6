@@ -54,22 +54,13 @@ public class Utilidad {
         }
     }
 
-    static Date readDateTime(int year, int month, int day, int hours) throws ParseException {
-        String fecha = day + "/" + month + "/" + year + " " + hours + ":" + 0;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        return sdf.parse(fecha);
-    }
-
-    static Date readDate(int year, int month, int day) throws ParseException {
-        String fecha = day + "/" + month + "/" + year;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        return sdf.parse(fecha);
-    }
-
-    static Date readTime(int hours) throws ParseException {
-        String hora = hours + ":" + 0;
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        return sdf.parse(hora);
+    static ArrayList<Integer> readDateTime(int year, int month, int day, int hours){
+        ArrayList<Integer> fecha = new ArrayList<Integer>();
+        fecha.add(year);
+        fecha.add(month);
+        fecha.add(day);
+        fecha.add(hours);
+        return fecha;
     }
 
     static String capitalize(String text) {

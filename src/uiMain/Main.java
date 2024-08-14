@@ -172,8 +172,12 @@ public class Main {
         MDE.addZona(estadio_mde);
         MDE.addZona(moravia_mde);
         //Agregar al ArrayList ciudades
-
-        Reserva reserva1 = new Reserva(clientes1, new Date(2024, 7, 28, 8, 0));
+        ArrayList<Integer> fechaReserva1 = new ArrayList<Integer>();
+        fechaReserva1.add(2024);
+        fechaReserva1.add(7);
+        fechaReserva1.add(28);
+        fechaReserva1.add(8);
+        Reserva reserva1 = new Reserva(clientes1, fechaReserva1);
 //        Reserva reserva2 = new Reserva(clientes2, new Date(2024, 7, 29, 9, 0));
 //        Reserva reserva3 = new Reserva(clientes3, new Date(2024, 7, 30, 10, 0));
         reservasUsaquen.add(reserva1);

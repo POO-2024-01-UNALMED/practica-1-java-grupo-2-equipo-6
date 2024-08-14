@@ -119,7 +119,7 @@ public class Funcionalidad5 {
         int year = readInt("Ingrese el año en números:");
         printLn("Hora de la reserva:");
         int hours = readInt("Ingrese la hora en números:");
-        Date fechaReserva = readDateTime(year, month, day, hours);
+        ArrayList<Integer> fechaReserva = readDateTime(year, month, day, hours);
         clientePP.setNombre(nombreCliente);
         clientePP.setCedula((int) cedulaCliente);
         reservaPP.setFecha(fechaReserva);

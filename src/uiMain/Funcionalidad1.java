@@ -3,6 +3,7 @@ package uiMain;
 import gestorAplicacion.Entorno.Ciudad;
 import gestorAplicacion.Entorno.Zona;
 import gestorAplicacion.Gestion.Mesa;
+import gestorAplicacion.Gestion.Reserva;
 import gestorAplicacion.Gestion.Restaurante;
 import gestorAplicacion.Usuario.Cliente;
 
@@ -64,7 +65,7 @@ public class Funcionalidad1 {
                                             listadoRestaurantesZona(zona);
                                             int eleccion4 = readInt("Escriba un número para elegir el " +
                                                     "restaurante.");
-                                            if (eleccion4 > zonasConRestaurante.size() || eleccion4 < 1) { //Si no se encuentra el restaurante
+                                            if (eleccion4 > zona.getRestaurantes().size() || eleccion4 < 1) { //Si no se encuentra el restaurante
                                                 System.out.println("Ingrese un número válido [1 - " +
                                                         zona.getRestaurantes().size() + "].");
                                             } else { //Si se encuentra el restaurante
@@ -170,14 +171,15 @@ public class Funcionalidad1 {
         boolean encendido1 = true;
         do {
             ArrayList<Integer> fechaElegida = seleccionFecha(restaurante, tipoMesa, mesasElegidas);
-
-            System.out.println("Mesas disponibles para el día " + fechaElegida.get(2) + '/' + eleccion2 + '/' + eleccion1 + ':');
+            limpiarPantalla();
+            System.out.println("Mesas disponibles para el día " + fechaElegida.get(2) + '/' + fechaElegida.get(1) + '/'
+                    + fechaElegida.get(0) + ':');
             ArrayList<Mesa> mesasDisponibles = new ArrayList<Mesa>();
             for (Mesa mesa : restaurante.getMesas()) {
                 for (ArrayList<Integer> fecha : mesa.getFechasDisponibles()) {
-                    if (fecha.get(0) == eleccion1 && fecha.get(1) == eleccion2 && Objects.equals(fecha.get(2), // Objects.equals usado para evitar nulidad.
-                            fechaElegida.get(2)) && mesa.isVIP() == tipoMesa) {
-                        System.out.println("Mesa #" + mesa.getNumMesa() + ':');
+                    if (Objects.equals(fecha.get(0), fechaElegida.get(0)) && Objects.equals(fecha.get(1), fechaElegida.get(1)) && Objects.equals(fecha.get(2), // Objects.equals usado para evitar nulidad.
+                            fechaElegida.get(2)) && mesa.isVIP() == tipoMesa && fecha.size() > 3) {
+                        System.out.println("Mesa #" + mesa.getNumMesa());
                     }
                 }
             }
@@ -197,7 +199,7 @@ public class Funcionalidad1 {
                         break;
                     }
                 }
-                if (mesaElegida.getDistanciaPuerta() == 9999) {
+                if (mesaElegida.getDistanciaPuerta() == 9999 && mesaElegida.getDistanciaVentana() == 9999) {
                     System.out.println("Ingresó un número inválido. Se le asignará una mesa aleatoria.");
                     for (Mesa mesa : restaurante.getMesas()) {
                         if (mesa.getNumMesa() == mesasElegidas.getFirst()) {
@@ -206,9 +208,48 @@ public class Funcionalidad1 {
                         }
                     }
                 }
+                limpiarPantalla();
+                int indiceFechaElegida = 0;
+                for (ArrayList<Integer> fecha : mesaElegida.getFechasDisponibles()) {
+                    if (fecha.get(1) == fechaElegida.get(1) && Objects.equals(fecha.get(2), fechaElegida.get(2))) {
+                        indiceFechaElegida = mesaElegida.getFechasDisponibles().indexOf(fecha);
+                        break;
+                    }
+                }
+                System.out.println("Horarios disponibles para la mesa seleccionada:");
+                for (int i = 3; i < mesaElegida.getFechasDisponibles().get(indiceFechaElegida).size(); i++) {
+                    System.out.println(i-2 + "." + mesaElegida.getFechasDisponibles().get(indiceFechaElegida).get(i)
+                            + ":00.");
+                }
+                int eleccion5 = readInt("¿Alguno de los horarios disponibles le es conveniente?\n1. Sí.\n2. No.");
+                if (eleccion5 == 1) {
+                    boolean encendido2 = true;
+                    do {
+                        int horaElegida = readInt("Ingrese el horario de su preferencia. [1 - " +
+                                (mesaElegida.getFechasDisponibles().get(indiceFechaElegida).size() - 3) + "].");
+                        if (horaElegida < 1 || horaElegida >
+                                mesaElegida.getFechasDisponibles().get(indiceFechaElegida).size() - 2) {
+                            System.out.println("Ingrese un número válido [1 - " +
+                                    (mesaElegida.getFechasDisponibles().get(indiceFechaElegida).size() - 3) + "].");
+                        } else {
+                            fechaElegida.add(mesaElegida.getFechasDisponibles().get(indiceFechaElegida).get(horaElegida
+                                    + 2));
+                            mesaElegida.getFechasDisponibles().remove(horaElegida + 2);
+                            restaurante.getHistorialReservas().add(new Reserva(clientes, fechaElegida));
+                            System.out.println("Su reserva ha sido exitosa");
+                            encendido2 = false;
+                        }
+                    } while (encendido2);
+
+                } else {
+                    int seguir1 = readInt("¿Desea elegir una fecha diferente?\n1. Sí.\n2. No.");
+                    if (seguir1 != 1) {
+                        encendido1 = false;
+                    }
+                }
             } else {
-                int seguir = readInt("¿Desea elegir una fecha diferente?\n1. Sí.\n2. No.");
-                if (seguir != 1) {
+                int seguir2 = readInt("¿Desea elegir una fecha diferente?\n1. Sí.\n2. No.");
+                if (seguir2 != 1) {
                     encendido1 = false;
                 }
             }
@@ -221,13 +262,13 @@ public class Funcionalidad1 {
         ArrayList<Integer> anios = new ArrayList<Integer>();
         ArrayList<Integer> meses = new ArrayList<Integer>();
         for (ArrayList<Integer> fechasMes : restaurante.getFechasDisponibles()) {
-            if (!anios.contains(fechasMes.get(0))) {
-                anios.add(fechasMes.get(0));
+            if (!anios.contains(fechasMes.getFirst())) {
+                anios.add(fechasMes.getFirst());
             }
         }
         System.out.println("Años disponibles:");
         for (int i = 0; i < anios.size(); i++) {
-            System.out.println(i + ". " + anios.get(i) + ".");
+            System.out.println((i + 1) + ". " + anios.get(i) + ".");
         }
         int eleccion1 = readInt("Escriba un número para elegir su opción [1 - " + anios.size() + "].");
         int eleccion2;
@@ -237,7 +278,7 @@ public class Funcionalidad1 {
             System.out.println("Meses disponibles:");
             int i = 1;
             for (ArrayList<Integer> fechasMes : restaurante.getFechasDisponibles()) {
-                if (eleccion1 == fechasMes.get(0)) {
+                if (Objects.equals(anios.get(eleccion1 - 1), fechasMes.get(0))) {
                     System.out.println(i + ". " + fechasMes.get(1) + ".");
                     meses.add(fechasMes.get(1));
                     i++;
@@ -255,23 +296,24 @@ public class Funcionalidad1 {
             System.out.println("Días disponibles:");
             int indiceMes = 0;
             for (int i = 0; i < restaurante.getFechasDisponibles().size(); i++) {
-                if (eleccion2 == restaurante.getFechasDisponibles().get(i).get(1)) {
+                if (Objects.equals(meses.get(eleccion2 - 1), restaurante.getFechasDisponibles().get(i).get(1))) {
                     indiceMes = i;
+                    break;
                 }
             }
             for (int i = 2; i < restaurante.getFechasDisponibles().get(indiceMes).size(); i++) {
                 System.out.println(i - 1 + ". " + restaurante.getFechasDisponibles().get(indiceMes).get(i) + ".");
             }
             eleccion3 = readInt("Escriba un número para elegir su opción [1 - " +
-                    restaurante.getFechasDisponibles().get(indiceMes).size() + "].");
+                    (restaurante.getFechasDisponibles().get(indiceMes).size() - 2) + "].");
             if (eleccion3 > restaurante.getFechasDisponibles().get(indiceMes).size() || eleccion3 < 1) {
                 System.out.println("Ingrese un número válido");
             } else {
                 encendido3 = false;
             }
         } while (encendido3);
-        elecciones.add(eleccion1);
-        elecciones.add(eleccion2);
+        elecciones.add(anios.get(eleccion1 - 1));
+        elecciones.add(meses.get(eleccion2 - 1));
         elecciones.add(eleccion3);
         return elecciones;
     }

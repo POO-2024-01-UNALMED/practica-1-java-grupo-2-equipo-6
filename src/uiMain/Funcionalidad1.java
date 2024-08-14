@@ -2,6 +2,7 @@ package uiMain;
 
 import gestorAplicacion.Entorno.Ciudad;
 import gestorAplicacion.Entorno.Zona;
+import gestorAplicacion.Gestion.Mesa;
 import gestorAplicacion.Gestion.Restaurante;
 import gestorAplicacion.Usuario.Cliente;
 
@@ -10,6 +11,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 import static uiMain.Main.ciudades;
 import static uiMain.Main.menuPrincipal;
@@ -141,16 +143,81 @@ public class Funcionalidad1 {
                 }
             }
         }
-
-        int eleccion1 = readInt("¿Qué tipo de mesa quiere usar?\n1. Estándar.\n2. VIP.");
         boolean tipoMesa = false;
-        int cercania;
-        seleccionFecha(restaurante);
+        int eleccion1 = readInt("¿Qué tipo de mesa quiere usar?\n1. Estándar.\n2. VIP.");
+        switch (eleccion1) {
+            case 1:
+                break;
+            case 2:
+                tipoMesa = true;
+                break;
+            default:
+                System.out.println("Debido a que ingresó un dato erróneo se le asignó una mesa estándar.");
+                break;
+        }
 
-        System.out.println(restaurante);
+        ArrayList<Integer> mesasElegidas = new ArrayList<Integer>();
+
+        int eleccion2 = readInt("Tiene preferencia por estar cerca de:\n1. Puerta.\n2. Ventana.\n3. Ninguna.");
+        switch (eleccion2) {
+            case 1, 2:
+                mesasElegidas = calcularDistancia(restaurante, eleccion2, tipoMesa);
+                break;
+            default:
+                System.out.println("Debido a que ingresó un dato erróneo se asume que no tiene ninguna preferencia.");
+                break;
+        }
+        boolean encendido1 = true;
+        do {
+            ArrayList<Integer> fechaElegida = seleccionFecha(restaurante, tipoMesa, mesasElegidas);
+
+            System.out.println("Mesas disponibles para el día " + fechaElegida.get(2) + '/' + eleccion2 + '/' + eleccion1 + ':');
+            ArrayList<Mesa> mesasDisponibles = new ArrayList<Mesa>();
+            for (Mesa mesa : restaurante.getMesas()) {
+                for (ArrayList<Integer> fecha : mesa.getFechasDisponibles()) {
+                    if (fecha.get(0) == eleccion1 && fecha.get(1) == eleccion2 && Objects.equals(fecha.get(2), // Objects.equals usado para evitar nulidad.
+                            fechaElegida.get(2)) && mesa.isVIP() == tipoMesa) {
+                        System.out.println("Mesa #" + mesa.getNumMesa() + ':');
+                    }
+                }
+            }
+            if (!mesasElegidas.isEmpty()) {
+                System.out.println("Según sus preferencias se le recomienda elegir las mesas con el número:");
+                for (int numMesa : mesasElegidas) {
+                    System.out.println(numMesa + ", ");
+                }
+            }
+            int eleccion4 = readInt("¿Alguna de las mesas disponibles le es conveniente?\n1. Sí.\n2. No.");
+            if (eleccion4 == 1) {
+                int numMesa = readInt("Ingrese el número de la mesa de su preferencia.");
+                Mesa mesaElegida = new Mesa();
+                for (Mesa mesa : restaurante.getMesas()) {
+                    if (mesa.getNumMesa() == numMesa) {
+                        mesaElegida = mesa;
+                        break;
+                    }
+                }
+                if (mesaElegida.getDistanciaPuerta() == 9999) {
+                    System.out.println("Ingresó un número inválido. Se le asignará una mesa aleatoria.");
+                    for (Mesa mesa : restaurante.getMesas()) {
+                        if (mesa.getNumMesa() == mesasElegidas.getFirst()) {
+                            mesaElegida = mesa;
+                            break;
+                        }
+                    }
+                }
+            } else {
+                int seguir = readInt("¿Desea elegir una fecha diferente?\n1. Sí.\n2. No.");
+                if (seguir != 1) {
+                    encendido1 = false;
+                }
+            }
+            System.out.println(restaurante);
+        } while (encendido1);
     }
 
-    public static void seleccionFecha(Restaurante restaurante) {
+    public static ArrayList<Integer> seleccionFecha(Restaurante restaurante, boolean tipoMesa, ArrayList<Integer> mesasElegidas) {
+        ArrayList<Integer> elecciones = new ArrayList<Integer>();
         ArrayList<Integer> anios = new ArrayList<Integer>();
         ArrayList<Integer> meses = new ArrayList<Integer>();
         for (ArrayList<Integer> fechasMes : restaurante.getFechasDisponibles()) {
@@ -163,8 +230,9 @@ public class Funcionalidad1 {
             System.out.println(i + ". " + anios.get(i) + ".");
         }
         int eleccion1 = readInt("Escriba un número para elegir su opción [1 - " + anios.size() + "].");
-        int eleccion2 = 0;
-        boolean encendido1 = true;
+        int eleccion2;
+        int eleccion3;
+        boolean encendido2 = true;
         do {
             System.out.println("Meses disponibles:");
             int i = 1;
@@ -179,10 +247,10 @@ public class Funcionalidad1 {
             if (eleccion2 > meses.size() || eleccion2 < 1) {
                 System.out.println("Ingrese un número válido");
             } else {
-                encendido1 = false;
+                encendido2 = false;
             }
-        } while (encendido1);
-        boolean encendido2 = true;
+        } while (encendido2);
+        boolean encendido3 = true;
         do {
             System.out.println("Días disponibles:");
             int indiceMes = 0;
@@ -194,14 +262,18 @@ public class Funcionalidad1 {
             for (int i = 2; i < restaurante.getFechasDisponibles().get(indiceMes).size(); i++) {
                 System.out.println(i - 1 + ". " + restaurante.getFechasDisponibles().get(indiceMes).get(i) + ".");
             }
-            int eleccion3 = readInt("Escriba un número para elegir su opción [1 - " +
+            eleccion3 = readInt("Escriba un número para elegir su opción [1 - " +
                     restaurante.getFechasDisponibles().get(indiceMes).size() + "].");
             if (eleccion3 > restaurante.getFechasDisponibles().get(indiceMes).size() || eleccion3 < 1) {
                 System.out.println("Ingrese un número válido");
             } else {
-                encendido2 = false;
+                encendido3 = false;
             }
-        } while (encendido2);
+        } while (encendido3);
+        elecciones.add(eleccion1);
+        elecciones.add(eleccion2);
+        elecciones.add(eleccion3);
+        return elecciones;
     }
 
     // Interacción 2
@@ -267,8 +339,6 @@ public class Funcionalidad1 {
                         extrasReserva(cliente, restaurante);
                         break;
                 }
-
-
                 break;
             case 3:
                 System.out.println("No desea ningún servicio extra");

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class Funcionalidad4 {
 
-    //Este método se encarga del inicio de la funcionalidad, preguntando si se quiere proceder o no con ella.
+    //Este metodo se encarga del inicio de la funcionalidad, preguntando si se quiere proceder o no con ella.
     public static Restaurante agregarSede() {
         Restaurante restaurante = new Restaurante();
         boolean encendido = true;
@@ -133,7 +133,7 @@ public class Funcionalidad4 {
         return valores;
     }
 
-    //Este método se encarga de definir los parámetros básicos del restaurante: Ciudad, Zona, Zona VIP y Calificación
+    //Este metodo se encarga de definir los parámetros básicos del restaurante: Ciudad, Zona, Zona VIP y Calificación
     public static Restaurante parametrosBasicos(Ciudad ciudad, Restaurante restaurante) {
         System.out.println("Zonas de " + ciudad.getNombre() + ":");
         listadoZonasCiudad(ciudad);
@@ -251,7 +251,7 @@ public class Funcionalidad4 {
         return restaurante;
     }
 
-    //Este método se encarga de modificar el plano de un restaurante al momento de ser creado
+    //Este metodo se encarga de modificar el plano de un restaurante al momento de ser creado
     public static void editarRestaurante(Restaurante restaurante) {
         boolean encendido = true;
         int coordX, coordY;
@@ -357,7 +357,7 @@ public class Funcionalidad4 {
         } while (modificando);
     }
 
-    //Este método es un complemento de editarRestaurante
+    //Este metodo es un complemento de editarRestaurante
     private static void cambiarElemento(Restaurante restaurante, int coordX, int coordY,
                                         ArrayList<String> chars, String topRow, String separator, String bottomRow) {
         int modCoordX;
@@ -452,7 +452,7 @@ public class Funcionalidad4 {
         }
     }
 
-    //Este método se encarga de crear las fechas, junto con las horas, en que una mesa está disponible.
+    //Este metodo se encarga de crear las fechas, junto con las horas, en que una mesa está disponible.
     private static ArrayList<ArrayList<Integer>> generarFechas() {
         ArrayList<ArrayList<Integer>> fechasDisponibles = new ArrayList<ArrayList<Integer>>();
         LocalDate hoy = LocalDate.now();
@@ -475,7 +475,7 @@ public class Funcionalidad4 {
         return fechasDisponibles;
     }
 
-    //Este método se encarga de eliminar casillas obsoletas.
+    //Este metodo se encarga de eliminar casillas obsoletas.
     private static Casilla eliminarCasillasRepetidas(Restaurante restaurante, int modCoordX, int modCoordY) {
         Casilla casillaObsoleta = new Casilla();
         for (Casilla casilla : restaurante.getCasillas()) {
@@ -487,7 +487,7 @@ public class Funcionalidad4 {
         return casillaObsoleta;
     }
 
-    //Este método se encarga de imprimir por pantalla el plano del restaurante deseado.
+    //Este metodo se encarga de imprimir por pantalla el plano del restaurante deseado.
     private static void imprimirDisposicionRestaurante(ArrayList<ArrayList<String>> planoRestaurante, int coordX,
                                                        int coordY, ArrayList<String> chars, String topRow,
                                                        String separator, String bottomRow) {

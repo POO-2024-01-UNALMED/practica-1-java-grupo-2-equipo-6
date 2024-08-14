@@ -88,7 +88,7 @@ public class Utilidad {
         return String.valueOf(letrasIndividuales);
     }
 
-    //Este método se encarga de limpiar la pantalla del ejecutable.
+    //Este metodo se encarga de limpiar la pantalla del ejecutable.
     public static void limpiarPantalla() {
         try {
             String sistemaOperativo = System.getProperty("os.name");
@@ -108,7 +108,7 @@ public class Utilidad {
         }
     }
 
-    //Este método se encarga de organizar en orden alfabético el listado de ciudades para luego imprimir un listado
+    //Este metodo se encarga de organizar en orden alfabético el listado de ciudades para luego imprimir un listado
     //numerado desde 1 con el nombre de estas.
     public static void listadoCiudades() {
         if (!ciudades.isEmpty()) {
@@ -124,7 +124,7 @@ public class Utilidad {
         }
     }
 
-    //Este método se encarga de organizar en orden alfabético el listado de zonas de una ciudad en específico para
+    //Este metodo se encarga de organizar en orden alfabético el listado de zonas de una ciudad en específico para
     // luego imprimir un listado de estas numeradas desde el 1.
     public static void listadoZonasCiudad(Ciudad ciudad) {
         ciudad.getZonas().sort(new Comparator<Zona>() {
@@ -175,7 +175,7 @@ public class Utilidad {
         }
     }
 
-    //Este método se encarga de organizar en orden alfabético el listado de platos para luego imprimir un listado
+    //Este metodo se encarga de organizar en orden alfabético el listado de platos para luego imprimir un listado
     //numerado desde 1 con el nombre de estos.
     public static void listadoPlatos() {
         if (!platos.isEmpty()) {
@@ -191,7 +191,7 @@ public class Utilidad {
         }
     }
 
-    //Este método se encarga de organizar en orden de calificación el listado de platos para luego imprimir un listado
+    //Este metodo se encarga de organizar en orden de calificación el listado de platos para luego imprimir un listado
     //numerado desde 1 hasta 10 (máximo), con el nombre de estos.
     public static void listadoPlatosCalificacion() {
         platos.sort(new Comparator<Plato>() {
@@ -210,7 +210,7 @@ public class Utilidad {
         }
     }
 
-    //Este método se encarga de organizar en orden alfabético el listado de zonas de una ciudad en específico para
+    //Este metodo se encarga de organizar en orden alfabético el listado de zonas de una ciudad en específico para
     // luego imprimir un listado de estas numeradas desde el 1.
     public static void listadoPlatosRestaurante(Restaurante restaurante) {
         if (!restaurante.getMenu().isEmpty()) {
@@ -226,7 +226,7 @@ public class Utilidad {
         }
     }
 
-    //Este método se encarga de organizar en orden alfabético el listado de ingredientes para luego imprimir un listado
+    //Este metodo se encarga de organizar en orden alfabético el listado de ingredientes para luego imprimir un listado
     //numerado desde 1 con el nombre de estos.
     public static void listadoIngredientes() {
         if (!ingredientes.isEmpty()) {
@@ -258,8 +258,12 @@ public class Utilidad {
         return clienteActual;
     }
 
-    public static int calcularDistancia(Restaurante restaurante, int preferencia, boolean tipoMesa){
+    // Este metodo se encarga de calcular la distancia entre las mesas que tiene un restaurante y el tipo de casilla
+    // seleccionado (Puerta o Ventana), para recomendar la mesa que se ajuste a las preferencias del cliente.
+    // Retorna el número de la(s) mesa(s) que más cerca se encuentren a la casilla de preferencia.
+    public static ArrayList<Integer> calcularDistancia(Restaurante restaurante, int preferencia, boolean tipoMesa){
         ArrayList<Mesa> mesas = new ArrayList<Mesa>();
+        ArrayList<Integer> mesasElegidas = new ArrayList<Integer>();
         int menorDistancia = 9999;
         for (Mesa mesa : restaurante.getMesas()) {
             if (mesa.isVIP() == tipoMesa) {
@@ -284,6 +288,11 @@ public class Utilidad {
                     }
                 }
             }
+            for (Mesa mesa : mesas) {
+                if (mesa.getDistanciaPuerta() == menorDistancia) {
+                    mesasElegidas.add(mesa.getNumMesa());
+                }
+            }
         } else { //Ventana
             ArrayList<Casilla> ventanas = new ArrayList<Casilla>();
             for (Casilla casilla : restaurante.getCasillas()) {
@@ -302,8 +311,13 @@ public class Utilidad {
                     }
                 }
             }
+            for (Mesa mesa : mesas) {
+                if (mesa.getDistanciaVentana() == menorDistancia) {
+                    mesasElegidas.add(mesa.getNumMesa());
+                }
+            }
         }
-        return menorDistancia;
+        return mesasElegidas;
     }
 
     public static ArrayList<ArrayList<Integer>> intersectarListas(ArrayList<ArrayList<Integer>> lista1,

@@ -1,9 +1,6 @@
 package gestorAplicacion.Usuario;
 
-import gestorAplicacion.Gestion.Factura;
-import gestorAplicacion.Gestion.Mesa;
-import gestorAplicacion.Gestion.Plato;
-import gestorAplicacion.Gestion.Restaurante;
+import gestorAplicacion.Gestion.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,7 +14,7 @@ public class Cliente extends Persona implements Serializable {
     private int puntosAcumulados;
     private ArrayList<Plato> platosFavoritos = new ArrayList<Plato>();
     private String placaVehiculo;
-
+    private Reserva reserva;
 
     // Constructores
     public Cliente(){};
@@ -47,61 +44,69 @@ public class Cliente extends Persona implements Serializable {
     public void setFactura(Factura factura){
         this.factura = factura;
     }
-
     public Factura getFactura(){
         return factura;
     }
-
     public void setMesa(Mesa mesa){
         this.mesa = mesa;
     }
-
     public Mesa getMesa(){
         return mesa;
     }
-
     public void setRestaurante(Restaurante restaurante){
         this.restaurante = restaurante;
     }
-
     public Restaurante getRestaurante(){
         return restaurante;
     }
-
     public void setAfiliacion(Enum afiliacion){
         this.afiliacion = afiliacion;
     }
-
     public Enum getAfiliacion(){
         return afiliacion;
     }
-
     public void setPuntosAcumulados(int puntosAcumulados){
         this.puntosAcumulados = puntosAcumulados;
     }
-
     public int getPuntosAcumulados(){
         return puntosAcumulados;
     }
-
     public void setPlatosFavoritos(ArrayList<Plato> platosFavoritos){
         this.platosFavoritos = platosFavoritos;
     }
-
     public ArrayList<Plato> getPlatosFavoritos(){
         return platosFavoritos;
     }
-
     public void setPlacaVehiculo(String placaVehiculo){
         this.placaVehiculo = placaVehiculo;
     }
-
     public String getPlacaVehiculo(){
         return placaVehiculo;
+    }
+    public Reserva getReserva() {
+        return reserva;
+    }
+    public void setReserva(Reserva reserva) {
+        this.reserva = reserva;
     }
 
     public void agregarPlatoFavorito(Plato plato){
         platosFavoritos.add(plato);
+    }
+
+    public void resetAtributos() {
+        this.restaurante = null;
+        this.mesa = null;
+        this.factura = null;
+        this.reserva = null;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Datos del cliente:");
+        sb.append("\nNombre: ").append(nombre);
+        sb.append("\nCédula: ").append(cedula);
+        return sb.toString();
     }
 
     //Enum

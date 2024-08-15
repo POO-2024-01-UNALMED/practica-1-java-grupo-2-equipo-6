@@ -70,7 +70,8 @@ public class Funcionalidad1 {
                                                         zona.getRestaurantes().size() + "].");
                                             } else { //Si se encuentra el restaurante
                                                 seleccionMesa(zona.getRestaurantes().get(eleccion4 - 1));
-                                                // seleccion fecha
+//                                                extrasReserva();
+                                                pagoAnticipado(zona.getRestaurantes().get(eleccion4 - 1));
                                                 encendido3 = false;
                                             }
                                         } while (encendido3);
@@ -252,8 +253,12 @@ public class Funcionalidad1 {
                         } else {
                             fechaElegida.add(mesaElegida.getFechasDisponibles().get(indiceFechaElegida).get(horaElegida
                                     + 2));
+                            Reserva reserva = new Reserva(clientes, fechaElegida);
                             mesaElegida.getFechasDisponibles().get(indiceFechaElegida).remove(horaElegida + 2);
-                            restaurante.getHistorialReservas().add(new Reserva(clientes, fechaElegida));
+                            restaurante.getHistorialReservas().add(reserva);
+                            for (Cliente cliente1 : clientes) {
+                                cliente1.setReserva(reserva);
+                            }
                             System.out.println("Mesa Elegida" + mesaElegida.getFechasDisponibles());
 
                             System.out.println(restaurante.getHistorialReservas());
@@ -342,7 +347,7 @@ public class Funcionalidad1 {
     }
 
     // Interacción 2
-    public static void extrasReserva(Cliente cliente, Restaurante restaurante){
+    public static void extrasReserva(Cliente cliente){
         System.out.println("Desde la cadena de restaurantes ofrecemos los servicios de reserva de parqueadero y " +
                 "decoraciones para la mesa. Elija un servicio en caso de necesitarlo:");
         System.out.println("""
@@ -350,7 +355,7 @@ public class Funcionalidad1 {
                 2. Decoraciones para la mesa.
                 3. No desea ningún servicio extra.""");
         int eleccion = readInt();
-        switch (eleccion){
+        switch (eleccion) {
             case 1:
                 System.out.println("Reserva de Parqueadero");
                 if (cliente.getAfiliacion() == Cliente.Afiliacion.NINGUNA){
@@ -368,8 +373,8 @@ public class Funcionalidad1 {
                         } else {
                             placa = cliente.getPlacaVehiculo();
                         }
-                        for (int i = 0; i < restaurante.getParqueadero().size(); i++) {
-                            if (restaurante.getParqueadero().get(i) == false) {
+                        for (int i = 0; i < cliente.getRestaurante().getParqueadero().size(); i++) {
+                            if (!cliente.getRestaurante().getParqueadero().get(i)) {
                                 System.out.println("Parqueadero reservado con éxito para el vehículo con placa: " +
                                         placa + ".");
                                 break;
@@ -377,13 +382,13 @@ public class Funcionalidad1 {
                         }
                         System.out.println("Parqueadero reservado con éxito.");
                     } else {
-                        extrasReserva(cliente, restaurante);
+                        extrasReserva(cliente);
                     }
                 }
                 break;
             case 2:
                 System.out.println("Decoraciones para la mesa");
-                if (cliente.getAfiliacion() != Cliente.Afiliacion.NINGUNA){
+                if (cliente.getAfiliacion() != Cliente.Afiliacion.NINGUNA) {
                     System.out.println("Obtuvo un 15% de descuento en las decoraciones para mesa. El costo es de $42.500");
                 } else {
                     System.out.println("El costo de las decoraciones es de $50.000");
@@ -393,17 +398,44 @@ public class Funcionalidad1 {
                         1. Sí.
                         2. No.""");
                 int eleccion3 = readInt();
-                switch (eleccion3){
-                    case 1:
-                        System.out.println("Decoraciones para la mesa reservadas con éxito.");
-                        break;
-                    case 2:
-                        extrasReserva(cliente, restaurante);
-                        break;
-                    default:
-                        System.out.println("Ingrese un número válido.");
-                        extrasReserva(cliente, restaurante);
-                        break;
+                if (eleccion3 == 1) {
+                    boolean encendido1 = false;
+                    do {
+                        System.out.println("""
+                                Disponemos de los siguientes paquetes de decoración:
+                                1. Cena romántica.
+                                2. Graduación.
+                                3. Descubrimiento.""");
+                        int eleccion4 = readInt();
+                        switch (eleccion4) {
+                            case 1:
+                                //Descontar de Bodega una unidad de rosas y velas, además de vino blanco
+                                //Trabajador de tipo Violinista se le hace un pago extra ¿?
+                                //Cargo extra a factura
+                                break;
+                            case 2:
+                                //Descontar de Bodega una unidad de globos negros y globos dorados, y
+                                //descontar birretes simbólicos según el número de clientes
+                                //Cargo extra a factura
+                                break;
+                            case 3:
+                                System.out.println("Seleccione el género del bebé:\n1. Niño.\n2. Niña.");
+                                int eleccion5 = readInt();
+                                if (eleccion5 == 1) {
+                                    //Descontar de Bodega globos azules, blancos y (angel varón según # clientes)
+                                } else {
+                                    //Descontar de Bodega globos rosados, blancos y (angel femenino según # clientes)
+                                }
+                                //Cargo extra a factura
+                                break;
+                            default:
+                                System.out.println("Ingrese un dato válido [1 - 3]");
+                                encendido1 = true;
+                                break;
+                        }
+                    } while (encendido1);
+                } else {
+                    extrasReserva(cliente);
                 }
                 break;
             case 3:
@@ -411,8 +443,37 @@ public class Funcionalidad1 {
                 break;
             default:
                 System.out.println("Ingrese un número válido.");
-                extrasReserva(cliente, restaurante);
+                extrasReserva(cliente);
                 break;
+        }
+    }
+
+    //Interacción 3
+    public static void pagoAnticipado(Restaurante restaurante) {
+        int eleccion1 = readInt("¿Desea pagar ya mismo su reserva?\n1. Sí.\n2. No.");
+        if (eleccion1 == 1) {
+
+        } else {
+            System.out.println("Al realizar el pago postconsumo se solicitará una propina porcentual obligaotria.");
+            int eleccion2 = readInt("¿Teniendo esto en cuenta, desea continuar sin realizar el pago?\n1. Sí.\n" +
+                    "2. No.");
+            if (eleccion2 == 1) {
+                System.out.println("Resumen de su reserva:");
+                System.out.println(restaurante.getHistorialReservas().getLast());
+                int eleccion3 = readInt("¿Desea confirmar su reserva?\n1. Sí.\n2. No.");
+                if (eleccion3 == 1) {
+                    System.out.println("Reserva confirmada.");
+                } else {
+                    System.out.println("Reserva cancelada.");
+                    // Reponer lo eliminado de la mesa y otras cosas (Hacer una función para mayor comodidad)
+                    for (Cliente cliente : restaurante.getHistorialReservas().getLast().getClientes()) {
+                        cliente.resetAtributos();
+                    }
+                    restaurante.getHistorialReservas().remove(restaurante.getHistorialReservas().getLast());
+                }
+            } else {
+                pagoAnticipado(restaurante);
+            }
         }
     }
 }

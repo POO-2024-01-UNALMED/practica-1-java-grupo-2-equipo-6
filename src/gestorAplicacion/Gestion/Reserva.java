@@ -9,17 +9,17 @@ import java.util.Date;
 public class Reserva implements Serializable {
     public ArrayList<Cliente> clientes;
     //Preguntarle a Colo por esta vaina del Date
-    public Date fecha;
+    public ArrayList<Integer> fecha;
 
-    public Reserva(ArrayList<Cliente> clientes, Date fecha){
+    public Reserva(ArrayList<Cliente> clientes, ArrayList<Integer> fecha){
         this.fecha = fecha;
-        this.clientes = new ArrayList<>();
+        this.clientes = clientes;
     }
     public Reserva(){}
-    public Date getFecha(){
+    public ArrayList<Integer> getFecha(){
         return fecha;
     }
-    public void setFecha(Date fecha){
+    public void setFecha(ArrayList<Integer> fecha){
         this.fecha = fecha;
     }
     public ArrayList<Cliente> getClientes() {
@@ -27,5 +27,14 @@ public class Reserva implements Serializable {
     }
     public void setClientes(ArrayList<Cliente> clientes) {
         this.clientes = clientes;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Reserva{");
+        sb.append("clientes=").append(clientes);
+        sb.append(", fecha=").append(fecha);
+        sb.append('}');
+        return sb.toString();
     }
 }

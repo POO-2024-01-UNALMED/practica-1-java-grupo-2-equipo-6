@@ -269,9 +269,10 @@ public class Utilidad {
                 }
             }
             //Ver mesas más cercanas a una puerta
+            int distanciaPuerta = 0;
             for (Casilla casilla : puertas){
                 for (Mesa mesa : mesas){
-                    int distanciaPuerta = Math.abs((casilla.getCoordX() - mesa.getCoordX()) +
+                    distanciaPuerta = Math.abs((casilla.getCoordX() - mesa.getCoordX()) +
                             (casilla.getCoordY() - mesa.getCoordX()));
                     mesa.setDistanciaPuerta(distanciaPuerta);
                     if (distanciaPuerta < menorDistancia){

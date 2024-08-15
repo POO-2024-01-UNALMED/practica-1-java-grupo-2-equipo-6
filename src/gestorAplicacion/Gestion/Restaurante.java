@@ -7,9 +7,6 @@ import gestorAplicacion.Usuario.Cliente;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 import static uiMain.Utilidad.intersectarListas;
@@ -23,6 +20,7 @@ public class Restaurante implements Serializable {
     private ArrayList<ArrayList<String>> disposicion = new ArrayList<ArrayList<String>>();
     private ArrayList<Casilla> casillas = new ArrayList<Casilla>();
     private ArrayList<ArrayList<Integer>> fechasDisponibles = new ArrayList<ArrayList<Integer>>();
+    private ArrayList<Reserva> historialReservas = new ArrayList<Reserva>();
     private ArrayList<Boolean> parqueadero = new ArrayList<Boolean>(10);
     private Ciudad ciudad;
     private Zona zona;
@@ -425,6 +423,12 @@ public class Restaurante implements Serializable {
     }
     public void setFechasDisponibles(ArrayList<ArrayList<Integer>> fechasDisponibles) {
         this.fechasDisponibles = fechasDisponibles;
+    }
+    public ArrayList<Reserva> getHistorialReservas() {
+        return historialReservas;
+    }
+    public void setHistorialReservas(ArrayList<Reserva> historialReservas) {
+        this.historialReservas = historialReservas;
     }
 
     public void actualizarFechasDisponibles() {

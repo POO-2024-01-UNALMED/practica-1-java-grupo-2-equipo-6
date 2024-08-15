@@ -144,21 +144,39 @@ public class Funcionalidad1 {
                 }
             }
         }
+        for (Cliente cliente1 : clientes) {
+            cliente1.setRestaurante(restaurante);
+        }
         boolean tipoMesa = false;
+        boolean existe = false;
         int eleccion1 = readInt("¿Qué tipo de mesa quiere usar?\n1. Estándar.\n2. VIP.");
         switch (eleccion1) {
             case 1:
+                for (Mesa mesa : restaurante.getMesas()) {
+                    if (mesa.isVIP() == tipoMesa) {
+                        existe = true;
+                    } else {
+                        System.out.println("Lo sentimos, pero no hay mesas estándar, la mesa tendrá que ser VIP.");
+                        tipoMesa = true;
+                    }
+                }
                 break;
             case 2:
                 tipoMesa = true;
+                for (Mesa mesa : restaurante.getMesas()) {
+                    if (mesa.isVIP() == tipoMesa) {
+                        existe = true;
+                    } else {
+                        System.out.println("Lo sentimos, pero no hay mesas VIP, la mesa tendrá que ser estándar.");
+                        tipoMesa = false;
+                    }
+                }
                 break;
             default:
                 System.out.println("Debido a que ingresó un dato erróneo se le asignó una mesa estándar.");
                 break;
         }
-
         ArrayList<Integer> mesasElegidas = new ArrayList<Integer>();
-
         int eleccion2 = readInt("Tiene preferencia por estar cerca de:\n1. Puerta.\n2. Ventana.\n3. Ninguna.");
         switch (eleccion2) {
             case 1, 2:
@@ -186,7 +204,7 @@ public class Funcionalidad1 {
             if (!mesasElegidas.isEmpty()) {
                 System.out.println("Según sus preferencias se le recomienda elegir las mesas con el número:");
                 for (int numMesa : mesasElegidas) {
-                    System.out.println(numMesa + ", ");
+                    System.out.println("#" + numMesa);
                 }
             }
             int eleccion4 = readInt("¿Alguna de las mesas disponibles le es conveniente?\n1. Sí.\n2. No.");
@@ -218,7 +236,7 @@ public class Funcionalidad1 {
                 }
                 System.out.println("Horarios disponibles para la mesa seleccionada:");
                 for (int i = 3; i < mesaElegida.getFechasDisponibles().get(indiceFechaElegida).size(); i++) {
-                    System.out.println(i-2 + "." + mesaElegida.getFechasDisponibles().get(indiceFechaElegida).get(i)
+                    System.out.println(i-2 + ". " + mesaElegida.getFechasDisponibles().get(indiceFechaElegida).get(i)
                             + ":00.");
                 }
                 int eleccion5 = readInt("¿Alguno de los horarios disponibles le es conveniente?\n1. Sí.\n2. No.");
@@ -234,9 +252,13 @@ public class Funcionalidad1 {
                         } else {
                             fechaElegida.add(mesaElegida.getFechasDisponibles().get(indiceFechaElegida).get(horaElegida
                                     + 2));
-                            mesaElegida.getFechasDisponibles().remove(horaElegida + 2);
+                            mesaElegida.getFechasDisponibles().get(indiceFechaElegida).remove(horaElegida + 2);
                             restaurante.getHistorialReservas().add(new Reserva(clientes, fechaElegida));
+                            System.out.println("Mesa Elegida" + mesaElegida.getFechasDisponibles());
+
+                            System.out.println(restaurante.getHistorialReservas());
                             System.out.println("Su reserva ha sido exitosa");
+                            encendido1 = false;
                             encendido2 = false;
                         }
                     } while (encendido2);
@@ -292,9 +314,9 @@ public class Funcionalidad1 {
             }
         } while (encendido2);
         boolean encendido3 = true;
+        int indiceMes = 0;
         do {
             System.out.println("Días disponibles:");
-            int indiceMes = 0;
             for (int i = 0; i < restaurante.getFechasDisponibles().size(); i++) {
                 if (Objects.equals(meses.get(eleccion2 - 1), restaurante.getFechasDisponibles().get(i).get(1))) {
                     indiceMes = i;
@@ -314,13 +336,15 @@ public class Funcionalidad1 {
         } while (encendido3);
         elecciones.add(anios.get(eleccion1 - 1));
         elecciones.add(meses.get(eleccion2 - 1));
-        elecciones.add(eleccion3);
+        elecciones.add(restaurante.getFechasDisponibles().get(indiceMes).get(eleccion3 + 1));
+        System.out.println(elecciones);
         return elecciones;
     }
 
     // Interacción 2
     public static void extrasReserva(Cliente cliente, Restaurante restaurante){
-        System.out.println("Desde la cadena de restaurantes ofrecemos los servicios de: ");
+        System.out.println("Desde la cadena de restaurantes ofrecemos los servicios de reserva de parqueadero y " +
+                "decoraciones para la mesa. Elija un servicio en caso de necesitarlo:");
         System.out.println("""
                 1. Reserva de Parqueadero.
                 2. Decoraciones para la mesa.

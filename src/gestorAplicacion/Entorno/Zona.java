@@ -20,8 +20,7 @@ public class Zona implements Serializable {
         this.nombre = nombre;
     }
     public Zona(int poblacion, String nombre, Ciudad ciudad) {
-        this.poblacion = poblacion;
-        this.nombre = nombre;
+        this(poblacion, nombre); //Caso #1 this()
         this.ciudad = ciudad;
     }
     public Zona(Restaurante RestauranteZona, String nombreZona){

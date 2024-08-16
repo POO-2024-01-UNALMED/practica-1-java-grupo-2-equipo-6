@@ -51,16 +51,8 @@ public class Restaurante implements Serializable {
         this.nombre = nombre;
     }
 
-    public Restaurante(Ciudad ciudad, Zona zona, boolean zonaVIP) {
-        restaurantesCreados++;
-        this.ciudad = ciudad;
-        this.zona = zona;
-        this.zonaVIP = zonaVIP;
-    }
     public Restaurante(int capacidad, String nombre, ArrayList<Reserva> reservas){
-        restaurantesCreados++;
-        this.capacidad = capacidad;
-        this.nombre = nombre;
+        this(capacidad, nombre); //Caso #3 this()
         this.reservas = reservas;
 
     }
@@ -168,7 +160,6 @@ public class Restaurante implements Serializable {
        
     
 	public static Pedido platosOferta(String tipo) {
-
     	ArrayList<Plato> platos = new ArrayList<Plato>();   	
         Pedido pedido = new Pedido();
         
@@ -183,7 +174,6 @@ public class Restaurante implements Serializable {
         				}
             		
         			}
-        			
 
             case "Plato fuerte":
     			System.out.println("Plato fuertes Disponibles\n");
@@ -226,8 +216,6 @@ public class Restaurante implements Serializable {
         		
     			}
     			break;
-                
-         
         }   
         
         if (platos.isEmpty()) {
@@ -242,126 +230,90 @@ public class Restaurante implements Serializable {
            System.out.println("- Ingrese la cantidad deseada (1, 2...)");
            int cantidad = readInt();
            
-          
-           
            int contador = 1;
           
            while (contador <= cantidad) {
            	Plato platoPedido = platos.get(numPlato-1);   // Almacena el plato deseado
                pedido.agregarPlato(platoPedido);
-           	
-           	
+
            	contador++;
            	System.out.print("Su Pedido hasta ahora\nProductos\n"+pedido+"\n");
            	
            }
-         
-        	
-        	
         }
-        
 
-        
-        
         return pedido;
-   
-        
-        
-        
       }
-    
-        
-        
-
-    
 
     public boolean isZonaVIP() {
         return zonaVIP;
     }
-
     public void setZonaVIP(boolean zonaVIP) {
         this.zonaVIP = zonaVIP;
     }
-
     public Zona getZona() {
         return zona;
     }
-
     public void setZona(Zona zona) {
         this.zona = zona;
     }
-
     public Ciudad getCiudad() {
         return ciudad;
     }
-
     public void setCiudad(Ciudad ciudad) {
         this.ciudad = ciudad;
     }
-
     public float getCalificacion() {
         return calificacion;
     }
-
     public void setCalificacion(float calificacion) {
         this.calificacion = calificacion;
     }
-
     public ArrayList<ArrayList<String>> getDisposicion() {
         return disposicion;
     }
-
     public void setDisposicion(ArrayList<ArrayList<String>> disposicion) {
         this.disposicion = disposicion;
     }
-
     public int getCoordX() {
         return coordX;
     }
-
     public void setCoordX(int coordX) {
         this.coordX = coordX;
     }
-
     public int getCoordY() {
         return coordY;
     }
-
     public void setCoordY(int coordY) {
         this.coordY = coordY;
     }
-
     public ArrayList<Mesa> getMesas() {
         return mesas;
     }
-
     public void setMesas(ArrayList<Mesa> mesas) {
         this.mesas = mesas;
     }
-
     public ArrayList<Casilla> getCasillas() {
         return casillas;
     }
-
     public void setCasillas(ArrayList<Casilla> casillas) {
         this.casillas = casillas;
     }
-
     public ArrayList<Plato> getMenu() {
         return menu;
     }
-
     public void setMenu(ArrayList<Plato> menu) {
         this.menu = menu;
     }
     public String getNombre(){
         return nombre;
     }
-
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
     public void añadirReseña(String reseña) {
         reseñas.add(reseña);
     }
-
     public void agregarPlatoRecomendado(Plato plato) {
         platosRecomendados.add(plato);
     }

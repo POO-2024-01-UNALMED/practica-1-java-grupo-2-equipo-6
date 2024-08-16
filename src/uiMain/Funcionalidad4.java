@@ -168,6 +168,7 @@ public class Funcionalidad4 {
                     restaurante.setCalificacion((int) (Math.random() * 5) + 1);
                 } else { //Si la zona elegida tiene restaurantes
                     //Análisis de reservas
+
                     //Se enlaza la ciudad al restaurante
                     restaurante.setCiudad(ciudad);
                     //Se enlaza la zona al restaurante
@@ -177,6 +178,9 @@ public class Funcionalidad4 {
                     //Se enlaza el restaurante a la ciudad
                     ciudad.getRestaurantes().add(restaurante);
                     //Se establecen los parámetros básicos del restaurante
+                    System.out.println("Ingrese el nombre del restaurante:");
+                    String nombre = capitalize(readString());
+                    restaurante.setNombre(nombre);
                     System.out.println("¿El restaurante tendrá zona VIP?\n1. Sí.\n2. No.\nEscriba un número para elegir.");
                     int tieneVIP = readInt();
                     if (tieneVIP == 1) {

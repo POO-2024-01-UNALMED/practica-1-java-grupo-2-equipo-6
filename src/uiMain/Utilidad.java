@@ -35,13 +35,7 @@ public class Utilidad {
 
     static int readInt(String string) {
         System.out.println(string);
-        String numero = readString();
-        try {
-            return Integer.parseInt(numero);
-        } catch (NumberFormatException ex) {
-            System.out.println("Ingrese un número entero válido. Ej: 172, 92, 5");
-            return readInt();
-        }
+        return readInt();
     }
 
     static float readFloat(){

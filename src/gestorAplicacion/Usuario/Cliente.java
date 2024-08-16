@@ -28,8 +28,13 @@ public class Cliente extends Persona implements Serializable {
         this.afiliacion = afiliacion;
         this.placaVehiculo = placaVehiculo;
     }
-    public Cliente (String nombre, int cedula, String placaVehiculo, Factura factura){
+    public Cliente (String nombre, int cedula, String placaVehiculo){
         super(nombre, cedula);
+        this.afiliacion = Afiliacion.NINGUNA;
+        this.placaVehiculo = placaVehiculo;
+    }
+    public Cliente (String nombre, int cedula, String placaVehiculo, Factura factura){
+        this(nombre, cedula, placaVehiculo); //Caso #2 this()
         this.afiliacion = Afiliacion.NINGUNA;
         this.placaVehiculo = placaVehiculo;
         this.factura = factura;

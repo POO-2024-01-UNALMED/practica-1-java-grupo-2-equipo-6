@@ -71,7 +71,7 @@ public class Main {
         clientes1.get(1).setMesa(mesa1);
         Restaurante.getClientes().add(clientes1.get(1));
 
-        clientes1.add(new Cliente("María", 003, "9876543", new Factura()));
+        clientes1.add(new Cliente("María", 003, "9876543"));
         clientes1.get(2).setMesa(mesa1);
         Restaurante.getClientes().add(clientes1.get(2));
 

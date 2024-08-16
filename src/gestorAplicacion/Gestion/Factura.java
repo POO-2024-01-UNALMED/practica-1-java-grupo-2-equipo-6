@@ -15,7 +15,7 @@ public class Factura {
 
 
     // Constructores
-    public Factura(){};
+    public Factura(){}
 
     public Factura(Pedido pedido, String metodoPago, boolean pagoPreconsumo, int propina){
         this.pedido = pedido;
@@ -96,6 +96,9 @@ public class Factura {
         this.evento = evento;
     }
 
+    public void aumentarValor(int valor) {
+        this.valor += valor;
+    }
 
     public int calcularValor(){
         int valor = 0;
@@ -112,10 +115,8 @@ public class Factura {
 
     @Override
     public String toString(){
-        
-        String factura = ("Número factura "+ Factura.numeroFactura + "\n" + pedido.toString() + "Total :      $  " + getValor());
 
-        return factura;
+        return ("Número factura "+ Factura.numeroFactura + "\n" + pedido.toString() + "Total :      $  " + getValor());
     }
 
 }

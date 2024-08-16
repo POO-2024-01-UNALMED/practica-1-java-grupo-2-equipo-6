@@ -2,6 +2,7 @@ package uiMain;
 
 import gestorAplicacion.Entorno.Ciudad;
 import gestorAplicacion.Entorno.Zona;
+import gestorAplicacion.Gestion.Factura;
 import gestorAplicacion.Gestion.Mesa;
 import gestorAplicacion.Gestion.Reserva;
 import gestorAplicacion.Gestion.Restaurante;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
+import static uiMain.Funcionalidad3.escogerMetodoPago;
 import static uiMain.Main.ciudades;
 import static uiMain.Main.menuPrincipal;
 import static uiMain.Utilidad.*;
@@ -69,9 +71,9 @@ public class Funcionalidad1 {
                                                 System.out.println("Ingrese un número válido [1 - " +
                                                         zona.getRestaurantes().size() + "].");
                                             } else { //Si se encuentra el restaurante
-                                                seleccionMesa(zona.getRestaurantes().get(eleccion4 - 1));
-//                                                extrasReserva();
-                                                pagoAnticipado(zona.getRestaurantes().get(eleccion4 - 1));
+                                                Cliente cliente = seleccionMesa(zona.getRestaurantes().get(eleccion4 - 1));
+                                                Restaurante restaurante = extrasReserva(cliente);
+                                                pagoAnticipado(restaurante);
                                                 encendido3 = false;
                                             }
                                         } while (encendido3);
@@ -109,7 +111,7 @@ public class Funcionalidad1 {
         } while (encendido1);
     }
 
-    public static void seleccionMesa(Restaurante restaurante) {
+    public static Cliente seleccionMesa(Restaurante restaurante) {
         ArrayList<Cliente> clientes = new ArrayList<Cliente>();
         System.out.println("Ingrese el nombre del cliente:");
         String nombre = capitalize(readString());
@@ -117,7 +119,7 @@ public class Funcionalidad1 {
         int cedula = readInt();
         System.out.println("Ingrese la placa del vehículo del cliente (en caso de no tener escribir 0):");
         String placaVehiculo = readString();
-        Cliente cliente = new Cliente(nombre, cedula, placaVehiculo);
+        Cliente cliente = new Cliente(nombre, cedula, placaVehiculo, new Factura());
         if (existeCliente(cliente)) {
             cliente = clienteCedula(cliente);
             clientes.add(cliente);
@@ -232,6 +234,7 @@ public class Funcionalidad1 {
                 for (ArrayList<Integer> fecha : mesaElegida.getFechasDisponibles()) {
                     if (fecha.get(1) == fechaElegida.get(1) && Objects.equals(fecha.get(2), fechaElegida.get(2))) {
                         indiceFechaElegida = mesaElegida.getFechasDisponibles().indexOf(fecha);
+                        mesaElegida.setUltimaFechaReserva(indiceFechaElegida);
                         break;
                     }
                 }
@@ -260,7 +263,6 @@ public class Funcionalidad1 {
                                 cliente1.setReserva(reserva);
                             }
                             System.out.println("Mesa Elegida" + mesaElegida.getFechasDisponibles());
-
                             System.out.println(restaurante.getHistorialReservas());
                             System.out.println("Su reserva ha sido exitosa");
                             encendido1 = false;
@@ -282,9 +284,11 @@ public class Funcionalidad1 {
             }
             System.out.println(restaurante);
         } while (encendido1);
+        return cliente;
     }
 
-    public static ArrayList<Integer> seleccionFecha(Restaurante restaurante, boolean tipoMesa, ArrayList<Integer> mesasElegidas) {
+    public static ArrayList<Integer> seleccionFecha(Restaurante restaurante, boolean tipoMesa,
+                                                    ArrayList<Integer> mesasElegidas) {
         ArrayList<Integer> elecciones = new ArrayList<Integer>();
         ArrayList<Integer> anios = new ArrayList<Integer>();
         ArrayList<Integer> meses = new ArrayList<Integer>();
@@ -347,7 +351,8 @@ public class Funcionalidad1 {
     }
 
     // Interacción 2
-    public static void extrasReserva(Cliente cliente){
+    public static Restaurante extrasReserva(Cliente cliente){
+        Restaurante restaurante = cliente.getRestaurante();
         System.out.println("Desde la cadena de restaurantes ofrecemos los servicios de reserva de parqueadero y " +
                 "decoraciones para la mesa. Elija un servicio en caso de necesitarlo:");
         System.out.println("""
@@ -373,8 +378,8 @@ public class Funcionalidad1 {
                         } else {
                             placa = cliente.getPlacaVehiculo();
                         }
-                        for (int i = 0; i < cliente.getRestaurante().getParqueadero().size(); i++) {
-                            if (!cliente.getRestaurante().getParqueadero().get(i)) {
+                        for (int i = 0; i < restaurante.getParqueadero().size(); i++) {
+                            if (!restaurante.getParqueadero().get(i)) {
                                 System.out.println("Parqueadero reservado con éxito para el vehículo con placa: " +
                                         placa + ".");
                                 break;
@@ -446,34 +451,96 @@ public class Funcionalidad1 {
                 extrasReserva(cliente);
                 break;
         }
+        return restaurante;
     }
 
     //Interacción 3
     public static void pagoAnticipado(Restaurante restaurante) {
+        Reserva reserva = restaurante.getHistorialReservas().getLast();
+        ArrayList<Cliente> clientes = reserva.getClientes();
+        Factura factura = clientes.getFirst().getFactura();
+        factura.setValor(15000);
+
         int eleccion1 = readInt("¿Desea pagar ya mismo su reserva?\n1. Sí.\n2. No.");
         if (eleccion1 == 1) {
-
+            if (clientes.getFirst().getAfiliacion() == Cliente.Afiliacion.NINGUNA) {
+                System.out.println("¿Desea afiliarse al restaurante? Hacerlo le daría un descuento extra por ser " +
+                        "un nuevo socio\n1. Sí.\n2. No.");
+                int eleccion2 = readInt();
+                if (eleccion2 == 1) {
+                    factura.setValor(13500); //Aplicar 10% de descuento al valor de la reserva.
+                    pagarReserva(restaurante, reserva, clientes, factura);
+                } else {
+                    factura.setValor(15000);
+                    pagarReserva(restaurante, reserva, clientes, factura);
+                }
+            } else {
+                factura.setValor(14300); //Aplicar 5% de descuento al valor de la reserva.
+                pagarReserva(restaurante, reserva, clientes, factura);
+            }
+            clientes.getFirst().getFactura().setPagoPreconsumo(true);
         } else {
             System.out.println("Al realizar el pago postconsumo se solicitará una propina porcentual obligaotria.");
-            int eleccion2 = readInt("¿Teniendo esto en cuenta, desea continuar sin realizar el pago?\n1. Sí.\n" +
+            int eleccion6 = readInt("¿Teniendo esto en cuenta, desea continuar sin realizar el pago?\n1. Sí.\n" +
                     "2. No.");
-            if (eleccion2 == 1) {
-                System.out.println("Resumen de su reserva:");
-                System.out.println(restaurante.getHistorialReservas().getLast());
-                int eleccion3 = readInt("¿Desea confirmar su reserva?\n1. Sí.\n2. No.");
-                if (eleccion3 == 1) {
-                    System.out.println("Reserva confirmada.");
-                } else {
-                    System.out.println("Reserva cancelada.");
-                    // Reponer lo eliminado de la mesa y otras cosas (Hacer una función para mayor comodidad)
-                    for (Cliente cliente : restaurante.getHistorialReservas().getLast().getClientes()) {
-                        cliente.resetAtributos();
-                    }
-                    restaurante.getHistorialReservas().remove(restaurante.getHistorialReservas().getLast());
-                }
+            if (eleccion6 == 1) {
+                confirmarReserva(restaurante, reserva, clientes);
             } else {
                 pagoAnticipado(restaurante);
             }
         }
+    }
+
+    private static void pagarReserva(Restaurante restaurante, Reserva reserva, ArrayList<Cliente> clientes,
+                                     Factura factura) {
+        if (confirmarReserva(restaurante, reserva, clientes)) {
+            escogerMetodoPago(clientes.getFirst());
+            boolean encendido1 = true;
+            do {
+                System.out.println("¿Desea confirmar la transacción con un valor de: " +
+                        factura.getValor() + "?");
+                int eleccion3 = readInt("""
+                                1. Sí.
+                                2. No.
+                                Escriba un número para elegir su opción.""");
+                switch (eleccion3) {
+                    case 1:
+                        System.out.println("Transacción confirmada.");
+                        clientes.getFirst().getFactura().setValor(0);
+                        break;
+                    case 2:
+                        encendido1 = false;
+                        break;
+                    default:
+                        encendido1 = false;
+                        System.out.println("Ingrese un valor válido [1 - 2].");
+                        break;
+                }
+            } while (encendido1);
+        }
+    }
+
+    public static boolean confirmarReserva(Restaurante restaurante, Reserva reserva, ArrayList<Cliente> clientes) {
+        boolean confirmada;
+        System.out.println("Resumen de su reserva:");
+        System.out.println(reserva);
+        int eleccion1 = readInt("¿Desea confirmar su reserva?\n1. Sí.\n2. No.");
+        if (eleccion1 == 1) {
+            confirmada = true;
+            System.out.println("Reserva confirmada.");
+        } else {
+            confirmada = false;
+            System.out.println("Reserva cancelada.");
+            Mesa mesaReserva = clientes.getFirst().getMesa();
+            ArrayList<Integer> fechaReserva = mesaReserva.getFechasDisponibles().get(mesaReserva.getUltimaFechaReserva());
+            fechaReserva.add(reserva.getFecha().get(3));
+            mesaReserva.setClientes(null);
+            mesaReserva.setUltimaFechaReserva(0);
+            for (Cliente cliente : clientes) {
+                cliente.resetDatosReserva();
+            }
+            restaurante.getHistorialReservas().remove(reserva);
+        }
+        return confirmada;
     }
 }

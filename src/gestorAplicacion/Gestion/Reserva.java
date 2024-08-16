@@ -45,7 +45,8 @@ public class Reserva implements Serializable {
         sb.append("\nClientes: ").append(clientes);
         sb.append("\nFecha: ").append(fecha.get(2)).append('/').append(fecha.get(1)).append('/').append(fecha.get(0));
         sb.append("\nHora:").append(fecha.get(3)).append(":00");
-        sb.append("\nMesa: #").append(clientes.get(0).getMesa().toString());
+        sb.append("\nMesa: #").append(clientes.getFirst().getMesa().toString());
+        sb.append("\nFactura: ").append(clientes.getFirst().getFactura());
 
         return sb.toString();
     }

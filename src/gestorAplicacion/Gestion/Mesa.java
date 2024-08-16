@@ -16,7 +16,7 @@ public class Mesa extends Casilla implements Serializable {
     private int valorTotal;
     private ArrayList<Cliente> clientes = new ArrayList<Cliente>();
     private int numAsientos = 4;
-    private Reserva reserva;
+    private int ultimaFechaReserva;
     private Restaurante restaurante;
     private ArrayList<Integer> coordenada = new ArrayList<Integer>();
     private int distanciaPuerta = 9999;
@@ -55,12 +55,6 @@ public class Mesa extends Casilla implements Serializable {
     }
     public int getNumAsientos(){
         return numAsientos;
-    }
-    public void setReserva(Reserva reserva){
-        this.reserva = reserva;
-    }
-    public Reserva getReserva(){
-        return reserva;
     }
     public void setRestaurante(Restaurante restaurante){
         this.restaurante = restaurante;
@@ -115,5 +109,11 @@ public class Mesa extends Casilla implements Serializable {
     }
     public void setFechasDisponibles(ArrayList<ArrayList<Integer>> fechasDisponibles) {
         this.fechasDisponibles = fechasDisponibles;
+    }
+    public int getUltimaFechaReserva() {
+        return ultimaFechaReserva;
+    }
+    public void setUltimaFechaReserva(int ultimaFechaReserva) {
+        this.ultimaFechaReserva = ultimaFechaReserva;
     }
 }

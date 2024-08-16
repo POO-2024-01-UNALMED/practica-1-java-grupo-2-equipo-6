@@ -33,7 +33,6 @@ public class Funcionalidad4 {
                     System.out.println("Interacción 1.");
                     restaurante = elegirZona(restaurante);
                     establecerDisposicion(restaurante);
-                    editarRestaurante(restaurante);
                     establecerMenuYEncargos(restaurante);
                     encendido = false;
                     break;
@@ -248,6 +247,7 @@ public class Funcionalidad4 {
                         VIP = 4 (En caso de tener Zona VIP)
                     Ventanas = 4""");
         }
+        editarRestaurante(restaurante);
         return restaurante;
     }
 

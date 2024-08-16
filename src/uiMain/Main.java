@@ -71,7 +71,7 @@ public class Main {
         clientes1.get(1).setMesa(mesa1);
         Restaurante.getClientes().add(clientes1.get(1));
 
-        clientes1.add(new Cliente("María", 003, "9876543"));
+        clientes1.add(new Cliente("María", 003, "9876543", new Factura()));
         clientes1.get(2).setMesa(mesa1);
         Restaurante.getClientes().add(clientes1.get(2));
 
@@ -261,13 +261,10 @@ public class Main {
                     limpiarPantalla();
                     System.out.println("Funcionalidad 2.");
                     ordenarComida();
-                    encendido = false;
-
                     break;
                 case 3:
                     limpiarPantalla();
                     dejarRestaurante();
-                    encendido = false;
                     break;
                 case 4:
                     limpiarPantalla();

@@ -40,7 +40,7 @@ public class Funcionalidad3 {
     }
 
     // Interacción 1: cobrarFactura
-    // Este método es el encargado de cobrar la factura de una mesa en específico. Es la primera interacción de la funcionalidad número 3.
+    // Este metodo es el encargado de cobrar la factura de una mesa en específico. Es la primera interacción de la funcionalidad número 3.
     public static void cobrarFactura(Mesa mesa) {
         boolean encendido = true;
         do {
@@ -81,7 +81,7 @@ public class Funcionalidad3 {
         } while (encendido);
     }
 
-    // Este método pertenece a la primera interacción y se encarga de separar y cobrar la factura de la mesa que desea dejar el restaurante.
+    // Este metodo pertenece a la primera interacción y se encarga de separar y cobrar la factura de la mesa que desea dejar el restaurante.
     public static void separarFactura(Mesa mesa) {
         boolean encendido = true;
         do {
@@ -295,7 +295,7 @@ public class Funcionalidad3 {
         } while (encendido);
     }
 
-    // Este método se encarga de dar las opciones de método de pago a la hora de cobrar la factura.
+    // Este metodo se encarga de dar las opciones de metodo de pago a la hora de cobrar la factura.
     public static void escogerMetodoPago(Cliente clientePagador) {
         System.out.println("Por favor escoja el método de pago: " + clientePagador.getNombre());
         System.out.println("""

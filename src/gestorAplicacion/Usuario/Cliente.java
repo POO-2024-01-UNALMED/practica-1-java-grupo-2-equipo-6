@@ -28,10 +28,11 @@ public class Cliente extends Persona implements Serializable {
         this.afiliacion = afiliacion;
         this.placaVehiculo = placaVehiculo;
     }
-    public Cliente (String nombre, int cedula, String placaVehiculo){
+    public Cliente (String nombre, int cedula, String placaVehiculo, Factura factura){
         super(nombre, cedula);
         this.afiliacion = Afiliacion.NINGUNA;
         this.placaVehiculo = placaVehiculo;
+        this.factura = factura;
     }
 
     // Métodos
@@ -94,7 +95,7 @@ public class Cliente extends Persona implements Serializable {
         platosFavoritos.add(plato);
     }
 
-    public void resetAtributos() {
+    public void resetDatosReserva() {
         this.restaurante = null;
         this.mesa = null;
         this.factura = null;

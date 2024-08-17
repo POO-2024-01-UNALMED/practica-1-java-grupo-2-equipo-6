@@ -6,6 +6,7 @@ import gestorAplicacion.Entorno.Zona;
 import gestorAplicacion.Gestion.Ingrediente;
 import gestorAplicacion.Entorno.Mesa;
 import gestorAplicacion.Gestion.Plato;
+import gestorAplicacion.Gestion.Reserva;
 import gestorAplicacion.Gestion.Restaurante;
 
 import static uiMain.Main.*;
@@ -71,6 +72,34 @@ public class Funcionalidad4 implements Utilidad {
                         restaurante = parametrosBasicos(ciudad, restaurante);
                     } else { //Si la ciudad tiene restaurantes
                         //Análisis de reservas
+                        ArrayList<Reserva> reservasUltimosTreinta = new ArrayList<Reserva>();
+                        ArrayList<ArrayList<Integer>> intentosUltimosTreinta = new ArrayList<ArrayList<Integer>>();
+                        //Agregamos los datos que corresponden a los últimos 30 días de funcionamiento del restaurante
+                        for (Reserva reserva : restaurante.getHistorialReservas()) {
+                            LocalDate fechaToDate = LocalDate.of(reserva.getFecha().get(0), reserva.getFecha().get(1),
+                                    reserva.getFecha().get(2));
+                            if (fechaToDate.isAfter(LocalDate.now().minusDays(30)) &&
+                                    fechaToDate.isBefore(LocalDate.now())) {
+                                reservasUltimosTreinta.add(reserva);
+                            }
+                        }
+                        for (ArrayList<Integer> intento : restaurante.getIntentosReserva()) {
+
+                        }
+
+                        //Demanda por Hora
+//                        if() {
+//                            int intRes = restaurante.getIntentosReserva().size();
+//                            int hrsFun = 0;
+//
+//                            for (Reserva reserva : reservasUltimosTreinta) {
+//
+//                            }
+//                        }
+
+
+                        //Satisfacción del Cliente
+
                         restaurante = parametrosBasicos(ciudad, restaurante);
                     }
 

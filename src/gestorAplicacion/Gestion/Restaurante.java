@@ -7,6 +7,7 @@ import gestorAplicacion.Entorno.Zona;
 import gestorAplicacion.Usuario.Cliente;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.SequencedCollection;
@@ -15,6 +16,7 @@ import static uiMain.Utilidad.intersectarListas;
 
 public class Restaurante implements Serializable {
     // Atributos
+    private ArrayList<ArrayList<Integer>> intentosReserva;
     private Cliente cliente;
     private static ArrayList<Restaurante> restaurantes = new ArrayList<Restaurante>();
     public static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
@@ -347,6 +349,12 @@ public class Restaurante implements Serializable {
     }
     public ArrayList<Boolean> getParqueadero() {
         return parqueadero;
+    }
+    public ArrayList<ArrayList<Integer>> getIntentosReserva() {
+        return intentosReserva;
+    }
+    public void anadirIntentosReserva(ArrayList<Integer> intentoReserva) {
+        intentosReserva.add(intentoReserva);
     }
 
     public Cliente getCliente() {

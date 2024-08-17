@@ -606,6 +606,9 @@ public class Funcionalidad3 implements Utilidad {
                 if (calificacionPlato >= 4.5) {
                     cliente.agregarPlatoFavorito(plato);
                 }
+                if (calificacionPlato >= 3) {
+                    cliente.getReserva().setSatisfaccion(true);
+                }
                 plato.setCalificacion(calificacionPlato);
                 Cliente.despedida(cliente); //Caso #1 Ligadura dinámica
                 System.out.println("Gracias por su calificación.");

@@ -14,6 +14,7 @@ public class Reserva implements Serializable {
     //Preguntarle a Colo por esta vaina del Date
     private ArrayList<Integer> fecha; //[2024, 8, 23, 16]
     private Restaurante restaurante;
+    private boolean satisfaccion = false;
 
     //Constructores
     public Reserva(){}
@@ -37,6 +38,8 @@ public class Reserva implements Serializable {
     }
     public Restaurante getRestaurante() {return restaurante;}
     public void setRestaurante(Restaurante restaurante) {this.restaurante = restaurante;}
+    public boolean isSatisfaccion() {return satisfaccion;}
+    public void setSatisfaccion(boolean satisfaccion) {this.satisfaccion = satisfaccion;}
 
     @Override
     public String toString() {

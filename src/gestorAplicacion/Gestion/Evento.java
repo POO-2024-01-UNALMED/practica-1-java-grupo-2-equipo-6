@@ -4,6 +4,7 @@ import gestorAplicacion.Usuario.Cliente;
 import java.util.ArrayList;
 import java.util.Date;
 public class Evento {
+    private static ArrayList<Evento> eventos = new ArrayList<Evento>();
     private String nombreEvento;
     private String descripcion;
     private String nombreMotivo;

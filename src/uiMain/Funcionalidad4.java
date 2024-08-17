@@ -9,12 +9,12 @@ import gestorAplicacion.Gestion.Plato;
 import gestorAplicacion.Gestion.Restaurante;
 
 import static uiMain.Main.*;
-import static uiMain.Utilidad.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Funcionalidad4 {
+//Desarrollado por Samuel Colorado
+public class Funcionalidad4 implements Utilidad {
 
     //Este metodo se encarga del inicio de la funcionalidad, preguntando si se quiere proceder o no con ella.
     public static Restaurante agregarSede() {
@@ -26,10 +26,10 @@ public class Funcionalidad4 {
                     1. Sí.
                     2. No.
                     Escriba un número para elegir su opción.""");
-            int eleccion = readInt();
+            int eleccion = Utilidad.readInt();
             switch (eleccion) {
                 case 1:
-                    limpiarPantalla();
+                    Utilidad.limpiarPantalla();
                     System.out.println("Interacción 1.");
                     restaurante = elegirZona(restaurante);
                     establecerDisposicion(restaurante);
@@ -37,12 +37,12 @@ public class Funcionalidad4 {
                     encendido = false;
                     break;
                 case 2:
-                    limpiarPantalla();
+                    Utilidad.limpiarPantalla();
                     menuPrincipal();
                     encendido = false;
                     break;
                 default:
-                    limpiarPantalla();
+                    Utilidad.limpiarPantalla();
                     System.out.println("Ingrese un número válido [1 - 2].");
                     break;
             }
@@ -57,14 +57,14 @@ public class Funcionalidad4 {
         do {
             //Se muestran las ciudades de las que se tienen datos
             System.out.println("Ciudades:");
-            listadoCiudades();
+            Utilidad.listadoCiudades();
             System.out.println("Escriba un número para elegir la ciudad.\nEn caso de no encontrar la ciudad " +
                     "requerida escriba 0.");
-            int eleccion1 = readInt();
+            int eleccion1 = Utilidad.readInt();
             if (eleccion1 > ciudades.size() || eleccion1 < 0) {
                 System.out.println("Ingrese un número válido [1 - " + ciudades.size() + "].");
             } else {
-                limpiarPantalla();
+                Utilidad.limpiarPantalla();
                 if (!(eleccion1 == 0)) { //Si se encuentra la ciudad
                     Ciudad ciudad = ciudades.get(eleccion1 - 1);
                     if (ciudad.getRestaurantes().isEmpty()) { //Si la ciudad no tiene restaurantes
@@ -76,21 +76,21 @@ public class Funcionalidad4 {
 
                 } else { //Si no se encuentra la ciudad
                     System.out.println("Por favor ingrese el nombre de la ciudad.");
-                    Ciudad ciudad = new Ciudad(capitalize(readString()));
+                    Ciudad ciudad = new Ciudad(Utilidad.capitalize(Utilidad.readString()));
                     ciudades.add(ciudad);
                     System.out.println("Por favor ingrese la cantidad de zonas que tiene la ciudad.");
-                    int cantidadZonas = readInt();
+                    int cantidadZonas = Utilidad.readInt();
                     //Este ciclo for se encarga de la creación de las zonas de la nueva ciudad.
                     for (int i = 1; i <= cantidadZonas; i++) {
                         System.out.println("Por favor ingrese el nombre de la zona #" + i + '.');
-                        String nombreZona = capitalize(readString());
+                        String nombreZona = Utilidad.capitalize(Utilidad.readString());
                         System.out.println("Por favor ingrese la población de la zona #" + i + '.');
-                        int poblacionZona = readInt();
-                        ciudad.getZonas().add(new Zona(poblacionZona, capitalize(nombreZona), ciudad));
+                        int poblacionZona = Utilidad.readInt();
+                        ciudad.getZonas().add(new Zona(poblacionZona, Utilidad.capitalize(nombreZona), ciudad));
                         ciudad.actualizarPoblacion();
                         System.out.println(ciudad.getZonas().getLast());
                     }
-                    limpiarPantalla();
+                    Utilidad.limpiarPantalla();
                     restaurante = parametrosBasicos(ciudad, restaurante);
                 }
                 encendido = false;
@@ -135,15 +135,15 @@ public class Funcionalidad4 {
     //Este metodo se encarga de definir los parámetros básicos del restaurante: Ciudad, Zona, Zona VIP y Calificación
     public static Restaurante parametrosBasicos(Ciudad ciudad, Restaurante restaurante) {
         System.out.println("Zonas de " + ciudad.getNombre() + ":");
-        listadoZonasCiudad(ciudad);
+        Utilidad.listadoZonasCiudad(ciudad);
         System.out.println("Escriba un número para elegir la zona.\nEn caso de no encontrar la zona " +
                 "requerida escriba 0.");
-        int eleccionZona1 = readInt();
+        int eleccionZona1 = Utilidad.readInt();
         if (eleccionZona1 > ciudades.size() || eleccionZona1 < 0) {
             System.out.println("Ingrese un número válido [1 - " + ciudad.getZonas().size() + "].");
             parametrosBasicos(ciudad, restaurante);
         } else {
-            limpiarPantalla();
+            Utilidad.limpiarPantalla();
             if (!(eleccionZona1 == 0)) { //Si se encuentra la zona
                 Zona zonaElegida = ciudad.getZonas().get(eleccionZona1 - 1);
                 //Se evalúa si existen restaurantes enlazados a esta zona.
@@ -158,7 +158,7 @@ public class Funcionalidad4 {
                     ciudad.getRestaurantes().add(restaurante);
                     //Se establecen los parámetros básicos del restaurante
                     System.out.println("¿El restaurante tendrá zona VIP?\n1. Sí.\n2. No.\nEscriba un número para elegir.");
-                    int tieneVIP = readInt();
+                    int tieneVIP = Utilidad.readInt();
                     if (tieneVIP == 1) {
                         restaurante.setZonaVIP(true);
                     } else if (tieneVIP == 2) {
@@ -179,10 +179,10 @@ public class Funcionalidad4 {
                     ciudad.getRestaurantes().add(restaurante);
                     //Se establecen los parámetros básicos del restaurante
                     System.out.println("Ingrese el nombre del restaurante:");
-                    String nombre = capitalize(readString());
+                    String nombre = Utilidad.capitalize(Utilidad.readString());
                     restaurante.setNombre(nombre);
                     System.out.println("¿El restaurante tendrá zona VIP?\n1. Sí.\n2. No.\nEscriba un número para elegir.");
-                    int tieneVIP = readInt();
+                    int tieneVIP = Utilidad.readInt();
                     if (tieneVIP == 1) {
                         restaurante.setZonaVIP(true);
                     } else if (tieneVIP == 2) {
@@ -194,21 +194,21 @@ public class Funcionalidad4 {
 
             } else { //Si no se encuentra la zona
                 System.out.println("Por favor ingrese el nombre de la zona.");
-                String nombreZona = capitalize(readString());
+                String nombreZona = Utilidad.capitalize(Utilidad.readString());
                 System.out.println("Por favor ingrese la población de la zona.");
-                int poblacionZona = readInt();
-                ciudad.getZonas().add(new Zona(poblacionZona, capitalize(nombreZona), ciudad));
+                int poblacionZona = Utilidad.readInt();
+                ciudad.getZonas().add(new Zona(poblacionZona, Utilidad.capitalize(nombreZona), ciudad));
                 ciudad.actualizarPoblacion();
                 restaurante.setCiudad(ciudad);
                 System.out.println("Zonas de " + ciudad.getNombre() + ":");
-                listadoZonasCiudad(ciudad);
+                Utilidad.listadoZonasCiudad(ciudad);
                 System.out.println("Escriba un número para elegir la zona.\nEn caso de no encontrar la zona " +
                         "requerida escriba 0.");
-                int eleccionZona2 = readInt();
+                int eleccionZona2 = Utilidad.readInt();
                 if (eleccionZona2 > ciudades.size() || eleccionZona2 < 0) {
                     System.out.println("Ingrese un número válido [1 - " + ciudad.getZonas().size() + "].");
                 } else {
-                    limpiarPantalla();
+                    Utilidad.limpiarPantalla();
                     //Se enlaza la ciudad al restaurante
                     restaurante.setCiudad(ciudad);
                     //Se enlaza la zona al restaurante
@@ -218,7 +218,7 @@ public class Funcionalidad4 {
                     //Se establecen los parámetros básicos del restaurante
                     System.out.println("¿El restaurante tendrá zona VIP?\n1. Sí.\n2. No.\nEscriba un número para " +
                             "elegir.");
-                    int tieneVIP = readInt();
+                    int tieneVIP = Utilidad.readInt();
                     if (tieneVIP == 1) {
                         restaurante.setZonaVIP(true);
                     } else {
@@ -234,7 +234,7 @@ public class Funcionalidad4 {
 
     //Funcionalidad 4. Interacción 2: Establecer Disposicion
     public static Restaurante establecerDisposicion(Restaurante restaurante) {
-        limpiarPantalla();
+        Utilidad.limpiarPantalla();
         if (Restaurante.restaurantesCreados > 3) {
             int[] promedios = obtenerPromedios();
             System.out.println("DISPOSICIÓN RECOMENDADA:\nTamaño:\n\tAncho = " + promedios[0] + "\n\tLargo = "
@@ -260,8 +260,10 @@ public class Funcionalidad4 {
         boolean encendido = true;
         int coordX, coordY;
         do {
-            coordX = readInt("Ingresa el ancho del restaurante:");
-            coordY = readInt("Ingresa el largo del restaurante:");
+            System.out.println("Ingresa el ancho del restaurante:");
+            coordX = Utilidad.readInt();
+            System.out.println("Ingresa el largo del restaurante:");
+            coordY = Utilidad.readInt();
             if (coordX > 4 && coordY > 4) {
                 encendido = false;
             } else {
@@ -328,7 +330,7 @@ public class Funcionalidad4 {
         do {
             System.out.println("¿Desea realizar otra modificación?\n1. Sí.\n2. No.\nEscriba un número para elegir " +
                     "su opción");
-            int decision = readInt();
+            int decision = Utilidad.readInt();
             switch (decision) {
                 case 1:
                     cambiarElemento(restaurante, coordX, coordY, chars, topRow, separator, bottomRow);
@@ -349,7 +351,7 @@ public class Funcionalidad4 {
                     if (!restaurante.getMesas().isEmpty() && tienePuerta && tieneVentana) {
                         modificando = false;
                     } else {
-                        limpiarPantalla();
+                        Utilidad.limpiarPantalla();
                         System.out.println("Es necesario añadir como mínimo una entrada, una mesa y una ventana.");
                         modificando = true;
                     }
@@ -369,9 +371,9 @@ public class Funcionalidad4 {
         int tileType;
         Mesa mesa;
         System.out.println("Escribe la coordenada en X:");
-        modCoordX = readInt();
+        modCoordX = Utilidad.readInt();
         System.out.println("Escribe la coordenada en Y:");
-        modCoordY = readInt();
+        modCoordY = Utilidad.readInt();
         Casilla casilla = eliminarCasillasRepetidas(restaurante, modCoordX, modCoordY);
         if (modCoordY < 1 || modCoordY > coordY || modCoordX < 1 || modCoordX > coordX) {
             System.out.println("Escribe valores válidos para ambas coordenadas\nX = [1 - " + coordX + "]\n" +
@@ -384,7 +386,7 @@ public class Funcionalidad4 {
                 cambiarElemento(restaurante, coordX, coordY, chars, topRow, separator, bottomRow);
             } else if (modCoordY == 1 || modCoordY == coordY || modCoordX == 1 || modCoordX == coordX) {
                 System.out.println("Reemplazar por:\n1. Pared (B).\n2. Ventana (W).\n3. Entrada (E).");
-                tileType = readInt();
+                tileType = Utilidad.readInt();
                 switch (tileType) {
                     case 1:
                         restaurante.getDisposicion().get(modCoordY).set(modCoordX - 1, "B");
@@ -408,7 +410,7 @@ public class Funcionalidad4 {
             } else {
                 System.out.println("Reemplazar por:\n1. Espacio Vacío ( ).\n2. Mesa Estándar (T).\n" +
                         "3. Mesa VIP (V).");
-                tileType = readInt();
+                tileType = Utilidad.readInt();
                 switch (tileType) {
                     case 1:
                         restaurante.getDisposicion().get(modCoordY).set(modCoordX - 1, " ");
@@ -450,7 +452,7 @@ public class Funcionalidad4 {
                         restaurante.getDisposicion().get(modCoordY).set(modCoordX - 1, " ");
                 }
             }
-            limpiarPantalla();
+            Utilidad.limpiarPantalla();
             imprimirDisposicionRestaurante(restaurante.getDisposicion(), coordX, coordY, chars, topRow, separator,
                     bottomRow);
         }
@@ -517,9 +519,9 @@ public class Funcionalidad4 {
     //Funcionalidad 4. Interacción 3: Establecer Menú y Encargos
     private static void establecerMenuYEncargos(Restaurante restaurante) {
         if (Restaurante.restaurantesCreados > 2) {
-            listadoPlatosCalificacion();
+            Utilidad.listadoPlatosCalificacion();
             System.out.println("¿Desea conservar el menú generado?\n1. Sí.\n2. No.");
-            int eleccion1 = readInt();
+            int eleccion1 = Utilidad.readInt();
             switch (eleccion1) {
                 case 1: //Si se quiere adoptar el menú generado
                     for (int i = 0; i < 10; i++) {
@@ -531,21 +533,23 @@ public class Funcionalidad4 {
                     }
                     break;
                 case 2: //Si no se quiere adoptar el menú generado
-                    listadoPlatos();
+                    Utilidad.listadoPlatos();
                     boolean encendido = true;
                     do {
                         System.out.println("\nElija la situación que mejor se acomode a su situación con respecto a " +
                                 "la creación del menú y la lista presentada:\n1. Todos los platos están presentes." +
                                 "\n2. Algunos platos están presentes.\n3. Ningún plato está presente.");
-                        int eleccion2 = readInt();
+                        int eleccion2 = Utilidad.readInt();
                         int numPlatos;
                         switch (eleccion2) {
                             case 1:
-                                numPlatos = readInt("Ingrese la cantidad de platos que desea agregar:");
+                                System.out.println("Ingrese la cantidad de platos que desea agregar:");
+                                numPlatos = Utilidad.readInt();
                                 System.out.println("Escriba el número de lista donde está cada uno de los " +
                                         numPlatos + " platos necesarios.");
                                 for (int i = 0; i < numPlatos; i++) {
-                                    int indice = readInt("Ingresa el número del plato #" + (i + 1));
+                                    System.out.println("Ingresa el número del plato #" + (i + 1));
+                                    int indice = Utilidad.readInt();
                                     restaurante.getMenu().add(platos.get(indice - 1));
                                 }
                                 encendido = false;
@@ -563,11 +567,11 @@ public class Funcionalidad4 {
                         }
                     } while (encendido);
 
-
-                    int platosNuevos = readInt("Ingrese la cantidad de platos a crear:");
+                    System.out.println("Ingrese la cantidad de platos a crear:");
+                    int platosNuevos = Utilidad.readInt();
                     for (int i = 0; i < platosNuevos; i++) {
-                        listadoPlatos();
-                        listadoIngredientes();
+                        Utilidad.listadoPlatos();
+                        Utilidad.listadoIngredientes();
                         Plato plato = crearPlato();
                         restaurante.getMenu().add(plato);
                         platos.add(plato);
@@ -578,10 +582,11 @@ public class Funcionalidad4 {
                     establecerMenuYEncargos(restaurante);
             }
         } else {
-            int platosNuevos = readInt("Ingrese la cantidad de platos a crear:");
+            System.out.println("Ingrese la cantidad de platos a crear:");
+            int platosNuevos = Utilidad.readInt();
             for (int i = 0; i < platosNuevos; i++) {
-                listadoPlatos();
-                listadoIngredientes();
+                Utilidad.listadoPlatos();
+                Utilidad.listadoIngredientes();
                 Plato plato = crearPlato();
                 restaurante.getMenu().add(plato);
                 platos.add(plato);
@@ -592,7 +597,7 @@ public class Funcionalidad4 {
 
     private static Plato crearPlato() {
         System.out.println("Ingrese el nombre del plato, sin tildes.");
-        String nombre = capitalize(readString());
+        String nombre = Utilidad.capitalize(Utilidad.readString());
         boolean existe = false;
         int indiceExiste = 0;
         Plato platoRetorno = new Plato();
@@ -605,38 +610,41 @@ public class Funcionalidad4 {
         }
         if (!existe) {
             System.out.println("Ingrese el precio del plato, sin decimales.");
-            int precio = readInt();
+            int precio = Utilidad.readInt();
             System.out.println("Ingrese la cantidad de ingredientes que tiene el plato.");
-            int numIngredientes = readInt();
-            limpiarPantalla();
-            listadoIngredientes();
+            int numIngredientes = Utilidad.readInt();
+            Utilidad.limpiarPantalla();
+            Utilidad.listadoIngredientes();
             ArrayList<Ingrediente> ingredientesPlato = new ArrayList<Ingrediente>();
             System.out.println("\nElija la situación que mejor se acomode a su situación actual con respecto a la " +
                     "lista presentada:\n1. Todos los ingredientes están presentes.\n2. Algunos ingredientes están" +
                     " presentes.\n3. Ningún ingrediente está presente.");
-            int eleccion = readInt();
+            int eleccion = Utilidad.readInt();
             switch (eleccion) {
                 case 1:
                     System.out.println("Escriba el número de lista donde está cada uno de los " + numIngredientes +
                             " ingredientes necesarios.");
                     for (int i = 0; i < numIngredientes; i++) {
-                        int indice = readInt("Ingresa el número del ingrediente #" + (i + 1));
+                        System.out.println("Ingresa el número del ingrediente #" + (i + 1));
+                        int indice = Utilidad.readInt();
                         ingredientesPlato.add(ingredientes.get(indice - 1));
                     }
                     break;
                 case 2:
-                    int numIngExistentes = readInt("Ingrese la cantidad de ingredientes que ya están presentes.");
+                    System.out.println("Ingrese la cantidad de ingredientes que ya están presentes.");
+                    int numIngExistentes = Utilidad.readInt();
                     System.out.println("Escriba el número de lista donde está cada uno de los " + numIngExistentes +
                             "ingredientes necesarios.");
                     for (int i = 0; i < numIngExistentes; i++) {
-                        int indice = readInt("Ingresa el número del ingrediente #" + (i + 1));
+                        System.out.println("Ingresa el número del ingrediente #" + (i + 1));
+                        int indice = Utilidad.readInt();
                         ingredientesPlato.add(ingredientes.get(indice - 1));
                     }
                     for (int i = 0; i < (numIngredientes - numIngExistentes); i++) {
                         System.out.println("Ingrese el nombre del nuevo ingrediente.");
-                        String nombreIngrediente = capitalize(readString());
+                        String nombreIngrediente = Utilidad.capitalize(Utilidad.readString());
                         System.out.println("Ingrese el precio unitario del nuevo ingrediente.");
-                        int precioIngrediente = readInt();
+                        int precioIngrediente = Utilidad.readInt();
                         Ingrediente ingrediente = new Ingrediente(nombreIngrediente, precioIngrediente);
                         ingredientes.add(ingrediente);
                         ingredientesPlato.add(ingrediente);
@@ -645,9 +653,9 @@ public class Funcionalidad4 {
                 case 3:
                     for (int i = 0; i < numIngredientes; i++) {
                         System.out.println("Ingrese el nombre del nuevo ingrediente.");
-                        String nombreIngrediente = capitalize(readString());
+                        String nombreIngrediente = Utilidad.capitalize(Utilidad.readString());
                         System.out.println("Ingrese el precio unitario del nuevo ingrediente.");
-                        int precioIngrediente = readInt();
+                        int precioIngrediente = Utilidad.readInt();
                         Ingrediente ingrediente = new Ingrediente(nombreIngrediente, precioIngrediente);
                         ingredientes.add(ingrediente);
                         ingredientesPlato.add(ingrediente);
@@ -660,5 +668,4 @@ public class Funcionalidad4 {
         }
         return platoRetorno;
     }
-
 }

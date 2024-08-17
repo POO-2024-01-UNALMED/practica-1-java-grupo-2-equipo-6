@@ -4,9 +4,8 @@ import gestorAplicacion.Entorno.*;
 import gestorAplicacion.Usuario.*;
 import java.util.*;
 import static uiMain.Main.*;
-import static uiMain.Utilidad.*;
 
-public class Funcionalidad3 {
+public class Funcionalidad3 implements Utilidad {
     public static void dejarRestaurante() {
         boolean encendido = true;
         do {
@@ -15,24 +14,24 @@ public class Funcionalidad3 {
                     1. Sí.
                     2. No.
                     Escriba un número para elegir su opción.""");
-            int eleccion = readInt();
+            int eleccion = Utilidad.readInt();
             switch (eleccion) {
                 case 1:
-                    limpiarPantalla();
+                    Utilidad.limpiarPantalla();
                     System.out.println("Ingrese el número de cédula del cliente que va a dejar el restaurante");
-                    int cedula = readInt();
-                    Cliente cliente = clienteCedula(new Cliente("", cedula));
+                    int cedula = Utilidad.readInt();
+                    Cliente cliente = Utilidad.clienteCedula(new Cliente("", cedula));
                     Mesa mesa = cliente.getMesa();
                     cobrarFactura(mesa);
                     encendido = false;
                     break;
                 case 2:
-                    limpiarPantalla();
+                    Utilidad.limpiarPantalla();
                     menuPrincipal();
                     encendido = false;
                     break;
                 default:
-                    limpiarPantalla();
+                    Utilidad.limpiarPantalla();
                     System.out.println("Ingrese un número válido [1 - 2].");
                     break;
             }
@@ -55,11 +54,11 @@ public class Funcionalidad3 {
                     1. Sí.
                     2. No.
                     Escriba un número para elegir su opción.""");
-            int eleccion = readInt();
+            int eleccion = Utilidad.readInt();
             switch (eleccion) {
                 case 1:
                     System.out.println("Por favor ingrese el valor de la propina.");
-                    int propina = readInt();
+                    int propina = Utilidad.readInt();
                     valorFactura += propina;
                     mesa.setValorTotal(valorFactura);
                     System.out.println("El valor de la factura con propina es: " + valorFactura);
@@ -90,12 +89,12 @@ public class Funcionalidad3 {
                     1. Sí.
                     2. No.
                     Escriba un número para elegir su opción.""");
-            int eleccion = readInt();
+            int eleccion = Utilidad.readInt();
             switch (eleccion) {
                 case 1:
                     System.out.println("Por favor ingrese el número de personas que van a pagar la factura.");
                     int cedula = 0;
-                    int numeroPersonas = readInt();
+                    int numeroPersonas = Utilidad.readInt();
                     if (numeroPersonas == mesa.getClientes().size()) {
                         ArrayList<Cliente> clientesPagadores = new ArrayList<Cliente>();
                         System.out.println("¿Todos desean pagar el mismo monto?");
@@ -103,13 +102,13 @@ public class Funcionalidad3 {
                                 1. Sí.
                                 2. No.
                                 Escriba un número para elegir su opción.""");
-                        int eleccion2 = readInt();
+                        int eleccion2 = Utilidad.readInt();
                         switch (eleccion2) {
                             case 1:
                                 int valorFactura = mesa.getValorTotal();
                                 int valorPorPersona = valorFactura / numeroPersonas;
                                 System.out.println("El valor por persona es: " + valorPorPersona);
-                                limpiarPantalla();
+                                Utilidad.limpiarPantalla();
                                 clientesPagadores = mesa.getClientes();
                                 for (Cliente clientePagador : clientesPagadores) {
                                     escogerMetodoPago(clientePagador);
@@ -122,7 +121,7 @@ public class Funcionalidad3 {
                                                     1. Sí.
                                                     2. No.
                                                     Escriba un número para elegir su opción.""");
-                                        int confirmacion = readInt();
+                                        int confirmacion = Utilidad.readInt();
                                         switch (confirmacion) {
                                             case 1:
                                                 System.out.println("Transacción confirmada.");
@@ -156,7 +155,7 @@ public class Funcionalidad3 {
                                                 1. Sí.
                                                 2. No.
                                                 Escriba un número para elegir su opción.""");
-                                        int confirmacion = readInt();
+                                        int confirmacion = Utilidad.readInt();
                                         switch (confirmacion) {
                                             case 1:
                                                 System.out.println("Transacción confirmada.");
@@ -184,7 +183,7 @@ public class Funcionalidad3 {
                         while (mesa.getValorTotal() > 0 && personasProcesadas < numeroPersonas) {
                             for (int j = 0; j < numeroPersonas; j++) {
                                 System.out.println("Ingrese la cédula de la persona que pagará la factura.");
-                                cedula = readInt();
+                                cedula = Utilidad.readInt();
 
                                 // Verificar si la cédula ingresada corresponde a algún cliente
                                 boolean cedulaValida = false;
@@ -199,7 +198,7 @@ public class Funcionalidad3 {
                                 }
                                 if (cedulaValida) {
                                     System.out.println("Ingrese la cantidad que desea pagar.");
-                                    int valor = readInt();
+                                    int valor = Utilidad.readInt();
                                     if (valor > mesa.getValorTotal()) {
                                         System.out.println("El valor ingresado es mayor al valor de la factura.");
                                     } else {
@@ -226,14 +225,14 @@ public class Funcionalidad3 {
                             for (int i = 0; i < clientesPagadores.size(); i++) {
                                 System.out.println(i + 1 + ". " + clientesPagadores.get(i).getNombre());
                             }
-                            int clienteAPagar = readInt();
+                            int clienteAPagar = Utilidad.readInt();
                             System.out.println("Debe pagar el total restante de: " + mesa.getValorTotal());
                             System.out.println("¿Desea confirmar la transacción?");
                             System.out.println("""
                                             1. Sí.
                                             2. No.
                                             Escriba un número para elegir su opción.""");
-                            int confirmacion = readInt();
+                            int confirmacion = Utilidad.readInt();
                             switch (confirmacion) {
                                 case 1:
                                     System.out.println("Transacción confirmada.");
@@ -251,8 +250,9 @@ public class Funcionalidad3 {
                     encendido = false;
                     break;
                 case 2:
-                    limpiarPantalla();
-                    int cedulaCliente = readInt("Ingrese la cédula del cliente que realizará el pago.");
+                    Utilidad.limpiarPantalla();
+                    System.out.println("Ingrese la cédula del cliente que realizará el pago.");
+                    int cedulaCliente = Utilidad.readInt();
                     for (Cliente cliente : mesa.getClientes()) {
                         if (cliente.getCedula() == cedulaCliente) {
                             escogerMetodoPago(cliente);
@@ -264,7 +264,7 @@ public class Funcionalidad3 {
                                         1. Sí.
                                         2. No.
                                         Escriba un número para elegir su opción.""");
-                                int confirmacion = readInt();
+                                int confirmacion = Utilidad.readInt();
                                 switch (confirmacion) {
                                     case 1:
                                         System.out.println("Transacción confirmada.");
@@ -304,7 +304,7 @@ public class Funcionalidad3 {
                 3. Cheque.
                 4. Puntos.
                 Escriba un número para elegir su opción.""");
-        int metodoPago = readInt();
+        int metodoPago = Utilidad.readInt();
         ArrayList<String> metodosPago = new ArrayList<String>();
         switch (metodoPago) {
             case 1:
@@ -340,14 +340,14 @@ public class Funcionalidad3 {
                     1. Sí.
                     2. No.
                     Escriba un número para elegir su opción.""");
-            int eleccion = readInt();
+            int eleccion = Utilidad.readInt();
             switch (eleccion){
                 case 1:
                     System.out.println("¿Cuántos clientes desean hacer una reservación?");
-                    int numeroClientes = readInt();
+                    int numeroClientes = Utilidad.readInt();
                     for (int i = 0; i < numeroClientes; i++){
                         System.out.println("Ingrese la cédula del cliente que desea reservar.");
-                        int cedula = readInt();
+                        int cedula = Utilidad.readInt();
                         for (Cliente cliente : mesa.getClientes()){
                             if (cliente.getCedula() == cedula){
                                 if (cliente.getAfiliacion() != null){
@@ -359,7 +359,7 @@ public class Funcionalidad3 {
                                             1. Sí.
                                             2. No.
                                             Escriba un número para elegir su opción.""");
-                                    int eleccion2 = readInt();
+                                    int eleccion2 = Utilidad.readInt();
                                     switch (eleccion2){
                                         case 1:
                                             System.out.println("¿Qué nivel de afiliación desea?");
@@ -368,7 +368,7 @@ public class Funcionalidad3 {
                                                     2. Estrella.
                                                     3. Super estrellota.
                                                     Escriba un número para elegir su opción.""");
-                                            int nivelAfiliacion = readInt();
+                                            int nivelAfiliacion = Utilidad.readInt();
                                             switch (nivelAfiliacion){
                                                 case 1:
                                                     boolean transaccionConfirmada = false;
@@ -378,7 +378,7 @@ public class Funcionalidad3 {
                                                                 1. Sí.
                                                                 2. No.
                                                                 Escriba un número para elegir su opción.""");
-                                                        int confirmacion = readInt();
+                                                        int confirmacion = Utilidad.readInt();
                                                         switch (confirmacion) {
                                                             case 1:
                                                                 System.out.println("Transacción confirmada.");
@@ -403,7 +403,7 @@ public class Funcionalidad3 {
                                                                 1. Sí.
                                                                 2. No.
                                                                 Escriba un número para elegir su opción.""");
-                                                        int confirmacion = readInt();
+                                                        int confirmacion = Utilidad.readInt();
                                                         switch (confirmacion) {
                                                             case 1:
                                                                 System.out.println("Transacción confirmada.");
@@ -428,7 +428,7 @@ public class Funcionalidad3 {
                                                                 1. Sí.
                                                                 2. No.
                                                                 Escriba un número para elegir su opción.""");
-                                                        int confirmacion = readInt();
+                                                        int confirmacion = Utilidad.readInt();
                                                         switch (confirmacion) {
                                                             case 1:
                                                                 System.out.println("Transacción confirmada.");
@@ -467,7 +467,7 @@ public class Funcionalidad3 {
                                     1. Sí.
                                     2. No.
                                     Escriba un número para elegir su opción.""");
-                            int eleccion3 = readInt();
+                            int eleccion3 = Utilidad.readInt();
                             switch (eleccion3){
                                 case 1:
                                     System.out.println("¿Qué nivel de afiliación desea?");
@@ -476,7 +476,7 @@ public class Funcionalidad3 {
                                             2. Estrella.
                                             3. Super estrellota.
                                             Escriba un número para elegir su opción.""");
-                                    int nivelAfiliacion = readInt();
+                                    int nivelAfiliacion = Utilidad.readInt();
                                     switch (nivelAfiliacion){
                                         case 1:
                                             boolean transaccionConfirmada = false;
@@ -486,7 +486,7 @@ public class Funcionalidad3 {
                                                                 1. Sí.
                                                                 2. No.
                                                                 Escriba un número para elegir su opción.""");
-                                                int confirmacion = readInt();
+                                                int confirmacion = Utilidad.readInt();
                                                 switch (confirmacion) {
                                                     case 1:
                                                         System.out.println("Transacción confirmada.");
@@ -510,7 +510,7 @@ public class Funcionalidad3 {
                                                         1. Sí.
                                                         2. No.
                                                         Escriba un número para elegir su opción.""");
-                                                int confirmacion = readInt();
+                                                int confirmacion = Utilidad.readInt();
                                                 switch (confirmacion) {
                                                     case 1:
                                                         System.out.println("Transacción confirmada.");
@@ -533,7 +533,7 @@ public class Funcionalidad3 {
                                                                 1. Sí.
                                                                 2. No.
                                                                 Escriba un número para elegir su opción.""");
-                                                int confirmacion = readInt();
+                                                int confirmacion = Utilidad.readInt();
                                                 switch (confirmacion) {
                                                     case 1:
                                                         System.out.println("Transacción confirmada.");
@@ -568,7 +568,7 @@ public class Funcionalidad3 {
 
     public static void calificarRestaurante(Cliente cliente){
         System.out.println("Por favor " + cliente.getNombre() + " califique el restaurante con una nota del 1 al 5.");
-        float calificacion = readFloat();
+        float calificacion = Utilidad.readFloat();
         if (calificacion >= 1 && calificacion <= 5) {
             System.out.println("Gracias por su calificación.");
             cliente.getMesa().getRestaurante().setCalificacion(calificacion);
@@ -580,11 +580,11 @@ public class Funcionalidad3 {
                 1. Sí.
                 2. No.
                 Escriba un número para elegir su opción.""");
-        int eleccion = readInt();
+        int eleccion = Utilidad.readInt();
         switch (eleccion) {
             case 1:
                 System.out.println("Por favor ingrese su reseña.");
-                String reseña = readString();
+                String reseña = Utilidad.readString();
                 cliente.getMesa().getRestaurante().añadirReseña(reseña);
                 if (cliente.getAfiliacion() != null) {
                     cliente.setPuntosAcumulados(cliente.getPuntosAcumulados() + 1);
@@ -600,7 +600,7 @@ public class Funcionalidad3 {
                 break;
         }
         System.out.println("Ingrese una calificación para su plato entre 1 y 5.");
-        float calificacionPlato = readFloat();
+        float calificacionPlato = Utilidad.readFloat();
         for (Plato plato : cliente.getFactura().getPedido().getPlatos()) {
             if (calificacionPlato >= 1 && calificacionPlato <= 5) {
                 if (calificacionPlato >= 4.5) {
@@ -653,18 +653,18 @@ public class Funcionalidad3 {
                             1. Añadir otro plato.
                             2. Traer un plato de otra sede.
                             Escriba un número para elegir su opción.""");
-                    int eleccion = readInt();
+                    int eleccion = Utilidad.readInt();
                     switch (eleccion){
                         case 1:
                             System.out.println("Por favor ingrese el nombre del plato.");
-                            String nombrePlato = readString();
+                            String nombrePlato = Utilidad.readString();
                             System.out.println("Por favor ingrese el precio del plato.");
-                            int precioPlato = readInt();
+                            int precioPlato = Utilidad.readInt();
                             System.out.println("Por favor ingrese los ingredientes del plato.");
                             ArrayList<Ingrediente> ingredientes = new ArrayList<>();
                             while (true){
                                 System.out.println("Por favor ingrese el nombre del ingrediente o Stop para detenerse:");
-                                String nombreIngrediente = readString();
+                                String nombreIngrediente = Utilidad.readString();
                                 for (Ingrediente ingrediente : Ingrediente.getListaIngredientes()){
                                     if (ingrediente.getNombre().equals(nombreIngrediente)){
                                         ingredientes.add(ingrediente);

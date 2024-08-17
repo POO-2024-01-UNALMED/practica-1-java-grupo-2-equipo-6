@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class Mesa extends Casilla implements Serializable {
     //Atributos
+    private static ArrayList<Mesa> mesas = new ArrayList<Mesa>();
     public static int contadorMesa = 1;
     private ArrayList<ArrayList<Integer>> fechasDisponibles = new ArrayList<ArrayList<Integer>>();
     private int numMesa;

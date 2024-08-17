@@ -1,13 +1,16 @@
 package gestorAplicacion.Entorno;
 
+import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Casilla {
-    private ArrayList<String> tipos = new ArrayList<>(Arrays.asList("MESA", "VENTANA", "PUERTA"));
+public class Casilla implements Serializable {
+    private static ArrayList<Casilla> casillas = new ArrayList<Casilla>();
+    private static ArrayList<String> tipos = new ArrayList<>(Arrays.asList("MESA", "VENTANA", "PUERTA"));
     public String tipo;
-    public int coordX;
-    public int coordY;
+    private int coordX;
+    private int coordY;
 
     public Casilla(){}
     public Casilla(int tipo, int coordX, int coordY) {

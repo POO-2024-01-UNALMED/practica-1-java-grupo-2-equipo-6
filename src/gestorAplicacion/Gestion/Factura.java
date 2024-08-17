@@ -1,8 +1,10 @@
 package gestorAplicacion.Gestion;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Factura {
+public class Factura implements Serializable {
+    private static ArrayList<Factura> facturas = new ArrayList<Factura>();
     Evento evento;
     //  Atributos
     private static int numeroFactura = 0;

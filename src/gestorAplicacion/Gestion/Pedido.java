@@ -1,7 +1,9 @@
 package gestorAplicacion.Gestion;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Pedido {
+public class Pedido implements Serializable {
+    private static ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
     private ArrayList<Plato> platos = new ArrayList<Plato>();
 
     public Pedido(){};

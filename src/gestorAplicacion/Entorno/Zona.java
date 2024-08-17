@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Zona implements Serializable {
     //Atributos
+    private static ArrayList<Zona> zonas = new ArrayList<Zona>();
     public Restaurante RestauranteZona;
     protected int poblacion;
     protected String nombre;

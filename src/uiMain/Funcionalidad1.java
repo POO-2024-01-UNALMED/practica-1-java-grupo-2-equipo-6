@@ -14,9 +14,8 @@ import java.util.Objects;
 import static uiMain.Funcionalidad3.escogerMetodoPago;
 import static uiMain.Main.ciudades;
 import static uiMain.Main.menuPrincipal;
-import static uiMain.Utilidad.*;
 
-public class Funcionalidad1 {
+public class Funcionalidad1 implements Utilidad{
     public static void reservarMesa() {
         boolean encendido1 = true;
         do {
@@ -25,19 +24,19 @@ public class Funcionalidad1 {
                     1. Sí.
                     2. No.
                     Escriba un número para elegir su opción.""");
-            int eleccion1 = readInt();
+            int eleccion1 = Utilidad.readInt();
             switch (eleccion1) {
                 case 1:
-                    limpiarPantalla();
+                    Utilidad.limpiarPantalla();
                     System.out.println("Ciudades:");
-                    listadoCiudades();
+                    Utilidad.listadoCiudades();
                     System.out.println("Escriba un número para elegir la ciudad.\nEn caso de no encontrar la ciudad " +
                             "requerida escriba 0.");
-                    int eleccion2 = readInt();
+                    int eleccion2 = Utilidad.readInt();
                     if (eleccion2 > ciudades.size() || eleccion2 < 0) {
                         System.out.println("Ingrese un número válido [1 - " + ciudades.size() + "].");
                     } else {
-                        limpiarPantalla();
+                        Utilidad.limpiarPantalla();
                         if (!(eleccion2 == 0)) { //Si se encuentra la ciudad
                             Ciudad ciudad = ciudades.get(eleccion2 - 1);
                             if (ciudad.getRestaurantes().isEmpty()) { //Si la ciudad no tiene restaurantes
@@ -46,23 +45,25 @@ public class Funcionalidad1 {
                             } else { //Si la ciudad tiene zonas
                                 boolean encendido2 = true;
                                 do {
-                                    limpiarPantalla();
+                                    Utilidad.limpiarPantalla();
                                     System.out.println("Zonas de " + ciudad.getNombre() + ":");
-                                    ArrayList<Zona> zonasConRestaurante = listadoZonasConRestauranteCiudad(ciudad);
-                                    int eleccion3 = readInt("Escriba un número para elegir la zona.");
+                                    ArrayList<Zona> zonasConRestaurante = Utilidad.listadoZonasConRestauranteCiudad(ciudad);
+                                    System.out.println("Escriba un número para elegir la zona.");
+                                    int eleccion3 = Utilidad.readInt();
                                     if (eleccion3 > zonasConRestaurante.size() || eleccion3 < 1) { //Si no se encuentra la zona
                                         System.out.println("Ingrese un número válido [1 - " + zonasConRestaurante.size() +
                                                 "].");
                                     } else { //Si se encuentra la zona
-                                        limpiarPantalla();
+                                        Utilidad.limpiarPantalla();
                                         Zona zona = zonasConRestaurante.get(eleccion3 - 1);
                                         boolean encendido3 = true;
                                         do {
-                                            limpiarPantalla();
+                                            Utilidad.limpiarPantalla();
                                             System.out.println("Restaurantes de " + zona.getNombre() + ":");
-                                            listadoRestaurantesZona(zona);
-                                            int eleccion4 = readInt("Escriba un número para elegir el " +
+                                            Utilidad.listadoRestaurantesZona(zona);
+                                            System.out.println("Escriba un número para elegir el " +
                                                     "restaurante.");
+                                            int eleccion4 = Utilidad.readInt();
                                             if (eleccion4 > zona.getRestaurantes().size() || eleccion4 < 1) { //Si no se encuentra el restaurante
                                                 System.out.println("Ingrese un número válido [1 - " +
                                                         zona.getRestaurantes().size() + "].");
@@ -80,11 +81,12 @@ public class Funcionalidad1 {
                         } else { //Si no se encuentra la ciudad
                             System.out.println("Lo sentimos, pero estas son las únicas ciudades donde tenemos " +
                                     "restaurantes de nuestra cadena.");
-                            int eleccion4 = readInt("""
+                            System.out.println("""
                                     ¿Desea elegir otra ciudad?
                                     1. Sí.
                                     2. No.
                                     Escriba un número para elegir su opción.""");
+                            int eleccion4 = Utilidad.readInt();
                             if (eleccion4 == 1) {
                                 reservarMesa();
                             } else {
@@ -95,12 +97,12 @@ public class Funcionalidad1 {
                     }
                     break;
                 case 2:
-                    limpiarPantalla();
+                    Utilidad.limpiarPantalla();
                     menuPrincipal();
                     encendido1 = false;
                     break;
                 default:
-                    limpiarPantalla();
+                    Utilidad.limpiarPantalla();
                     System.out.println("Ingrese un número válido [1 - 2].");
                     break;
             }
@@ -110,32 +112,33 @@ public class Funcionalidad1 {
     public static Cliente seleccionMesa(Restaurante restaurante) {
         ArrayList<Cliente> clientes = new ArrayList<Cliente>();
         System.out.println("Ingrese el nombre del cliente:");
-        String nombre = capitalize(readString());
+        String nombre = Utilidad.capitalize(Utilidad.readString());
         System.out.println("Ingrese la cédula del cliente:");
-        int cedula = readInt();
+        int cedula = Utilidad.readInt();
         System.out.println("Ingrese la placa del vehículo del cliente (en caso de no tener escribir 0):");
-        String placaVehiculo = readString();
+        String placaVehiculo = Utilidad.readString();
         Cliente cliente = new Cliente(nombre, cedula, placaVehiculo, new Factura());
-        if (existeCliente(cliente)) {
-            cliente = clienteCedula(cliente);
+        if (Utilidad.existeCliente(cliente)) {
+            cliente = Utilidad.clienteCedula(cliente);
             clientes.add(cliente);
         } else {
             Restaurante.getClientes().add(cliente);
             clientes.add(cliente);
         }
         System.out.println("Ingrese la cantidad de acompañantes del cliente:");
-        int numAcompanantes = readInt("Ingrese la cantidad de acompañantes. No debe ser mayor a 6.\nEn caso de" +
+        System.out.println("Ingrese la cantidad de acompañantes. No debe ser mayor a 6.\nEn caso de" +
                 " ingresar un número mayor a 6, este será ignorado y se establecerá en 6.");
+        int numAcompanantes = Utilidad.readInt();
         if (numAcompanantes > 0) {
             if (numAcompanantes > 6) {numAcompanantes = 6;}
             for (int i = 0; i < numAcompanantes; i++) {
                 System.out.println("Ingrese el nombre del acompañante #" + (i + 1) + ":");
-                String nombreAcompanante = readString();
+                String nombreAcompanante = Utilidad.readString();
                 System.out.println("Ingrese la cédula del acompañante #" + (i + 1) + ":");
-                int cedulaAcompanante = readInt();
+                int cedulaAcompanante = Utilidad.readInt();
                 Cliente acompanante = new Cliente(nombreAcompanante, cedulaAcompanante);
-                acompanante = clienteCedula(acompanante);
-                if (existeCliente(acompanante)) {
+                acompanante = Utilidad.clienteCedula(acompanante);
+                if (Utilidad.existeCliente(acompanante)) {
                     clientes.add(acompanante);
                 } else {
                     Restaurante.getClientes().add(acompanante);
@@ -148,7 +151,8 @@ public class Funcionalidad1 {
         }
         boolean tipoMesa = false;
         boolean existe = false;
-        int eleccion1 = readInt("¿Qué tipo de mesa quiere usar?\n1. Estándar.\n2. VIP.");
+        System.out.println("¿Qué tipo de mesa quiere usar?\n1. Estándar.\n2. VIP.");
+        int eleccion1 = Utilidad.readInt();
         switch (eleccion1) {
             case 1:
                 for (Mesa mesa : restaurante.getMesas()) {
@@ -176,10 +180,11 @@ public class Funcionalidad1 {
                 break;
         }
         ArrayList<Integer> mesasElegidas = new ArrayList<Integer>();
-        int eleccion2 = readInt("Tiene preferencia por estar cerca de:\n1. Puerta.\n2. Ventana.\n3. Ninguna.");
+        System.out.println("Tiene preferencia por estar cerca de:\n1. Puerta.\n2. Ventana.\n3. Ninguna.");
+        int eleccion2 = Utilidad.readInt();
         switch (eleccion2) {
             case 1, 2:
-                mesasElegidas = calcularDistancia(restaurante, eleccion2, tipoMesa);
+                mesasElegidas = Utilidad.calcularDistancia(restaurante, eleccion2, tipoMesa);
                 break;
             default:
                 System.out.println("Debido a que ingresó un dato erróneo se asume que no tiene ninguna preferencia.");
@@ -188,7 +193,7 @@ public class Funcionalidad1 {
         boolean encendido1 = true;
         do {
             ArrayList<Integer> fechaElegida = seleccionFecha(restaurante, tipoMesa, mesasElegidas);
-            limpiarPantalla();
+            Utilidad.limpiarPantalla();
             System.out.println("Mesas disponibles para el día " + fechaElegida.get(2) + '/' + fechaElegida.get(1) + '/'
                     + fechaElegida.get(0) + ':');
             ArrayList<Mesa> mesasDisponibles = new ArrayList<Mesa>();
@@ -206,9 +211,11 @@ public class Funcionalidad1 {
                     System.out.println("#" + numMesa);
                 }
             }
-            int eleccion4 = readInt("¿Alguna de las mesas disponibles le es conveniente?\n1. Sí.\n2. No.");
+            System.out.println("¿Alguna de las mesas disponibles le es conveniente?\n1. Sí.\n2. No.");
+            int eleccion4 = Utilidad.readInt();
             if (eleccion4 == 1) {
-                int numMesa = readInt("Ingrese el número de la mesa de su preferencia.");
+                System.out.println("Ingrese el número de la mesa de su preferencia.");
+                int numMesa = Utilidad.readInt();
                 Mesa mesaElegida = new Mesa();
                 for (Mesa mesa : restaurante.getMesas()) {
                     if (mesa.getNumMesa() == numMesa) {
@@ -225,7 +232,7 @@ public class Funcionalidad1 {
                         }
                     }
                 }
-                limpiarPantalla();
+                Utilidad.limpiarPantalla();
                 int indiceFechaElegida = 0;
                 for (ArrayList<Integer> fecha : mesaElegida.getFechasDisponibles()) {
                     if (fecha.get(1) == fechaElegida.get(1) && Objects.equals(fecha.get(2), fechaElegida.get(2))) {
@@ -239,12 +246,14 @@ public class Funcionalidad1 {
                     System.out.println(i-2 + ". " + mesaElegida.getFechasDisponibles().get(indiceFechaElegida).get(i)
                             + ":00.");
                 }
-                int eleccion5 = readInt("¿Alguno de los horarios disponibles le es conveniente?\n1. Sí.\n2. No.");
+                System.out.println("¿Alguno de los horarios disponibles le es conveniente?\n1. Sí.\n2. No.");
+                int eleccion5 = Utilidad.readInt();
                 if (eleccion5 == 1) {
                     boolean encendido2 = true;
                     do {
-                        int horaElegida = readInt("Ingrese el horario de su preferencia. [1 - " +
+                        System.out.println("Ingrese el horario de su preferencia. [1 - " +
                                 (mesaElegida.getFechasDisponibles().get(indiceFechaElegida).size() - 3) + "].");
+                        int horaElegida = Utilidad.readInt();
                         if (horaElegida < 1 || horaElegida >
                                 mesaElegida.getFechasDisponibles().get(indiceFechaElegida).size() - 2) {
                             System.out.println("Ingrese un número válido [1 - " +
@@ -267,13 +276,15 @@ public class Funcionalidad1 {
                     } while (encendido2);
 
                 } else {
-                    int seguir1 = readInt("¿Desea elegir una fecha diferente?\n1. Sí.\n2. No.");
+                    System.out.println("¿Desea elegir una fecha diferente?\n1. Sí.\n2. No.");
+                    int seguir1 = Utilidad.readInt();
                     if (seguir1 != 1) {
                         encendido1 = false;
                     }
                 }
             } else {
-                int seguir2 = readInt("¿Desea elegir una fecha diferente?\n1. Sí.\n2. No.");
+                System.out.println("¿Desea elegir una fecha diferente?\n1. Sí.\n2. No.");
+                int seguir2 = Utilidad.readInt();
                 if (seguir2 != 1) {
                     encendido1 = false;
                 }
@@ -297,7 +308,8 @@ public class Funcionalidad1 {
         for (int i = 0; i < anios.size(); i++) {
             System.out.println((i + 1) + ". " + anios.get(i) + ".");
         }
-        int eleccion1 = readInt("Escriba un número para elegir su opción [1 - " + anios.size() + "].");
+        System.out.println("Escriba un número para elegir su opción [1 - " + anios.size() + "].");
+        int eleccion1 = Utilidad.readInt();
         int eleccion2;
         int eleccion3;
         boolean encendido2 = true;
@@ -311,7 +323,8 @@ public class Funcionalidad1 {
                     i++;
                 }
             }
-            eleccion2 = readInt("Escriba un número para elegir su opción [1 - " + i + "].");
+            System.out.println("Escriba un número para elegir su opción [1 - " + i + "].");
+            eleccion2 = Utilidad.readInt();
             if (eleccion2 > meses.size() || eleccion2 < 1) {
                 System.out.println("Ingrese un número válido");
             } else {
@@ -331,8 +344,9 @@ public class Funcionalidad1 {
             for (int i = 2; i < restaurante.getFechasDisponibles().get(indiceMes).size(); i++) {
                 System.out.println(i - 1 + ". " + restaurante.getFechasDisponibles().get(indiceMes).get(i) + ".");
             }
-            eleccion3 = readInt("Escriba un número para elegir su opción [1 - " +
+            System.out.println("Escriba un número para elegir su opción [1 - " +
                     (restaurante.getFechasDisponibles().get(indiceMes).size() - 2) + "].");
+            eleccion3 = Utilidad.readInt();
             if (eleccion3 > restaurante.getFechasDisponibles().get(indiceMes).size() || eleccion3 < 1) {
                 System.out.println("Ingrese un número válido");
             } else {
@@ -355,7 +369,7 @@ public class Funcionalidad1 {
                 1. Reserva de Parqueadero.
                 2. Decoraciones para la mesa.
                 3. No desea ningún servicio extra.""");
-        int eleccion = readInt();
+        int eleccion = Utilidad.readInt();
         switch (eleccion) {
             case 1:
                 System.out.println("Reserva de Parqueadero");
@@ -364,12 +378,12 @@ public class Funcionalidad1 {
                     System.out.println("""
                             1. Sí.
                             2. No.""");
-                    int eleccion2 = readInt();
+                    int eleccion2 = Utilidad.readInt();
                     String placa = "";
                     if (eleccion2 == 1){
                         if (cliente.getPlacaVehiculo().equals("Ninguna")){
                             System.out.println("Ingrese la placa del vehículo:");
-                            placa = readString();
+                            placa = Utilidad.readString();
                             cliente.setPlacaVehiculo(placa);
                         } else {
                             placa = cliente.getPlacaVehiculo();
@@ -398,7 +412,7 @@ public class Funcionalidad1 {
                 System.out.println("""
                         1. Sí.
                         2. No.""");
-                int eleccion3 = readInt();
+                int eleccion3 = Utilidad.readInt();
                 if (eleccion3 == 1) {
                     boolean encendido1 = false;
                     do {
@@ -407,7 +421,7 @@ public class Funcionalidad1 {
                                 1. Cena romántica.
                                 2. Graduación.
                                 3. Descubrimiento.""");
-                        int eleccion4 = readInt();
+                        int eleccion4 = Utilidad.readInt();
                         switch (eleccion4) {
                             case 1:
                                 //Descontar de Bodega una unidad de rosas y velas, además de vino blanco
@@ -421,7 +435,7 @@ public class Funcionalidad1 {
                                 break;
                             case 3:
                                 System.out.println("Seleccione el género del bebé:\n1. Niño.\n2. Niña.");
-                                int eleccion5 = readInt();
+                                int eleccion5 = Utilidad.readInt();
                                 if (eleccion5 == 1) {
                                     //Descontar de Bodega globos azules, blancos y (angel varón según # clientes)
                                 } else {
@@ -457,12 +471,13 @@ public class Funcionalidad1 {
         Factura factura = clientes.getFirst().getFactura();
         factura.setValor(15000);
 
-        int eleccion1 = readInt("¿Desea pagar ya mismo su reserva?\n1. Sí.\n2. No.");
+        System.out.println("¿Desea pagar ya mismo su reserva?\n1. Sí.\n2. No.");
+        int eleccion1 = Utilidad.readInt();
         if (eleccion1 == 1) {
             if (clientes.getFirst().getAfiliacion() == Cliente.Afiliacion.NINGUNA) {
                 System.out.println("¿Desea afiliarse al restaurante? Hacerlo le daría un descuento extra por ser " +
                         "un nuevo socio\n1. Sí.\n2. No.");
-                int eleccion2 = readInt();
+                int eleccion2 = Utilidad.readInt();
                 if (eleccion2 == 1) {
                     factura.setValor(13500); //Aplicar 10% de descuento al valor de la reserva.
                     pagarReserva(restaurante, reserva, clientes, factura);
@@ -477,8 +492,9 @@ public class Funcionalidad1 {
             clientes.getFirst().getFactura().setPagoPreconsumo(true);
         } else {
             System.out.println("Al realizar el pago postconsumo se solicitará una propina porcentual obligaotria.");
-            int eleccion6 = readInt("¿Teniendo esto en cuenta, desea continuar sin realizar el pago?\n1. Sí.\n" +
+            System.out.println("¿Teniendo esto en cuenta, desea continuar sin realizar el pago?\n1. Sí.\n" +
                     "2. No.");
+            int eleccion6 = Utilidad.readInt();
             if (eleccion6 == 1) {
                 confirmarReserva(restaurante, reserva, clientes);
             } else {
@@ -495,10 +511,11 @@ public class Funcionalidad1 {
             do {
                 System.out.println("¿Desea confirmar la transacción con un valor de: " +
                         factura.getValor() + "?");
-                int eleccion3 = readInt("""
+                System.out.println("""
                                 1. Sí.
                                 2. No.
                                 Escriba un número para elegir su opción.""");
+                int eleccion3 = Utilidad.readInt();
                 switch (eleccion3) {
                     case 1:
                         System.out.println("Transacción confirmada.");
@@ -520,7 +537,8 @@ public class Funcionalidad1 {
         boolean confirmada;
         System.out.println("Resumen de su reserva:");
         System.out.println(reserva);
-        int eleccion1 = readInt("¿Desea confirmar su reserva?\n1. Sí.\n2. No.");
+        System.out.println("¿Desea confirmar su reserva?\n1. Sí.\n2. No.");
+        int eleccion1 = Utilidad.readInt();
         if (eleccion1 == 1) {
             confirmada = true;
             System.out.println("Reserva confirmada.");

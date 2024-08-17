@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Ciudad extends Zona implements Serializable {
     //Atributos
+    private static ArrayList<Ciudad> ciudades = new ArrayList<Ciudad>();
     private ArrayList<Zona> zonas = new ArrayList<Zona>();
 
     //Construtores

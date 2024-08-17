@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class Ingrediente implements Serializable {
     //Atributos
+    private static ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
     private String nombre;
     private int precio;
     private int inventario;

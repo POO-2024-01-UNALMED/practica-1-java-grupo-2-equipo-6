@@ -13,14 +13,14 @@ import java.util.*;
 
 import static uiMain.Main.*;
 
-public class Utilidad {
+public interface Utilidad {
     static Scanner consola = new Scanner(System.in);
 
     static String readString() {
         return consola.nextLine();
     }
 
-    public static int readInt() {
+    static int readInt() {
         String numero = readString();
         try {
             return Integer.parseInt(numero);
@@ -30,10 +30,10 @@ public class Utilidad {
         }
     }
 
-    static int readInt(String string) {
-        System.out.println(string);
-        return readInt();
-    }
+//    static int readInt(String string) {
+//        System.out.println(string);
+//        return readInt();
+//    }
 
     static float readFloat(){
         String numero = readString();

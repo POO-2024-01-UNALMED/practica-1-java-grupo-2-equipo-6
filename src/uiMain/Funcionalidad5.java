@@ -73,7 +73,7 @@ public class Funcionalidad5 {
             printLn("Indica por favor la ciudad donde realizar el evento: ");
             String CiudadEvento = readString().toUpperCase(); //Ciudades con mayusculas y sin tilde
             Ciudad ciudadRequerida = ciudades.stream()
-                    .filter(ciudad -> ciudad.getNombreCiudad().equalsIgnoreCase(CiudadEvento))
+                    .filter(ciudad -> ciudad.getNombre().equalsIgnoreCase(CiudadEvento))
                     .findFirst()
                     .orElse(null);
 

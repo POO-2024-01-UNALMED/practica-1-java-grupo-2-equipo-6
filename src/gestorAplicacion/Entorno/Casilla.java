@@ -34,7 +34,6 @@ public class Casilla {
         this.tipo = tipo;
     }
 
-
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Casilla{");

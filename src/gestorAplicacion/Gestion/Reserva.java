@@ -1,5 +1,7 @@
 package gestorAplicacion.Gestion;
 
+import gestorAplicacion.Entorno.Ciudad;
+import gestorAplicacion.Entorno.Zona;
 import gestorAplicacion.Usuario.Cliente;
 
 import java.io.Serializable;
@@ -14,11 +16,11 @@ public class Reserva implements Serializable {
     private Restaurante restaurante;
 
     //Constructores
+    public Reserva(){}
     public Reserva(ArrayList<Cliente> clientes, ArrayList<Integer> fecha){
         this.fecha = fecha;
         this.clientes = clientes;
     }
-    public Reserva(){}
 
     //Metodos
     public ArrayList<Integer> getFecha(){

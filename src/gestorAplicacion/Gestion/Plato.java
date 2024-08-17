@@ -3,7 +3,7 @@ package gestorAplicacion.Gestion;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Plato implements Serializable {
+public class Plato implements Receta, Serializable {
     // Atributos
     private String nombre;
     private int precio;
@@ -17,7 +17,6 @@ public class Plato implements Serializable {
     private int valorEnPuntosCliente;
     private int porciones;
     private int cantidadDePlato;
-
 
     // Constructor
     public Plato() {}

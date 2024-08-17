@@ -11,7 +11,8 @@ import java.util.ArrayList;
         private ArrayList<String> reseñas = new ArrayList<String>();
 
         public Trabajador(String nombre, int cedula, String especialidad, int salario) {
-            super(nombre, cedula);
+            this.nombre = nombre;
+            this.cedula = cedula;
             this.especialidad = especialidad;
             this.salario = salario;
             this.ocupado = false;
@@ -23,6 +24,24 @@ import java.util.ArrayList;
             System.out.println("Cedula: " + cedula);
             System.out.println("Especialidad: " + especialidad);
             System.out.println("Salario: " + salario);
+        }
+
+        @Override
+        public String getNombre() {
+            return nombre;
+        }
+        @Override
+        public void setNombre(String nombre) {
+            this.nombre = nombre;
+        }
+        @Override
+        public int getCedula() {
+            return cedula;
+        }
+
+        @Override
+        public void setCedula(int cedula) {
+            this.cedula = cedula;
         }
 
         public void setOcupado(boolean ocupado) {

@@ -19,17 +19,20 @@ public class Cliente extends Persona implements Serializable {
     // Constructores
     public Cliente(){};
     public Cliente (String nombre, int cedula){
-        super(nombre, cedula);
+        this.nombre = nombre;
+        this.cedula = cedula;
         this.afiliacion = Afiliacion.NINGUNA;
         this.placaVehiculo = "Ninguna";
     }
     public Cliente (String nombre, int cedula, Enum afiliacion, String placaVehiculo){
-        super(nombre, cedula);
+        this.nombre = nombre;
+        this.cedula = cedula;
         this.afiliacion = afiliacion;
         this.placaVehiculo = placaVehiculo;
     }
     public Cliente (String nombre, int cedula, String placaVehiculo){
-        super(nombre, cedula);
+        this.nombre = nombre;
+        this.cedula = cedula;
         this.afiliacion = Afiliacion.NINGUNA;
         this.placaVehiculo = placaVehiculo;
     }
@@ -46,6 +49,23 @@ public class Cliente extends Persona implements Serializable {
         System.out.println("Cedula: " + cedula);
         System.out.println("Afiliacion: " + afiliacion);
         System.out.println("Placa del vehiculo: " + placaVehiculo);
+    }
+
+    @Override
+    public String getNombre() {
+        return nombre;
+    }
+    @Override
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    @Override
+    public int getCedula() {
+        return cedula;
+    }
+    @Override
+    public void setCedula(int cedula) {
+        this.cedula = cedula;
     }
     public void setFactura(Factura factura){
         this.factura = factura;
@@ -95,6 +115,7 @@ public class Cliente extends Persona implements Serializable {
     public void setReserva(Reserva reserva) {
         this.reserva = reserva;
     }
+
 
     public void agregarPlatoFavorito(Plato plato){
         platosFavoritos.add(plato);

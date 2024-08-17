@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class Ciudad extends Zona implements Serializable {
     //Atributos
     private ArrayList<Zona> zonas = new ArrayList<Zona>();
-    private String NombreCiudad;
 
     //Construtores
     public Ciudad(){}
@@ -25,12 +24,6 @@ public class Ciudad extends Zona implements Serializable {
     }
     public void addZona(Zona zona) {
         this.zonas.add(zona);
-    }
-    public String getNombreCiudad() {
-        return NombreCiudad;
-    }
-    public void setNombreCiudad(String nombreCiudad) {
-        NombreCiudad = nombreCiudad;
     }
 
     public void actualizarPoblacion() {

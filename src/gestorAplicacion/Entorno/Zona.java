@@ -7,12 +7,12 @@ import java.util.ArrayList;
 
 public class Zona implements Serializable {
     //Atributos
-    protected String nombreZona;
     public Restaurante RestauranteZona;
     protected int poblacion;
     protected String nombre;
     private ArrayList<Restaurante> restaurantes = new ArrayList<Restaurante>();
     private Ciudad ciudad;
+
     //Constructores
     public Zona(){}
     public Zona(int poblacion, String nombre) {
@@ -23,10 +23,11 @@ public class Zona implements Serializable {
         this(poblacion, nombre); //Caso #1 this()
         this.ciudad = ciudad;
     }
-    public Zona(Restaurante RestauranteZona, String nombreZona){
-        this.nombreZona = nombreZona;
+    public Zona(Restaurante RestauranteZona, String nombre){
+        this.nombre = nombre;
         this.RestauranteZona = RestauranteZona;
     }
+
     //Métodos
     public Ciudad getCiudad() {
         return ciudad;
@@ -52,6 +53,9 @@ public class Zona implements Serializable {
     public void setRestaurantes(ArrayList<Restaurante> restaurantes) {
         this.restaurantes = restaurantes;
     }
+    public String getNombreRestaurante(){
+        return RestauranteZona.getNombre();
+    }
 
     @Override
     public String toString() {
@@ -62,8 +66,5 @@ public class Zona implements Serializable {
         sb.append(", ciudad = ").append(ciudad);
         sb.append('}');
         return sb.toString();
-    }
-    public String getNombreRestaurante(){
-        return RestauranteZona.getNombre();
     }
 }

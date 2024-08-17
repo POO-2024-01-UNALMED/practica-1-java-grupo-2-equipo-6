@@ -5,33 +5,12 @@ public abstract class Persona {
     protected String nombre;
     protected int cedula;
 
-    // Constructores
-    public Persona() {
-    }
-
-    public Persona(String nombre, int cedula) {
-        this.nombre = nombre;
-        this.cedula = cedula;
-    }
-
     // Metodo abstracto
     public abstract void mostrarInformacion();
 
     // Getters y Setters
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public int getCedula() {
-        return cedula;
-    }
-
-    public void setCedula(int cedula) {
-        this.cedula = cedula;
-    }
+    public abstract String getNombre();
+    public abstract void setNombre(String nombre);
+    public abstract int getCedula();
+    public abstract void setCedula(int cedula);
 }

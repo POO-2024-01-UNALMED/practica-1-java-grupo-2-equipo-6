@@ -6,6 +6,7 @@ import gestorAplicacion.Entorno.Mesa;
 import gestorAplicacion.Gestion.*;
 import gestorAplicacion.Entorno.Zona;
 import gestorAplicacion.Usuario.Cliente;
+import jdk.jshell.execution.Util;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -17,10 +18,9 @@ import static uiMain.Funcionalidad2.*;
 
 import static uiMain.Funcionalidad3.*;
 import static uiMain.Funcionalidad4.*;
-import static uiMain.Utilidad.*;
 
 
-public class Main {
+public class Main implements Utilidad {
 
     static LocalDateTime localDateTime = LocalDateTime.now(); //Fecha a la hora de ejectuar el programa
     static ArrayList<Ciudad> ciudades = new ArrayList<Ciudad>(); //Lista de ciudades
@@ -240,10 +240,10 @@ public class Main {
 
     //Muestra el menú principal del programa
     static void menuPrincipal() {
-        limpiarPantalla();
+        Utilidad.limpiarPantalla();
         boolean encendido = true;
         do {
-            limpiarPantalla();
+            Utilidad.limpiarPantalla();
             System.out.println("""
                     ¿Qué desea hacer?
                     1. Reservar Mesa.
@@ -253,41 +253,41 @@ public class Main {
                     5. Crear Evento.
                     6. Salir.
                     Escriba un número para elegir su opción.""");
-            int eleccion = readInt();
+            int eleccion = Utilidad.readInt();
             switch (eleccion) {
                 case 1:
-                    limpiarPantalla();
+                    Utilidad.limpiarPantalla();
                     reservarMesa();
                     break;
                 case 2:
-                    limpiarPantalla();
+                    Utilidad.limpiarPantalla();
                     System.out.println("Funcionalidad 2.");
                     ordenarComida();
                     encendido = false;
 
                     break;
                 case 3:
-                    limpiarPantalla();
+                    Utilidad.limpiarPantalla();
                     dejarRestaurante();
                     encendido = false;
                     break;
                 case 4:
-                    limpiarPantalla();
+                    Utilidad.limpiarPantalla();
                     Restaurante restaurante4 = agregarSede();
                     restaurante4.actualizarFechasDisponibles();
                     break;
                 case 5:
-                    limpiarPantalla();
+                    Utilidad.limpiarPantalla();
                     System.out.println("Funcionalidad 5.");
                     encendido = false;
                     break;
                 case 6:
-                    limpiarPantalla();
+                    Utilidad.limpiarPantalla();
                     System.out.println("Se cierra el programa.");
                     encendido = false;
                     break;
                 default:
-                    limpiarPantalla();
+                    Utilidad.limpiarPantalla();
                     System.out.println("Ingrese un número válido [1 - 6].");
                     break;
             }

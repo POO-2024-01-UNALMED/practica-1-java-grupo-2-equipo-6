@@ -607,6 +607,7 @@ public class Funcionalidad3 {
                     cliente.agregarPlatoFavorito(plato);
                 }
                 plato.setCalificacion(calificacionPlato);
+                Cliente.despedida(cliente); //Caso #1 Ligadura dinámica
                 System.out.println("Gracias por su calificación.");
                 actualizarPlatos(plato, cliente.getMesa());
                 actualizarMenu(cliente.getMesa());

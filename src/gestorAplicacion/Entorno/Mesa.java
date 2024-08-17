@@ -1,6 +1,7 @@
-package gestorAplicacion.Gestion;
+package gestorAplicacion.Entorno;
 
-import gestorAplicacion.Entorno.Casilla;
+import gestorAplicacion.Gestion.Factura;
+import gestorAplicacion.Gestion.Restaurante;
 import gestorAplicacion.Usuario.Cliente;
 
 import java.io.Serializable;

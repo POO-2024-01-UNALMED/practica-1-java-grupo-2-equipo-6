@@ -2,6 +2,7 @@ package gestorAplicacion.Gestion;
 
 import gestorAplicacion.Entorno.Casilla;
 import gestorAplicacion.Entorno.Ciudad;
+import gestorAplicacion.Entorno.Mesa;
 import gestorAplicacion.Entorno.Zona;
 import gestorAplicacion.Usuario.Cliente;
 

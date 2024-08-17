@@ -1,5 +1,6 @@
 package gestorAplicacion.Usuario;
 
+import gestorAplicacion.Entorno.Mesa;
 import gestorAplicacion.Gestion.*;
 
 import java.io.Serializable;
@@ -49,6 +50,9 @@ public class Cliente extends Persona implements Serializable {
         System.out.println("Cedula: " + cedula);
         System.out.println("Afiliacion: " + afiliacion);
         System.out.println("Placa del vehiculo: " + placaVehiculo);
+    }
+    public static void despedida(Persona persona) {
+        persona.despedida();
     }
 
     @Override

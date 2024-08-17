@@ -3,16 +3,12 @@ package uiMain;
 import gestorAplicacion.Entorno.Ciudad;
 import gestorAplicacion.Entorno.Zona;
 import gestorAplicacion.Gestion.Factura;
-import gestorAplicacion.Gestion.Mesa;
+import gestorAplicacion.Entorno.Mesa;
 import gestorAplicacion.Gestion.Reserva;
 import gestorAplicacion.Gestion.Restaurante;
 import gestorAplicacion.Usuario.Cliente;
 
-import java.awt.*;
-import java.text.ParseException;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Objects;
 
 import static uiMain.Funcionalidad3.escogerMetodoPago;

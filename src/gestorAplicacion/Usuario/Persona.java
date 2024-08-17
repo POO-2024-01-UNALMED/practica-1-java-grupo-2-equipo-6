@@ -8,6 +8,11 @@ public abstract class Persona {
     // Metodo abstracto
     public abstract void mostrarInformacion();
 
+    //Metodo
+    public String despedida() {
+        return "Hasta luego " + nombre + ".\nEsperamos que regreses pronto.";
+    }
+
     // Getters y Setters
     public abstract String getNombre();
     public abstract void setNombre(String nombre);

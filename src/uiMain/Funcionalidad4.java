@@ -4,7 +4,7 @@ import gestorAplicacion.Entorno.Casilla;
 import gestorAplicacion.Entorno.Ciudad;
 import gestorAplicacion.Entorno.Zona;
 import gestorAplicacion.Gestion.Ingrediente;
-import gestorAplicacion.Gestion.Mesa;
+import gestorAplicacion.Entorno.Mesa;
 import gestorAplicacion.Gestion.Plato;
 import gestorAplicacion.Gestion.Restaurante;
 

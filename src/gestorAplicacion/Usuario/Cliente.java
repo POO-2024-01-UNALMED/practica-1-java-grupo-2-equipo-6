@@ -44,11 +44,6 @@ public class Cliente extends Persona implements Serializable {
         this.placaVehiculo = placaVehiculo;
         this.factura = factura;
     }
-    public Cliente (String nombre, int cedula, Enum afiliacion, String placaVehiculo){
-        super(nombre, cedula);
-        this.afiliacion = afiliacion;
-        this.placaVehiculo = placaVehiculo;
-    }
 
     // Métodos
     public void mostrarInformacion(){
@@ -148,4 +143,12 @@ public class Cliente extends Persona implements Serializable {
 
     //Enum
     public enum Afiliacion {NINGUNA, ESTRELLITA, ESTRELLA, SUPERESTRELLOTA}
+
+    public boolean esAfiliado() {
+        if (this.getAfiliacion() != Afiliacion.NINGUNA) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

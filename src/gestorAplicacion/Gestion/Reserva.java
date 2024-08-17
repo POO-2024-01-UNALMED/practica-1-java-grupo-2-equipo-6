@@ -12,7 +12,7 @@ public class Reserva implements Serializable {
     //Atributos
     private ArrayList<Cliente> clientes;
     //Preguntarle a Colo por esta vaina del Date
-    private ArrayList<Integer> fecha;
+    private ArrayList<Integer> fecha; //[2024, 8, 23, 16]
     private Restaurante restaurante;
 
     //Constructores

@@ -9,11 +9,13 @@ import gestorAplicacion.Usuario.Cliente;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.SequencedCollection;
 
 import static uiMain.Utilidad.intersectarListas;
 
 public class Restaurante implements Serializable {
     // Atributos
+    private Cliente cliente;
     private static ArrayList<Restaurante> restaurantes = new ArrayList<Restaurante>();
     public static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
     public static ArrayList<Plato> menu = new ArrayList<Plato>();
@@ -347,6 +349,14 @@ public class Restaurante implements Serializable {
         return parqueadero;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{Información del Restaurante: ");
@@ -423,5 +433,13 @@ public class Restaurante implements Serializable {
         }
 
         this.setFechasDisponibles(nuevoArray);
+    }
+
+    public Object getNombreRestaurante() {
+        return nombre;
+    }
+
+    public ArrayList<Reserva> getReservas() {
+        return reservas;
     }
 }

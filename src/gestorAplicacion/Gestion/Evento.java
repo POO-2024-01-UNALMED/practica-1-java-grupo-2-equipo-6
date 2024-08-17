@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 public class Evento {
     private static ArrayList<Evento> eventos = new ArrayList<Evento>();
-    private String nombreEvento;
+    private String nombre;
     private String descripcion;
     private String nombreMotivo;
     int coste;
@@ -13,16 +13,20 @@ public class Evento {
     Cliente clienteEvento;
     ArrayList<Plato> platos;
 
-    Evento(String nombreEvento, String descripcion, int coste, Date fecha){
+
+    public Evento(String nombre){
+        this.nombre = nombre;
+    }
+    public Evento(String nombreEvento, String descripcion, int coste, Date fecha){
         this.coste = coste;
-        this.nombreEvento = nombreEvento;
+        this.nombre = nombreEvento;
         this.descripcion = descripcion;
         this.fecha = fecha;
 
     }
     public Evento(String nombreEvento, int coste, ArrayList<Plato> platos){
         this.coste = coste;
-        this.nombreEvento = nombreEvento;
+        this.nombre = nombreEvento;
         this.platos = platos;
 
     }
@@ -36,17 +40,16 @@ public class Evento {
     public Evento() {
 
     }
-    public String getNombreMotivo(){
-        return nombreMotivo;
-    }
+
+
     public void setNombreEvento(String nombreEvento){
-        this.nombreEvento = nombreEvento;
+        this.nombre = nombreEvento;
     }
     public void setCoste(int coste){
         this.coste = coste;
     }
     public void setNombreMotivo(String nombreMotivo){
-        this.nombreMotivo = nombreEvento;
+        this.nombreMotivo = nombre;
     }
     public void setPlatos(ArrayList<Plato> platos){
         this.platos = platos;
@@ -64,7 +67,8 @@ public class Evento {
     public void adicionarPlato(Plato plato){
         platos.add(plato);
     }
-    public String getNombreEvento(){
-        return nombreEvento;
+    public String getNombre(){
+        return nombre;
     }
+
 }

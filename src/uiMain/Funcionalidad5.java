@@ -18,10 +18,10 @@ import java.time.format.TextStyle;
 import java.util.*;
 
 import static uiMain.Main.*;
-import static uiMain.Utilidad.*;
 
-public class Funcionalidad5 {
+public class Funcionalidad5 implements Utilidad {
     static Scanner input = new Scanner(System.in);
+
     static void printLn(Object obj) {
         System.out.println(obj);
     }
@@ -40,27 +40,27 @@ public class Funcionalidad5 {
                     1. Sí.
                     2. No.
                     Escriba un número para elegir su opción.""");
-            int eleccion = readInt();
+            int eleccion = Utilidad.readInt();
             switch (eleccion) {
                 case 1:
 //                    System.out.println("Interacción 1.");
 //                    //La primera a de retornar un restaurante
                     restaurante = recomendarLocalizacion();
 //                    //Esto es una prueba de su funcionalidad, borrar después
-                    printLn(restaurante.getInformacionRecomendacion());
-                    int cantidadFechas = restaurante.getReservas().size();
-                    for (int i = 0; i < (restaurante.getReservas().size()); i++) {
-                        Reserva fecha = restaurante.getReservas().get(i);
-                        if (i == restaurante.getReservas().size() - 1) {
-                            printLn(fecha.getFecha() + " <------ He aquí su reserva señor/a " + restaurante.getCliente() + "🫡");
-                        } else {
-                            printLn(fecha.getFecha());
-                        }
-                    }
+//                    printLn(restaurante.getInformacionRecomendacion());
+//                    int cantidadFechas = restaurante.getReservas().size();
+//                    for (int i = 0; i < (restaurante.getReservas().size()); i++) {
+//                        Reserva fecha = restaurante.getReservas().get(i);
+//                        if (i == restaurante.getReservas().size() - 1) {
+//                            printLn(fecha.getFecha() + " <------ He aquí su reserva señor/a " + restaurante.getCliente() + "🫡");
+//                        } else {
+//                            printLn(fecha.getFecha());
+//                        }
+//                    }
                     //Hasta acá va la prueba
                     printLn("Interaccion2");
                     factura = recomendarEvento();
-                    datos_horaReserva(restaurante, factura);
+//                    datos_horaReserva(restaurante, factura);
 
 
                     encendido = false;
@@ -85,9 +85,9 @@ public class Funcionalidad5 {
         //Primera parte, en donde se pide la ciudad y se hace las respectivas recomendaciones
         do {
             printLn("Indica por favor la ciudad donde realizar el evento: ");
-            String CiudadEvento = readString().toUpperCase(); //Ciudades con mayusculas y sin tilde
+            String CiudadEvento = Utilidad.readString().toUpperCase(); //Ciudades con mayusculas y sin tilde
             Ciudad ciudadRequerida = ciudades.stream()
-                    .filter(ciudad -> ciudad.getNombreCiudad().equalsIgnoreCase(CiudadEvento))
+                    .filter(ciudad -> ciudad.getNombre().equalsIgnoreCase(CiudadEvento))
                     .findFirst()
                     .orElse(null);
 
@@ -96,7 +96,7 @@ public class Funcionalidad5 {
                     1.Sí, por favor
                     2.No, deseo conocerlos todos
                     """);
-            int opcionRecomentacion = readInt();
+            int opcionRecomentacion = Utilidad.readInt();
             switch (opcionRecomentacion) {
                 //Primera parte Sí
                 case 1:
@@ -112,9 +112,9 @@ public class Funcionalidad5 {
                     if (ciudadRequerida != null) {
                         printLn("Digita el restaurante que deseas");
                         listadoZonasPorCiudad(ciudadRequerida);
-                        int opcionRecomendacion2 = readInt();
+                        int opcionRecomendacion2 = Utilidad.readInt();
                         if (!(opcionRecomendacion2 == 0)) {
-                            restauranteElegido = ciudadRequerida.getNombreZonas().get(opcionRecomendacion2 - 1).RestauranteZona;
+                            restauranteElegido = ciudadRequerida.getZonas().get(opcionRecomendacion2 - 1).RestauranteZona;
                         }
                     } else {
                         System.out.println("Ciudad no encontrada");
@@ -123,17 +123,22 @@ public class Funcionalidad5 {
                     break;
             }
         } while (encendido);
-//Mismo error que  lo solucionado abajo
+        //Mismo error que  lo solucionado abajo
         printLn("Estimado Cliente, nos permite los siguientes datos: Cédula ");
-        double cedulaCliente = readInt();
+        double cedulaCliente = Utilidad.readInt();
         printLn("Nombre: ");
-        String nombreCliente = readString();
-        printLn("Día de la reserva (aa-mm-dd)");
-        String fechaReserva = readString();
+        String nombreCliente = Utilidad.readString();
+        ArrayList<Integer> fecha = new ArrayList<Integer>(4);
+        System.out.println("Ingrese el día de la reserva:");
+        fecha.set(2, Utilidad.readInt()); // Día
+        System.out.println("Ingrese el mes de la reserva:");
+        fecha.set(1, Utilidad.readInt()); // Mes
+        System.out.println("Ingrese el año de la reserva:");
+        fecha.set(0, Utilidad.readInt());  // Año
 
         clientePP.setNombre(nombreCliente);
         clientePP.setCedula((int) cedulaCliente);
-        reservaPP.setFecha(fechaReserva);
+        reservaPP.setFecha(fecha);
         restauranteElegido.agregarReserva(reservaPP);
         restauranteElegido.setCliente(clientePP);
         printLn(restauranteElegido.getCliente());
@@ -144,7 +149,7 @@ public class Funcionalidad5 {
     public static Restaurante getRestaurante(Ciudad ciudadRequerida) {
         Restaurante restauranteMayorCapacidad = null;
         int mayorCapacidad = 0;
-        for (Zona zona : ciudadRequerida.getNombreZonas()) {
+        for (Zona zona : ciudadRequerida.getZonas()) {
             Restaurante variable = zona.RestauranteZona;
             if (variable.getCapacidad() > mayorCapacidad) {
                 restauranteMayorCapacidad = variable;
@@ -156,7 +161,7 @@ public class Funcionalidad5 {
 
     //PREGUNTARLE A COLO
     public static void listadoZonasPorCiudad(Ciudad ciudadRequerida) {
-        List<Zona> zonasCiudad = ciudadRequerida.getNombreZonas();
+        List<Zona> zonasCiudad = ciudadRequerida.getZonas();
         for (int i = 0; i < zonasCiudad.size(); i++) {
             printLn((i + 1) + ". " + zonasCiudad.get(i).getNombreRestaurante() + "...");
         }
@@ -205,7 +210,7 @@ public class Funcionalidad5 {
                 1. Sí, tomo la recomendación
                 2. No, deseo ordenar por mi cuenta
                 """);
-        int opinion = readInt();
+        int opinion = Utilidad.readInt();
         if (opinion == 1) {
             if (numeroInvitados > 0 && numeroInvitados <= 8) { //Recomendacion para pocos invitados
                 int botellasCantidad = 0;
@@ -223,7 +228,7 @@ public class Funcionalidad5 {
                     printLn(contador + ". " + finales.getNombre());
                 }
                 printLn("Cual deseais: ");
-                int opcionMedia = readInt();
+                int opcionMedia = Utilidad.readInt();
                 productoOfrecido = botellasAllevar.get(opcionMedia - 1);
 
                 if (numeroInvitados <= 4) {
@@ -248,7 +253,7 @@ public class Funcionalidad5 {
                     printLn(contador + ". " + finales.getNombre());
                 }
                 printLn("Cual deseais: ");
-                int opcionMedia = readInt();
+                int opcionMedia = Utilidad.readInt();
                 productoOfrecido = botellasAllevar.get(opcionMedia - 1);
                 cuentaBotellas = (int) Math.ceil((double) numeroInvitados / productoOfrecido.getPorciones());
                 printLn("Un total de " + cuentaBotellas + " botellas");
@@ -260,10 +265,10 @@ public class Funcionalidad5 {
             for (int i = 0; i < eleccion.size(); i++) {
                 printLn((i + 1) + ". " + eleccion.get(i).getNombre());
             }
-            int opcion = readInt();
+            int opcion = Utilidad.readInt();
             Plato escogido = eleccion.get(opcion - 1);
             printLn("De " + escogido.getNombre() + "tenemos " + escogido.getCantidadDePlato() + " en bodega, Cúantos desea: ");
-            int cantidadEscogida = readInt();
+            int cantidadEscogida = Utilidad.readInt();
             if (cantidadEscogida <= escogido.getCantidadDePlato()) {
                 cantidadBebida = cantidadEscogida;
                 printLn("Excelente");
@@ -328,7 +333,7 @@ public class Funcionalidad5 {
     }
 
     public static Factura recomendarEvento() {
-        Evento evento1 = new Evento("He aquí el error");
+        Evento evento1 = new Evento();
         Factura factura = new Factura();
         boolean encendido = true;
         Cliente cliente = new Cliente();
@@ -337,33 +342,33 @@ public class Funcionalidad5 {
                 1. Si
                 2.No
                 """);
-        byte respuestaAfiliacion = readByte();
+        int respuestaAfiliacion = Utilidad.readInt();
         if (respuestaAfiliacion == 1) {
-            cliente.setEsAfiliado();
+            cliente.esAfiliado();
         } else {
-            printLn("Dale, no hay lio 😠");
+            printLn("Dale, no hay lio 😠🍆");
         }
 
         printLn("¿Desea conocer las temáticas de Eventos especiales qué tenemos?");
         printLn("1.Sí, por favor");
         printLn("2.No");
-        int opcionEvento = readInt();
+        int opcionEvento = Utilidad.readInt();
         printLn("1. Cumpleaños.\n" +
                 "2. Meetings Empresariales.\n" +
                 "3. Gastronomias Mundiales.\n" +
                 "4. No, salir.\n" +
                 "Escriba un número para elegir su opción.");
-        int opcionFinal = readInt();
+        int opcionFinal = Utilidad.readInt();
         //Colocar el listado de los eventos
         switch (opcionFinal) {
             case 1:
                 Factura factura_cumple = new Factura();
                 printLn("¿Cuántos invitados son?");
-                int numeroInvitados = readInt();
+                int numeroInvitados = Utilidad.readInt();
                 printLn("El Evento tiene un coste de 210.000$, ¿Desea continuar?");
                 printLn("1.Sí");
                 printLn("2.No");
-                int RespuestaCumple = readInt();
+                int RespuestaCumple = Utilidad.readInt();
                 if (RespuestaCumple == 1) {
                     new Plato();
                     Plato torta_seleccionada = null;
@@ -371,17 +376,17 @@ public class Funcionalidad5 {
                     String nombreRespuesta = "Cumpleanos Feliz";
                     int coste = 210000;
                     for (Evento elemento : eventos) {
-                        if (elemento.getNombreEvento().equals(nombreRespuesta)) {
+                        if (elemento.getNombre().equals(nombreRespuesta)) {
                             evento1 = elemento;
                         }
                     }
                     printLn("Perfecto! Danos el nombre del festejado:");
-                    String nombreFestejado = readString(); //Pendiente por meter
+                    String nombreFestejado = Utilidad.readString(); //Pendiente por meter
                     printLn("A continuación verá las tortas para la ocasión: ");
                     listadoPlatosEvento(evento1);
                     recomendacionPorCantidad(evento1, numeroInvitados); //Planear qué pasaría sí hay un excedente
                     printLn("Digite la opción de la torta: ");
-                    int pastelEscogido = readInt();
+                    int pastelEscogido = Utilidad.readInt();
                     if (!(pastelEscogido == 0)) {
                         torta_seleccionada = evento1.getPlatos().get(pastelEscogido - 1);
                         torta_seleccionada.descontarPlato(1);  //Hasta acá llega la parte de la planeación del excedente
@@ -409,12 +414,12 @@ public class Funcionalidad5 {
                 printLn("El Evento tiene un coste de 450.000$, ¿Desea continuar?");
                 printLn("1.Sí");
                 printLn("2.No");
-                int RespuestaMeeting = readInt();
+                int RespuestaMeeting = Utilidad.readInt();
                 if (RespuestaMeeting == 1) {
                     printLn("¿Cuántos asistentes son?");
-                    int numeroInvitados_meeting = readInt();
+                    int numeroInvitados_meeting = Utilidad.readInt();
                     printLn("Digite el NIT de la empresa: ");
-                    int NIT = readInt();
+                    int NIT = Utilidad.readInt();
                     ArrayList<Plato> platosAfiliacionCumple = new ArrayList<>();
                     Trabajador cocineroOcasion = new Trabajador();
                     ArrayList<Plato> platosMeeting = new ArrayList<Plato>(); //Revisar
@@ -422,7 +427,7 @@ public class Funcionalidad5 {
                     String nombreRespuesta = "Meetigns Empresarial";
                     int coste = 450000;//Evaluar esto
                     for (Evento elemento : eventos) {
-                        if (elemento.getNombreEvento().equals(nombreRespuesta)) {
+                        if (elemento.getNombre().equals(nombreRespuesta)) {
                             evento1 = elemento;
                         }
                     }
@@ -431,19 +436,19 @@ public class Funcionalidad5 {
                             1. Vino.
                             2. Champaña.
                             """);
-                    int opcionVino_Champana = readInt();
+                    int opcionVino_Champana = Utilidad.readInt();
                     vino_champana_final = listadoPlatosEvento(evento1, numeroInvitados_meeting, opcionVino_Champana);
                     platosMeeting.add(vino_champana_final);
                     printLn(vino_champana_final.getNombre());
                     //He de poner la parte en que descuenta la cantidad de vinos y demas existencias
                     // A esta monda he de revolcarla para meterle lo que es afiliaciones y todo el cuento
 
-                    if (cliente.getEsAfiliado()) {
+                    if (cliente.esAfiliado()) {
                         printLn("""
                                 Vemos que eres afiliado, deseas redimir tú derecho
                                 1. Si
                                 2. No""");
-                        byte opcionCumpleFinal = readByte();
+                        int opcionCumpleFinal = Utilidad.readInt();
 
                         if (opcionCumpleFinal == 1) {
                             for (Trabajador cocineroEnCuestion : cocineros) {
@@ -493,7 +498,7 @@ public class Funcionalidad5 {
                         1. Sí, por favor.
                         2. No, así está bien.
                         """);
-                int respuesta = readInt();
+                int respuesta = Utilidad.readInt();
                 if (respuesta == 1) {
 
                     printLn("""
@@ -504,15 +509,15 @@ public class Funcionalidad5 {
                             4.Francesa
                             Dijite la opcion de su preferencia:\s
                             """);
-                    int opcionGastronomias = readInt();
+                    int opcionGastronomias = Utilidad.readInt();
                     chef = cocineroElegido(opcionGastronomias, gastronomias_nombres);
                     printLn("El/la chef " + chef.getNombre() + " te va a acopañar en esta velada");
                     final_gastro_evento = gastronomias_mundiales(opcionGastronomias, gastronomias_nombres);
                     boolean escoger = true;
                     printLn("Cual de ellos gusta: ");
-                    int leer = readInt();
+                    int leer = Utilidad.readInt();
                     printLn("Excelente, de ese plato tenemos " + final_gastro_evento.get(leer - 1).getCantidadDePlato() + ", cuantos desea?");
-                    int a = readInt();
+                    int a = Utilidad.readInt();
                     Plato primer_plato = final_gastro_evento.get(leer - 1);
                     primer_plato.setVecesPedido(a);
                     primer_plato.descontarPlato(a);
@@ -525,7 +530,7 @@ public class Funcionalidad5 {
                                 1. Sí, deseo ordenar más platos
                                 2. No, así está bien\s
                                 """);
-                        int leer2 = readInt();
+                        int leer2 = Utilidad.readInt();
                         if (leer2 == 1) {
                             if (!(final_gastro_evento.isEmpty())) {
                                 printLn("Por supuesto, he aquí de nuevo el menú con el resto de plato:");
@@ -535,9 +540,9 @@ public class Funcionalidad5 {
                                     printLn(contador + ". " + dadada.getNombre());
                                 }
                                 printLn("Digite el que guste pedir: ");
-                                int leer3 = readInt();
+                                int leer3 = Utilidad.readInt();
                                 printLn("Listo, este plato cuenta con " + final_gastro_evento.get(leer3 - 1).getCantidadDePlato() + " existencias, ¿Cuántas desea?");
-                                int b = readInt();
+                                int b = Utilidad.readInt();
                                 Plato platos_venideros = final_gastro_evento.get(leer3 - 1);
                                 platos_venideros.setVecesPedido(b);
                                 platos_venideros.descontarPlato(b);
@@ -547,7 +552,7 @@ public class Funcionalidad5 {
                                         Desea seguir ordenando:
                                         1. Sí.
                                         2. No""");
-                                int respuesta2 = readInt();
+                                int respuesta2 = Utilidad.readInt();
                                 if (respuesta2 == 1) {
                                     encendido = true;
                                 } else {
@@ -592,11 +597,11 @@ public class Funcionalidad5 {
             acomulado_total += plato.getVecesPedido() * plato.getPrecio();
         }
 
-        if (diasSemana.contains(diaDeLaSema)){
-            if (hora > 20){
-                acomulado_total += (int) (acomulado_total*(0.08));
-            }else {
-                acomulado_total += (int) (acomulado_total*(0.03));
+        if (diasSemana.contains(diaDeLaSema)) {
+            if (hora > 20) {
+                acomulado_total += (int) (acomulado_total * (0.08));
+            } else {
+                acomulado_total += (int) (acomulado_total * (0.03));
             }
         }
 
@@ -604,25 +609,25 @@ public class Funcionalidad5 {
     }
 
 
-    public static String datos_horaReserva(Restaurante restaurante, Factura factura) {
-        printLn("Estimado Cliente, nos regala la hora a la que desea el evento (HH:MM): ");
-        String hora_evento = readString();
-        String [] fraccion = hora_evento.split(":");
-        int hora_evento_real = Integer.parseInt(fraccion[0]);
-        String reserva = restaurante.getReservas().getLast().getFecha();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(reserva);
-        LocalDate fecha = LocalDate.parse(reserva, formatter);
-        DayOfWeek diaSemana = fecha.getDayOfWeek();
-        String diaSemanaString = diaSemana.getDisplayName(TextStyle.FULL, Locale.forLanguageTag("es"));
-
-
-
-        printLn(factura.getEvento().getDescripcion() + ". . ." + restaurante.getNombreRestaurante());
-        listado_precios_factura((factura.getEvento().getPlatos()), hora_evento_real, diaSemanaString);
-        printLn("El día de su factura es " + diaSemana);
-        return null;
-    }
-}
+//    public static String datos_horaReserva(Restaurante restaurante, Factura factura) {
+//        printLn("Estimado Cliente, nos regala la hora a la que desea el evento (HH:MM): ");
+//        String hora_evento = Utilidad.readString();
+//        String [] fraccion = hora_evento.split(":");
+//        int hora_evento_real = Integer.parseInt(fraccion[0]);
+//        String reserva = restaurante.getReservas().getLast().getFecha();
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(reserva);
+//        LocalDate fecha = LocalDate.parse(reserva, formatter);
+//        DayOfWeek diaSemana = fecha.getDayOfWeek();
+//        String diaSemanaString = diaSemana.getDisplayName(TextStyle.FULL, Locale.forLanguageTag("es"));
+//
+//
+//
+//        printLn(factura.getEvento().getDescripcion() + ". . ." + restaurante.getNombreRestaurante());
+//        listado_precios_factura((factura.getEvento().getPlatos()), hora_evento_real, diaSemanaString);
+//        printLn("El día de su factura es " + diaSemana);
+//        return null;
+//    }
+//}
 
 //import java.time.LocalDate;
 //import java.time.format.DateTimeFormatter;
@@ -644,3 +649,4 @@ public class Funcionalidad5 {
 //        System.out.println("La fecha " + fechaString + " corresponde a un " + diaSemanaString);
 //    }
 //}
+}

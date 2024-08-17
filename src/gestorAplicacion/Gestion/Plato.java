@@ -3,7 +3,7 @@ package gestorAplicacion.Gestion;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Plato implements Receta, Serializable {
+public class Plato implements Serializable {
     // Atributos
     private String nombre;
     private int precio;
@@ -56,6 +56,16 @@ public class Plato implements Receta, Serializable {
         this.nombre = nombre;
         this.precio = precio;
         this.porciones = porciones;
+        this.cantidadDePlato = cantidadDePlato;
+    }
+    public Plato(String nombre, int cantidadDePlato){
+        this.nombre = nombre;
+        this.cantidadDePlato = cantidadDePlato;
+    }
+    public Plato(String nombre, int precio, int cantidadDePlato, String tipo){
+        this.nombre = nombre;
+        this.precio = precio;
+        this.tipo = tipo;
         this.cantidadDePlato = cantidadDePlato;
     }
 
@@ -158,8 +168,13 @@ public class Plato implements Receta, Serializable {
     public String getTipo() {
         return this.tipo;
     }
-    public void descontarPlato(){
-        cantidadDePlato--;
+    public void descontarPlato(int cantidadDePlatoPedido){
+        if (cantidadDePlatoPedido <= getCantidadDePlato()) {
+            this.cantidadDePlato -= cantidadDePlatoPedido;
+        }
+        else {
+            System.out.println("Error, proceso inválido");
+        }
     }
     public int getPorciones(){
         return porciones;

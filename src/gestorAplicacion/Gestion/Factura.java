@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Factura implements Serializable {
-    private static ArrayList<Factura> facturas = new ArrayList<Factura>();
-    Evento evento;
     //  Atributos
+    private static ArrayList<Factura> facturas = new ArrayList<Factura>();
+    private Evento evento;
+    private String nombreFactura;
     private static int numeroFactura = 0;
     private int valor = 0;
     private String metodoPago;
@@ -93,13 +94,14 @@ public class Factura implements Serializable {
     public Factura(Evento evento){
         this.evento = evento;
     }
-
-    public void setEvento(Evento evento) {
-        this.evento = evento;
-    }
-
     public void aumentarValor(int valor) {
         this.valor += valor;
+    }
+    public Evento getEvento() {
+        return evento;
+    }
+    public void setEvento(Evento evento) {
+        this.evento = evento;
     }
 
     public int calcularValor(){

@@ -12,6 +12,15 @@ public class Pedido implements Serializable {
         platos.add(plato);
     }
 
+    public void agregarPlato(ArrayList<Plato> platos) {
+    	ArrayList <Plato> listaPlatos = platos;
+    	
+    	for (Plato plato: listaPlatos) {
+    		this.agregarPlato(plato);
+    	}
+    }
+ 
+
     public void eliminarPlato(Plato plato){
         platos.remove(plato);
     }

@@ -26,6 +26,12 @@ public class Ciudad extends Zona implements Serializable {
     public void addZona(Zona zona) {
         this.zonas.add(zona);
     }
+    public static ArrayList<Ciudad> getCiudades() {
+        return ciudades;
+    }
+    public static void setCiudades(ArrayList<Ciudad> ciudades) {
+    Ciudad.ciudades = ciudades;
+    }
 
     public void actualizarPoblacion() {
         this.poblacion = 0;

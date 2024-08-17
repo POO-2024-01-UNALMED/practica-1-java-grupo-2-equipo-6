@@ -20,6 +20,12 @@ public class Factura implements Serializable {
     // Constructores
     public Factura(){}
 
+    public Factura(Pedido pedido, int valor) {
+    	this.pedido = pedido;
+    	this.valor = valor;
+    	numeroFactura ++;
+    }
+
     public Factura(Pedido pedido, String metodoPago, boolean pagoPreconsumo, int propina){
         this.pedido = pedido;
         this.metodoPago = metodoPago;
@@ -103,6 +109,10 @@ public class Factura implements Serializable {
     public void setEvento(Evento evento) {
         this.evento = evento;
     }
+    public void agregarPropina(int propina) {
+    	this.propina =+ propina;
+    } 
+
 
     public int calcularValor(){
         int valor = 0;
@@ -119,8 +129,10 @@ public class Factura implements Serializable {
 
     @Override
     public String toString(){
+        
+        String factura = ("\nNúmero factura "+ Factura.numeroFactura + "\n"+ "\n" + pedido.toString() + "Total :      $  " + calcularValor());
 
-        return ("Número factura "+ Factura.numeroFactura + "\n" + pedido.toString() + "Total :      $  " + getValor());
+        return factura;
     }
 
 }

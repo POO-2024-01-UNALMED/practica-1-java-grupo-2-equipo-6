@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Cliente extends Persona implements Serializable {
     // Atributos
     private static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+    private Pedido pedido;
     private Factura factura;
     private Mesa mesa;
     private Restaurante restaurante;
@@ -74,6 +75,12 @@ public class Cliente extends Persona implements Serializable {
     }
     public void setFactura(Factura factura){
         this.factura = factura;
+    }
+    public Pedido getPedido() {
+        return pedido;
+    }
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
     public Factura getFactura(){
         return factura;
@@ -151,4 +158,23 @@ public class Cliente extends Persona implements Serializable {
             return false;
         }
     }
+
+    	
+	public Pedido mostrarPedido() {
+		
+		if (pedido.getPlatos().isEmpty()) {
+			System.out.print("Todavia no  hay platos agregados");
+		}
+
+		return pedido;
+		
+		
+	}
+
+	public void agregarPedido(Pedido pedidoAgregar){
+		
+		pedido.agregarPlato(pedidoAgregar.getPlatos());
+		
+
+	}
 }

@@ -19,6 +19,15 @@ public interface Utilidad {
     static String readString() {
         return consola.nextLine();
     }
+    static char readChar() {
+        String input = readString();
+        if (input.length() == 1) {
+            return input.charAt(0);
+        } else {
+            System.out.println("Ingrese un solo carácter válido.");
+            return readChar();
+        }
+    }
 
     static int readInt() {
         String numero = readString();

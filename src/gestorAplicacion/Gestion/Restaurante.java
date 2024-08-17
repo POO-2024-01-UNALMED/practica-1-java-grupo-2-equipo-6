@@ -5,6 +5,7 @@ import gestorAplicacion.Entorno.Ciudad;
 import gestorAplicacion.Entorno.Mesa;
 import gestorAplicacion.Entorno.Zona;
 import gestorAplicacion.Usuario.Cliente;
+import gestorAplicacion.Usuario.Trabajador;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -20,7 +21,7 @@ public class Restaurante implements Serializable {
     private Cliente cliente;
     private static ArrayList<Restaurante> restaurantes = new ArrayList<Restaurante>();
     public static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-    public static ArrayList<Plato> menu = new ArrayList<Plato>();
+    public  ArrayList<Plato> menu = new ArrayList<Plato>();
     public static int restaurantesCreados;
     public ArrayList<Mesa> mesas = new ArrayList<Mesa>();
     private ArrayList<ArrayList<String>> disposicion = new ArrayList<ArrayList<String>>();
@@ -41,6 +42,7 @@ public class Restaurante implements Serializable {
     private ArrayList<Plato> platosDescuento = new ArrayList<Plato>();
     private String nombre;
     private int capacidad;
+    public static ArrayList <Trabajador> trabajadores = new ArrayList <Trabajador>();
 
 
 
@@ -93,10 +95,9 @@ public class Restaurante implements Serializable {
      * En caso de no estar presente se llama al metodo (...) para crear un cliente-
      */
 
-    public static boolean confirmarCliente(int cc) {
+    public  boolean confirmarCliente(int cc) {
 
         boolean in = false;
-        Cliente cliente = new Cliente();
 
         for (Cliente i : clientes) {
 
@@ -110,7 +111,7 @@ public class Restaurante implements Serializable {
 
     // Necesario para funcionalidad #2
 
-    public static Cliente crearCliente(int cc) {
+    public  Cliente crearCliente(int cc) {
 
         System.out.println("La cédula ingresada es: " + cc);
         System.out.print("¿Es correcta? (1. Confirmar, 2. Cambiar): ");
@@ -134,7 +135,7 @@ public class Restaurante implements Serializable {
 
     }
    
-    public static void platosOferta() {
+    public  void platosOferta() {
     
         for (Plato p : menu) {
 
@@ -165,7 +166,7 @@ public class Restaurante implements Serializable {
     }
        
     
-	public static Pedido platosOferta(String tipo) {
+	public  Pedido platosOferta(String tipo) {
     	ArrayList<Plato> platos = new ArrayList<Plato>();   	
         Pedido pedido = new Pedido();
         

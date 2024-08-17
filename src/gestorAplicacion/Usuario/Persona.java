@@ -5,6 +5,9 @@ public abstract class Persona {
     protected String nombre;
     protected int cedula;
 
+    public Persona(String nombre, int cedula) {
+    }
+
     // Metodo abstracto
     public abstract void mostrarInformacion();
 

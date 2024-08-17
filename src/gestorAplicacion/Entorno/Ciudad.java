@@ -40,5 +40,8 @@ public class Ciudad extends Zona implements Serializable {
         sb.append(", nombre = '").append(nombre).append("'}");
         return sb.toString();
     }
+    public void agregarZonas(Zona zona){
+        zonas.add(zona);
+    }
 
 }

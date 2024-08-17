@@ -30,7 +30,7 @@ public class Funcionalidad5 implements Utilidad {
         System.out.println(obj);
     }
 
-    public static void CrearEvento() {
+    public static void crearEvento() {
         Restaurante restaurante = new Restaurante();
         Factura factura = new Factura();
         boolean encendido = true;
@@ -60,7 +60,7 @@ public class Funcionalidad5 implements Utilidad {
                     //Hasta acá va la prueba
                     printLn("Interaccion2");
                     factura = recomendarEvento();
-//                    datos_horaReserva(restaurante, factura);
+                    datos_horaReserva(restaurante, factura);
 
 
                     encendido = false;
@@ -130,11 +130,11 @@ public class Funcionalidad5 implements Utilidad {
         String nombreCliente = Utilidad.readString();
         ArrayList<Integer> fecha = new ArrayList<Integer>(4);
         System.out.println("Ingrese el día de la reserva:");
-        fecha.set(2, Utilidad.readInt()); // Día
+        fecha.add(Utilidad.readInt()); // Día
         System.out.println("Ingrese el mes de la reserva:");
-        fecha.set(1, Utilidad.readInt()); // Mes
+        fecha.add(Utilidad.readInt());
         System.out.println("Ingrese el año de la reserva:");
-        fecha.set(0, Utilidad.readInt());  // Año
+        fecha.add(Utilidad.readInt());
 
         clientePP.setNombre(nombreCliente);
         clientePP.setCedula((int) cedulaCliente);
@@ -609,12 +609,16 @@ public class Funcionalidad5 implements Utilidad {
     }
 
 
-//    public static String datos_horaReserva(Restaurante restaurante, Factura factura) {
-//        printLn("Estimado Cliente, nos regala la hora a la que desea el evento (HH:MM): ");
-//        String hora_evento = Utilidad.readString();
-//        String [] fraccion = hora_evento.split(":");
-//        int hora_evento_real = Integer.parseInt(fraccion[0]);
-//        String reserva = restaurante.getReservas().getLast().getFecha();
+
+
+    public static String datos_horaReserva(Restaurante restaurante, Factura factura) {
+        printLn("Estimado Cliente, nos regala la hora a la que desea el evento (HH:MM): ");
+        String hora_evento = Utilidad.readString();
+        String [] fraccion = hora_evento.split(":");
+        int hora_evento_real = Integer.parseInt(fraccion[0]);
+        ArrayList<Integer> reserva = restaurante.getReservas().getLast().getFecha();
+        reserva.add(hora_evento_real);
+        System.out.println(reserva);
 //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(reserva);
 //        LocalDate fecha = LocalDate.parse(reserva, formatter);
 //        DayOfWeek diaSemana = fecha.getDayOfWeek();
@@ -626,7 +630,8 @@ public class Funcionalidad5 implements Utilidad {
 //        listado_precios_factura((factura.getEvento().getPlatos()), hora_evento_real, diaSemanaString);
 //        printLn("El día de su factura es " + diaSemana);
 //        return null;
-//    }
+        return hora_evento;
+    }
 //}
 
 //import java.time.LocalDate;

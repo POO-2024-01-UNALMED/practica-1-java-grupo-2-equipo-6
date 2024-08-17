@@ -411,7 +411,7 @@ public class Main {
                 case 5:
                     limpiarPantalla();
                     System.out.println("Funcionalidad 5.");
-                    Funcionalidad5.CrearEvento();
+                    Funcionalidad5.crearEvento();
                     encendido = false;
                     break;
                 case 6:

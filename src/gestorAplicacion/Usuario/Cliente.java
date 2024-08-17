@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class Cliente extends Persona implements Serializable {
     // Atributos
+    private static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
     private Factura factura;
     private Mesa mesa;
     private Restaurante restaurante;

@@ -14,6 +14,7 @@ import static uiMain.Utilidad.intersectarListas;
 
 public class Restaurante implements Serializable {
     // Atributos
+    private static ArrayList<Restaurante> restaurantes = new ArrayList<Restaurante>();
     public static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
     public static ArrayList<Plato> menu = new ArrayList<Plato>();
     public static int restaurantesCreados;

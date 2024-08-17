@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
     public class Trabajador extends Persona implements Serializable {
+        private static ArrayList<Trabajador> trabajadores = new ArrayList<Trabajador>();
         private String especialidad;
         private int salario;
         private boolean ocupado;

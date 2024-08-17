@@ -18,10 +18,7 @@ import static uiMain.Funcionalidad3.*;
 import static uiMain.Funcionalidad4.*;
 import static uiMain.Utilidad.*;
 
-
 public class Main {
-
-    static LocalDateTime localDateTime = LocalDateTime.now(); //Fecha a la hora de ejectuar el programa
     static ArrayList<Ciudad> ciudades = new ArrayList<Ciudad>(); //Lista de ciudades
     static ArrayList<Zona> zonas = new ArrayList<Zona>(); //Lista de zonas
     static ArrayList<Plato> platos = new ArrayList<Plato>(); //Lista de platos
@@ -40,7 +37,6 @@ public class Main {
 
         //Creamos zonas de muestra
         zonas.add(new Zona(4378, "Robledo", ciudad1));
-        zonas.add(new Zona(7426, "Aranjuez", ciudad1));
         zonas.add(new Zona(193134, "Kennedy", ciudad2));
 
         //Agregamos las zonas creadas al array zonas de su respectiva ciudad
@@ -114,40 +110,6 @@ public class Main {
         clientes1.get(1).setFactura(factura2);
         clientes1.get(2).setFactura(factura3);
 
-        //Creamos un restaurante de muestra
-        Restaurante restauranteMuestra = new Restaurante(ciudad1, ciudad1.getZonas().get(0), true, "Muestra");
-        ciudad1.getZonas().get(0).getRestaurantes().add(restauranteMuestra);
-
-        //Creamos una disposición default para el restaurante de muestra
-        ArrayList<ArrayList<String>> disposicion = new ArrayList<ArrayList<String>>();
-
-        //B = Border/Pared, W = Window/Ventana, T = Standard Table/Mesa Estándar, V = VIP Table/Mesa VIP, E = Entrance/Entrada
-
-        disposicion.add(new ArrayList(Arrays.asList(
-                new String[]{"╔", "═", "╦", "╗", "║", "╠", "╬", "╣", "╚", "╩", "╝", " "})));
-        disposicion.add(new ArrayList(Arrays.asList(
-                new String[]{"B", "B", "B", "B", "B", "B", "B", "B", "B", "B"})));
-        disposicion.add(new ArrayList(Arrays.asList(
-                new String[]{"B", " ", "V", " ", "V", " ", "V", " ", "V", "B"})));
-        disposicion.add(new ArrayList(Arrays.asList(
-                new String[]{"W", " ", " ", " ", " ", " ", " ", " ", " ", "W"})));
-        disposicion.add(new ArrayList(Arrays.asList(
-                new String[]{"B", " ", "T", " ", "T", " ", "T", " ", "T", "B"})));
-        disposicion.add(new ArrayList(Arrays.asList(
-                new String[]{"B", " ", " ", " ", " ", " ", " ", " ", " ", "B"})));
-        disposicion.add(new ArrayList(Arrays.asList(
-                new String[]{"B", " ", "T", " ", "T", " ", "T", " ", " ", "B"})));
-        disposicion.add(new ArrayList(Arrays.asList(
-                new String[]{"B", " ", " ", " ", " ", " ", " ", " ", " ", "B"})));
-        disposicion.add(new ArrayList(Arrays.asList(
-                new String[]{"W", " ", "T", " ", "T", " ", "T", " ", " ", "W"})));
-        disposicion.add(new ArrayList(Arrays.asList(
-                new String[]{"B", " ", " ", " ", " ", " ", " ", " ", " ", "B"})));
-        disposicion.add(new ArrayList(Arrays.asList(
-                new String[]{"B", "B", "B", "B", "B", "B", "B", "E", "B", "B"})));
-
-        restauranteMuestra.setDisposicion(disposicion);
-
         //Consultar con Colo como es esto
         Ciudad BOG = new Ciudad("BOGOTA");
         Ciudad MDE = new Ciudad("MEDELLIN");
@@ -178,11 +140,7 @@ public class Main {
         fechaReserva1.add(28);
         fechaReserva1.add(8);
         Reserva reserva1 = new Reserva(clientes1, fechaReserva1);
-//        Reserva reserva2 = new Reserva(clientes2, new Date(2024, 7, 29, 9, 0));
-//        Reserva reserva3 = new Reserva(clientes3, new Date(2024, 7, 30, 10, 0));
         reservasUsaquen.add(reserva1);
-//        reservasUsaquen.add(reserva2);
-//        reservasUsaquen.add(reserva3);
 
         //Ingredientes Torta Pequeña Cumpleaños
         Ingrediente harinaTortaPequena = new Ingrediente("Harina", 5000);

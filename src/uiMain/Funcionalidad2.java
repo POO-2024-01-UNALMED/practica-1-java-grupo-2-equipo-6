@@ -3,7 +3,6 @@ package uiMain;
 import gestorAplicacion.Gestion.Restaurante;
 import gestorAplicacion.Usuario.Cliente;
 
-
 public class Funcionalidad2 {
 	public static void ordenarComida() {
 		//Tenés que hacer que al principio se seleccione de qué restaurante se está hablando pa pasaselo como parámetro

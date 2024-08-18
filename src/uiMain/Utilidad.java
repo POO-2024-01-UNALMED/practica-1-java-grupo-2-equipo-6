@@ -14,10 +14,9 @@ import java.util.*;
 import static uiMain.Main.*;
 
 public interface Utilidad {
-    Scanner consola = new Scanner(System.in);
-
+    Scanner CONSOLA = new Scanner(System.in); //Constante
     static String readString() {
-        return consola.nextLine();
+        return CONSOLA.nextLine();
     }
     static char readChar() {
         String input = readString();

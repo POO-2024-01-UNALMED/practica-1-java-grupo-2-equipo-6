@@ -687,7 +687,7 @@ public class Funcionalidad4 implements Utilidad {
             }
 
             //Establecer Encargos
-            
+
         } else {
             //Establecer Menú
             ArrayList<Plato> menuRestaurante = new ArrayList<Plato>();

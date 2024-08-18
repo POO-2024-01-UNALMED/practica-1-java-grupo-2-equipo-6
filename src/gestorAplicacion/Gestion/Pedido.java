@@ -1,10 +1,13 @@
 package gestorAplicacion.Gestion;
+import gestorAplicacion.Usuario.Cliente;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Pedido implements Serializable {
     private static ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
     private ArrayList<Plato> platos = new ArrayList<Plato>();
+    private Cliente cliente;
 
     public Pedido(){};
 
@@ -32,9 +35,14 @@ public class Pedido implements Serializable {
     public void setPlatos(ArrayList<Plato> platos){
         this.platos = platos;
     }
+    public Cliente getCliente() {
+        return cliente;
+    }
 
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
-    
     @Override
     public String toString() {
 

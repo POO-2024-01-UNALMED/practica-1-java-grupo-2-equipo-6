@@ -20,7 +20,7 @@ public class Restaurante implements Serializable {
     private ArrayList<ArrayList<Integer>> intentosReserva;
     private Cliente cliente;
     private static ArrayList<Restaurante> restaurantes = new ArrayList<Restaurante>();
-    public static ArrayList<Cliente> clientes = new ArrayList<Cliente>(); //No puede ser static, arreglar lo que conlleva cambiarlo
+    public ArrayList<Cliente> clientes = new ArrayList<Cliente>(); //No puede ser static, arreglar lo que conlleva cambiarlo
     //una buena solucion seria crear una lista clientesRestaurante. Traería menos problemas (En principio).
     public ArrayList<Plato> menu = new ArrayList<Plato>();
     public static int restaurantesCreados;
@@ -370,14 +370,6 @@ public class Restaurante implements Serializable {
         intentosReserva.add(intentoReserva);
     }
 
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{Información del Restaurante: ");
@@ -397,11 +389,11 @@ public class Restaurante implements Serializable {
     public int getCapacidad(){
         return capacidad;
     }
-    public static ArrayList<Cliente> getClientes() {
+    public ArrayList<Cliente> getClientes() {
         return clientes;
     }
-    public static void setClientes(ArrayList<Cliente> clientes) {
-        Restaurante.clientes = clientes;
+    public void setClientes(ArrayList<Cliente> clientes) {
+        this.clientes = clientes;
     }
     public ArrayList<ArrayList<Integer>> getFechasDisponibles() {
         return fechasDisponibles;

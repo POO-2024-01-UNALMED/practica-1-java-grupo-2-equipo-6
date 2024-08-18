@@ -233,6 +233,7 @@ public interface Utilidad {
         }
     }
 
+    //Este metodo se encarga de retornar verdadero o falso segun si existe o no un cliente con una cedula dada.
     static boolean existeCliente(Cliente clienteActual) {
         for (Cliente cliente : Restaurante.getClientes()) {
             return clienteActual.getCedula() == cliente.getCedula();
@@ -240,6 +241,7 @@ public interface Utilidad {
         return false;
     }
 
+    //Este metodo se encarga de retornar la referencia de un cliente presente en la lista de clientes de un restaurante
     static Cliente clienteCedula(Cliente clienteActual) {
         for (Cliente cliente : Restaurante.getClientes()) {
             if (clienteActual.getCedula() == cliente.getCedula()) {
@@ -312,13 +314,36 @@ public interface Utilidad {
         return mesasElegidas;
     }
 
+    //Este metodo se encarga de retornar la union de dos listas dadas
     static ArrayList<ArrayList<Integer>> intersectarListas(ArrayList<ArrayList<Integer>> lista1,
                                                                   ArrayList<ArrayList<Integer>> lista2) {
         // Crear un LinkedHashSet para evitar duplicados y mantener el orden de inserción
         Set<ArrayList<Integer>> set = new LinkedHashSet<>(lista1);
         set.addAll(lista2);
         // Convertir el Set de nuevo a ArrayList
-        ArrayList<ArrayList<Integer>> listaCombinada= new ArrayList<>(set);
+        ArrayList<ArrayList<Integer>> listaCombinada = new ArrayList<>(set);
         return listaCombinada;
+    }
+
+    //Este metodo se encarga de recorrer la bodega de items de un restaurante, para devolver el indice donde se
+    //encuentra el item en especifico
+    static int indiceBodegaItems(String nombreItem, Restaurante restaurante) {
+        for (ArrayList<String> item : restaurante.getBodegaItems()) {
+            if (capitalize(item.getFirst()).equals(capitalize(nombreItem))) {
+                return restaurante.getBodegaItems().indexOf(item);
+            }
+        }
+        return -1;
+    }
+
+    //Este metodo se encarga de recorrer la bodega de ingredientes de un restaurante, para devolver el ingrediente
+    //que tenga el nombre indicado.
+    static Ingrediente ingredienteBodegaIngredientes(String nombreItem, Restaurante restaurante) {
+        for (Ingrediente ingrediente : restaurante.getBodegaIngredientes()) {
+            if (capitalize(ingrediente.getNombre()).equals(capitalize(nombreItem))) {
+                return ingrediente;
+            }
+        }
+        return null;
     }
 }

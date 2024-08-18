@@ -20,8 +20,9 @@ public class Restaurante implements Serializable {
     private ArrayList<ArrayList<Integer>> intentosReserva;
     private Cliente cliente;
     private static ArrayList<Restaurante> restaurantes = new ArrayList<Restaurante>();
-    public static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-    public  ArrayList<Plato> menu = new ArrayList<Plato>();
+    public static ArrayList<Cliente> clientes = new ArrayList<Cliente>(); //No puede ser static, arreglar lo que conlleva cambiarlo
+    //una buena solucion seria crear una lista clientesRestaurante. Traería menos problemas (En principio).
+    public ArrayList<Plato> menu = new ArrayList<Plato>();
     public static int restaurantesCreados;
     public ArrayList<Mesa> mesas = new ArrayList<Mesa>();
     private ArrayList<ArrayList<String>> disposicion = new ArrayList<ArrayList<String>>();
@@ -35,7 +36,8 @@ public class Restaurante implements Serializable {
     private float calificacion;
     private int coordX;
     private int coordY;
-    private ArrayList<Ingrediente> bodega = new ArrayList<Ingrediente>();
+    private ArrayList<Ingrediente> bodegaIngredientes = new ArrayList<Ingrediente>();
+    private ArrayList<ArrayList<String>> bodegaItems = new ArrayList<>();
     private ArrayList<Reserva> reservas = new ArrayList<Reserva>();
     private ArrayList<String> reseñas = new ArrayList<String>();
     private ArrayList<Plato> platosRecomendados = new ArrayList<Plato>();
@@ -43,8 +45,18 @@ public class Restaurante implements Serializable {
     private String nombre;
     private int capacidad;
     public static ArrayList <Trabajador> trabajadores = new ArrayList <Trabajador>();
-
-
+    public ArrayList<Ingrediente> getBodegaIngredientes() {
+        return bodegaIngredientes;
+    }
+    public void setBodegaIngredientes(ArrayList<Ingrediente> bodegaIngredientes) {
+        this.bodegaIngredientes = bodegaIngredientes;
+    }
+    public ArrayList<ArrayList<String>> getBodegaItems() {
+        return bodegaItems;
+    }
+    public void setBodegaItems(ArrayList<ArrayList<String>> bodegaItems) {
+        this.bodegaItems = bodegaItems;
+    }
 
     // Constructores
     public Restaurante() {
@@ -444,11 +456,13 @@ public class Restaurante implements Serializable {
         this.setFechasDisponibles(nuevoArray);
     }
 
-    public Object getNombreRestaurante() {
-        return nombre;
-    }
-
     public ArrayList<Reserva> getReservas() {
         return reservas;
+    }
+    public void restarDeBodega(Ingrediente ingrediente, int cantidad) {
+
+    }
+    public void restarDeBodega(int indice, int cantidad) {
+
     }
 }

@@ -53,9 +53,6 @@ public class Ingrediente implements Serializable {
     public double getCantidad() {
         return cantidad;
     }
-    public void setCantidad(double cantidad) {
-        this.cantidad = cantidad;
-    }
     public static ArrayList<Ingrediente> getListaIngredientes() {
         return listaIngredientes;
     }

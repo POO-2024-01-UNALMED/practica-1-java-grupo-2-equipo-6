@@ -97,7 +97,7 @@ public class Funcionalidad5 implements Utilidad {
                 case 1:
                     if (ciudadRequerida != null) {
                         restauranteElegido = getRestaurante(ciudadRequerida);
-                        print(restauranteElegido.getNombreRestaurante()); //Esto es para pruebas
+                        print(restauranteElegido.getNombre()); //Esto es para pruebas
                     }
                     encendido = false;
                     break;
@@ -614,7 +614,7 @@ public class Funcionalidad5 implements Utilidad {
     }
 
     public static void formato_factura_evento(Restaurante restaurante, Factura factura, ArrayList<Integer> reserva, boolean diaFinDeSemana){
-        System.out.println(STR.".............. \{restaurante.getNombreRestaurante()}..............");
+        System.out.println(STR.".............. \{restaurante.getNombre()}..............");
         System.out.println("Cliente: " + restaurante.getCliente().getNombre());
         System.out.println("Cédula: " + restaurante.getCliente().getCedula());
         listado_precios_factura(factura, reserva, diaFinDeSemana);

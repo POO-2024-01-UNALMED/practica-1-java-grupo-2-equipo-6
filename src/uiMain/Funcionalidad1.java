@@ -139,8 +139,8 @@ public class Funcionalidad1 implements Utilidad{
                 System.out.println("Ingrese la cédula del acompañante #" + (i + 1) + ":");
                 int cedulaAcompanante = Utilidad.readInt();
                 Cliente acompanante = new Cliente(nombreAcompanante, cedulaAcompanante);
-                acompanante = Utilidad.clienteCedula(acompanante);
                 if (Utilidad.existeCliente(acompanante)) {
+                    acompanante = Utilidad.clienteCedula(acompanante);
                     clientes.add(acompanante);
                 } else {
                     Restaurante.getClientes().add(acompanante);
@@ -375,14 +375,18 @@ public class Funcionalidad1 implements Utilidad{
         switch (eleccion) {
             case 1:
                 System.out.println("Reserva de Parqueadero");
+                String placa = "";
+                int cargoExtra1 = 0;
                 if (cliente.getAfiliacion() == Cliente.Afiliacion.NINGUNA){
                     System.out.println("El servicio tiene un coste de $10.000. ¿Desea reservar el parqueadero?");
                     System.out.println("""
                             1. Sí.
                             2. No.""");
                     int eleccion2 = Utilidad.readInt();
-                    String placa = "";
                     if (eleccion2 == 1){
+                        cargoExtra1 = 10000;
+                        int indiceCelda = restaurante.getParqueadero().indexOf(false);
+                        System.out.println("Su celda de parqueo es la número: #" + (indiceCelda + 1));
                         if (cliente.getPlacaVehiculo().equals("Ninguna")){
                             System.out.println("Ingrese la placa del vehículo:");
                             placa = Utilidad.readString();
@@ -390,18 +394,28 @@ public class Funcionalidad1 implements Utilidad{
                         } else {
                             placa = cliente.getPlacaVehiculo();
                         }
-                        for (int i = 0; i < restaurante.getParqueadero().size(); i++) {
-                            if (!restaurante.getParqueadero().get(i)) {
-                                System.out.println("Parqueadero reservado con éxito para el vehículo con placa: " +
-                                        placa + ".");
-                                break;
-                            }
-                        }
-                        System.out.println("Parqueadero reservado con éxito.");
+                        System.out.println("Parqueadero reservado con éxito para el vehículo con placa: " + placa + ".");
                     } else {
                         extrasReserva(cliente);
                     }
+                } else {
+                    if (cliente.getPlacaVehiculo().equals("Ninguna")){
+                        System.out.println("Ingrese la placa del vehículo:");
+                        placa = Utilidad.readString();
+                        cliente.setPlacaVehiculo(placa);
+                    } else {
+                        placa = cliente.getPlacaVehiculo();
+                    }
+                    for (int i = 0; i < restaurante.getParqueadero().size(); i++) {
+                        if (!restaurante.getParqueadero().get(i)) {
+                            System.out.println("Parqueadero reservado con éxito para el vehículo con placa: " +
+                                    placa + ".");
+                            break;
+                        }
+                    }
+                    System.out.println("Parqueadero reservado con éxito.");
                 }
+                cliente.getFactura().aumentarValor(cargoExtra1);
                 break;
             case 2:
                 System.out.println("Decoraciones para la mesa");
@@ -418,45 +432,59 @@ public class Funcionalidad1 implements Utilidad{
                 if (eleccion3 == 1) {
                     boolean encendido1 = false;
                     do {
+                        int cargoExtra2 = 0;
                         System.out.println("""
                                 Disponemos de los siguientes paquetes de decoración:
-                                1. Cena romántica.
-                                2. Graduación.
-                                3. Descubrimiento.""");
+                                1. Cena romántica (30000$).
+                                2. Graduación (1200$ + 5000$ por cada comensal).
+                                3. Descubrimiento (1200$ + 6000$ por cada comensal).""");
                         int eleccion4 = Utilidad.readInt();
                         switch (eleccion4) {
                             case 1:
-                                //Descontar de Bodega una unidad de rosas y velas, además de vino blanco
-                                //Trabajador de tipo Violinista se le hace un pago extra ¿?
-                                //Cargo extra a factura
+                                restaurante.restarDeBodega(Utilidad.indiceBodegaItems("rosa", restaurante), 1);
+                                restaurante.restarDeBodega(Utilidad.indiceBodegaItems("vela", restaurante), 3);
+                                restaurante.restarDeBodega(Utilidad.ingredienteBodegaIngredientes("vino blanco", restaurante), 1);
+                                cargoExtra2 = 30000;
                                 break;
                             case 2:
-                                //Descontar de Bodega una unidad de globos negros y globos dorados, y
-                                //descontar birretes simbólicos según el número de clientes
-                                //Cargo extra a factura
+
+                                restaurante.restarDeBodega(Utilidad.indiceBodegaItems("globo negro", restaurante), 3);
+                                restaurante.restarDeBodega(Utilidad.indiceBodegaItems("globo dorado", restaurante), 3);
+                                restaurante.restarDeBodega(Utilidad.indiceBodegaItems("birrete", restaurante),
+                                        cliente.getMesa().getClientes().size());
+                                int cargoBirretes = 5000 * cliente.getMesa().getClientes().size();
+                                cargoExtra2 = 1200 + cargoBirretes;
                                 break;
                             case 3:
                                 System.out.println("Seleccione el género del bebé:\n1. Niño.\n2. Niña.");
                                 int eleccion5 = Utilidad.readInt();
                                 if (eleccion5 == 1) {
-                                    //Descontar de Bodega globos azules, blancos y (angel varón según # clientes)
+                                    restaurante.restarDeBodega(Utilidad.indiceBodegaItems("globo azul", restaurante), 3);
+                                    restaurante.restarDeBodega(Utilidad.indiceBodegaItems("globo blanco", restaurante), 3);
+                                    restaurante.restarDeBodega(Utilidad.indiceBodegaItems("angel varon", restaurante),
+                                            cliente.getMesa().getClientes().size());
                                 } else {
-                                    //Descontar de Bodega globos rosados, blancos y (angel femenino según # clientes)
+                                    restaurante.restarDeBodega(Utilidad.indiceBodegaItems("globo rosado", restaurante), 3);
+                                    restaurante.restarDeBodega(Utilidad.indiceBodegaItems("globo blanco", restaurante), 3);
+                                    restaurante.restarDeBodega(Utilidad.indiceBodegaItems("angel femenino", restaurante),
+                                            cliente.getMesa().getClientes().size());
                                 }
-                                //Cargo extra a factura
+                                int cargoAngeles = 6000 * cliente.getMesa().getClientes().size();
+                                cargoExtra2 = 1200 + cargoAngeles;
                                 break;
                             default:
                                 System.out.println("Ingrese un dato válido [1 - 3]");
                                 encendido1 = true;
                                 break;
                         }
+                        cliente.getFactura().aumentarValor(cargoExtra2);
                     } while (encendido1);
                 } else {
                     extrasReserva(cliente);
                 }
                 break;
             case 3:
-                System.out.println("No desea ningún servicio extra");
+                System.out.println("No desea ningún servicio extra.");
                 break;
             default:
                 System.out.println("Ingrese un número válido.");

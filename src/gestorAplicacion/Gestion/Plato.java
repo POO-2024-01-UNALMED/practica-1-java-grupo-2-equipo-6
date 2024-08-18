@@ -10,8 +10,9 @@ public class Plato implements Serializable {
     private String nombre;
     private int precio;
     private ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
+    private ArrayList<ArrayList<String>> cantidadIngredientes = new ArrayList<ArrayList<String>>();
     // Ingrediente, cantidad preparacion
-    private HashMap<Ingrediente, Double> ingredientesMenu = new HashMap<Ingrediente, Double>();
+//    private HashMap<Ingrediente, Double> ingredientesMenu = new HashMap<Ingrediente, Double>();
     private float calificacion;
     private boolean recomendado;
     private int cantidadCalificaciones;
@@ -26,15 +27,15 @@ public class Plato implements Serializable {
     public Plato() {}
 
 	
-    public Plato(String s, int p,  String tipo, HashMap<Ingrediente, Double> ingredientes) {
-    	nombre = s;
-    	precio = p;
-    	this.ingredientesMenu = ingredientes;
-    	this.tipo = tipo;
-    	
+    public Plato(String nombre, int precio,  String tipo, ArrayList<Ingrediente> ingredientes) {
+    	nombre = nombre;
+    	precio = precio;
+        this.tipo = tipo;
+    	this.ingredientes = ingredientes;
     }
 
-    public Plato(String nombre, int precio, ArrayList<Ingrediente> ingredientes, float calificacion) {
+    public Plato(String nombre, int precio, ArrayList<Ingrediente> ingredientes,
+                 ArrayList<ArrayList<String>> cantidadIngredientes, float calificacion) {
         this.nombre = nombre;
         this.precio = precio;
         this.ingredientes = ingredientes;
@@ -109,13 +110,21 @@ public class Plato implements Serializable {
         this.precio = precio;
     }
 
-    public HashMap<Ingrediente, Double> getIngredientes() {
-        return ingredientesMenu;
+    public ArrayList<Ingrediente> getIngredientes() {
+        return ingredientes;
     }
 
-    public void setIngredientes( HashMap<Ingrediente, Double> ingredientes)
+    public void setIngredientes(ArrayList<Ingrediente> ingredientes)
      {
-        this.ingredientesMenu = ingredientes;
+        this.ingredientes = ingredientes;
+    }
+
+    public ArrayList<ArrayList<String>> getCantidadIngredientes() {
+        return cantidadIngredientes;
+    }
+
+    public void setCantidadIngredientes(ArrayList<ArrayList<String>> cantidadIngredientes) {
+        this.cantidadIngredientes = cantidadIngredientes;
     }
 
     public float getCalificacion() {
@@ -154,7 +163,6 @@ public class Plato implements Serializable {
     public void agregarIngrediente(Ingrediente ingrediente, int cantidadd)  {
         this.ingredientesMenu.put(ingrediente, (double) cantidadd);
     }
-
     public void eliminarIngrediente(Ingrediente ingrediente) {
         this.ingredientesMenu.remove(ingrediente);
     }

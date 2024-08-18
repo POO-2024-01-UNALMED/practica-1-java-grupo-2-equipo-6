@@ -14,6 +14,7 @@ import static uiMain.Main.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 //Desarrollado por Samuel Colorado
 public class Funcionalidad4 implements Utilidad {
@@ -687,7 +688,13 @@ public class Funcionalidad4 implements Utilidad {
             }
 
             //Establecer Encargos
+            for (Plato plato : restaurante.getMenu()) {
+                System.out.println("Nombre: " + plato.getNombre() + "\nVeces pedido: " + plato.getVecesPedido());
+                System.out.println("Ingredientes:");
+                for (Ingrediente ingrediente : plato.getIngredientes()) {
 
+                }
+            }
         } else {
             //Establecer Menú
             ArrayList<Plato> menuRestaurante = new ArrayList<Plato>();
@@ -708,6 +715,7 @@ public class Funcionalidad4 implements Utilidad {
         boolean existe = false;
         int indiceExiste = 0;
         Plato platoRetorno = new Plato();
+        ArrayList<ArrayList<String>> cantidadIngredientes = new ArrayList<ArrayList<String>>();
         for (Plato plato : platos) {
             if (plato.getNombre().equals(nombre)) {
                 existe = true;
@@ -720,59 +728,112 @@ public class Funcionalidad4 implements Utilidad {
             int precio = Utilidad.readInt();
             System.out.println("Ingrese la cantidad de ingredientes que tiene el plato.");
             int numIngredientes = Utilidad.readInt();
-            Utilidad.limpiarPantalla();
-            Utilidad.listadoIngredientes();
-            ArrayList<Ingrediente> ingredientesPlato = new ArrayList<Ingrediente>();
-            System.out.println("\nElija la situación que mejor se acomode a su situación actual con respecto a la " +
-                    "lista presentada:\n1. Todos los ingredientes están presentes.\n2. Algunos ingredientes están" +
-                    " presentes.\n3. Ningún ingrediente está presente.");
-            int eleccion = Utilidad.readInt();
-            switch (eleccion) {
-                case 1:
-                    System.out.println("Escriba el número de lista donde está cada uno de los " + numIngredientes +
-                            " ingredientes necesarios.");
-                    for (int i = 0; i < numIngredientes; i++) {
-                        System.out.println("Ingresa el número del ingrediente #" + (i + 1));
-                        int indice = Utilidad.readInt();
-                        ingredientesPlato.add(ingredientes.get(indice - 1));
-                    }
-                    break;
-                case 2:
-                    System.out.println("Ingrese la cantidad de ingredientes que ya están presentes.");
-                    int numIngExistentes = Utilidad.readInt();
-                    System.out.println("Escriba el número de lista donde está cada uno de los " + numIngExistentes +
-                            "ingredientes necesarios.");
-                    for (int i = 0; i < numIngExistentes; i++) {
-                        System.out.println("Ingresa el número del ingrediente #" + (i + 1));
-                        int indice = Utilidad.readInt();
-                        ingredientesPlato.add(ingredientes.get(indice - 1));
-                    }
-                    for (int i = 0; i < (numIngredientes - numIngExistentes); i++) {
-                        System.out.println("Ingrese el nombre del nuevo ingrediente.");
-                        String nombreIngrediente = Utilidad.capitalize(Utilidad.readString());
-                        System.out.println("Ingrese el precio unitario del nuevo ingrediente.");
-                        int precioIngrediente = Utilidad.readInt();
-                        Ingrediente ingrediente = new Ingrediente(nombreIngrediente, precioIngrediente);
-                        ingredientes.add(ingrediente);
-                        ingredientesPlato.add(ingrediente);
-                    }
-                    break;
-                case 3:
-                    for (int i = 0; i < numIngredientes; i++) {
-                        System.out.println("Ingrese el nombre del nuevo ingrediente.");
-                        String nombreIngrediente = Utilidad.capitalize(Utilidad.readString());
-                        System.out.println("Ingrese el precio unitario del nuevo ingrediente.");
-                        int precioIngrediente = Utilidad.readInt();
-                        Ingrediente ingrediente = new Ingrediente(nombreIngrediente, precioIngrediente);
-                        ingredientes.add(ingrediente);
-                        ingredientesPlato.add(ingrediente);
-                    }
-                    break;
+            if (numIngredientes < 1) {
+                numIngredientes = 1;
             }
-            platoRetorno = new Plato(nombre, precio, ingredientesPlato, (int) (Math.random() * 5) + 1);
+            Utilidad.limpiarPantalla();
+            ArrayList<Ingrediente> listaIngredientes = Utilidad.listadoIngredientes();
+            if (listaIngredientes != null) {
+                for (int i = 0; i < listaIngredientes.size(); i++) {
+                    System.out.println((i + 1) + ". " + listaIngredientes.get(i).getNombre() + '.');
+                }
+                ArrayList<Ingrediente> ingredientesPlato = new ArrayList<Ingrediente>();
+                System.out.println("\nElija la situación que mejor se acomode a su situación actual con respecto a " +
+                        "la lista presentada:\n1. Todos los ingredientes están presentes.\n2. Algunos ingredientes " +
+                        "están presentes.\n3. Ningún ingrediente está presente.");
+                boolean encendido1 = true;
+                do {
+                    int eleccion = Utilidad.readInt();
+                    switch (eleccion) {
+                        case 1:
+                            System.out.println("Escriba el número de lista donde está cada uno de los " +
+                                    numIngredientes + " ingredientes necesarios.");
+                            for (int i = 0; i < numIngredientes; i++) {
+                                System.out.println("Ingresa el número del ingrediente #" + (i + 1));
+                                int indice = Utilidad.readInt() - 1;
+                                Ingrediente ingrediente = Ingrediente.getIngredientes().get(indice);
+                                ingredientesPlato.add(ingrediente);
+                                System.out.println("Ingresa la cantidad necesaria de este ingrediente para la " +
+                                        "preparación del plato");
+                                int cantidadIngrediente = Utilidad.readInt();
+                                if (cantidadIngrediente < 1) {
+                                    cantidadIngrediente = 1;
+                                }
+                                cantidadIngredientes.add(new ArrayList<String>(Arrays.asList(ingrediente.getNombre(),
+                                        String.valueOf(cantidadIngrediente))));
+                            }
+                            encendido1 = false;
+                            break;
+                        case 2:
+                            System.out.println("Ingrese la cantidad de ingredientes que ya están presentes.");
+                            int numIngExistentes = Utilidad.readInt();
+                            if (numIngExistentes < 1) {
+                                numIngExistentes = 1;
+                            }
+                            System.out.println("Escriba el número de lista donde está cada uno de los " +
+                                    numIngExistentes + "ingredientes necesarios.");
+                            for (int i = 0; i < numIngExistentes; i++) {
+                                System.out.println("Ingresa el número del ingrediente #" + (i + 1));
+                                int indice = Utilidad.readInt() - 1;
+                                Ingrediente ingrediente = Ingrediente.getIngredientes().get(indice);
+                                ingredientesPlato.add(ingrediente);
+                                System.out.println("Ingresa la cantidad necesaria de este ingrediente para la " +
+                                        "preparación del plato");
+                                int cantidadIngrediente = Utilidad.readInt();
+                                if (cantidadIngrediente < 1) {
+                                    cantidadIngrediente = 1;
+                                }
+                                cantidadIngredientes.add(new ArrayList<String>(Arrays.asList(ingrediente.getNombre(),
+                                        String.valueOf(cantidadIngrediente))));
+                            }
+                            for (int i = 0; i < (numIngredientes - numIngExistentes); i++) {
+                                crearIngrediente(cantidadIngredientes, ingredientesPlato);
+                            }
+                            encendido1 = false;
+                            break;
+                        case 3:
+                            for (int i = 0; i < numIngredientes; i++) {
+                                crearIngrediente(cantidadIngredientes, ingredientesPlato);
+                            }
+                            encendido1 = false;
+                            break;
+                        default:
+                            System.out.println("Ingrese un valor válido [1 - 3].");
+                            break;
+                    }
+                } while (encendido1);
+                platoRetorno = new Plato(nombre, precio, ingredientesPlato, cantidadIngredientes, 3);
+            } else {
+                ArrayList<Ingrediente> ingredientesPlato = new ArrayList<Ingrediente>();
+                for (int i = 0; i < numIngredientes; i++) {
+                    crearIngrediente(cantidadIngredientes, ingredientesPlato);
+                }
+                platoRetorno = new Plato(nombre, precio, ingredientesPlato, cantidadIngredientes, 3);
+            }
         } else {
             platoRetorno = platos.get(indiceExiste);
         }
         return platoRetorno;
+    }
+
+    private static void crearIngrediente(ArrayList<ArrayList<String>> cantidadIngredientes, ArrayList<Ingrediente> ingredientesPlato) {
+        System.out.println("Ingrese el nombre del nuevo ingrediente.");
+        String nombreIngrediente = Utilidad.capitalize(Utilidad.readString());
+        System.out.println("Ingrese el precio unitario del nuevo ingrediente.");
+        int precioIngrediente = Utilidad.readInt();
+        if (precioIngrediente < 1) {
+            precioIngrediente = 1;
+        }
+        Ingrediente ingrediente = new Ingrediente(nombreIngrediente, precioIngrediente);
+        Ingrediente.getIngredientes().add(ingrediente);
+        ingredientesPlato.add(ingrediente);
+        System.out.println("Ingresa la cantidad necesaria de este ingrediente para la " +
+                "preparación del plato");
+        int cantidadIngrediente = Utilidad.readInt();
+        if (cantidadIngrediente < 1) {
+            cantidadIngrediente = 1;
+        }
+        cantidadIngredientes.add(new ArrayList<String>(Arrays.asList(ingrediente.getNombre(),
+                String.valueOf(cantidadIngrediente))));
     }
 }

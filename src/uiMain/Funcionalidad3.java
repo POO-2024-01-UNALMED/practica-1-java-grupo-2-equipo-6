@@ -668,7 +668,7 @@ public class Funcionalidad3 implements Utilidad {
                             while (true){
                                 System.out.println("Por favor ingrese el nombre del ingrediente o Stop para detenerse:");
                                 String nombreIngrediente = Utilidad.readString();
-                                for (Ingrediente ingrediente : Ingrediente.getListaIngredientes()){
+                                for (Ingrediente ingrediente : Ingrediente.getIngredientes()){
                                     if (ingrediente.getNombre().equals(nombreIngrediente)){
                                         ingredientes.add(ingrediente);
                                         break;

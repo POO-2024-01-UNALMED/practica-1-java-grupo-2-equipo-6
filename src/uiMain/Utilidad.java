@@ -216,17 +216,17 @@ public interface Utilidad {
 
     //Este metodo se encarga de organizar en orden alfabético el listado de ingredientes para luego imprimir un listado
     //numerado desde 1 con el nombre de estos.
-    static void listadoIngredientes() {
-        if (!ingredientes.isEmpty()) {
+    static ArrayList<Ingrediente> listadoIngredientes() {
+        if (!Ingrediente.getIngredientes().isEmpty()) {
             ingredientes.sort(new Comparator<Ingrediente>() {
                 @Override
                 public int compare(Ingrediente o1, Ingrediente o2) {
                     return o1.getNombre().compareToIgnoreCase(o2.getNombre());
                 }
             });
-            for (int i = 0; i < ingredientes.size(); i++) {
-                System.out.println(String.valueOf(i + 1) + ". " + ingredientes.get(i).getNombre() + '.');
-            }
+            return Ingrediente.getIngredientes();
+        } else {
+            return null;
         }
     }
 

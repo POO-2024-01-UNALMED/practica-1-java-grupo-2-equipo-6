@@ -2,16 +2,14 @@ package gestorAplicacion.Gestion;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Ingrediente implements Serializable {
     //Atributos
-    private static ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
     private String nombre;
     private int precio;
     private int inventario;
     private double cantidad;
-    private static ArrayList<Ingrediente> listaIngredientes = new ArrayList<Ingrediente>();
+    private static ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
 
     //Constructor
     public Ingrediente(String nombre, int precio) {
@@ -21,14 +19,14 @@ public class Ingrediente implements Serializable {
     public Ingrediente(String nombre, double cantidad){
         this.nombre = nombre;
         this.cantidad = cantidad;
-        listaIngredientes.add(this);
+        ingredientes.add(this);
     }
     public Ingrediente(String nombre, double cantidad, int precio, int inventario) {
         this.nombre = nombre;
         this.cantidad = cantidad;
         this.precio = precio;
         this.inventario = inventario;
-        listaIngredientes.add(this);
+        ingredientes.add(this);
     }
 
     //Métodos
@@ -53,8 +51,8 @@ public class Ingrediente implements Serializable {
     public double getCantidad() {
         return cantidad;
     }
-    public static ArrayList<Ingrediente> getListaIngredientes() {
-        return listaIngredientes;
+    public static ArrayList<Ingrediente> getIngredientes() {
+        return ingredientes;
     }
 
     @Override

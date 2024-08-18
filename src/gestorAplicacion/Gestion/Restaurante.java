@@ -44,19 +44,8 @@ public class Restaurante implements Serializable {
     private ArrayList<Plato> platosDescuento = new ArrayList<Plato>();
     private String nombre;
     private int capacidad;
-    public static ArrayList <Trabajador> trabajadores = new ArrayList <Trabajador>();
-    public ArrayList<Ingrediente> getBodegaIngredientes() {
-        return bodegaIngredientes;
-    }
-    public void setBodegaIngredientes(ArrayList<Ingrediente> bodegaIngredientes) {
-        this.bodegaIngredientes = bodegaIngredientes;
-    }
-    public ArrayList<ArrayList<String>> getBodegaItems() {
-        return bodegaItems;
-    }
-    public void setBodegaItems(ArrayList<ArrayList<String>> bodegaItems) {
-        this.bodegaItems = bodegaItems;
-    }
+    public static ArrayList<Trabajador> trabajadores = new ArrayList <Trabajador>();
+    private ArrayList<Integer> proximaEntrega = new ArrayList<Integer>();
 
     // Constructores
     public Restaurante() {
@@ -86,10 +75,6 @@ public class Restaurante implements Serializable {
 
     // Métodos
     static Scanner consola = new Scanner(System.in);
-
-    static String readString() {
-        return consola.nextLine();
-    }
 
     static int readInt() {
         return Integer.parseInt(consola.nextLine());
@@ -368,6 +353,24 @@ public class Restaurante implements Serializable {
     }
     public void anadirIntentosReserva(ArrayList<Integer> intentoReserva) {
         intentosReserva.add(intentoReserva);
+    }
+    public ArrayList<Ingrediente> getBodegaIngredientes() {
+        return bodegaIngredientes;
+    }
+    public void setBodegaIngredientes(ArrayList<Ingrediente> bodegaIngredientes) {
+        this.bodegaIngredientes = bodegaIngredientes;
+    }
+    public ArrayList<ArrayList<String>> getBodegaItems() {
+        return bodegaItems;
+    }
+    public void setBodegaItems(ArrayList<ArrayList<String>> bodegaItems) {
+        this.bodegaItems = bodegaItems;
+    }
+    public ArrayList<Integer> getProximaEntrega() {
+        return proximaEntrega;
+    }
+    public void setProximaEntrega(ArrayList<Integer> proximaEntrega) {
+        this.proximaEntrega = proximaEntrega;
     }
 
     @Override

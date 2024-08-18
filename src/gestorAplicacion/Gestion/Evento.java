@@ -7,6 +7,7 @@ public class Evento {
     private static ArrayList<Evento> eventos = new ArrayList<Evento>();
     private String nombre;
     private String descripcion;
+    private String tipoEvento;
     private String nombreMotivo;
     int coste;
     Date fecha;
@@ -29,6 +30,10 @@ public class Evento {
         this.nombre = nombreEvento;
         this.platos = platos;
 
+    }
+    public Evento(String nombreEvento, int coste, ArrayList<Plato> platos, String tipoEvento){
+        this(nombreEvento,coste, platos);
+        this.tipoEvento = tipoEvento;
     }
 
     Evento(Cliente clienteEvento, Date fecha){
@@ -71,4 +76,15 @@ public class Evento {
         return nombre;
     }
 
+    public int getCoste() {
+        return coste;
+    }
+
+    public String getTipoEvento() {
+        return tipoEvento;
+    }
+
+    public void setTipoEvento(String tipoEvento) {
+        this.tipoEvento = tipoEvento;
+    }
 }

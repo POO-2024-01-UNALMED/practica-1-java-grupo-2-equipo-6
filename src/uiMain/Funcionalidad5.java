@@ -10,11 +10,6 @@ import gestorAplicacion.Usuario.Cliente;
 import gestorAplicacion.Gestion.Evento;
 import gestorAplicacion.Usuario.Trabajador;
 
-import java.text.ParseException;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.TextStyle;
 import java.util.*;
 
 import static uiMain.Main.*;
@@ -178,7 +173,7 @@ public class Funcionalidad5 implements Utilidad {
         List<Plato> vinos_champanas = evento.getPlatos();
         List<Plato> vinos_lista = new ArrayList<>();
         List<Plato> champanas_lista = new ArrayList<>();
-//        List<String> vinos = null;
+        Plato vinos_champan_ultimos = new Plato();
         int contador = 0;
         if (opcion == 1) {
             for (Plato nombreVino : vinos_champanas) {
@@ -188,7 +183,7 @@ public class Funcionalidad5 implements Utilidad {
                     printLn(contador + ". " + nombreVino.getNombre());
                 }
             }
-            return recomendacionMeeting(numeroInvitados, vinos_lista);
+            vinos_champan_ultimos = recomendacionMeeting(numeroInvitados, vinos_lista);
         }
         if (opcion == 2) {
             for (Plato nombreChampa : vinos_champanas) {
@@ -198,13 +193,15 @@ public class Funcionalidad5 implements Utilidad {
                     printLn(contador + ". " + nombreChampa.getNombre());
                 }
             }
-            return recomendacionMeeting(numeroInvitados, champanas_lista);
+            vinos_champan_ultimos = recomendacionMeeting(numeroInvitados, champanas_lista);
         }
 
-        return null;
+
+        return vinos_champan_ultimos;
     }
 
     public static Plato recomendacionMeeting(int numeroInvitados, List<Plato> eleccion) {
+        Plato plato_final = new Plato();
         printLn("""
                 Deseas conocer nuestras recomendaciones?:
                 1. Sí, tomo la recomendación
@@ -213,7 +210,7 @@ public class Funcionalidad5 implements Utilidad {
         int opinion = Utilidad.readInt();
         if (opinion == 1) {
             if (numeroInvitados > 0 && numeroInvitados <= 8) { //Recomendacion para pocos invitados
-                int botellasCantidad = 0;
+                int botellasCantidad;
                 Plato productoOfrecido = null;
                 int contador = 0;
                 printLn("Son pocas personas, suponiendo su alto rango, os recomendamos: ");
@@ -236,7 +233,7 @@ public class Funcionalidad5 implements Utilidad {
                 } else {
                     botellasCantidad = 2;
                 }
-                return new Plato(productoOfrecido.getNombre(), botellasCantidad);
+                plato_final = new Plato(productoOfrecido.getNombre(), botellasCantidad, productoOfrecido.getPrecio());
             } else {
                 printLn("Son bastantes invitados, para su economía os recomendamos: ");
                 int cuentaBotellas = 0;
@@ -257,10 +254,10 @@ public class Funcionalidad5 implements Utilidad {
                 productoOfrecido = botellasAllevar.get(opcionMedia - 1);
                 cuentaBotellas = (int) Math.ceil((double) numeroInvitados / productoOfrecido.getPorciones());
                 printLn("Un total de " + cuentaBotellas + " botellas");
-                return new Plato(productoOfrecido.getNombre(), cuentaBotellas);
+                plato_final = new Plato(productoOfrecido.getNombre(), cuentaBotellas, productoOfrecido.getPrecio());
             }
         } else {
-            int cantidadBebida = 0;
+            int cantidadBebida = 2;
             printLn("Cuál desea: ");
             for (int i = 0; i < eleccion.size(); i++) {
                 printLn((i + 1) + ". " + eleccion.get(i).getNombre());
@@ -276,9 +273,10 @@ public class Funcionalidad5 implements Utilidad {
                 printLn("No poseemos esa cantidad, le vamos a vender la maxima cantidad");
                 cantidadBebida = escogido.getCantidadDePlato();
             }
-            return new Plato(escogido.getNombre(), cantidadBebida);
+            plato_final = new Plato(escogido.getNombre(), cantidadBebida, escogido.getPrecio());
 
         }
+        return plato_final;
     }
 
     public static ArrayList<Plato> listado_final(String gastronomia_escogida) {
@@ -328,8 +326,7 @@ public class Funcionalidad5 implements Utilidad {
                 platoRecomendado = plato;
             }
         }
-        printLn("Vemos que son " + numeroInvitados + " ,Les recomendamos la torta: " + platoRecomendado.getNombre() + ", que tiene" +
-                " porciones para " + platoRecomendado.getPorciones() + " personas");
+        printLn(STR."Vemos que son \{numeroInvitados} ,Les recomendamos la torta: \{platoRecomendado.getNombre()}, que tiene porciones para \{platoRecomendado.getPorciones()} personas");
     }
 
     public static Factura recomendarEvento() {
@@ -398,18 +395,20 @@ public class Funcionalidad5 implements Utilidad {
                     evento1.setDescripcion(descripcionEvento);
                     evento1.setCoste(coste);
                     evento1.setPlatos(platosDeEsteEvento);
-//                                factura_cumple.setEvento(evento1);
+                    factura_cumple.setEvento(evento1);
+//                    factura = factura_cumple;
 //                                assert torta_seleccionada != null;
 //                                printLn("Prueba de la torta: " + torta_seleccionada.getNombre() + " Prueba descuente " + torta_seleccionada.getCantidadDePlato());
 
 //                                factura.setEvento(evento1);
+                    break;
 
                 } else {
                     printLn("Acá sería el no, Planear como devolver lo que se pide");
                 }
                 break;
             case 2:
-//                        Factura factura_meeting = new Factura();
+                Factura factura_meeting = new Factura();
                 Plato vino_champana_final = new Plato();
                 printLn("El Evento tiene un coste de 450.000$, ¿Desea continuar?");
                 printLn("1.Sí");
@@ -439,7 +438,7 @@ public class Funcionalidad5 implements Utilidad {
                     int opcionVino_Champana = Utilidad.readInt();
                     vino_champana_final = listadoPlatosEvento(evento1, numeroInvitados_meeting, opcionVino_Champana);
                     platosMeeting.add(vino_champana_final);
-                    printLn(vino_champana_final.getNombre());
+                    printLn(vino_champana_final.getCantidadDePlato());
                     //He de poner la parte en que descuenta la cantidad de vinos y demas existencias
                     // A esta monda he de revolcarla para meterle lo que es afiliaciones y todo el cuento
 
@@ -478,6 +477,8 @@ public class Funcionalidad5 implements Utilidad {
                     evento1.setDescripcion(descripcionEvento);
                     evento1.setCoste(coste);
                     evento1.setPlatos(platosMeeting);//Esta es prueba
+//                    factura_meeting.setEvento(evento1);
+//                    factura  = factura_meeting;
                     break;
                 } else {
 //                            case 2:
@@ -510,6 +511,7 @@ public class Funcionalidad5 implements Utilidad {
                             Dijite la opcion de su preferencia:\s
                             """);
                     int opcionGastronomias = Utilidad.readInt();
+                    String tipoEvento = gastronomias_nombres.get(opcionGastronomias-1);
                     chef = cocineroElegido(opcionGastronomias, gastronomias_nombres);
                     printLn("El/la chef " + chef.getNombre() + " te va a acopañar en esta velada");
                     final_gastro_evento = gastronomias_mundiales(opcionGastronomias, gastronomias_nombres);
@@ -556,7 +558,8 @@ public class Funcionalidad5 implements Utilidad {
                                 if (respuesta2 == 1) {
                                     encendido = true;
                                 } else {
-                                    printLn("Dale");
+                                    System.out.println("Dale");
+                                    encendido= false;
                                 }
                             } else {
                                 printLn("Lo sentimos, pero no hay más platos para mostrarte");
@@ -566,7 +569,7 @@ public class Funcionalidad5 implements Utilidad {
                             printLn("Agradecemos tú confianza");
                             escoger = false;
                         }
-                        Evento eventoGastronomias = new Evento("Gastronomias mundiales", 345000, platos_pedidos);
+                        Evento eventoGastronomias = new Evento("Gastronomias mundiales", 345000, platos_pedidos, tipoEvento);
                         eventoGastronomias.setNombreMotivo(gastronomias_nombres.get(opcionGastronomias - 1));
                         eventoGastronomias.setCoste(345000);
                         eventoGastronomias.setDescripcion("...");
@@ -588,49 +591,69 @@ public class Funcionalidad5 implements Utilidad {
     }
 
     //    Interaccion3:
-    public static void listado_precios_factura(ArrayList<Plato> platos, int hora, String diaDeLaSema) {
+    public static void listado_precios_factura(Factura factura, ArrayList<Integer> reserva, boolean diaFinDeSemana) {
+        ArrayList<Plato> platos = factura.getEvento().getPlatos();
         printLn("He aquí su consumo: ");
-        List<String> diasSemana = Arrays.asList("viernes", "sábado", "domingo");
         int acomulado_total = 0;
         for (Plato plato : platos) {
             printLn(plato.getNombre() + "   X" + plato.getVecesPedido() + "   ... " + (plato.getVecesPedido() * plato.getPrecio()));
             acomulado_total += plato.getVecesPedido() * plato.getPrecio();
         }
 
-        if (diasSemana.contains(diaDeLaSema)) {
-            if (hora > 20) {
+        if (diaFinDeSemana) {
+            if (reserva.get(3) > 20) {
                 acomulado_total += (int) (acomulado_total * (0.08));
             } else {
                 acomulado_total += (int) (acomulado_total * (0.03));
             }
         }
+        acomulado_total += factura.getEvento().getCoste();
+
 
         printLn("El total de su factura es: " + acomulado_total);
+    }
+
+    public static void formato_factura_evento(Restaurante restaurante, Factura factura, ArrayList<Integer> reserva, boolean diaFinDeSemana){
+        System.out.println(STR.".............. \{restaurante.getNombreRestaurante()}..............");
+        System.out.println("Cliente: " + restaurante.getCliente().getNombre());
+        System.out.println("Cédula: " + restaurante.getCliente().getCedula());
+        listado_precios_factura(factura, reserva, diaFinDeSemana);
     }
 
 
 
 
     public static String datos_horaReserva(Restaurante restaurante, Factura factura) {
-        printLn("Estimado Cliente, nos regala la hora a la que desea el evento (HH:MM): ");
-        String hora_evento = Utilidad.readString();
-        String [] fraccion = hora_evento.split(":");
-        int hora_evento_real = Integer.parseInt(fraccion[0]);
-        ArrayList<Integer> reserva = restaurante.getReservas().getLast().getFecha();
-        reserva.add(hora_evento_real);
-        System.out.println(reserva);
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(reserva);
-//        LocalDate fecha = LocalDate.parse(reserva, formatter);
-//        DayOfWeek diaSemana = fecha.getDayOfWeek();
-//        String diaSemanaString = diaSemana.getDisplayName(TextStyle.FULL, Locale.forLanguageTag("es"));
-//
-//
-//
-//        printLn(factura.getEvento().getDescripcion() + ". . ." + restaurante.getNombreRestaurante());
-//        listado_precios_factura((factura.getEvento().getPlatos()), hora_evento_real, diaSemanaString);
-//        printLn("El día de su factura es " + diaSemana);
-//        return null;
-        return hora_evento;
+//        ArrayList<Plato> platos = factura.getEvento().getPlatos();
+        System.out.println("""
+                Estimado Cliente, el día de su reserva se encuentra entre Viernes, Sábado o Domingo:
+                1. Si
+                2. No
+                """);
+        boolean diaFinDeSemana = false;
+        ArrayList<Integer> reserva = new ArrayList<Integer>();
+        int respuesta = Utilidad.readInt();
+        switch (respuesta){
+            case 1:
+                System.out.println("Listo, por ello tenemos un recargo del 8%");
+                diaFinDeSemana = true;
+                printLn("Estimado Cliente, nos regala la hora a la que desea el evento (HH:MM): ");
+                String hora_evento = Utilidad.readString();
+                String [] fraccion = hora_evento.split(":");
+                int hora_evento_real = Integer.parseInt(fraccion[0]);
+                reserva = restaurante.getReservas().getLast().getFecha();
+                reserva.add(hora_evento_real);
+                System.out.println(reserva);
+                break;
+            case 2:
+                System.out.println("Ten una maravillosa velada");
+                reserva = null;
+        }
+        formato_factura_evento(restaurante, factura, reserva, diaFinDeSemana);
+
+
+
+        return null;
     }
 //}
 

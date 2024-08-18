@@ -58,9 +58,10 @@ public class Plato implements Serializable {
         this.porciones = porciones;
         this.cantidadDePlato = cantidadDePlato;
     }
-    public Plato(String nombre, int cantidadDePlato){
+    public Plato(String nombre, int vecesPedido, int precio){
         this.nombre = nombre;
-        this.cantidadDePlato = cantidadDePlato;
+        this.vecesPedido = vecesPedido;
+        this.precio = precio;
     }
     public Plato(String nombre, int precio, int cantidadDePlato, String tipo){
         this.nombre = nombre;

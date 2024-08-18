@@ -158,30 +158,58 @@ public class Main implements Utilidad {
                 new String[]{"B", "B", "B", "B", "B", "B", "B", "E", "B", "B"})));
 
         restauranteMuestra.setDisposicion(disposicion);
+//Resolver lo de las reservas con el patrón, va a estar comentado
+//        /////////APARTADO BOGOTA/////////////
+//        //Crear ciudades
+//        Ciudad BOG = new Ciudad("BOGOTA");
+//        ciudades.add(BOG);
+//        //Crear zonas BOG y su respectivo restaurante
+//        Restaurante restaurante_usaquen = new Restaurante(100, "BuenaMesa Usaquen", reservasUsaquen);
+//        Zona usaquen_bog = new Zona(restaurante_usaquen, "Usaquén");
+//
+//        Restaurante restaurante_funza = new Restaurante(30, "Pastas Funza", reservasFunza);
+//        Zona funza_bog = new Zona(restaurante_funza, "Funza");
+//
+//        Restaurante restaurante_chia = new Restaurante(10, "Chíaurante", reservasChia);
+//        Zona chia_bog = new Zona(restaurante_chia, "Chía");
+//
+//        BOG.agregarZonas(usaquen_bog);
+//        BOG.agregarZonas(funza_bog);
+//        BOG.agregarZonas(chia_bog);
+//
+//        ///////////APARTADO MEDELLÍN////////
+//        Ciudad MDE = new Ciudad("MEDELLIN");
+//        ciudades.add(MDE);
+//        //Crear zonas  y restaurantes medellin MDE
+//        Restaurante restaurante_laureles = new Restaurante(56, "Laurel del Norte", reservasLaureles);
+//        Zona laureles_mde = new Zona(restaurante_laureles, "Laureles");
+//        Restaurante restaurante_estadio = new Restaurante(32, "DIM Delicias", reservasEstadio);
+//        Zona estadio_mde = new Zona(restaurante_estadio, "Estadio");
+//        Restaurante restaurante_poblado = new Restaurante(43, "Go home yanquis", reservasPoblado);
+//        Zona moravia_mde = new Zona(restaurante_poblado, "Poblado");
+//        //Agregar zonas a ciudades
+//
+//        MDE.agregarZonas(laureles_mde);
+//        MDE.agregarZonas(estadio_mde);
+//        MDE.agregarZonas(moravia_mde);
+//
+//        ////////////APARTADO CARTAGENA////////////
+//        Ciudad CAR = new Ciudad("CARTAGENA");
+//        ciudades.add(CAR);
+//        //Crear zonas  y restaurantes medellin MDE
+//        Restaurante restaurante_baru = new Restaurante(16, "El Diomedante", reservasBaru);
+//        Zona baru_car = new Zona(restaurante_baru, "Barú");
+//        Restaurante restaurante_PuertaDeOro = new Restaurante(24, "Puerta de Delicias", reservasPuertaDeOro);
+//        Zona PuertaDeOro_car = new Zona(restaurante_PuertaDeOro, "Puerta de Oro");
+//        Restaurante restaurante_Bocachica = new Restaurante(32, "Blas de Lazo", reservasBocachica);
+//        Zona bocachica_car = new Zona(restaurante_Bocachica, "Bocachica");
+//        //Agregar zonas a ciudades
+//
+//        CAR.agregarZonas(baru_car);
+//        CAR.agregarZonas(bocachica_car);
+//        CAR.agregarZonas(PuertaDeOro_car);
 
-        //Consultar con Colo como es esto
-        Ciudad BOG = new Ciudad("BOGOTA");
-        Ciudad MDE = new Ciudad("MEDELLIN");
-        //Crear zonas BOGcy su respectivo restaurante
-        Restaurante restaurante_usaquen = new Restaurante(100, "BuenaMesa Usaquen", reservasUsaquen);
-        Zona usaquen_bog = new Zona(restaurante_usaquen, "Usaquén");
-
-        Restaurante restaurante_funza = new Restaurante(30, "Pastas Funza");
-        Zona funza_bog = new Zona(restaurante_funza, "Funza");
-
-        Restaurante restaurante_chia = new Restaurante(10, "Chíaurante");
-        Zona chia_bog = new Zona(restaurante_chia, "Chía");
-        //Crear zonas MDE
-        Zona laureles_mde = new Zona(1440, "Laureles");
-        Zona estadio_mde = new Zona(1420, "Estadio");
-        Zona moravia_mde = new Zona(10, "Moravia");
-        //Agregar zonas a ciudades
-        BOG.addZona(usaquen_bog);
-        BOG.addZona(funza_bog);
-        BOG.addZona(chia_bog);
-        MDE.addZona(laureles_mde);
-        MDE.addZona(estadio_mde);
-        MDE.addZona(moravia_mde);
+        //Hasta acá discutir con Colorado
         //Agregar al ArrayList ciudades
         ArrayList<Integer> fechaReserva1 = new ArrayList<Integer>();
         fechaReserva1.add(2024);
@@ -340,6 +368,7 @@ public class Main implements Utilidad {
                 case 5:
                     Utilidad.limpiarPantalla();
                     System.out.println("Funcionalidad 5.");
+                    Funcionalidad5.crearEvento();
                     encendido = false;
                     break;
                 case 6:

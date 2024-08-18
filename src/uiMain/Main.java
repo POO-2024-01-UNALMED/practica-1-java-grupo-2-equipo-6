@@ -1,11 +1,11 @@
 package uiMain;
 
+import gestorAplicacion.Entorno.Casilla;
 import gestorAplicacion.Entorno.Ciudad;
 import gestorAplicacion.Entorno.Mesa;
 import gestorAplicacion.Gestion.*;
 import gestorAplicacion.Entorno.Zona;
 import gestorAplicacion.Usuario.Cliente;
-import gestorAplicacion.Usuario.Trabajador;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -19,23 +19,19 @@ import static uiMain.Funcionalidad3.*;
 import static uiMain.Funcionalidad4.*;
 import static uiMain.Utilidad.*;
 
+
 public class Main {
+
+    static LocalDateTime localDateTime = LocalDateTime.now(); //Fecha a la hora de ejectuar el programa
     static ArrayList<Ciudad> ciudades = new ArrayList<Ciudad>(); //Lista de ciudades
     static ArrayList<Zona> zonas = new ArrayList<Zona>(); //Lista de zonas
     static ArrayList<Plato> platos = new ArrayList<Plato>(); //Lista de platos
     static ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>(); //Lista de ingredientes
 
-    static Scanner input = new Scanner(System.in);
-    static ArrayList<Plato> platosCumple = new ArrayList<Plato>(); //Lista de platos
+    static ArrayList<Reserva> reservasUsaquen = new ArrayList<Reserva>();
+    static ArrayList<Plato> platosCumple = new ArrayList<Plato>(); //Lista de platos cumpleaños
     static ArrayList<Evento> eventos = new ArrayList<Evento>();
     static ArrayList<Plato> vinos_champanas_meeting = new ArrayList<Plato>();
-    static ArrayList<Trabajador> cocineros = new ArrayList<Trabajador>();
-    static ArrayList<Plato> platos_varios = new ArrayList<Plato>();
-    static ArrayList<ArrayList<Plato>> platos_gastronomias = new ArrayList<ArrayList<Plato>>();
-    static ArrayList<Plato> gastronomias_japonesa = new ArrayList<>();
-    static ArrayList<Plato> gastronomias_italiana = new ArrayList<>();
-    static ArrayList<Plato> gastronomias_marroqui = new ArrayList<>();
-    static ArrayList<Plato> gastronomias_francesa = new ArrayList<>();
     static {
         //Creamos ciudades de muestra
         Ciudad ciudad1 = new Ciudad("Medellín");
@@ -45,6 +41,7 @@ public class Main {
 
         //Creamos zonas de muestra
         zonas.add(new Zona(4378, "Robledo", ciudad1));
+        zonas.add(new Zona(7426, "Aranjuez", ciudad1));
         zonas.add(new Zona(193134, "Kennedy", ciudad2));
 
         //Agregamos las zonas creadas al array zonas de su respectiva ciudad
@@ -79,27 +76,28 @@ public class Main {
         clientes1.get(2).setMesa(mesa1);
         Restaurante.getClientes().add(clientes1.get(2));
 
-        //Creamos ingredientes y platos de muestra
+        //Creamos ingredientes y cantidades necesarias de platos de muestra
         Ingrediente Tomate = new Ingrediente("Tomate", 500);
         Ingrediente Lechuga = new Ingrediente("Lechuga", 300);
-        ArrayList<Ingrediente> ingredientesEnsalada = new ArrayList<Ingrediente>();
-        ingredientesEnsalada.add(Tomate);
-        ingredientesEnsalada.add(Lechuga);
-        Plato Ensalada = new Plato("Ensalada", 19000, ingredientesEnsalada);
+        HashMap <Ingrediente,Double> ingredientesEnsalada = new HashMap<Ingrediente,Double>();
+        ingredientesEnsalada.put(Lechuga,(double)1);
+        ingredientesEnsalada.put(Tomate,(double)1);
+        Plato Ensalada = new Plato("Ensalada", 19000, "Entrada",ingredientesEnsalada);
 
         Ingrediente Carne = new Ingrediente("Carne", 1000);
         Ingrediente Pan = new Ingrediente("Pan", 500);
-        ArrayList<Ingrediente> ingredientesHamburguesa = new ArrayList<Ingrediente>();
-        ingredientesHamburguesa.add(Carne);
-        ingredientesHamburguesa.add(Pan);
-        Plato Hamburguesa = new Plato("Hamburguesa", 25000, ingredientesHamburguesa);
+        HashMap <Ingrediente,Double> ingredientesHamburguesa = new HashMap<Ingrediente,Double>();
+        ingredientesHamburguesa.put(Tomate, (double) 1);
+        ingredientesHamburguesa.put(Carne, (double)1);
+        ingredientesHamburguesa.put(Pan,(double)2 );
+        Plato Hamburguesa = new Plato("Hamburguesa", 25000, "Plato fuerte", ingredientesHamburguesa );
 
         Ingrediente Arroz = new Ingrediente("Arroz", 800);
         Ingrediente Pollo = new Ingrediente("Pollo", 700);
-        ArrayList<Ingrediente> ingredientesArroz = new ArrayList<Ingrediente>();
-        ingredientesArroz.add(Arroz);
-        ingredientesArroz.add(Pollo);
-        Plato ArrozConPollo = new Plato("Arroz con pollo", 20000, ingredientesArroz);
+        HashMap <Ingrediente,Double> ingredientesArroz = new HashMap<Ingrediente,Double>();
+        ingredientesArroz.put(Arroz, (double)1);
+        ingredientesArroz.put(Pollo, (double)1);
+        Plato ArrozConPollo = new Plato("Arroz con pollo", 20000, "Plato fuerte", ingredientesArroz);
 
         //Creamos pedidos de muestra
         Pedido pedido1 = new Pedido();
@@ -114,108 +112,49 @@ public class Main {
         Factura factura1 = new Factura(pedido1, "Efectivo", false, 0);
         Factura factura2 = new Factura(pedido2, "Tarjeta", false, 0);
         Factura factura3 = new Factura(pedido3, "Efectivo", false, 0);
-        //Creamos clientes de muestra para la mesa 1
-        clientes1.add(new Cliente("Juan", 001, Cliente.Afiliacion.ESTRELLA, "1234567"));
-        clientes1.getFirst().setMesa(mesa1);
-        mesa1.setClientes(clientes1);
-        Restaurante.getClientes().add(clientes1.getFirst());
-
-        clientes1.add(new Cliente("Pedro", 002, Cliente.Afiliacion.ESTRELLITA, "7654321"));
-        clientes1.get(1).setMesa(mesa1);
-        Restaurante.getClientes().add(clientes1.get(1));
-
-        clientes1.add(new Cliente("María", 003, "9876543"));
-        clientes1.get(2).setMesa(mesa1);
-        Restaurante.getClientes().add(clientes1.get(2));
-
         clientes1.get(0).setFactura(factura1);
         clientes1.get(1).setFactura(factura2);
         clientes1.get(2).setFactura(factura3);
 
-        Reserva reserva1 = new Reserva(
-                clientes1,
-                new ArrayList<Integer>(Arrays.asList(2001, 9, 11, 8))
-        );
-        Reserva reserva2 = new Reserva(
-                clientes1,
-                new ArrayList<Integer>(Arrays.asList(2001, 9, 11, 9))
-        );
-        Reserva reserva3 = new Reserva(
-                clientes1,
-                new ArrayList<Integer>(Arrays.asList(2001, 9, 11, 10))
-        );
-        //Clientes y reservas Funza
+        //Creamos un restaurante de muestra
+        Restaurante restauranteMuestra = new Restaurante(ciudad1, ciudad1.getZonas().get(0), true, "Muestra");
+        ciudad1.getZonas().get(0).getRestaurantes().add(restauranteMuestra);
 
+        //Creamos una disposición default para el restaurante de muestra
+        ArrayList<ArrayList<String>> disposicion = new ArrayList<ArrayList<String>>();
 
-        Cliente cliente4 = new Cliente("Federico", 123, Cliente.Afiliacion.ESTRELLA, "1234567");
-        Cliente cliente5 = new Cliente("Maximiliano", 456, Cliente.Afiliacion.ESTRELLA, "7654321");
-        Cliente cliente6 = new Cliente("Rodolfo", 789, Cliente.Afiliacion.NINGUNA, "9876543");
-        ArrayList<Cliente> clientes2 = new ArrayList<Cliente>(Arrays.asList(cliente4, cliente5, cliente6));
-        Reserva reserva4 = new Reserva(clientes2, new ArrayList<Integer>(Arrays.asList(2001, 9, 11, 7)));
-        Reserva reserva5 = new Reserva(clientes2, new ArrayList<Integer>(Arrays.asList(2001, 9, 11, 8)));
-        Reserva reserva6 = new Reserva(clientes2, new ArrayList<Integer>(Arrays.asList(2001, 9, 11, 9)));
+        //B = Border/Pared, W = Window/Ventana, T = Standard Table/Mesa Estándar, V = VIP Table/Mesa VIP, E = Entrance/Entrada
 
+        disposicion.add(new ArrayList(Arrays.asList(
+                new String[]{"╔", "═", "╦", "╗", "║", "╠", "╬", "╣", "╚", "╩", "╝", " "})));
+        disposicion.add(new ArrayList(Arrays.asList(
+                new String[]{"B", "B", "B", "B", "B", "B", "B", "B", "B", "B"})));
+        disposicion.add(new ArrayList(Arrays.asList(
+                new String[]{"B", " ", "V", " ", "V", " ", "V", " ", "V", "B"})));
+        disposicion.add(new ArrayList(Arrays.asList(
+                new String[]{"W", " ", " ", " ", " ", " ", " ", " ", " ", "W"})));
+        disposicion.add(new ArrayList(Arrays.asList(
+                new String[]{"B", " ", "T", " ", "T", " ", "T", " ", "T", "B"})));
+        disposicion.add(new ArrayList(Arrays.asList(
+                new String[]{"B", " ", " ", " ", " ", " ", " ", " ", " ", "B"})));
+        disposicion.add(new ArrayList(Arrays.asList(
+                new String[]{"B", " ", "T", " ", "T", " ", "T", " ", " ", "B"})));
+        disposicion.add(new ArrayList(Arrays.asList(
+                new String[]{"B", " ", " ", " ", " ", " ", " ", " ", " ", "B"})));
+        disposicion.add(new ArrayList(Arrays.asList(
+                new String[]{"W", " ", "T", " ", "T", " ", "T", " ", " ", "W"})));
+        disposicion.add(new ArrayList(Arrays.asList(
+                new String[]{"B", " ", " ", " ", " ", " ", " ", " ", " ", "B"})));
+        disposicion.add(new ArrayList(Arrays.asList(
+                new String[]{"B", "B", "B", "B", "B", "B", "B", "E", "B", "B"})));
 
+        restauranteMuestra.setDisposicion(disposicion);
 
-        //Clientes y reservas Chia
-        Cliente cliente7 = new Cliente("Federico", 123, Cliente.Afiliacion.ESTRELLA, "1234567");
-        Cliente cliente8 = new Cliente("Maximiliano", 456, Cliente.Afiliacion.ESTRELLA, "7654321");
-        Cliente cliente9 = new Cliente("Rodolfo", 789, null, "9876543");
-
-
-
-        //Clientes y reservas Laureles
-
-        Cliente cliente11 = new Cliente("Federico", 123, Cliente.Afiliacion.ESTRELLA, "1234567");
-        Cliente cliente12 = new Cliente("Maximiliano", 456, Cliente.Afiliacion.ESTRELLA, "7654321");
-        Cliente cliente13 = new Cliente("Rodolfo", 789, null, "9876543");
-
-
-        //Clientes y reservas Estadio
-
-        Cliente cliente14 = new Cliente("Federico", 123, Cliente.Afiliacion.ESTRELLA, "1234567");
-        Cliente cliente15 = new Cliente("Maximiliano", 456, Cliente.Afiliacion.ESTRELLA, "7654321");
-        Cliente cliente16 = new Cliente("Rodolfo", 789, null, "9876543");
-
-
-
-        //Clientes y reservas Poblado
-
-        Cliente cliente17 = new Cliente("Federico", 123, Cliente.Afiliacion.ESTRELLA, "1234567");
-        Cliente cliente18 = new Cliente("Maximiliano", 456, Cliente.Afiliacion.ESTRELLA, "7654321");
-        Cliente cliente19 = new Cliente("Rodolfo", 789, null, "9876543");
-
-
-
-        //Reservas y clientes Bocachica
-
-        Cliente cliente21 = new Cliente("Federico", 123, Cliente.Afiliacion.ESTRELLA, "1234567");
-        Cliente cliente22 = new Cliente("Maximiliano", 456, Cliente.Afiliacion.ESTRELLA, "7654321");
-        Cliente cliente23 = new Cliente("Rodolfo", 789, null, "9876543");
-
-
-
-        //Reservas y clientes Puerta de Oro
-
-        Cliente cliente25 = new Cliente("Federico", 123, Cliente.Afiliacion.ESTRELLA, "1234567");
-        Cliente cliente26 = new Cliente("Maximiliano", 456, Cliente.Afiliacion.ESTRELLA, "7654321");
-        Cliente cliente27 = new Cliente("Rodolfo", 789, null, "9876543");
-
-
-
-        //Clientes y reservas Bura
-
-        Cliente cliente33 = new Cliente("Federico", 123, Cliente.Afiliacion.ESTRELLA, "1234567");
-        Cliente cliente44 = new Cliente("Maximiliano", 456, Cliente.Afiliacion.ESTRELLA, "7654321");
-        Cliente cliente55 = new Cliente("Rodolfo", 789, null, "9876543");
-
-
-        /////////APARTADO BOGOTA/////////////
-        //Crear ciudades
+        //Consultar con Colo como es esto
         Ciudad BOG = new Ciudad("BOGOTA");
-        ciudades.add(BOG);
-        //Crear zonas BOG y su respectivo restaurante
-        Restaurante restaurante_usaquen = new Restaurante(100, "BuenaMesa Usaquen");
+        Ciudad MDE = new Ciudad("MEDELLIN");
+        //Crear zonas BOGcy su respectivo restaurante
+        Restaurante restaurante_usaquen = new Restaurante(100, "BuenaMesa Usaquen", reservasUsaquen);
         Zona usaquen_bog = new Zona(restaurante_usaquen, "Usaquén");
 
         Restaurante restaurante_funza = new Restaurante(30, "Pastas Funza");
@@ -223,43 +162,29 @@ public class Main {
 
         Restaurante restaurante_chia = new Restaurante(10, "Chíaurante");
         Zona chia_bog = new Zona(restaurante_chia, "Chía");
-
-        BOG.agregarZonas(usaquen_bog);
-        BOG.agregarZonas(funza_bog);
-        BOG.agregarZonas(chia_bog);
-
-        ///////////APARTADO MEDELLÍN////////
-        Ciudad MDE = new Ciudad("MEDELLIN");
-        ciudades.add(MDE);
-        //Crear zonas  y restaurantes medellin MDE
-        Restaurante restauranteLaureles = new Restaurante(56, "Laurel del Norte");
-        Zona laureles_mde = new Zona(restauranteLaureles, "Laureles");
-        Restaurante restauranteEstadio = new Restaurante(32, "Delicias");
-        Zona estadio_mde = new Zona(restauranteEstadio, "Estadio");
-        Restaurante restaurantePoblado = new Restaurante(43, "Go home yanquis");
-        Zona moravia_mde = new Zona(restaurantePoblado, "Poblado");
+        //Crear zonas MDE
+        Zona laureles_mde = new Zona(1440, "Laureles");
+        Zona estadio_mde = new Zona(1420, "Estadio");
+        Zona moravia_mde = new Zona(10, "Moravia");
         //Agregar zonas a ciudades
-
-        MDE.agregarZonas(laureles_mde);
-        MDE.agregarZonas(estadio_mde);
-        MDE.agregarZonas(moravia_mde);
-
-        ////////////APARTADO CARTAGENA////////////
-        Ciudad CAR = new Ciudad("CARTAGENA");
-        ciudades.add(CAR);
-        //Crear zonas  y restaurantes medellin MDE
-        Restaurante restaurante_baru = new Restaurante(16, "El Diomedante");
-        Zona baru_car = new Zona(restaurante_baru, "Barú");
-        Restaurante restaurante_PuertaDeOro = new Restaurante(24, "Puerta de Delicias");
-        Zona PuertaDeOro_car = new Zona(restaurante_PuertaDeOro, "Puerta de Oro");
-        Restaurante restaurante_Bocachica = new Restaurante(32, "Blas de Lazo");
-        Zona bocachica_car = new Zona(restaurante_Bocachica, "Bocachica");
-        //Agregar zonas a ciudades
-
-        CAR.agregarZonas(baru_car);
-        CAR.agregarZonas(bocachica_car);
-        CAR.agregarZonas(PuertaDeOro_car);
-
+        BOG.addZona(usaquen_bog);
+        BOG.addZona(funza_bog);
+        BOG.addZona(chia_bog);
+        MDE.addZona(laureles_mde);
+        MDE.addZona(estadio_mde);
+        MDE.addZona(moravia_mde);
+        //Agregar al ArrayList ciudades
+        ArrayList<Integer> fechaReserva1 = new ArrayList<Integer>();
+        fechaReserva1.add(2024);
+        fechaReserva1.add(7);
+        fechaReserva1.add(28);
+        fechaReserva1.add(8);
+        Reserva reserva1 = new Reserva(clientes1, fechaReserva1);
+//        Reserva reserva2 = new Reserva(clientes2, new Date(2024, 7, 29, 9, 0));
+//        Reserva reserva3 = new Reserva(clientes3, new Date(2024, 7, 30, 10, 0));
+        reservasUsaquen.add(reserva1);
+//        reservasUsaquen.add(reserva2);
+//        reservasUsaquen.add(reserva3);
 
         //Ingredientes Torta Pequeña Cumpleaños
         Ingrediente harinaTortaPequena = new Ingrediente("Harina", 5000);
@@ -307,69 +232,9 @@ public class Main {
 
         Evento eventoMeeting = new Evento("Meetigns Empresarial", 450000, vinos_champanas_meeting);
         eventos.add(eventoMeeting);
-
-        Trabajador trabajadorSonmerlier = new Trabajador("Evaristo", 12345, "Sonmerlier", 1300000);
-        Trabajador trabajadorItaliano = new Trabajador("Mario Guissepe", 876543, "Italiana", 2300000);
-        Trabajador trabajadorJapones = new Trabajador("Rika Miyuka", 575288, "Japonesa", 2300000);
-        Trabajador trabajadorMarroqui = new Trabajador("Hakin Hasan Ibrahim", 8428257, "Marroquí", 2300000);
-        Trabajador trabajadorFrances = new Trabajador("Emmanuel Macrom", 95175, "Francesa", 2300000);
-        cocineros.add(trabajadorSonmerlier);
-        cocineros.add(trabajadorItaliano);
-        cocineros.add(trabajadorJapones);
-        cocineros.add(trabajadorMarroqui);
-        cocineros.add(trabajadorFrances);
-
-        Plato bagget = new Plato("Bagget", 2000, 1, 100);
-        Plato queso = new Plato("Queso mediterraneo", 50000, 7, 100);
-        platos_varios.add(bagget);
-        platos_varios.add(queso);
-
-        //Platos Italianos
-        Plato soppa_minestrone = new Plato("Sopa Minnestrone", 54000, 5, "Italiana");
-        Plato ensalada_Caprese = new Plato("Ensalada Caprese", 35300, 8, "Italiana");
-        Plato Carpaccio = new Plato("Carpaccio", 44000, 1, "Italiana");
-        Plato Vitello_tonnatoe = new Plato("Vitello tonnatoe", 74000, 4, "Italiana");
-        gastronomias_italiana.add(soppa_minestrone);
-        gastronomias_italiana.add(ensalada_Caprese);
-        gastronomias_italiana.add(Carpaccio);
-        gastronomias_italiana.add(Vitello_tonnatoe);
-        //Platos Japoneses
-        Plato sushi = new Plato("Sushi Yarigato", 54000, 5, "Japonesa");
-        Plato tempura = new Plato("Tempura Ora Ora", 35300, 8, "Japonesa");
-        Plato katsudon = new Plato("Katsudon Primaveral", 44000, 3, "Japonesa");
-        Plato kaisedon = new Plato("Kaisedon Hokkaido", 74000, 4, "Japonesa");
-        gastronomias_japonesa.add(sushi);
-        gastronomias_japonesa.add(tempura);
-        gastronomias_japonesa.add(katsudon);
-        gastronomias_japonesa.add(kaisedon);
-        //Platos Marroquis
-        Plato tajin = new Plato("Tajín Avepus", 54000, 5, "Marroquí");
-        Plato cuscus = new Plato("Cuscús Adriático", 35300, 8, "Marroquí");
-        Plato harira = new Plato("Harira Candente", 44000, 3, "Marroquí");
-        Plato briouat = new Plato("Briouat Sur", 74000, 4, "Marroquí");
-        gastronomias_marroqui.add(tajin);
-        gastronomias_marroqui.add(cuscus);
-        gastronomias_marroqui.add(harira);
-        gastronomias_marroqui.add(briouat);
-        //Platos Franceses
-        Plato ratatouille = new Plato("Ratatouille Avignon", 54000, 5, "Francesa");
-        Plato escargots = new Plato("Escargots D' Bourgogne", 35300, 8, "Francesa");
-        Plato fricase = new Plato("Fricasé Le Mans", 44000, 1, "Francesa");
-        Plato gratin = new Plato("Le gratin dauphinois", 74000, 1, "Francesa");
-        gastronomias_francesa.add(ratatouille);
-        gastronomias_francesa.add(escargots);
-        gastronomias_francesa.add(fricase);
-        gastronomias_francesa.add(gratin);
-        platos_gastronomias.add(gastronomias_francesa);
-        platos_gastronomias.add(gastronomias_italiana);
-        platos_gastronomias.add(gastronomias_marroqui);
-        platos_gastronomias.add(gastronomias_japonesa);
-
-        platos_gastronomias.add(gastronomias_japonesa);
     }
 
     public static void main(String[] args) {
-        //Insertar línea para deserializar
         menuPrincipal();
     }
 
@@ -398,10 +263,13 @@ public class Main {
                     limpiarPantalla();
                     System.out.println("Funcionalidad 2.");
                     ordenarComida();
+                    encendido = false;
+
                     break;
                 case 3:
                     limpiarPantalla();
                     dejarRestaurante();
+                    encendido = false;
                     break;
                 case 4:
                     limpiarPantalla();
@@ -411,7 +279,6 @@ public class Main {
                 case 5:
                     limpiarPantalla();
                     System.out.println("Funcionalidad 5.");
-                    Funcionalidad5.crearEvento();
                     encendido = false;
                     break;
                 case 6:

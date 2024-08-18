@@ -2,12 +2,15 @@ package gestorAplicacion.Gestion;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
+import java.util.HashMap;
+import java.util.Objects;
 public class Plato implements Serializable {
     // Atributos
     private String nombre;
     private int precio;
     private ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
+    // Ingrediente, cantidad preparacion
+    private HashMap<Ingrediente, Double> ingredientesMenu = new HashMap<Ingrediente, Double>();
     private float calificacion;
     private boolean recomendado;
     private int cantidadCalificaciones;
@@ -20,6 +23,15 @@ public class Plato implements Serializable {
 
     // Constructor
     public Plato() {}
+
+	
+    public Plato(String s, int p,  String tipo, HashMap<Ingrediente, Double> ingredientes) {
+    	nombre = s;
+    	precio = p;
+    	this.ingredientesMenu = ingredientes;
+    	this.tipo = tipo;
+    	
+    }
 
     public Plato(String nombre, int precio, ArrayList<Ingrediente> ingredientes, float calificacion) {
         this.nombre = nombre;
@@ -52,6 +64,9 @@ public class Plato implements Serializable {
         this.porciones = porciones;
         this.cantidadDePlato = cantidadDePlato;
     }
+    
+
+    // Constructos vinos
     public Plato(String nombre, int precio, int porciones, int cantidadDePlato){
         this.nombre = nombre;
         this.precio = precio;
@@ -87,12 +102,13 @@ public class Plato implements Serializable {
         this.precio = precio;
     }
 
-    public ArrayList<Ingrediente> getIngredientes() {
-        return ingredientes;
+    public HashMap<Ingrediente, Double> getIngredientes() {
+        return ingredientesMenu;
     }
 
-    public void setIngredientes(ArrayList<Ingrediente> ingredientes) {
-        this.ingredientes = ingredientes;
+    public void setIngredientes( HashMap<Ingrediente, Double> ingredientes)
+     {
+        this.ingredientesMenu = ingredientes;
     }
 
     public float getCalificacion() {
@@ -128,12 +144,12 @@ public class Plato implements Serializable {
         this.vecesPedido = vecesPedido;
     }
 
-    public void agregarIngrediente(Ingrediente ingrediente) {
-        this.ingredientes.add(ingrediente);
+    public void agregarIngrediente(Ingrediente ingrediente, int cantidadd)  {
+        this.ingredientesMenu.put(ingrediente, (double) cantidadd);
     }
 
     public void eliminarIngrediente(Ingrediente ingrediente) {
-        this.ingredientes.remove(ingrediente);
+        this.ingredientesMenu.remove(ingrediente);
     }
 
     public void aumentarVecesPedido() {

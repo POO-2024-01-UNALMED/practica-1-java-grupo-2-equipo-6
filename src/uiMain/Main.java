@@ -6,6 +6,7 @@ import gestorAplicacion.Entorno.Mesa;
 import gestorAplicacion.Gestion.*;
 import gestorAplicacion.Entorno.Zona;
 import gestorAplicacion.Usuario.Cliente;
+import gestorAplicacion.Usuario.Trabajador;
 import jdk.jshell.execution.Util;
 
 import java.time.LocalDateTime;
@@ -32,6 +33,14 @@ public class Main implements Utilidad {
     static ArrayList<Plato> platosCumple = new ArrayList<Plato>(); //Lista de platos cumpleaños
     static ArrayList<Evento> eventos = new ArrayList<Evento>();
     static ArrayList<Plato> vinos_champanas_meeting = new ArrayList<Plato>();
+    static ArrayList<Trabajador> cocineros;
+    static ArrayList<Plato> platos_varios;
+    static ArrayList<ArrayList<Plato>> platos_gastronomias;
+    static ArrayList<Plato> gastronomias_japonesa;
+    static ArrayList<Plato> gastronomias_italiana;
+    static ArrayList<Plato> gastronomias_marroqui;
+    static ArrayList<Plato> gastronomias_francesa;
+
     static {
         //Creamos ciudades de muestra
         Ciudad ciudad1 = new Ciudad("Medellín");
@@ -232,6 +241,58 @@ public class Main implements Utilidad {
 
         Evento eventoMeeting = new Evento("Meetigns Empresarial", 450000, vinos_champanas_meeting);
         eventos.add(eventoMeeting);
+        Trabajador trabajadorSonmerlier = new Trabajador("Evaristo", 12345, "Sonmerlier", 1300000);
+        Trabajador trabajadorItaliano = new Trabajador("Mario Guissepe", 876543, "Italiana", 2300000);
+        Trabajador trabajadorJapones = new Trabajador("Rika Miyuka", 575288, "Japonesa", 2300000);
+        Trabajador trabajadorMarroqui = new Trabajador("Hakin Hasan Ibrahim", 8428257, "Marroquí", 2300000);
+        Trabajador trabajadorFrances = new Trabajador("Emmanuel Macrom", 95175, "Francesa", 2300000);
+        cocineros.add(trabajadorSonmerlier);
+        cocineros.add(trabajadorItaliano);
+        cocineros.add(trabajadorJapones);
+        cocineros.add(trabajadorMarroqui);
+        cocineros.add(trabajadorFrances);
+        Plato bagget = new Plato("Bagget", 2000, 1, 100);
+        Plato queso = new Plato("Queso mediterraneo", 50000, 7, 100);
+        platos_varios.add(bagget);
+        platos_varios.add(queso);
+        Plato soppa_minestrone = new Plato("Sopa Minnestrone", 54000, 5, "Italiana");
+        Plato ensalada_Caprese = new Plato("Ensalada Caprese", 35300, 8, "Italiana");
+        Plato Carpaccio = new Plato("Carpaccio", 44000, 1, "Italiana");
+        Plato Vitello_tonnatoe = new Plato("Vitello tonnatoe", 74000, 4, "Italiana");
+        gastronomias_italiana.add(soppa_minestrone);
+        gastronomias_italiana.add(ensalada_Caprese);
+        gastronomias_italiana.add(Carpaccio);
+        gastronomias_italiana.add(Vitello_tonnatoe);
+        Plato sushi = new Plato("Sushi Yarigato", 54000, 5, "Japonesa");
+        Plato tempura = new Plato("Tempura Ora Ora", 35300, 8, "Japonesa");
+        Plato katsudon = new Plato("Katsudon Primaveral", 44000, 3, "Japonesa");
+        Plato kaisedon = new Plato("Kaisedon Hokkaido", 74000, 4, "Japonesa");
+        gastronomias_japonesa.add(sushi);
+        gastronomias_japonesa.add(tempura);
+        gastronomias_japonesa.add(katsudon);
+        gastronomias_japonesa.add(kaisedon);
+        Plato tajin = new Plato("Tajín Avepus", 54000, 5, "Marroquí");
+        Plato cuscus = new Plato("Cuscús Adriático", 35300, 8, "Marroquí");
+        Plato harira = new Plato("Harira Candente", 44000, 3, "Marroquí");
+        Plato briouat = new Plato("Briouat Sur", 74000, 4, "Marroquí");
+        gastronomias_marroqui.add(tajin);
+        gastronomias_marroqui.add(cuscus);
+        gastronomias_marroqui.add(harira);
+        gastronomias_marroqui.add(briouat);
+        Plato ratatouille = new Plato("Ratatouille Avignon", 54000, 5, "Francesa");
+        Plato escargots = new Plato("Escargots D' Bourgogne", 35300, 8, "Francesa");
+        Plato fricase = new Plato("Fricasé Le Mans", 44000, 1, "Francesa");
+        Plato gratin = new Plato("Le gratin dauphinois", 74000, 1, "Francesa");
+        gastronomias_francesa.add(ratatouille);
+        gastronomias_francesa.add(escargots);
+        gastronomias_francesa.add(fricase);
+        gastronomias_francesa.add(gratin);
+        platos_gastronomias.add(gastronomias_francesa);
+        platos_gastronomias.add(gastronomias_italiana);
+        platos_gastronomias.add(gastronomias_marroqui);
+        platos_gastronomias.add(gastronomias_japonesa);
+        platos_gastronomias.add(gastronomias_japonesa);
+
     }
 
     public static void main(String[] args) {

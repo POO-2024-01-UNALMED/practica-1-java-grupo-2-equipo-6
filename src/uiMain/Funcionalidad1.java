@@ -8,6 +8,7 @@ import gestorAplicacion.Gestion.Reserva;
 import gestorAplicacion.Gestion.Restaurante;
 import gestorAplicacion.Usuario.Cliente;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -536,8 +537,9 @@ public class Funcionalidad1 implements Utilidad{
 
     public static boolean confirmarReserva(Restaurante restaurante, Reserva reserva, ArrayList<Cliente> clientes) {
         boolean confirmada;
-        restaurante.getIntentosReserva().add(new ArrayList<Integer>(Arrays.asList(reserva.getFecha().get(0),
-                reserva.getFecha().get(1), reserva.getFecha().get(2))));
+        LocalDate fechaIntento = LocalDate.now();
+        restaurante.getIntentosReserva().add(new ArrayList<Integer>(Arrays.asList(fechaIntento.getYear(),
+                fechaIntento.getMonthValue(), fechaIntento.getDayOfMonth())));
         System.out.println("Resumen de su reserva:");
         System.out.println(reserva);
         System.out.println("¿Desea confirmar su reserva?\n1. Sí.\n2. No.");

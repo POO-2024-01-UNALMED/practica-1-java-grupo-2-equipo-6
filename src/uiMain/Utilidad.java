@@ -14,7 +14,7 @@ import java.util.*;
 import static uiMain.Main.*;
 
 public interface Utilidad {
-    static Scanner consola = new Scanner(System.in);
+    Scanner consola = new Scanner(System.in);
 
     static String readString() {
         return consola.nextLine();
@@ -80,7 +80,7 @@ public interface Utilidad {
     }
 
     //Este metodo se encarga de limpiar la pantalla del ejecutable.
-    public static void limpiarPantalla() {
+    static void limpiarPantalla() {
         try {
             String sistemaOperativo = System.getProperty("os.name");
             ArrayList<String> comando = new ArrayList<>();
@@ -101,7 +101,7 @@ public interface Utilidad {
 
     //Este metodo se encarga de organizar en orden alfabético el listado de ciudades para luego imprimir un listado
     //numerado desde 1 con el nombre de estas.
-    public static void listadoCiudades() {
+    static void listadoCiudades() {
         if (!ciudades.isEmpty()) {
             ciudades.sort(new Comparator<Ciudad>() {
                 @Override
@@ -117,7 +117,7 @@ public interface Utilidad {
 
     //Este metodo se encarga de organizar en orden alfabético el listado de zonas de una ciudad en específico para
     // luego imprimir un listado de estas numeradas desde el 1.
-    public static void listadoZonasCiudad(Ciudad ciudad) {
+    static void listadoZonasCiudad(Ciudad ciudad) {
         ciudad.getZonas().sort(new Comparator<Zona>() {
             @Override
             public int compare(Zona o1, Zona o2) {
@@ -131,7 +131,7 @@ public interface Utilidad {
 
     }
 
-    public static ArrayList<Zona> listadoZonasConRestauranteCiudad(Ciudad ciudad) {
+    static ArrayList<Zona> listadoZonasConRestauranteCiudad(Ciudad ciudad) {
         ArrayList<Zona> zonasConRestaurante = new ArrayList<Zona>();
         for (Zona zona : ciudad.getZonas()) {
             if (!zona.getRestaurantes().isEmpty()) {
@@ -151,7 +151,7 @@ public interface Utilidad {
         return zonasConRestaurante;
     }
 
-    public static void listadoRestaurantesZona(Zona zona) {
+    static void listadoRestaurantesZona(Zona zona) {
         if (!zona.getRestaurantes().isEmpty()) {
             zona.getRestaurantes().sort(new Comparator<Restaurante>() {
                 @Override
@@ -168,7 +168,7 @@ public interface Utilidad {
 
     //Este metodo se encarga de organizar en orden alfabético el listado de platos para luego imprimir un listado
     //numerado desde 1 con el nombre de estos.
-    public static void listadoPlatos() {
+    static void listadoPlatos() {
         if (!platos.isEmpty()) {
             platos.sort(new Comparator<Plato>() {
                 @Override
@@ -184,7 +184,7 @@ public interface Utilidad {
 
     //Este metodo se encarga de organizar en orden de calificación el listado de platos para luego imprimir un listado
     //numerado desde 1 hasta 10 (máximo), con el nombre de estos.
-    public static void listadoPlatosCalificacion() {
+    static void listadoPlatosCalificacion() {
         platos.sort(new Comparator<Plato>() {
             @Override
             public int compare(Plato o1, Plato o2) {
@@ -203,7 +203,7 @@ public interface Utilidad {
 
     //Este metodo se encarga de organizar en orden alfabético el listado de zonas de una ciudad en específico para
     // luego imprimir un listado de estas numeradas desde el 1.
-    public static void listadoPlatosRestaurante(Restaurante restaurante) {
+    static void listadoPlatosRestaurante(Restaurante restaurante) {
         if (!restaurante.getMenu().isEmpty()) {
             restaurante.getMenu().sort(new Comparator<Plato>() {
                 @Override
@@ -219,7 +219,7 @@ public interface Utilidad {
 
     //Este metodo se encarga de organizar en orden alfabético el listado de ingredientes para luego imprimir un listado
     //numerado desde 1 con el nombre de estos.
-    public static void listadoIngredientes() {
+    static void listadoIngredientes() {
         if (!ingredientes.isEmpty()) {
             ingredientes.sort(new Comparator<Ingrediente>() {
                 @Override
@@ -233,14 +233,14 @@ public interface Utilidad {
         }
     }
 
-    public static boolean existeCliente(Cliente clienteActual) {
+    static boolean existeCliente(Cliente clienteActual) {
         for (Cliente cliente : Restaurante.getClientes()) {
             return clienteActual.getCedula() == cliente.getCedula();
         }
         return false;
     }
 
-    public static Cliente clienteCedula(Cliente clienteActual) {
+    static Cliente clienteCedula(Cliente clienteActual) {
         for (Cliente cliente : Restaurante.getClientes()) {
             if (clienteActual.getCedula() == cliente.getCedula()) {
                 return cliente;
@@ -252,7 +252,7 @@ public interface Utilidad {
     // Este metodo se encarga de calcular la distancia entre las mesas que tiene un restaurante y el tipo de casilla
     // seleccionado (Puerta o Ventana), para recomendar la mesa que se ajuste a las preferencias del cliente.
     // Retorna el número de la(s) mesa(s) que más cerca se encuentren a la casilla de preferencia.
-    public static ArrayList<Integer> calcularDistancia(Restaurante restaurante, int preferencia, boolean tipoMesa){
+    static ArrayList<Integer> calcularDistancia(Restaurante restaurante, int preferencia, boolean tipoMesa){
         ArrayList<Mesa> mesas = new ArrayList<Mesa>();
         ArrayList<Integer> mesasElegidas = new ArrayList<Integer>();
         int menorDistancia = 9999;
@@ -312,7 +312,7 @@ public interface Utilidad {
         return mesasElegidas;
     }
 
-    public static ArrayList<ArrayList<Integer>> intersectarListas(ArrayList<ArrayList<Integer>> lista1,
+    static ArrayList<ArrayList<Integer>> intersectarListas(ArrayList<ArrayList<Integer>> lista1,
                                                                   ArrayList<ArrayList<Integer>> lista2) {
         // Crear un LinkedHashSet para evitar duplicados y mantener el orden de inserción
         Set<ArrayList<Integer>> set = new LinkedHashSet<>(lista1);

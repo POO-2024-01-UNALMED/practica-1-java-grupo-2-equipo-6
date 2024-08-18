@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Objects;
 public class Plato implements Serializable {
     // Atributos
+    private static ArrayList<Plato> platos = new ArrayList<Plato>();
     private String nombre;
     private int precio;
     private ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
@@ -86,6 +87,12 @@ public class Plato implements Serializable {
     }
 
     // Métodos
+    public static ArrayList<Plato> getPlatos() {
+        return platos;
+    }
+    public static void setPlatos(ArrayList<Plato> platos) {
+        Plato.platos = platos;
+    }
     public String getNombre() {
         return nombre;
     }

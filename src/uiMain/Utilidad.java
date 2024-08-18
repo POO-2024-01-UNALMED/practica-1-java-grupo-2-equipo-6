@@ -38,11 +38,6 @@ public interface Utilidad {
         }
     }
 
-//    static int readInt(String string) {
-//        System.out.println(string);
-//        return readInt();
-//    }
-
     static float readFloat(){
         String numero = readString();
         try {
@@ -183,25 +178,28 @@ public interface Utilidad {
 
     //Este metodo se encarga de organizar en orden de calificación el listado de platos para luego imprimir un listado
     //numerado desde 1 hasta 10 (máximo), con el nombre de estos.
-    static void listadoPlatosCalificacion() {
+    static ArrayList<Plato> listadoPlatosCalificacion() {
         platos.sort(new Comparator<Plato>() {
             @Override
             public int compare(Plato o1, Plato o2) {
                     return Float.compare(o1.getCalificacion(), o2.getCalificacion());
                 }
         });
+        ArrayList<Plato> mejoresPlatos = new ArrayList<Plato>();
         for (int i = 0; i < 10; i++) {
             if (i < platos.size()) {
+                mejoresPlatos.add(platos.reversed().get(i));
                 System.out.println(String.valueOf(i + 1) + ". " + platos.reversed().get(i).getNombre() + ": " +
                         platos.reversed().get(i).getCalificacion() + " Estrellas.");
             } else {
                 break;
             }
         }
+        return mejoresPlatos;
     }
 
-    //Este metodo se encarga de organizar en orden alfabético el listado de zonas de una ciudad en específico para
-    // luego imprimir un listado de estas numeradas desde el 1.
+    //Este metodo se encarga de organizar en orden alfabético el listado de platos de una restaurante en específico para
+    //luego imprimir un listado de estoss numeradas desde el 1.
     static void listadoPlatosRestaurante(Restaurante restaurante) {
         if (!restaurante.getMenu().isEmpty()) {
             restaurante.getMenu().sort(new Comparator<Plato>() {
@@ -211,7 +209,7 @@ public interface Utilidad {
                 }
             });
             for (int i = 0; i < restaurante.getMenu().size(); i++) {
-                System.out.println(String.valueOf(i + 1) + ". " + restaurante.getMenu().get(i).getNombre() + '.');
+                System.out.println((i + 1) + ". " + restaurante.getMenu().get(i).getNombre() + '.');
             }
         }
     }

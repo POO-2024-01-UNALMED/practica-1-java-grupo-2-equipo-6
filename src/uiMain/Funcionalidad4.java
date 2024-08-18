@@ -623,84 +623,87 @@ public class Funcionalidad4 implements Utilidad {
     //Funcionalidad 4. Interacción 3: Establecer Menú y Encargos
     private static void establecerMenuYEncargos(Restaurante restaurante) {
         if (Restaurante.restaurantesCreados > 2) {
-            Utilidad.listadoPlatosCalificacion();
-            System.out.println("¿Desea conservar el menú generado?\n1. Sí.\n2. No.");
+            //Establecer Menú
+            ArrayList<Plato> menuTransitorio = Utilidad.listadoPlatosCalificacion(); //Listado de platos con mejor calificación.
+            System.out.println("¿Desea modificar el menú generado?\n1. Sí.\n2. No.");
             int eleccion1 = Utilidad.readInt();
             switch (eleccion1) {
-                case 1: //Si se quiere adoptar el menú generado
-                    for (int i = 0; i < 10; i++) {
-                        if (i < platos.size()) {
-                            restaurante.getMenu().add(platos.reversed().get(i));
-                        } else {
-                            break;
-                        }
-                    }
+                case 2: //Si se quiere adoptar el menú generado
+                    restaurante.setMenu(menuTransitorio);
                     break;
-                case 2: //Si no se quiere adoptar el menú generado
-                    Utilidad.listadoPlatos();
-                    boolean encendido = true;
+                case 1: //Si no se quiere adoptar el menú generado
+                    boolean encendido1 = true;
                     do {
-                        System.out.println("\nElija la situación que mejor se acomode a su situación con respecto a " +
-                                "la creación del menú y la lista presentada:\n1. Todos los platos están presentes." +
-                                "\n2. Algunos platos están presentes.\n3. Ningún plato está presente.");
+                        System.out.println("¿Qué desea hacer?\n1. Agregar.\n2. Eliminar.");
                         int eleccion2 = Utilidad.readInt();
-                        int numPlatos;
+                        int eleccion3 = 0;
                         switch (eleccion2) {
-                            case 1:
-                                System.out.println("Ingrese la cantidad de platos que desea agregar:");
-                                numPlatos = Utilidad.readInt();
-                                System.out.println("Escriba el número de lista donde está cada uno de los " +
-                                        numPlatos + " platos necesarios.");
-                                for (int i = 0; i < numPlatos; i++) {
-                                    System.out.println("Ingresa el número del plato #" + (i + 1));
-                                    int indice = Utilidad.readInt();
-                                    restaurante.getMenu().add(platos.get(indice - 1));
+                            case 1: //Agregar
+                                System.out.println("Platos existentes:");
+                                for (Plato plato : Plato.getPlatos()) {
+                                    if (!menuTransitorio.contains(plato)) {
+                                        System.out.println(Utilidad.capitalize(plato.getNombre()));
+                                    }
                                 }
-                                encendido = false;
+                                System.out.println("En caso de que quiera agregar uno de los platos mostrados en la " +
+                                        "lista, ingrese el nombre tal como allí aparece.");
+                                Plato plato = crearPlato();
+                                menuTransitorio.add(plato);
+                                System.out.println("¿Desea realizar otra modificación?\n1. Sí.\n2. No.");
+                                eleccion3 = Utilidad.readInt();
+                                if (eleccion3 != 1) {
+                                    encendido1 = false;
+                                }
                                 break;
-                            case 2:
-                                encendido = false;
-                                break;
-                            case 3:
-                                encendido = false;
+                            case 2: //Eliminar
+                                for (Plato platoTransitorio : menuTransitorio) {
+                                    System.out.println((menuTransitorio.indexOf(platoTransitorio) + 1) + ". " +
+                                            platoTransitorio.getNombre());
+                                }
+                                System.out.println("Ingrese el número del plato a eliminar [1 - " +
+                                        menuTransitorio.size() + "].");
+                                int eleccion4 = Utilidad.readInt();
+                                if (eleccion4 < 1 || eleccion4 > menuTransitorio.size()) {
+                                    System.out.println("Número inválido.");
+                                } else {
+                                    menuTransitorio.remove(eleccion4 - 1);
+                                }
+                                System.out.println("¿Desea realizar otra modificación?\n1. Sí.\n2. No.");
+                                eleccion3 = Utilidad.readInt();
+                                if (eleccion3 != 1) {
+                                    encendido1 = false;
+                                }
                                 break;
                             default:
-                                System.out.println("Ingrese un número válido [1 - 3].");
-                                encendido = true;
+                                System.out.println("Ingrese un valor válido [1 - 2].");
                                 break;
                         }
-                    } while (encendido);
-
-                    System.out.println("Ingrese la cantidad de platos a crear:");
-                    int platosNuevos = Utilidad.readInt();
-                    for (int i = 0; i < platosNuevos; i++) {
-                        Utilidad.listadoPlatos();
-                        Utilidad.listadoIngredientes();
-                        Plato plato = crearPlato();
-                        restaurante.getMenu().add(plato);
-                        platos.add(plato);
-                    }
-                    break;
+                    } while (encendido1);
+                    restaurante.setMenu(menuTransitorio);
                 default:
-                    System.out.println("Ingrese un número válido [1 - 2].");
+                    System.out.println("Ingrese un valor válido [1 - 2].");
                     establecerMenuYEncargos(restaurante);
+                    break;
             }
+
+            //Establecer Encargos
+            
         } else {
-            System.out.println("Ingrese la cantidad de platos a crear:");
-            int platosNuevos = Utilidad.readInt();
-            for (int i = 0; i < platosNuevos; i++) {
-                Utilidad.listadoPlatos();
-                Utilidad.listadoIngredientes();
-                Plato plato = crearPlato();
-                restaurante.getMenu().add(plato);
-                platos.add(plato);
+            //Establecer Menú
+            ArrayList<Plato> menuRestaurante = new ArrayList<Plato>();
+            System.out.println("Ingrese la cantidad de platos que tendrá el menú:");
+            int eleccion4 = Utilidad.readInt();
+            for (int i = 0; i < eleccion4; i++) {
+                menuRestaurante.add(crearPlato());
             }
-            System.out.println(restaurante);
+            restaurante.setMenu(menuRestaurante);
+
+            //Establecer Encargos
         }
     }
 
     private static Plato crearPlato() {
-        System.out.println("Ingrese el nombre del plato, sin tildes.");
+        System.out.println("Ingrese el nombre del plato:");
         String nombre = Utilidad.capitalize(Utilidad.readString());
         boolean existe = false;
         int indiceExiste = 0;

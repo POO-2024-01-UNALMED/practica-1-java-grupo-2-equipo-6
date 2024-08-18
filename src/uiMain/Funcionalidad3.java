@@ -3,6 +3,8 @@ import gestorAplicacion.Gestion.*;
 import gestorAplicacion.Entorno.*;
 import gestorAplicacion.Usuario.*;
 import java.util.*;
+
+import static uiMain.Funcionalidad1.*;
 import static uiMain.Main.*;
 
 public class Funcionalidad3 implements Utilidad {
@@ -350,9 +352,8 @@ public class Funcionalidad3 implements Utilidad {
                         int cedula = Utilidad.readInt();
                         for (Cliente cliente : mesa.getClientes()){
                             if (cliente.getCedula() == cedula){
-                                if (cliente.getAfiliacion() != null){
-                                    // reservarMesa(mesa, cliente);
-                                    // aplicarDescuentos(){}
+                                if (cliente.getAfiliacion() != Cliente.Afiliacion.NINGUNA){
+                                    reservarMesa();
                                 } else {
                                     System.out.println("¿Desea afiliarse?");
                                     System.out.println("""
@@ -393,7 +394,6 @@ public class Funcionalidad3 implements Utilidad {
                                                                 break;
                                                         }
                                                     } while (!transaccionConfirmada);
-                                                    // aplicarDescuentos(){} Se aplican descuentos a la reserva que va a realizar.
                                                     break;
                                                 case 2:
                                                     boolean transaccionConfirmada2 = false;
@@ -449,9 +449,10 @@ public class Funcionalidad3 implements Utilidad {
                                                     System.out.println("Número no válido.");
                                                     break;
                                             }
+                                            reservarMesa();
                                             break;
                                         case 2:
-                                            // reservarMesa (mesa, cliente);
+                                            reservarMesa();
                                             break;
                                     }
                                 }
@@ -632,7 +633,6 @@ public class Funcionalidad3 implements Utilidad {
             mesa.getRestaurante().agregarPlatoDescuento(platoCalificado);
             platoCalificado.setPrecio((int) (platoCalificado.getPrecio() - (platoCalificado.getPrecio() * 0.15)));
         }
-
     }
 
     public static Restaurante actualizarMenu(Mesa mesa){

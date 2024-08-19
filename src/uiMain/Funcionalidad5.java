@@ -546,7 +546,7 @@ public class Funcionalidad5 implements Utilidad {
                     platos_pedidos.add(primer_plato);
                     final_gastro_evento.remove(leer - 1);
                     final_gastro_evento.get(leer - 1).descontarPlato(a);
-                    while (escoger) {
+//                    while (escoger) {
                         System.out.println("""
                                 Desea ordenar otros platos?:
                                 1. Sí, deseo ordenar más platos
@@ -554,7 +554,8 @@ public class Funcionalidad5 implements Utilidad {
                                 """);
                         int leer2 = Utilidad.readInt();
                         if (leer2 == 1) {
-                            if (!(final_gastro_evento.isEmpty())) {
+                            while (encendido)
+                                if (!(final_gastro_evento.isEmpty())) {
                                 System.out.println("Por supuesto, he aquí de nuevo el menú con el resto de plato:");
                                 int contador = 0;
                                 for (Plato dadada : final_gastro_evento) {
@@ -575,16 +576,21 @@ public class Funcionalidad5 implements Utilidad {
                                         1. Sí.
                                         2. No""");
                                 int respuesta2 = Utilidad.readInt();
-                                if (respuesta2 == 1) {
+                                if (!(final_gastro_evento.isEmpty())){
+                                    if (respuesta2 == 1) {
                                     encendido = true;
-                                } else {
+                                    } else {
                                     System.out.println("Dale");
                                     encendido= false;
+                                    }
+
                                 }
-                            } else {
+                                else {
                                 System.out.println("Lo sentimos, pero no hay más platos para mostrarte");
-                                escoger = false;
+                                encendido = false;
+                                break;
                             }
+                                }
                         } else {
                             System.out.println("Agradecemos tú confianza");
                             escoger = false;
@@ -597,8 +603,8 @@ public class Funcionalidad5 implements Utilidad {
 //                                        factura.setEvento(eventoGastronomias);
 
                         break;
-                    }
-                    System.out.println("No gastrononmias");
+
+//                    System.out.println("No gastrononmias");
                 } else {
                     break;
                 }

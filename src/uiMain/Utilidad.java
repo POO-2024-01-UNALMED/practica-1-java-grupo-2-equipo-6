@@ -96,15 +96,15 @@ public interface Utilidad {
     //Este metodo se encarga de organizar en orden alfabético el listado de ciudades para luego imprimir un listado
     //numerado desde 1 con el nombre de estas.
     static void listadoCiudades() {
-        if (!ciudades.isEmpty()) {
-            ciudades.sort(new Comparator<Ciudad>() {
+        if (!Ciudad.getCiudades().isEmpty()) {
+            Ciudad.getCiudades().sort(new Comparator<Ciudad>() {
                 @Override
                 public int compare(Ciudad o1, Ciudad o2) {
                     return o1.getNombre().compareToIgnoreCase(o2.getNombre());
                 }
             });
-            for (int i = 0; i < ciudades.size(); i++) {
-                System.out.println(String.valueOf(i + 1) + ". " + ciudades.get(i).getNombre() + '.');
+            for (int i = 0; i < Ciudad.getCiudades().size(); i++) {
+                System.out.println((i + 1) + ". " + Ciudad.getCiudades().get(i).getNombre() + '.');
             }
         }
     }
@@ -232,7 +232,7 @@ public interface Utilidad {
 
     //Este metodo se encarga de retornar verdadero o falso segun si existe o no un cliente con una cedula dada.
     static boolean existeCliente(Cliente clienteActual) {
-        for (Cliente cliente : Restaurante.getClientes()) {
+        for (Cliente cliente : Cliente.getClientes()) {
             return clienteActual.getCedula() == cliente.getCedula();
         }
         return false;
@@ -240,7 +240,7 @@ public interface Utilidad {
 
     //Este metodo se encarga de retornar la referencia de un cliente presente en la lista de clientes de un restaurante
     static Cliente clienteCedula(Cliente clienteActual) {
-        for (Cliente cliente : Restaurante.getClientes()) {
+        for (Cliente cliente : Cliente.getClientes()) {
             if (clienteActual.getCedula() == cliente.getCedula()) {
                 return cliente;
             }

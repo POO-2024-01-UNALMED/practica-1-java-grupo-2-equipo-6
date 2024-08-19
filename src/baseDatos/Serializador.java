@@ -25,8 +25,8 @@ public class Serializador {
     }
 
     public static void serializarListas(){
-        Serializador.serializar(Restaurante.getClientes(), "clientes");
-        Serializador.serializar(Restaurante.getTrabajadores(), "trabajadores");
+//        Serializador.serializar(Restaurante.getClientes(), "clientes");
+//        Serializador.serializar(Restaurante.getTrabajadores(), "trabajadores");
 
     }
 }

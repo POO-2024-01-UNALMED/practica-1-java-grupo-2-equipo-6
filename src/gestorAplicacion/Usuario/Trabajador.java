@@ -21,7 +21,9 @@ public class Trabajador extends Persona implements Serializable {
     private ArrayList<String> reseñas = new ArrayList<String>();
     private Restaurante restaurante;
 
-    public Trabajador() {}
+    public Trabajador() {
+    }
+
     public Trabajador(String nombre, int cedula, String especialidad, int salario) {
         this.nombre = nombre;
         this.cedula = cedula;
@@ -42,10 +44,12 @@ public class Trabajador extends Persona implements Serializable {
     public String getNombre() {
         return nombre;
     }
+
     @Override
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
     @Override
     public int getCedula() {
         return cedula;
@@ -95,6 +99,7 @@ public class Trabajador extends Persona implements Serializable {
     public void setSalario(int salario) {
         this.salario = salario;
     }
+
     public void PagoExtraServicio(ArrayList<Evento> eventos, String especialidad) {
         for (Evento evento : eventos) {
             if (evento.getNombre().equals(getEspecialidad())) {
@@ -102,82 +107,82 @@ public class Trabajador extends Persona implements Serializable {
             }
         }
     }
-
-    public void actualizarGanancia(Factura facturaGanancia) {
-    	
-    	
-    		
-    	Restaurante.ganancias(facturaGanancia.getPropina() + facturaGanancia.getValor()) ;
-    }
-public void llevar(ArrayList<Plato> platoListos, Cliente cliente) {
-		
-		System.out.println(cliente);
-	
-		Pedido pedido = new Pedido();
-		for (Plato plato: platoListos) {
-			pedido.agregarPlato(plato);
-		}
-		cliente.setPedido(pedido);
-		cliente.getMesa().setPedido(pedido);
-		
-	}
-	
-
-public Plato cocinar(Plato plato) {
-	
-    HashMap <Ingrediente, Double> ingredientesPlato = plato.getIngredientes();
-    ArrayList <Ingrediente> ingredientes  = new ArrayList <Ingrediente>();
-	ArrayList<Plato> platoListos = new ArrayList<Plato>();
-	
-	
-	
-	
-    System.out.println("Se esta realizando su pedido... ");
-    
-    
-    	
-
-    for (Map.Entry<Ingrediente, Double> ingrediente : ingredientesPlato.entrySet()) {
-        
-    	
- 		if (ingrediente.getKey().existencia() >=  ingrediente.getValue() ) {
- 			ingrediente.getKey().reducirInventario(ingrediente.getValue() );
- 			ingredientes.add(ingrediente.getKey());}
- 		
- 		else {
- 				System.out.println(plato.getNombre()+" ❌");
- 				System.out.println("No hay suficiente inventario para preparar " + plato.getNombre() );
- 				System.out.println("Ingrediente necesario "+ingrediente.getKey() + " " + ingrediente.getValue() + " Inventario : " + ingrediente.getKey().getInventario() );
- 				System.out.println("Desea agregar el ingrediente necesario para el siguiente plato.\n1. Sí [s]\n2. No [n] ");
- 				char opcion = readChar();
- 				if (opcion == 's' || opcion == 'S' ) {
- 					Cargamento.agregarPedido(ingrediente.getKey(), ingrediente.getValue() * 2);
- 					}
- 			}
- 		}
- 	
-    
-    if (ingredientesPlato.size() == ingredientes.size()) {
-    	platoListos.add(plato);
-    }
-
-
-   if (platoListos.isEmpty()) {
-	   	return null;
-   } else { 
-	   return platoListos.getFirst();}
-    }
-
-
-public int valorFactura(Factura factura) {
-	
-	int valor = factura.calcularValor();
-	
-	
-	return valor;
 }
-	}
-
-
-
-
+//public void actualizarGanancia(Factura facturaGanancia) {
+//
+//
+//
+////    	Restaurante.ganancias(facturaGanancia.getPropina() + facturaGanancia.getValor()) ;
+//    }
+//public void llevar(ArrayList<Plato> platoListos, Cliente cliente) {
+//
+//		System.out.println(cliente);
+//
+//		Pedido pedido = new Pedido();
+//		for (Plato plato: platoListos) {
+//			pedido.agregarPlato(plato);
+//		}
+//		cliente.setPedido(pedido);
+////		cliente.getMesa().setPedido(pedido);
+//
+//	}
+//
+//
+//public Plato cocinar(Plato plato) {
+//
+////    HashMap <Ingrediente, Double> ingredientesPlato = plato.getIngredientes();
+//    ArrayList <Ingrediente> ingredientes  = new ArrayList <Ingrediente>();
+//	ArrayList<Plato> platoListos = new ArrayList<Plato>();
+//
+//
+//
+//
+//    System.out.println("Se esta realizando su pedido... ");
+//
+//
+//
+//
+//    for (Map.Entry<Ingrediente, Double> ingrediente : ingredientesPlato.entrySet()) {
+//
+//
+// 		if (ingrediente.getKey().existencia() >=  ingrediente.getValue() ) {
+// 			ingrediente.getKey().reducirInventario(ingrediente.getValue() );
+// 			ingredientes.add(ingrediente.getKey());}
+//
+// 		else {
+// 				System.out.println(plato.getNombre()+" ❌");
+// 				System.out.println("No hay suficiente inventario para preparar " + plato.getNombre() );
+// 				System.out.println("Ingrediente necesario "+ingrediente.getKey() + " " + ingrediente.getValue() + " Inventario : " + ingrediente.getKey().getInventario() );
+// 				System.out.println("Desea agregar el ingrediente necesario para el siguiente plato.\n1. Sí [s]\n2. No [n] ");
+// 				char opcion = readChar();
+// 				if (opcion == 's' || opcion == 'S' ) {
+// 					Cargamento.agregarPedido(ingrediente.getKey(), ingrediente.getValue() * 2);
+// 					}
+// 			}
+// 		}
+//
+//
+//    if (ingredientesPlato.size() == ingredientes.size()) {
+//    	platoListos.add(plato);
+//    }
+//
+//
+//   if (platoListos.isEmpty()) {
+//	   	return null;
+//   } else {
+//	   return platoListos.getFirst();}
+//    }
+//
+//
+//public int valorFactura(Factura factura) {
+//
+//	int valor = factura.calcularValor();
+//
+//
+//	return valor;
+//}
+//	}
+//
+//
+//
+//

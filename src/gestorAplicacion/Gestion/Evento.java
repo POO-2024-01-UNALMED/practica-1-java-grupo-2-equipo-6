@@ -14,7 +14,6 @@ public class Evento {
     Cliente clienteEvento;
     ArrayList<Plato> platos;
 
-
     public Evento(String nombre){
         this.nombre = nombre;
     }
@@ -46,7 +45,14 @@ public class Evento {
 
     }
 
+    // Evento.getEventos().add(new Evento())
 
+    public static ArrayList<Evento> getEventos() {
+        return eventos;
+    }
+    public static void setEventos(ArrayList<Evento> eventos) {
+        Evento.eventos = eventos;
+    }
     public void setNombreEvento(String nombreEvento){
         this.nombre = nombreEvento;
     }

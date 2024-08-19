@@ -10,6 +10,7 @@ import gestorAplicacion.Usuario.Cliente;
 import gestorAplicacion.Gestion.Evento;
 import gestorAplicacion.Usuario.Trabajador;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 import static uiMain.Main.*;
@@ -38,25 +39,30 @@ public class Funcionalidad5 implements Utilidad {
             int eleccion = Utilidad.readInt();
             switch (eleccion) {
                 case 1:
-//                    System.out.println("Interacción 1.");
-//                    //La primera a de retornar un restaurante
-                    restaurante = recomendarLocalizacion();
-//                    //Esto es una prueba de su funcionalidad, borrar después
-//                    printLn(restaurante.getInformacionRecomendacion());
-//                    int cantidadFechas = restaurante.getReservas().size();
-//                    for (int i = 0; i < (restaurante.getReservas().size()); i++) {
-//                        Reserva fecha = restaurante.getReservas().get(i);
-//                        if (i == restaurante.getReservas().size() - 1) {
-//                            printLn(fecha.getFecha() + " <------ He aquí su reserva señor/a " + restaurante.getCliente() + "🫡");
-//                        } else {
-//                            printLn(fecha.getFecha());
-//                        }
-//                    }
-                    //Hasta acá va la prueba
+                    System.out.println("Ciudades:");
+                    Utilidad.listadoCiudades();
+
+                    boolean encendido1 = false;
+                    Ciudad ciudad = new Ciudad();
+                    do {
+
+                        System.out.println("Escriba un número para elegir la ciudad.\nEn caso de no encontrar la ciudad " +
+                                "requerida escriba 0.");
+                        int eleccion1 = Utilidad.readInt();
+                        if (eleccion1 > Ciudad.getCiudades().size() || eleccion1 < 0) {
+                            System.out.println("Ingrese un número válido [1 - " + Ciudad.getCiudades().size() + "].");
+                            encendido1 = true;
+                        } else {
+                            ciudad = Ciudad.getCiudades().get(eleccion1 - 1);
+                        }
+                    } while (encendido1);
+
+                    ArrayList<Cliente> cliente = recomendarLocalizacion(ciudad);
+                    restaurante = cliente.getFirst().getRestaurante();
+
                     printLn("Interaccion2");
                     factura = recomendarEvento();
                     datos_horaReserva(restaurante, factura);
-
 
                     encendido = false;
                     break;
@@ -71,59 +77,53 @@ public class Funcionalidad5 implements Utilidad {
         } while (encendido);
     }
 
-    public static Restaurante recomendarLocalizacion() {
-        Cliente clientePP = new Cliente();
-        Reserva reservaPP = new Reserva();
-        Restaurante restauranteElegido = new Restaurante();
-        boolean encendido = true;
+    public static ArrayList<Cliente> recomendarLocalizacion(Ciudad ciudad) {
+        Cliente cliente = new Cliente();
+
+        Restaurante restaurante = null;
 
         //Primera parte, en donde se pide la ciudad y se hace las respectivas recomendaciones
-        do {
-            printLn("Indica por favor la ciudad donde realizar el evento: ");
-            String CiudadEvento = Utilidad.readString().toUpperCase(); //Ciudades con mayusculas y sin tilde
-            Ciudad ciudadRequerida = ciudades.stream()
-                    .filter(ciudad -> ciudad.getNombre().equalsIgnoreCase(CiudadEvento))
-                    .findFirst()
-                    .orElse(null);
+        System.out.println("Desea que le recomendemos el restaurante con mayor capacidad:\n1. Sí, por favor.\n2. " +
+                "No, deseo conocerlos todos");
+        int eleccionRecomendacion = Utilidad.readInt();
+        switch (eleccionRecomendacion) {
+            case 1: //Si quiere que se le recomiende restaurante automaticamente.
+                if (ciudad != null) {
+                    restaurante = getRestaurante(ciudad);
+                }
+                break;
 
-            printLn("""
-                    Desea que le recomendemos el restaurante con mayor capacidad: 
-                    1.Sí, por favor
-                    2.No, deseo conocerlos todos
-                    """);
-            int opcionRecomentacion = Utilidad.readInt();
-            switch (opcionRecomentacion) {
-                //Primera parte Sí
-                case 1:
-                    if (ciudadRequerida != null) {
-                        restauranteElegido = getRestaurante(ciudadRequerida);
-                        print(restauranteElegido.getNombre()); //Esto es para pruebas
-                    }
-                    encendido = false;
-                    break;
-
-                case 2:
-                    //Caso del No
-                    if (ciudadRequerida != null) {
-                        printLn("Digita el restaurante que deseas");
-                        listadoZonasPorCiudad(ciudadRequerida);
-                        int opcionRecomendacion2 = Utilidad.readInt();
-                        if (!(opcionRecomendacion2 == 0)) {
-                            restauranteElegido = ciudadRequerida.getZonas().get(opcionRecomendacion2 - 1).RestauranteZona;
-                        }
+            case 2: //Sino
+                System.out.println("Zonas:");
+                Utilidad.listadoZonasCiudad(ciudad);
+                boolean encendido2 = false;
+                do {
+                    int eleccionZona = Utilidad.readInt();
+                    if (eleccionZona < 1 || eleccionZona > ciudad.getZonas().size()) {
+                        encendido2 = true;
                     } else {
-                        System.out.println("Ciudad no encontrada");
+                        Zona zona = ciudad.getZonas().get(eleccionZona - 1);
+                        System.out.println("Restaurantes:");
+                        Utilidad.listadoRestaurantesZona(zona);
+                        boolean encendido3 = false;
+                        do {
+                            int eleccionRestaurante = Utilidad.readInt();
+                            if (eleccionRestaurante < 1 || eleccionRestaurante > zona.getRestaurantes().size()) {
+                                encendido3 = true;
+                            } else {
+                                restaurante = zona.getRestaurantes().get(eleccionRestaurante - 1);
+                            }
+                        } while (encendido3);
                     }
-                    encendido = false;
-                    break;
-            }
-        } while (encendido);
-        //Mismo error que  lo solucionado abajo
-        printLn("Estimado Cliente, nos permite los siguientes datos: Cédula ");
-        double cedulaCliente = Utilidad.readInt();
-        printLn("Nombre: ");
+                } while (encendido2);
+                break;
+        }
+
+        System.out.println("Estimado Cliente, nos permite los siguientes datos:\nCédula:");
+        int cedulaCliente = Utilidad.readInt();
+        System.out.println("Nombre:");
         String nombreCliente = Utilidad.readString();
-        ArrayList<Integer> fecha = new ArrayList<Integer>(4);
+        ArrayList<Integer> fecha = new ArrayList<Integer>();
         System.out.println("Ingrese el día de la reserva:");
         fecha.add(Utilidad.readInt()); // Día
         System.out.println("Ingrese el mes de la reserva:");
@@ -131,36 +131,50 @@ public class Funcionalidad5 implements Utilidad {
         System.out.println("Ingrese el año de la reserva:");
         fecha.add(Utilidad.readInt());
 
-        clientePP.setNombre(nombreCliente);
-        clientePP.setCedula((int) cedulaCliente);
-        reservaPP.setFecha(fecha);
-        restauranteElegido.agregarReserva(reservaPP);
-        restauranteElegido.setCliente(clientePP);
-        printLn(restauranteElegido.getCliente());
-        return restauranteElegido;
+        cliente.setNombre(nombreCliente);
+        cliente.setCedula(cedulaCliente);
+
+        ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+
+        if (Utilidad.existeCliente(cliente)) {
+            cliente = Utilidad.clienteCedula(cliente);
+            clientes.add(cliente);
+        } else {
+            Cliente.getClientes().add(cliente);
+            clientes.add(cliente);
+        }
+
+        Reserva reserva = new Reserva();
+
+        reserva.setFecha(fecha);
+        reserva.setClientes(clientes);
+        reserva.setRestaurante(restaurante);
+
+        restaurante.getHistorialReservas().add(reserva);
+        restaurante.setClientes(clientes);
+        System.out.println(restaurante.getClientes());
+
+        return clientes;
         //Segunda parte, donde se muestran las reservas y se crea al cliente
+
     }
 
-    public static Restaurante getRestaurante(Ciudad ciudadRequerida) {
+    public static Restaurante getRestaurante(Ciudad ciudad) {
         Restaurante restauranteMayorCapacidad = null;
         int mayorCapacidad = 0;
-        for (Zona zona : ciudadRequerida.getZonas()) {
-            Restaurante variable = zona.RestauranteZona;
-            if (variable.getCapacidad() > mayorCapacidad) {
-                restauranteMayorCapacidad = variable;
-                mayorCapacidad = variable.getCapacidad();
+        for (Zona zona : ciudad.getZonas()) {
+            for (Restaurante restaurante : zona.getRestaurantes()) {
+                if (restaurante.getCapacidad() > mayorCapacidad) {
+                    restauranteMayorCapacidad = restaurante;
+                    mayorCapacidad = restaurante.getCapacidad();
+                }
             }
         }
         return restauranteMayorCapacidad;
     }
 
     //PREGUNTARLE A COLO
-    public static void listadoZonasPorCiudad(Ciudad ciudadRequerida) {
-        List<Zona> zonasCiudad = ciudadRequerida.getZonas();
-        for (int i = 0; i < zonasCiudad.size(); i++) {
-            printLn((i + 1) + ". " + zonasCiudad.get(i).getNombreRestaurante() + "...");
-        }
-    }
+
 
     public static void listadoPlatosEvento(Evento evento) {
         List<Plato> platosEvento = evento.getPlatos();
@@ -372,7 +386,7 @@ public class Funcionalidad5 implements Utilidad {
                     String descripcionEvento = "Feliz Cumpleaños!!! Te deseamos lo mejor en esta etapa";
                     String nombreRespuesta = "Cumpleanos Feliz";
                     int coste = 210000;
-                    for (Evento elemento : eventos) {
+                    for (Evento elemento : Evento.getEventos()) {
                         if (elemento.getNombre().equals(nombreRespuesta)) {
                             evento1 = elemento;
                         }
@@ -425,7 +439,7 @@ public class Funcionalidad5 implements Utilidad {
                     String descripcionEvento = "Una empresa que demustra su talento, seriedad y humanidad"; //Sujeto a cambio
                     String nombreRespuesta = "Meetigns Empresarial";
                     int coste = 450000;//Evaluar esto
-                    for (Evento elemento : eventos) {
+                    for (Evento elemento : Evento.getEventos()) {
                         if (elemento.getNombre().equals(nombreRespuesta)) {
                             evento1 = elemento;
                         }
@@ -453,7 +467,7 @@ public class Funcionalidad5 implements Utilidad {
                             for (Trabajador cocineroEnCuestion : cocineros) {
                                 if (cocineroEnCuestion.getEspecialidad().equals("Sonmerlier")) {
                                     cocineroOcasion = cocineroEnCuestion;
-                                    cocineroEnCuestion.PagoExtraServicio(eventos, cocineroEnCuestion.getEspecialidad());
+                                    cocineroEnCuestion.PagoExtraServicio(Evento.getEventos(), cocineroEnCuestion.getEspecialidad());
                                     for (Plato plato : platos_varios) {
                                         if (plato.getNombre().equals("Bagget")) {
                                             platosAfiliacionCumple.add(plato);
@@ -615,8 +629,8 @@ public class Funcionalidad5 implements Utilidad {
 
     public static void formato_factura_evento(Restaurante restaurante, Factura factura, ArrayList<Integer> reserva, boolean diaFinDeSemana){
         System.out.println(STR.".............. \{restaurante.getNombre()}..............");
-        System.out.println("Cliente: " + restaurante.getCliente().getNombre());
-        System.out.println("Cédula: " + restaurante.getCliente().getCedula());
+        System.out.println("Cliente: " + restaurante.getClientes().getFirst().getNombre());
+        System.out.println("Cédula: " + restaurante.getClientes().getFirst().getCedula());
         listado_precios_factura(factura, reserva, diaFinDeSemana);
     }
 
@@ -641,7 +655,7 @@ public class Funcionalidad5 implements Utilidad {
                 String hora_evento = Utilidad.readString();
                 String [] fraccion = hora_evento.split(":");
                 int hora_evento_real = Integer.parseInt(fraccion[0]);
-                reserva = restaurante.getReservas().getLast().getFecha();
+                reserva = restaurante.getHistorialReservas().getLast().getFecha();
                 reserva.add(hora_evento_real);
                 System.out.println(reserva);
                 break;

@@ -64,12 +64,12 @@ public class Funcionalidad4 implements Utilidad {
             System.out.println("Escriba un número para elegir la ciudad.\nEn caso de no encontrar la ciudad " +
                     "requerida escriba 0.");
             int eleccion1 = Utilidad.readInt();
-            if (eleccion1 > ciudades.size() || eleccion1 < 0) {
-                System.out.println("Ingrese un número válido [1 - " + ciudades.size() + "].");
+            if (eleccion1 > Ciudad.getCiudades().size() || eleccion1 < 0) {
+                System.out.println("Ingrese un número válido [1 - " + Ciudad.getCiudades().size() + "].");
             } else {
                 Utilidad.limpiarPantalla();
                 if (!(eleccion1 == 0)) { //Si se encuentra la ciudad
-                    Ciudad ciudad = ciudades.get(eleccion1 - 1);
+                    Ciudad ciudad = Ciudad.getCiudades().get(eleccion1 - 1);
                     if (ciudad.getRestaurantes().isEmpty()) { //Si la ciudad no tiene restaurantes
                         parametrosBasicos(ciudad, restaurante);
                     } else { //Si la ciudad tiene restaurantes
@@ -181,7 +181,7 @@ public class Funcionalidad4 implements Utilidad {
                 } else { //Si no se encuentra la ciudad
                     System.out.println("Por favor ingrese el nombre de la ciudad.");
                     Ciudad ciudad = new Ciudad(Utilidad.capitalize(Utilidad.readString()));
-                    ciudades.add(ciudad);
+                    Ciudad.getCiudades().add(ciudad);
                     System.out.println("Por favor ingrese la cantidad de zonas que tiene la ciudad.");
                     int cantidadZonas = Utilidad.readInt();
                     //Este ciclo for se encarga de la creación de las zonas de la nueva ciudad.
@@ -243,7 +243,7 @@ public class Funcionalidad4 implements Utilidad {
         System.out.println("Escriba un número para elegir la zona.\nEn caso de no encontrar la zona " +
                 "requerida escriba 0.");
         int eleccionZona1 = Utilidad.readInt();
-        if (eleccionZona1 > ciudades.size() || eleccionZona1 < 0) {
+        if (eleccionZona1 > Ciudad.getCiudades().size() || eleccionZona1 < 0) {
             System.out.println("Ingrese un número válido [1 - " + ciudad.getZonas().size() + "].");
             parametrosBasicos(ciudad, restaurante);
         } else {
@@ -311,7 +311,7 @@ public class Funcionalidad4 implements Utilidad {
                 System.out.println("Escriba un número para elegir la zona.\nEn caso de no encontrar la zona " +
                         "requerida escriba 0.");
                 int eleccionZona2 = Utilidad.readInt();
-                if (eleccionZona2 > ciudades.size() || eleccionZona2 < 0) {
+                if (eleccionZona2 > Ciudad.getCiudades().size() || eleccionZona2 < 0) {
                     System.out.println("Ingrese un número válido [1 - " + ciudad.getZonas().size() + "].");
                 } else {
                     Utilidad.limpiarPantalla();

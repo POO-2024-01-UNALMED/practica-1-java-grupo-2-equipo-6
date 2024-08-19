@@ -12,7 +12,6 @@ public abstract class Persona {
     public String despedida() {
         return "Hasta luego " + nombre + ".\nEsperamos que regreses pronto.";
     }
-
     // Getters y Setters
     public abstract String getNombre();
     public abstract void setNombre(String nombre);

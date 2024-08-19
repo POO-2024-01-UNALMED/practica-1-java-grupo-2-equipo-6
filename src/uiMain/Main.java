@@ -24,14 +24,14 @@ import static uiMain.Funcionalidad4.*;
 public class Main implements Utilidad {
 
     static LocalDateTime localDateTime = LocalDateTime.now(); //Fecha a la hora de ejectuar el programa
-    static ArrayList<Ciudad> ciudades = new ArrayList<Ciudad>(); //Lista de ciudades
+//    static ArrayList<Ciudad> ciudades = new ArrayList<Ciudad>(); //Lista de ciudades
     static ArrayList<Zona> zonas = new ArrayList<Zona>(); //Lista de zonas
     static ArrayList<Plato> platos = new ArrayList<Plato>(); //Lista de platos
     static ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>(); //Lista de ingredientes
 
     static ArrayList<Reserva> reservasUsaquen = new ArrayList<Reserva>();
     static ArrayList<Plato> platosCumple = new ArrayList<Plato>(); //Lista de platos cumpleaños
-    static ArrayList<Evento> eventos = new ArrayList<Evento>();
+//    static ArrayList<Evento> eventos = new ArrayList<Evento>();
     static ArrayList<Plato> vinos_champanas_meeting = new ArrayList<Plato>();
     static ArrayList<Trabajador> cocineros;
     static ArrayList<Plato> platos_varios;
@@ -44,9 +44,9 @@ public class Main implements Utilidad {
     static {
         //Creamos ciudades de muestra
         Ciudad ciudad1 = new Ciudad("Medellín");
-        ciudades.add(ciudad1);
+        Ciudad.getCiudades().add(ciudad1);
         Ciudad ciudad2 = new Ciudad("Bogotá");
-        ciudades.add(ciudad2);
+        Ciudad.getCiudades().add(ciudad2);
 
         //Creamos zonas de muestra
         zonas.add(new Zona(4378, "Robledo", ciudad1));
@@ -54,7 +54,7 @@ public class Main implements Utilidad {
         zonas.add(new Zona(193134, "Kennedy", ciudad2));
 
         //Agregamos las zonas creadas al array zonas de su respectiva ciudad
-        for (Ciudad ciudad : ciudades) {
+        for (Ciudad ciudad : Ciudad.getCiudades()) {
             for (Zona zona : zonas) {
                 if (zona.getCiudad() == ciudad) {
                     ciudad.getZonas().add(zona);
@@ -72,50 +72,50 @@ public class Main implements Utilidad {
 
         //Creamos clientes de muestra para la mesa 1
         ArrayList <Cliente> clientes1 = new ArrayList<Cliente>();
-        clientes1.add(new Cliente("Juan", 001, Cliente.Afiliacion.ESTRELLA, "1234567"));
-        clientes1.getFirst().setMesa(mesa1);
-        mesa1.setClientes(clientes1);
-        Restaurante.getClientes().add(clientes1.getFirst());
-
-        clientes1.add(new Cliente("Pedro", 002, Cliente.Afiliacion.ESTRELLITA, "7654321"));
-        clientes1.get(1).setMesa(mesa1);
-        Restaurante.getClientes().add(clientes1.get(1));
-
-        clientes1.add(new Cliente("María", 003, "9876543"));
-        clientes1.get(2).setMesa(mesa1);
-        Restaurante.getClientes().add(clientes1.get(2));
+//        clientes1.add(new Cliente("Juan", 001, Cliente.Afiliacion.ESTRELLA, "1234567"));
+//        clientes1.getFirst().setMesa(mesa1);
+//        mesa1.setClientes(clientes1);
+//        Restaurante.getClientes().add(clientes1.getFirst());
+//
+//        clientes1.add(new Cliente("Pedro", 002, Cliente.Afiliacion.ESTRELLITA, "7654321"));
+//        clientes1.get(1).setMesa(mesa1);
+//        Restaurante.getClientes().add(clientes1.get(1));
+//
+//        clientes1.add(new Cliente("María", 003, "9876543"));
+//        clientes1.get(2).setMesa(mesa1);
+//        Restaurante.getClientes().add(clientes1.get(2));
 
         //Creamos ingredientes y cantidades necesarias de platos de muestra
-        Ingrediente Tomate = new Ingrediente("Tomate", 500);
-        Ingrediente Lechuga = new Ingrediente("Lechuga", 300);
-        HashMap <Ingrediente,Double> ingredientesEnsalada = new HashMap<Ingrediente,Double>();
-        ingredientesEnsalada.put(Lechuga,(double)1);
-        ingredientesEnsalada.put(Tomate,(double)1);
-        Plato Ensalada = new Plato("Ensalada", 19000, "Entrada",ingredientesEnsalada);
-
-        Ingrediente Carne = new Ingrediente("Carne", 1000);
-        Ingrediente Pan = new Ingrediente("Pan", 500);
-        HashMap <Ingrediente,Double> ingredientesHamburguesa = new HashMap<Ingrediente,Double>();
-        ingredientesHamburguesa.put(Tomate, (double) 1);
-        ingredientesHamburguesa.put(Carne, (double)1);
-        ingredientesHamburguesa.put(Pan,(double)2 );
-        Plato Hamburguesa = new Plato("Hamburguesa", 25000, "Plato fuerte", ingredientesHamburguesa );
-
-        Ingrediente Arroz = new Ingrediente("Arroz", 800);
-        Ingrediente Pollo = new Ingrediente("Pollo", 700);
-        HashMap <Ingrediente,Double> ingredientesArroz = new HashMap<Ingrediente,Double>();
-        ingredientesArroz.put(Arroz, (double)1);
-        ingredientesArroz.put(Pollo, (double)1);
-        Plato ArrozConPollo = new Plato("Arroz con pollo", 20000, "Plato fuerte", ingredientesArroz);
+//        Ingrediente Tomate = new Ingrediente("Tomate", 500);
+//        Ingrediente Lechuga = new Ingrediente("Lechuga", 300);
+//        HashMap <Ingrediente,Double> ingredientesEnsalada = new HashMap<Ingrediente,Double>();
+//        ingredientesEnsalada.put(Lechuga,(double)1);
+//        ingredientesEnsalada.put(Tomate,(double)1);
+//        Plato Ensalada = new Plato("Ensalada", 19000, "Entrada",ingredientesEnsalada);
+//
+//        Ingrediente Carne = new Ingrediente("Carne", 1000);
+//        Ingrediente Pan = new Ingrediente("Pan", 500);
+//        HashMap <Ingrediente,Double> ingredientesHamburguesa = new HashMap<Ingrediente,Double>();
+//        ingredientesHamburguesa.put(Tomate, (double) 1);
+//        ingredientesHamburguesa.put(Carne, (double)1);
+//        ingredientesHamburguesa.put(Pan,(double)2 );
+//        Plato Hamburguesa = new Plato("Hamburguesa", 25000, "Plato fuerte", ingredientesHamburguesa );
+//
+//        Ingrediente Arroz = new Ingrediente("Arroz", 800);
+//        Ingrediente Pollo = new Ingrediente("Pollo", 700);
+//        HashMap <Ingrediente,Double> ingredientesArroz = new HashMap<Ingrediente,Double>();
+//        ingredientesArroz.put(Arroz, (double)1);
+//        ingredientesArroz.put(Pollo, (double)1);
+//        Plato ArrozConPollo = new Plato("Arroz con pollo", 20000, "Plato fuerte", ingredientesArroz);
 
         //Creamos pedidos de muestra
         Pedido pedido1 = new Pedido();
         Pedido pedido2 = new Pedido();
         Pedido pedido3 = new Pedido();
 
-        pedido1.agregarPlato(Ensalada);
-        pedido2.agregarPlato(Hamburguesa);
-        pedido3.agregarPlato(ArrozConPollo);
+//        pedido1.agregarPlato(Ensalada);
+//        pedido2.agregarPlato(Hamburguesa);
+//        pedido3.agregarPlato(ArrozConPollo);
 
         //Creamos facturas de muestra
         Factura factura1 = new Factura(pedido1, "Efectivo", false, 0);
@@ -250,7 +250,7 @@ public class Main implements Utilidad {
         platosCumple.add(platoTortaGra);
         platosCumple.add(platoTortaPeq);
         Evento eventoCumple = new Evento("Cumpleanos Feliz", 210000, platosCumple);
-        eventos.add(eventoCumple);
+        Evento.getEventos().add(eventoCumple);
 
         //Vinos y Champañas
         Plato vinoCatena = new Plato("Vino Catena (Argentino)", 225000, 4, 5);
@@ -268,7 +268,7 @@ public class Main implements Utilidad {
         vinos_champanas_meeting.add(champanaGenerica);
 
         Evento eventoMeeting = new Evento("Meetigns Empresarial", 450000, vinos_champanas_meeting);
-        eventos.add(eventoMeeting);
+        Evento.getEventos().add(eventoMeeting);
         Trabajador trabajadorSonmerlier = new Trabajador("Evaristo", 12345, "Sonmerlier", 1300000);
         Trabajador trabajadorItaliano = new Trabajador("Mario Guissepe", 876543, "Italiana", 2300000);
         Trabajador trabajadorJapones = new Trabajador("Rika Miyuka", 575288, "Japonesa", 2300000);

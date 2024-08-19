@@ -18,7 +18,6 @@ import static uiMain.Utilidad.intersectarListas;
 public class Restaurante implements Serializable {
     // Atributos
     private ArrayList<ArrayList<Integer>> intentosReserva;
-    private Cliente cliente;
     private static ArrayList<Restaurante> restaurantes = new ArrayList<Restaurante>();
     public ArrayList<Cliente> clientes = new ArrayList<Cliente>(); //No puede ser static, arreglar lo que conlleva cambiarlo
     //una buena solucion seria crear una lista clientesRestaurante. Traería menos problemas (En principio).
@@ -38,7 +37,6 @@ public class Restaurante implements Serializable {
     private int coordY;
     private ArrayList<Ingrediente> bodegaIngredientes = new ArrayList<Ingrediente>();
     private ArrayList<ArrayList<String>> bodegaItems = new ArrayList<>();
-    private ArrayList<Reserva> reservas = new ArrayList<Reserva>();
     private ArrayList<String> reseñas = new ArrayList<String>();
     private ArrayList<Plato> platosRecomendados = new ArrayList<Plato>();
     private ArrayList<Plato> platosDescuento = new ArrayList<Plato>();
@@ -60,10 +58,9 @@ public class Restaurante implements Serializable {
         this.nombre = nombre;
     }
 
-    public Restaurante(int capacidad, String nombre, ArrayList<Reserva> reservas){
+    public Restaurante(int capacidad, String nombre, ArrayList<Reserva> historialReservas){
         this(capacidad, nombre); //Caso #3 this()
-        this.reservas = reservas;
-
+        this.historialReservas = historialReservas;
     }
     public Restaurante(Ciudad ciudad, Zona zona, boolean zonaVIP, String nombre) {
         restaurantesCreados++;
@@ -380,9 +377,6 @@ public class Restaurante implements Serializable {
         return sb.toString();
     }
 
-    public void agregarReserva(Reserva nuevaReserva) {
-        reservas.add(nuevaReserva);
-    }
     public int getCapacidad(){
         return capacidad;
     }
@@ -445,9 +439,6 @@ public class Restaurante implements Serializable {
         this.setFechasDisponibles(nuevoArray);
     }
 
-    public ArrayList<Reserva> getReservas() {
-        return reservas;
-    }
     public void restarDeBodega(Ingrediente ingrediente, int cantidad) {
 
     }

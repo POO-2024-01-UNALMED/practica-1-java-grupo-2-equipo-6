@@ -73,6 +73,9 @@ public class Cliente extends Persona implements Serializable {
     public void setCedula(int cedula) {
         this.cedula = cedula;
     }
+    public static ArrayList<Cliente> getClientes() {
+        return clientes;
+    }
     public void setFactura(Factura factura){
         this.factura = factura;
     }

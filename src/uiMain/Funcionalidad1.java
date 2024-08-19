@@ -14,9 +14,9 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import static uiMain.Funcionalidad3.escogerMetodoPago;
-import static uiMain.Main.ciudades;
 import static uiMain.Main.menuPrincipal;
 
+//Desarrollada por Juan José Arango y Samuel Colorado. Y STIVEN NO.
 public class Funcionalidad1 implements Utilidad{
     public static void reservarMesa() {
         boolean encendido1 = true;
@@ -35,12 +35,12 @@ public class Funcionalidad1 implements Utilidad{
                     System.out.println("Escriba un número para elegir la ciudad.\nEn caso de no encontrar la ciudad " +
                             "requerida escriba 0.");
                     int eleccion2 = Utilidad.readInt();
-                    if (eleccion2 > ciudades.size() || eleccion2 < 0) {
-                        System.out.println("Ingrese un número válido [1 - " + ciudades.size() + "].");
+                    if (eleccion2 > Ciudad.getCiudades().size() || eleccion2 < 0) {
+                        System.out.println("Ingrese un número válido [1 - " + Ciudad.getCiudades().size() + "].");
                     } else {
                         Utilidad.limpiarPantalla();
                         if (!(eleccion2 == 0)) { //Si se encuentra la ciudad
-                            Ciudad ciudad = ciudades.get(eleccion2 - 1);
+                            Ciudad ciudad = Ciudad.getCiudades().get(eleccion2 - 1);
                             if (ciudad.getRestaurantes().isEmpty()) { //Si la ciudad no tiene restaurantes
                                 System.out.println("Esta ciudad no tiene restaurantes.");
                                 reservarMesa();

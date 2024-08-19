@@ -160,12 +160,12 @@ public class Plato implements Serializable {
         this.vecesPedido = vecesPedido;
     }
 
-    public void agregarIngrediente(Ingrediente ingrediente, int cantidadd)  {
-        this.ingredientesMenu.put(ingrediente, (double) cantidadd);
-    }
-    public void eliminarIngrediente(Ingrediente ingrediente) {
-        this.ingredientesMenu.remove(ingrediente);
-    }
+//    public void agregarIngrediente(Ingrediente ingrediente, int cantidadd)  {
+//        this.ingredientesMenu.put(ingrediente, (double) cantidadd);
+//    }
+//    public void eliminarIngrediente(Ingrediente ingrediente) {
+//        this.ingredientesMenu.remove(ingrediente);
+//    }
 
     public void aumentarVecesPedido() {
         this.vecesPedido++;

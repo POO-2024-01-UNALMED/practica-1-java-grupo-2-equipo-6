@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class Zona implements Serializable {
     //Atributos
     private static ArrayList<Zona> zonas = new ArrayList<Zona>();
-    public Restaurante RestauranteZona;
     protected int poblacion;
     protected String nombre;
     private ArrayList<Restaurante> restaurantes = new ArrayList<Restaurante>();
@@ -23,10 +22,6 @@ public class Zona implements Serializable {
     public Zona(int poblacion, String nombre, Ciudad ciudad) {
         this(poblacion, nombre); //Caso #1 this()
         this.ciudad = ciudad;
-    }
-    public Zona(Restaurante RestauranteZona, String nombre){
-        this.nombre = nombre;
-        this.RestauranteZona = RestauranteZona;
     }
 
     //Métodos
@@ -53,9 +48,6 @@ public class Zona implements Serializable {
     }
     public void setRestaurantes(ArrayList<Restaurante> restaurantes) {
         this.restaurantes = restaurantes;
-    }
-    public String getNombreRestaurante(){
-        return RestauranteZona.getNombre();
     }
 
     @Override

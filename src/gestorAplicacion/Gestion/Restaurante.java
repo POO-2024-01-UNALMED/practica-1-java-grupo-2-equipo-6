@@ -439,6 +439,10 @@ public class Restaurante implements Serializable {
         this.setFechasDisponibles(nuevoArray);
     }
 
+    public void setCapacidad(int capacidad) {
+        this.capacidad = capacidad;
+    }
+
     public void restarDeBodega(Ingrediente ingrediente, int cantidad) {
 
     }

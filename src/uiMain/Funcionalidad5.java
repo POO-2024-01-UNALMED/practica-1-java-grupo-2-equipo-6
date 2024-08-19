@@ -90,6 +90,7 @@ public class Funcionalidad5 implements Utilidad {
             case 1: //Si quiere que se le recomiende restaurante automaticamente.
                 if (ciudad != null) {
                     restaurante = getRestaurante(ciudad);
+                    cliente.setRestaurante(restaurante);
                 }
                 break;
 
@@ -112,6 +113,7 @@ public class Funcionalidad5 implements Utilidad {
                                 encendido3 = true;
                             } else {
                                 restaurante = zona.getRestaurantes().get(eleccionRestaurante - 1);
+                                cliente.setRestaurante(restaurante);
                             }
                         } while (encendido3);
                     }
@@ -123,18 +125,10 @@ public class Funcionalidad5 implements Utilidad {
         int cedulaCliente = Utilidad.readInt();
         System.out.println("Nombre:");
         String nombreCliente = Utilidad.readString();
-        ArrayList<Integer> fecha = new ArrayList<Integer>();
-        System.out.println("Ingrese el día de la reserva:");
-        fecha.add(Utilidad.readInt()); // Día
-        System.out.println("Ingrese el mes de la reserva:");
-        fecha.add(Utilidad.readInt());
-        System.out.println("Ingrese el año de la reserva:");
-        fecha.add(Utilidad.readInt());
+        ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
         cliente.setNombre(nombreCliente);
         cliente.setCedula(cedulaCliente);
-
-        ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
         if (Utilidad.existeCliente(cliente)) {
             cliente = Utilidad.clienteCedula(cliente);
@@ -145,18 +139,34 @@ public class Funcionalidad5 implements Utilidad {
         }
 
         Reserva reserva = new Reserva();
-
-        reserva.setFecha(fecha);
         reserva.setClientes(clientes);
         reserva.setRestaurante(restaurante);
-
         restaurante.getHistorialReservas().add(reserva);
         restaurante.setClientes(clientes);
-        System.out.println(restaurante.getClientes());
+
+        boolean encendido1 = false;
+        do {
+            ArrayList<Integer> fecha = new ArrayList<Integer>();
+            System.out.println("Ingrese el día de la reserva:");
+            fecha.add(Utilidad.readInt());
+            System.out.println("Ingrese el mes de la reserva:");
+            fecha.add(Utilidad.readInt());
+            System.out.println("Ingrese el año de la reserva:");
+            fecha.add(Utilidad.readInt());
+
+            reserva.setFecha(fecha);
+
+            //Comprobar que no hay reservas para el día elegido.
+            ArrayList<Reserva> reservasExistentes = restaurante.getHistorialReservas();
+            for (Reserva reserva1 : reservasExistentes) {
+                if (reserva1.getFecha().subList(0, 3) == reserva.getFecha()) {
+                    System.out.println("Ya existe una reserva para la fecha elegida.");
+                    encendido1 = true;
+                }
+            }
+        } while (encendido1);
 
         return clientes;
-        //Segunda parte, donde se muestran las reservas y se crea al cliente
-
     }
 
     public static Restaurante getRestaurante(Ciudad ciudad) {
@@ -632,6 +642,7 @@ public class Funcionalidad5 implements Utilidad {
         System.out.println("Cliente: " + restaurante.getClientes().getFirst().getNombre());
         System.out.println("Cédula: " + restaurante.getClientes().getFirst().getCedula());
         listado_precios_factura(factura, reserva, diaFinDeSemana);
+
     }
 
 

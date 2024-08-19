@@ -33,13 +33,13 @@ public class Main implements Utilidad {
     static ArrayList<Plato> platosCumple = new ArrayList<Plato>(); //Lista de platos cumpleaños
 //    static ArrayList<Evento> eventos = new ArrayList<Evento>();
     static ArrayList<Plato> vinos_champanas_meeting = new ArrayList<Plato>();
-    static ArrayList<Trabajador> cocineros;
-    static ArrayList<Plato> platos_varios;
-    static ArrayList<ArrayList<Plato>> platos_gastronomias;
-    static ArrayList<Plato> gastronomias_japonesa;
-    static ArrayList<Plato> gastronomias_italiana;
-    static ArrayList<Plato> gastronomias_marroqui;
-    static ArrayList<Plato> gastronomias_francesa;
+    static ArrayList<Trabajador> cocineros = new ArrayList<Trabajador>();
+    static ArrayList<Plato> platos_varios = new ArrayList<Plato>();
+    static ArrayList<ArrayList<Plato>> platos_gastronomias = new ArrayList<ArrayList<Plato>>();
+    static ArrayList<Plato> gastronomias_japonesa = new ArrayList<Plato>();
+    static ArrayList<Plato> gastronomias_italiana = new ArrayList<Plato>();
+    static ArrayList<Plato> gastronomias_marroqui = new ArrayList<Plato>();
+    static ArrayList<Plato> gastronomias_francesa = new ArrayList<Plato>();
 
     static {
         //Creamos ciudades de muestra
@@ -72,18 +72,18 @@ public class Main implements Utilidad {
 
         //Creamos clientes de muestra para la mesa 1
         ArrayList <Cliente> clientes1 = new ArrayList<Cliente>();
-//        clientes1.add(new Cliente("Juan", 001, Cliente.Afiliacion.ESTRELLA, "1234567"));
-//        clientes1.getFirst().setMesa(mesa1);
-//        mesa1.setClientes(clientes1);
-//        Restaurante.getClientes().add(clientes1.getFirst());
-//
-//        clientes1.add(new Cliente("Pedro", 002, Cliente.Afiliacion.ESTRELLITA, "7654321"));
-//        clientes1.get(1).setMesa(mesa1);
-//        Restaurante.getClientes().add(clientes1.get(1));
-//
-//        clientes1.add(new Cliente("María", 003, "9876543"));
-//        clientes1.get(2).setMesa(mesa1);
-//        Restaurante.getClientes().add(clientes1.get(2));
+        clientes1.add(new Cliente("Juan", 001, Cliente.Afiliacion.ESTRELLA, "1234567"));
+        clientes1.getFirst().setMesa(mesa1);
+        mesa1.setClientes(clientes1);
+        Cliente.getClientes().add(clientes1.getFirst());
+
+        clientes1.add(new Cliente("Pedro", 002, Cliente.Afiliacion.ESTRELLITA, "7654321"));
+        clientes1.get(1).setMesa(mesa1);
+        Cliente.getClientes().add(clientes1.get(1));
+
+        clientes1.add(new Cliente("María", 003, "9876543"));
+        clientes1.get(2).setMesa(mesa1);
+        Cliente.getClientes().add(clientes1.get(2));
 
         //Creamos ingredientes y cantidades necesarias de platos de muestra
 //        Ingrediente Tomate = new Ingrediente("Tomate", 500);
@@ -158,6 +158,8 @@ public class Main implements Utilidad {
                 new String[]{"B", "B", "B", "B", "B", "B", "B", "E", "B", "B"})));
 
         restauranteMuestra.setDisposicion(disposicion);
+        restauranteMuestra.setCapacidad(1234);
+
 //Resolver lo de las reservas con el patrón, va a estar comentado
 //        /////////APARTADO BOGOTA/////////////
 //        //Crear ciudades
@@ -320,6 +322,8 @@ public class Main implements Utilidad {
         platos_gastronomias.add(gastronomias_marroqui);
         platos_gastronomias.add(gastronomias_japonesa);
         platos_gastronomias.add(gastronomias_japonesa);
+
+        //Ok pero vaya ejecutando... QUE.
 
     }
 

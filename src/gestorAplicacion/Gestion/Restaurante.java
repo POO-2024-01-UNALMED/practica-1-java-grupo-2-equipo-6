@@ -244,8 +244,14 @@ public class Restaurante implements Serializable {
         }
 
         return pedido;
-      }
+    }
 
+    public Cargamento getCargamento() {
+        return cargamento;
+    }
+    public void setCargamento(Cargamento cargamento) {
+        this.cargamento = cargamento;
+    }
     public boolean isZonaVIP() {
         return zonaVIP;
     }

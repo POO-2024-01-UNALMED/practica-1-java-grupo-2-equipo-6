@@ -45,6 +45,12 @@ public class Cargamento {
 	public void setUtilidades(ArrayList<Integer> utilidades) {
 		this.utilidades = utilidades;
 	}
+	public Restaurante getRestaurante() {
+		return restaurante;
+	}
+	public void setRestaurante(Restaurante restaurante) {
+		this.restaurante = restaurante;
+	}
 
 	public void aumentarCantidadIngrediente(ArrayList<String> cantidadNueva) {
 		boolean existe = false;

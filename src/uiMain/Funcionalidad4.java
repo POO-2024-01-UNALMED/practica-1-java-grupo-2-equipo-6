@@ -724,6 +724,15 @@ public class Funcionalidad4 implements Utilidad {
             int cantidadAgregar = Utilidad.readInt();
             cargamento.getUtilidades().add(cantidadAgregar);
         }
+        LocalDate fechaActual = LocalDate.now();
+        System.out.println("¿Cada cuántos días quiere que venga el cargamento?");
+        int frecuencia = Utilidad.readInt();
+        cargamento.setFrecuencia(frecuencia);
+        cargamento.setProximaEntrega(new ArrayList<Integer>(Arrays.asList(fechaActual.getYear(),
+                fechaActual.getMonthValue(), fechaActual.getDayOfMonth())));
+
+        restaurante.setCargamento(cargamento);
+        cargamento.setRestaurante(restaurante);
     }
 
     private static Plato crearPlato() {

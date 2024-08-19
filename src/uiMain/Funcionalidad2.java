@@ -314,9 +314,6 @@ public static void ordenarComida() {
  		Utilidad.limpiarPantalla();
 
 		return factura;
-		
-		
-	
 	}
         
         }

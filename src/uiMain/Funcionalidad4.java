@@ -691,9 +691,10 @@ public class Funcionalidad4 implements Utilidad {
             for (Plato plato : restaurante.getMenu()) {
                 System.out.println("Nombre: " + plato.getNombre() + "\nVeces pedido: " + plato.getVecesPedido());
                 System.out.println("Ingredientes:");
-                for (Ingrediente ingrediente : plato.getIngredientes()) {
-
+                for (ArrayList<String> cantidadIngredientes : plato.getCantidadIngredientes()) {
+                    System.out.println(cantidadIngredientes.getFirst() + ": " + cantidadIngredientes.get(1));
                 }
+
             }
         } else {
             //Establecer Menú

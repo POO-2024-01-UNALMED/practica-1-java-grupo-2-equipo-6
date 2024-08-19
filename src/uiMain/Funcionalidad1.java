@@ -124,7 +124,7 @@ public class Funcionalidad1 implements Utilidad{
             cliente = Utilidad.clienteCedula(cliente);
             clientes.add(cliente);
         } else {
-            Restaurante.getClientes().add(cliente);
+            restaurante.getClientes().add(cliente);
             clientes.add(cliente);
         }
         System.out.println("Ingrese la cantidad de acompañantes del cliente:");
@@ -143,7 +143,7 @@ public class Funcionalidad1 implements Utilidad{
                     acompanante = Utilidad.clienteCedula(acompanante);
                     clientes.add(acompanante);
                 } else {
-                    Restaurante.getClientes().add(acompanante);
+                    restaurante.getClientes().add(acompanante);
                     clientes.add(acompanante);
                 }
             }

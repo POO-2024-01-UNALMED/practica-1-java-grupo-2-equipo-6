@@ -45,7 +45,7 @@ public class Restaurante implements Serializable {
     private String nombre;
     private int capacidad;
     public static ArrayList<Trabajador> trabajadores = new ArrayList <Trabajador>();
-    private ArrayList<Integer> proximaEntrega = new ArrayList<Integer>();
+    private Cargamento cargamento;
 
     // Constructores
     public Restaurante() {
@@ -365,12 +365,6 @@ public class Restaurante implements Serializable {
     }
     public void setBodegaItems(ArrayList<ArrayList<String>> bodegaItems) {
         this.bodegaItems = bodegaItems;
-    }
-    public ArrayList<Integer> getProximaEntrega() {
-        return proximaEntrega;
-    }
-    public void setProximaEntrega(ArrayList<Integer> proximaEntrega) {
-        this.proximaEntrega = proximaEntrega;
     }
 
     @Override

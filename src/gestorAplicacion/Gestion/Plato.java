@@ -2,8 +2,7 @@ package gestorAplicacion.Gestion;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
+
 public class Plato implements Serializable {
     // Atributos
     private static ArrayList<Plato> platos = new ArrayList<Plato>();

@@ -1,13 +1,7 @@
 package gestorAplicacion.Usuario;
 
-import gestorAplicacion.Gestion.Cargamento;
 import gestorAplicacion.Gestion.Evento;
-import gestorAplicacion.Gestion.Factura;
-import gestorAplicacion.Gestion.Ingrediente;
-import gestorAplicacion.Gestion.Pedido;
-import gestorAplicacion.Gestion.Plato;
 import gestorAplicacion.Gestion.Restaurante;
-import uiMain.Main;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -177,7 +171,3 @@ public class Trabajador extends Persona implements Serializable {
 //	return valor;
 //}
 //	}
-//
-//
-//
-//

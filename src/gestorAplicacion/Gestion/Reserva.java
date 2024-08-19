@@ -1,12 +1,9 @@
 package gestorAplicacion.Gestion;
 
-import gestorAplicacion.Entorno.Ciudad;
-import gestorAplicacion.Entorno.Zona;
 import gestorAplicacion.Usuario.Cliente;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Reserva implements Serializable {
     //Atributos

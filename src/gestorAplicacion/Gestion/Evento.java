@@ -17,13 +17,6 @@ public class Evento {
     public Evento(String nombre){
         this.nombre = nombre;
     }
-    public Evento(String nombreEvento, String descripcion, int coste, Date fecha){
-        this.coste = coste;
-        this.nombre = nombreEvento;
-        this.descripcion = descripcion;
-        this.fecha = fecha;
-
-    }
     public Evento(String nombreEvento, int coste, ArrayList<Plato> platos){
         this.coste = coste;
         this.nombre = nombreEvento;

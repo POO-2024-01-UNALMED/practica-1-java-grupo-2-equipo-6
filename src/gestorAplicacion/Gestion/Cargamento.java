@@ -2,7 +2,7 @@ package gestorAplicacion.Gestion;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+
 public class Cargamento {
 	//Atributos
 	public static final ArrayList<String> UTILIDADES = new ArrayList<String>(Arrays.asList("Rosa", "Vela", "Globo Negro",

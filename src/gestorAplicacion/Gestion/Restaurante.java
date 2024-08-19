@@ -8,10 +8,8 @@ import gestorAplicacion.Usuario.Cliente;
 import gestorAplicacion.Usuario.Trabajador;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.SequencedCollection;
 
 import static uiMain.Utilidad.intersectarListas;
 

@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Trabajador extends Persona implements Serializable {
+    static ArrayList<Trabajador> cocineros = new ArrayList<Trabajador>();
     private static ArrayList<Trabajador> trabajadores = new ArrayList<Trabajador>();
     private String especialidad;
     private int salario;
@@ -44,17 +45,14 @@ public class Trabajador extends Persona implements Serializable {
     public String getNombre() {
         return nombre;
     }
-
     @Override
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
     @Override
     public int getCedula() {
         return cedula;
     }
-
     @Override
     public void setCedula(int cedula) {
         this.cedula = cedula;
@@ -63,41 +61,38 @@ public class Trabajador extends Persona implements Serializable {
     public void setOcupado(boolean ocupado) {
         this.ocupado = ocupado;
     }
-
     public boolean getOcupado() {
         return ocupado;
     }
-
     public void setCalificacion(float calificacion) {
         this.calificacion = calificacion;
     }
-
     public float getCalificacion() {
         return calificacion;
     }
-
     public void addReseña(String reseña) {
         reseñas.add(reseña);
     }
-
     public ArrayList<String> getReseñas() {
         return reseñas;
     }
-
     public String getEspecialidad() {
         return especialidad;
     }
-
     public void setEspecialidad(String especialidad) {
         this.especialidad = especialidad;
     }
-
     public int getSalario() {
         return salario;
     }
-
     public void setSalario(int salario) {
         this.salario = salario;
+    }
+    public static ArrayList<Trabajador> getCocineros() {
+        return cocineros;
+    }
+    public static void setCocineros(ArrayList<Trabajador> cocineros) {
+        Trabajador.cocineros = cocineros;
     }
 
     public void PagoExtraServicio(ArrayList<Evento> eventos, String especialidad) {

@@ -22,6 +22,15 @@ public class Plato implements Serializable {
     private int valorEnPuntosCliente;
     private int porciones;
     private int cantidadDePlato;
+    //Listas Stiven
+    private static ArrayList<Plato> platosCumple = new ArrayList<Plato>(); //Lista de platos cumpleaños
+    private static ArrayList<Plato> vinos_champanas_meeting = new ArrayList<Plato>();
+    private static ArrayList<Plato> platos_varios = new ArrayList<Plato>();
+    private static ArrayList<Plato> gastronomias_japonesa = new ArrayList<Plato>();
+    private static ArrayList<Plato> gastronomias_italiana = new ArrayList<Plato>();
+    private static ArrayList<Plato> gastronomias_marroqui = new ArrayList<Plato>();
+    private static ArrayList<Plato> gastronomias_francesa = new ArrayList<Plato>();
+    private static ArrayList<ArrayList<Plato>> platos_gastronomias = new ArrayList<ArrayList<Plato>>();
 
     // Constructor
     public Plato() {}
@@ -88,6 +97,57 @@ public class Plato implements Serializable {
     }
 
     // Métodos
+    //
+    public static ArrayList<Plato> getGastronomias_francesa() {
+        return gastronomias_francesa;
+    }
+    public static void setGastronomias_francesa(ArrayList<Plato> gastronomias_francesa) {
+        Plato.gastronomias_francesa = gastronomias_francesa;
+    }
+    public static ArrayList<Plato> getGastronomias_marroqui() {
+        return gastronomias_marroqui;
+    }
+    public static void setGastronomias_marroqui(ArrayList<Plato> gastronomias_marroqui) {
+        Plato.gastronomias_marroqui = gastronomias_marroqui;
+    }
+    public static ArrayList<Plato> getGastronomias_italiana() {
+        return gastronomias_italiana;
+    }
+    public static void setGastronomias_italiana(ArrayList<Plato> gastronomias_italiana) {
+        Plato.gastronomias_italiana = gastronomias_italiana;
+    }
+    public static ArrayList<Plato> getGastronomias_japonesa() {
+        return gastronomias_japonesa;
+    }
+    public static void setGastronomias_japonesa(ArrayList<Plato> gastronomias_japonesa) {
+        Plato.gastronomias_japonesa = gastronomias_japonesa;
+    }
+    public static ArrayList<Plato> getPlatos_varios() {
+        return platos_varios;
+    }
+    public static void setPlatos_varios(ArrayList<Plato> platos_varios) {
+        Plato.platos_varios = platos_varios;
+    }
+    public static ArrayList<Plato> getVinos_champanas_meeting() {
+        return vinos_champanas_meeting;
+    }
+    public static void setVinos_champanas_meeting(ArrayList<Plato> vinos_champanas_meeting) {
+        Plato.vinos_champanas_meeting = vinos_champanas_meeting;
+    }
+    public static ArrayList<Plato> getPlatosCumple() {
+        return platosCumple;
+    }
+    public static void setPlatosCumple(ArrayList<Plato> platosCumple) {
+        Plato.platosCumple = platosCumple;
+    }
+    public static ArrayList<ArrayList<Plato>> getPlatos_gastronomias() {
+        return platos_gastronomias;
+    }
+    public static void setPlatos_gastronomias(ArrayList<ArrayList<Plato>> platos_gastronomias) {
+        Plato.platos_gastronomias = platos_gastronomias;
+    }
+    //
+
     public static ArrayList<Plato> getPlatos() {
         return platos;
     }

@@ -49,6 +49,12 @@ public class Zona implements Serializable {
     public void setRestaurantes(ArrayList<Restaurante> restaurantes) {
         this.restaurantes = restaurantes;
     }
+    public static ArrayList<Zona> getZonas() {
+        return zonas;
+    }
+    public static void setZonas(ArrayList<Zona> zonas) {
+        Zona.zonas = zonas;
+    }
 
     @Override
     public String toString() {

@@ -3,11 +3,8 @@ package uiMain;
 import gestorAplicacion.Entorno.Casilla;
 import gestorAplicacion.Entorno.Ciudad;
 import gestorAplicacion.Entorno.Zona;
-import gestorAplicacion.Gestion.Ingrediente;
+import gestorAplicacion.Gestion.*;
 import gestorAplicacion.Entorno.Mesa;
-import gestorAplicacion.Gestion.Plato;
-import gestorAplicacion.Gestion.Reserva;
-import gestorAplicacion.Gestion.Restaurante;
 
 import static uiMain.Main.*;
 
@@ -84,7 +81,7 @@ public class Funcionalidad4 implements Utilidad {
 
                         //Agregamos los datos que corresponden a los últimos 30 días de funcionamiento de los
                         // restaurantes de la ciudad correspondiente.
-                        for (Zona zona : ciudad.getZonas()) {
+                        for (Zona zona : ciudad.getZonasCiudad()) {
                             for (Restaurante restauranteZona : zona.getRestaurantes()) {
                                 ArrayList<Reserva> reservasRestaurante = new ArrayList<Reserva>();
                                 ArrayList<ArrayList<Integer>> intentosRestaurante = new ArrayList<ArrayList<Integer>>();
@@ -190,9 +187,9 @@ public class Funcionalidad4 implements Utilidad {
                         String nombreZona = Utilidad.capitalize(Utilidad.readString());
                         System.out.println("Por favor ingrese la población de la zona #" + i + '.');
                         int poblacionZona = Utilidad.readInt();
-                        ciudad.getZonas().add(new Zona(poblacionZona, Utilidad.capitalize(nombreZona), ciudad));
+                        ciudad.getZonasCiudad().add(new Zona(poblacionZona, Utilidad.capitalize(nombreZona), ciudad));
                         ciudad.actualizarPoblacion();
-                        System.out.println(ciudad.getZonas().getLast());
+                        System.out.println(ciudad.getZonasCiudad().getLast());
                     }
                     Utilidad.limpiarPantalla();
                     parametrosBasicos(ciudad, restaurante);
@@ -212,7 +209,7 @@ public class Funcionalidad4 implements Utilidad {
         int mesasVIP = 0; //3
         int ventanas = 0; //4
 
-        for (Zona zona : zonas) {
+        for (Zona zona : Zona.getZonas()) {
             for (Restaurante restaurante : zona.getRestaurantes()) {
                 valores[0] = valores[0] + restaurante.getCoordX();
                 valores[1] = valores[1] + restaurante.getCoordY();
@@ -244,20 +241,20 @@ public class Funcionalidad4 implements Utilidad {
                 "requerida escriba 0.");
         int eleccionZona1 = Utilidad.readInt();
         if (eleccionZona1 > Ciudad.getCiudades().size() || eleccionZona1 < 0) {
-            System.out.println("Ingrese un número válido [1 - " + ciudad.getZonas().size() + "].");
+            System.out.println("Ingrese un número válido [1 - " + ciudad.getZonasCiudad().size() + "].");
             parametrosBasicos(ciudad, restaurante);
         } else {
             Utilidad.limpiarPantalla();
             if (!(eleccionZona1 == 0)) { //Si se encuentra la zona
-                Zona zonaElegida = ciudad.getZonas().get(eleccionZona1 - 1);
+                Zona zonaElegida = ciudad.getZonasCiudad().get(eleccionZona1 - 1);
                 //Se evalúa si existen restaurantes enlazados a esta zona.
                 if (zonaElegida.getRestaurantes().isEmpty()) { //Si la zona elegida no tiene restaurantes
                     //Se enlaza la ciudad al restaurante
                     restaurante.setCiudad(ciudad);
                     //Se enlaza la zona al restaurante
-                    restaurante.setZona(ciudad.getZonas().get(eleccionZona1 - 1));
+                    restaurante.setZona(ciudad.getZonasCiudad().get(eleccionZona1 - 1));
                     //Se enlaza el restaurante a la zona
-                    ciudad.getZonas().get(eleccionZona1 - 1).getRestaurantes().add(restaurante);
+                    ciudad.getZonasCiudad().get(eleccionZona1 - 1).getRestaurantes().add(restaurante);
                     //Se enlaza el restaurante a la ciudad
                     ciudad.getRestaurantes().add(restaurante);
                     //Se establecen los parámetros básicos del restaurante
@@ -278,9 +275,9 @@ public class Funcionalidad4 implements Utilidad {
                     //Se enlaza la ciudad al restaurante
                     restaurante.setCiudad(ciudad);
                     //Se enlaza la zona al restaurante
-                    restaurante.setZona(ciudad.getZonas().get(eleccionZona1 - 1));
+                    restaurante.setZona(ciudad.getZonasCiudad().get(eleccionZona1 - 1));
                     //Se enlaza el restaurante a la zona
-                    ciudad.getZonas().get(eleccionZona1 - 1).getRestaurantes().add(restaurante);
+                    ciudad.getZonasCiudad().get(eleccionZona1 - 1).getRestaurantes().add(restaurante);
                     //Se enlaza el restaurante a la ciudad
                     ciudad.getRestaurantes().add(restaurante);
                     //Se establecen los parámetros básicos del restaurante
@@ -303,7 +300,7 @@ public class Funcionalidad4 implements Utilidad {
                 String nombreZona = Utilidad.capitalize(Utilidad.readString());
                 System.out.println("Por favor ingrese la población de la zona.");
                 int poblacionZona = Utilidad.readInt();
-                ciudad.getZonas().add(new Zona(poblacionZona, Utilidad.capitalize(nombreZona), ciudad));
+                ciudad.getZonasCiudad().add(new Zona(poblacionZona, Utilidad.capitalize(nombreZona), ciudad));
                 ciudad.actualizarPoblacion();
                 restaurante.setCiudad(ciudad);
                 System.out.println("Zonas de " + ciudad.getNombre() + ":");
@@ -312,15 +309,15 @@ public class Funcionalidad4 implements Utilidad {
                         "requerida escriba 0.");
                 int eleccionZona2 = Utilidad.readInt();
                 if (eleccionZona2 > Ciudad.getCiudades().size() || eleccionZona2 < 0) {
-                    System.out.println("Ingrese un número válido [1 - " + ciudad.getZonas().size() + "].");
+                    System.out.println("Ingrese un número válido [1 - " + ciudad.getZonasCiudad().size() + "].");
                 } else {
                     Utilidad.limpiarPantalla();
                     //Se enlaza la ciudad al restaurante
                     restaurante.setCiudad(ciudad);
                     //Se enlaza la zona al restaurante
-                    restaurante.setZona(ciudad.getZonas().get(eleccionZona2 - 1));
+                    restaurante.setZona(ciudad.getZonasCiudad().get(eleccionZona2 - 1));
                     //Se enlaza el restaurante a la zona
-                    ciudad.getZonas().get(eleccionZona2 - 1).getRestaurantes().add(restaurante);
+                    ciudad.getZonasCiudad().get(eleccionZona2 - 1).getRestaurantes().add(restaurante);
                     //Se establecen los parámetros básicos del restaurante
                     System.out.println("¿El restaurante tendrá zona VIP?\n1. Sí.\n2. No.\nEscriba un número para " +
                             "elegir.");
@@ -686,16 +683,9 @@ public class Funcionalidad4 implements Utilidad {
                     establecerMenuYEncargos(restaurante);
                     break;
             }
-
+            
             //Establecer Encargos
-            for (Plato plato : restaurante.getMenu()) {
-                System.out.println("Nombre: " + plato.getNombre() + "\nVeces pedido: " + plato.getVecesPedido());
-                System.out.println("Ingredientes:");
-                for (ArrayList<String> cantidadIngredientes : plato.getCantidadIngredientes()) {
-                    System.out.println(cantidadIngredientes.getFirst() + ": " + cantidadIngredientes.get(1));
-                }
-
-            }
+            cargamentoUtilidades(restaurante);
         } else {
             //Establecer Menú
             ArrayList<Plato> menuRestaurante = new ArrayList<Plato>();
@@ -707,6 +697,32 @@ public class Funcionalidad4 implements Utilidad {
             restaurante.setMenu(menuRestaurante);
 
             //Establecer Encargos
+            cargamentoUtilidades(restaurante);
+        }
+    }
+
+    private static void cargamentoUtilidades(Restaurante restaurante) {
+        Cargamento cargamento = new Cargamento();
+
+        System.out.println("Selección cantidad de ingredientes a encargar");
+        for (Plato plato : restaurante.getMenu()) {
+            System.out.println("Nombre: " + plato.getNombre() + "\nVeces pedido: " + plato.getVecesPedido());
+            System.out.println("Ingredientes:");
+            for (ArrayList<String> cantidadIngredientes : plato.getCantidadIngredientes()) {
+                System.out.println("Cantidad de " + cantidadIngredientes.getFirst() + " necesitad@: " +
+                        cantidadIngredientes.get(1));
+                System.out.println("¿Cuánto de " + cantidadIngredientes.getFirst() + " quieres agregar?");
+                int cantidadAgregar = Utilidad.readInt();
+                cargamento.aumentarCantidadIngrediente(new ArrayList<String>(Arrays.asList(cantidadIngredientes.getFirst(),
+                        String.valueOf(cantidadAgregar))));
+            }
+        }
+        System.out.println("Selección cantidad de utilidades a encargar");
+        for (String utilidad : Cargamento.UTILIDADES) {
+            System.out.println("Nombre: " + utilidad);
+            System.out.println("¿Cuánto de " + utilidad + " quieres agregar?");
+            int cantidadAgregar = Utilidad.readInt();
+            cargamento.getUtilidades().add(cantidadAgregar);
         }
     }
 
@@ -717,10 +733,10 @@ public class Funcionalidad4 implements Utilidad {
         int indiceExiste = 0;
         Plato platoRetorno = new Plato();
         ArrayList<ArrayList<String>> cantidadIngredientes = new ArrayList<ArrayList<String>>();
-        for (Plato plato : platos) {
+        for (Plato plato : Plato.getPlatos()) {
             if (plato.getNombre().equals(nombre)) {
                 existe = true;
-                indiceExiste = platos.indexOf(plato);
+                indiceExiste = Plato.getPlatos().indexOf(plato);
                 break;
             }
         }
@@ -812,7 +828,7 @@ public class Funcionalidad4 implements Utilidad {
                 platoRetorno = new Plato(nombre, precio, ingredientesPlato, cantidadIngredientes, 3);
             }
         } else {
-            platoRetorno = platos.get(indiceExiste);
+            platoRetorno = Plato.getPlatos().get(indiceExiste);
         }
         return platoRetorno;
     }

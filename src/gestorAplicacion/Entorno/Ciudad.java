@@ -1,14 +1,12 @@
 package gestorAplicacion.Entorno;
 
-import gestorAplicacion.Entorno.Zona;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Ciudad extends Zona implements Serializable {
     //Atributos
     private static ArrayList<Ciudad> ciudades = new ArrayList<Ciudad>();
-    private ArrayList<Zona> zonas = new ArrayList<Zona>();
+    private ArrayList<Zona> zonasCiudad = new ArrayList<Zona>();
 
     //Construtores
     public Ciudad(){}
@@ -17,14 +15,14 @@ public class Ciudad extends Zona implements Serializable {
     }
 
     //Métodos
-    public ArrayList<Zona> getZonas() {
-        return zonas;
+    public ArrayList<Zona> getZonasCiudad() {
+        return zonasCiudad;
     }
-    public void setZonas(ArrayList<Zona> zonas) {
-        this.zonas = zonas;
+    public void setZonasCiudad(ArrayList<Zona> zonasCiudad) {
+        this.zonasCiudad = zonasCiudad;
     }
     public void addZona(Zona zona) {
-        this.zonas.add(zona);
+        this.zonasCiudad.add(zona);
     }
     public static ArrayList<Ciudad> getCiudades() {
         return ciudades;
@@ -35,7 +33,7 @@ public class Ciudad extends Zona implements Serializable {
 
     public void actualizarPoblacion() {
         this.poblacion = 0;
-        for (Zona zona : this.zonas) {
+        for (Zona zona : this.zonasCiudad) {
             this.poblacion += (int) zona.getPoblacion();
         }
     }
@@ -47,7 +45,7 @@ public class Ciudad extends Zona implements Serializable {
         return sb.toString();
     }
     public void agregarZonas(Zona zona){
-        zonas.add(zona);
+        zonasCiudad.add(zona);
     }
 
 }

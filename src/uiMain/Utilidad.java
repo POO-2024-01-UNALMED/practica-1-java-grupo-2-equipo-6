@@ -11,8 +11,6 @@ import gestorAplicacion.Usuario.Cliente;
 
 import java.util.*;
 
-import static uiMain.Main.*;
-
 public interface Utilidad {
     Scanner CONSOLA = new Scanner(System.in); //Constante
     static String readString() {
@@ -112,14 +110,14 @@ public interface Utilidad {
     //Este metodo se encarga de organizar en orden alfabético el listado de zonas de una ciudad en específico para
     // luego imprimir un listado de estas numeradas desde el 1.
     static void listadoZonasCiudad(Ciudad ciudad) {
-        ciudad.getZonas().sort(new Comparator<Zona>() {
+        ciudad.getZonasCiudad().sort(new Comparator<Zona>() {
             @Override
             public int compare(Zona o1, Zona o2) {
                 return o1.getNombre().compareToIgnoreCase(o2.getNombre());
             }
         });
-        for (int i = 0; i < ciudad.getZonas().size(); i++) {
-            System.out.println(String.valueOf(i + 1) + ". " + ciudad.getZonas().get(i).getNombre() + '.');
+        for (int i = 0; i < ciudad.getZonasCiudad().size(); i++) {
+            System.out.println(String.valueOf(i + 1) + ". " + ciudad.getZonasCiudad().get(i).getNombre() + '.');
         }
         ciudad.actualizarPoblacion();
 
@@ -127,7 +125,7 @@ public interface Utilidad {
 
     static ArrayList<Zona> listadoZonasConRestauranteCiudad(Ciudad ciudad) {
         ArrayList<Zona> zonasConRestaurante = new ArrayList<Zona>();
-        for (Zona zona : ciudad.getZonas()) {
+        for (Zona zona : ciudad.getZonasCiudad()) {
             if (!zona.getRestaurantes().isEmpty()) {
                 zonasConRestaurante.add(zona);
             }
@@ -163,15 +161,15 @@ public interface Utilidad {
     //Este metodo se encarga de organizar en orden alfabético el listado de platos para luego imprimir un listado
     //numerado desde 1 con el nombre de estos.
     static void listadoPlatos() {
-        if (!platos.isEmpty()) {
-            platos.sort(new Comparator<Plato>() {
+        if (!Plato.getPlatos().isEmpty()) {
+            Plato.getPlatos().sort(new Comparator<Plato>() {
                 @Override
                 public int compare(Plato o1, Plato o2) {
                     return o1.getNombre().compareToIgnoreCase(o2.getNombre());
                 }
             });
-            for (int i = 0; i < ingredientes.size(); i++) {
-                System.out.println(String.valueOf(i + 1) + ". " + ingredientes.get(i).getNombre() + '.');
+            for (int i = 0; i < Ingrediente.getIngredientes().size(); i++) {
+                System.out.println(String.valueOf(i + 1)+". "+Ingrediente.getIngredientes().get(i).getNombre()+ '.');
             }
         }
     }
@@ -179,7 +177,7 @@ public interface Utilidad {
     //Este metodo se encarga de organizar en orden de calificación el listado de platos para luego imprimir un listado
     //numerado desde 1 hasta 10 (máximo), con el nombre de estos.
     static ArrayList<Plato> listadoPlatosCalificacion() {
-        platos.sort(new Comparator<Plato>() {
+        Plato.getPlatos().sort(new Comparator<Plato>() {
             @Override
             public int compare(Plato o1, Plato o2) {
                     return Float.compare(o1.getCalificacion(), o2.getCalificacion());
@@ -187,10 +185,10 @@ public interface Utilidad {
         });
         ArrayList<Plato> mejoresPlatos = new ArrayList<Plato>();
         for (int i = 0; i < 10; i++) {
-            if (i < platos.size()) {
-                mejoresPlatos.add(platos.reversed().get(i));
-                System.out.println(String.valueOf(i + 1) + ". " + platos.reversed().get(i).getNombre() + ": " +
-                        platos.reversed().get(i).getCalificacion() + " Estrellas.");
+            if (i < Plato.getPlatos().size()) {
+                mejoresPlatos.add(Plato.getPlatos().reversed().get(i));
+                System.out.println(String.valueOf(i + 1) + ". " + Plato.getPlatos().reversed().get(i).getNombre() +
+                        ": " + Plato.getPlatos().reversed().get(i).getCalificacion() + " Estrellas.");
             } else {
                 break;
             }
@@ -218,7 +216,7 @@ public interface Utilidad {
     //numerado desde 1 con el nombre de estos.
     static ArrayList<Ingrediente> listadoIngredientes() {
         if (!Ingrediente.getIngredientes().isEmpty()) {
-            ingredientes.sort(new Comparator<Ingrediente>() {
+            Ingrediente.getIngredientes().sort(new Comparator<Ingrediente>() {
                 @Override
                 public int compare(Ingrediente o1, Ingrediente o2) {
                     return o1.getNombre().compareToIgnoreCase(o2.getNombre());

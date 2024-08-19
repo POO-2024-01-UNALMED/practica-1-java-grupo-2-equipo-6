@@ -10,10 +10,7 @@ import gestorAplicacion.Usuario.Cliente;
 import gestorAplicacion.Gestion.Evento;
 import gestorAplicacion.Usuario.Trabajador;
 
-import java.lang.reflect.Array;
 import java.util.*;
-
-import static uiMain.Main.*;
 
 public class Funcionalidad5 implements Utilidad {
     static Scanner input = new Scanner(System.in);
@@ -96,10 +93,10 @@ public class Funcionalidad5 implements Utilidad {
                 boolean encendido2 = false;
                 do {
                     int eleccionZona = Utilidad.readInt();
-                    if (eleccionZona < 1 || eleccionZona > ciudad.getZonas().size()) {
+                    if (eleccionZona < 1 || eleccionZona > ciudad.getZonasCiudad().size()) {
                         encendido2 = true;
                     } else {
-                        Zona zona = ciudad.getZonas().get(eleccionZona - 1);
+                        Zona zona = ciudad.getZonasCiudad().get(eleccionZona - 1);
                         System.out.println("Restaurantes:");
                         Utilidad.listadoRestaurantesZona(zona);
                         boolean encendido3 = false;
@@ -168,7 +165,7 @@ public class Funcionalidad5 implements Utilidad {
     public static Restaurante getRestaurante(Ciudad ciudad) {
         Restaurante restauranteMayorCapacidad = null;
         int mayorCapacidad = 0;
-        for (Zona zona : ciudad.getZonas()) {
+        for (Zona zona : ciudad.getZonasCiudad()) {
             for (Restaurante restaurante : zona.getRestaurantes()) {
                 if (restaurante.getCapacidad() > mayorCapacidad) {
                     restauranteMayorCapacidad = restaurante;
@@ -300,7 +297,7 @@ public class Funcionalidad5 implements Utilidad {
     }
 
     public static ArrayList<Plato> listado_final(String gastronomia_escogida) {
-        for (ArrayList<Plato> listado_general : platos_gastronomias) {
+        for (ArrayList<Plato> listado_general : Plato.getPlatos_gastronomias()) {
             for (Plato plato : listado_general) {
                 if (plato.getTipo().equals(gastronomia_escogida)) {
                     return listado_general;
@@ -325,7 +322,7 @@ public class Funcionalidad5 implements Utilidad {
 
     public static Trabajador cocineroElegido(int opcionGastronomias, ArrayList<String> gastronomias_nombres) {
         String gastronomia_escogida = gastronomias_nombres.get(opcionGastronomias - 1);
-        for (Trabajador trabajador_elegido : cocineros) {
+        for (Trabajador trabajador_elegido : Trabajador.getCocineros()) {
             if (trabajador_elegido.getEspecialidad().equals(gastronomia_escogida)) {
                 return trabajador_elegido;
             }
@@ -460,7 +457,7 @@ public class Funcionalidad5 implements Utilidad {
                     platosMeeting.add(vino_champana_final);
                     System.out.println(vino_champana_final.getCantidadDePlato());
                     //He de poner la parte en que descuenta la cantidad de vinos y demas existencias
-                    // A esta monda he de revolcarla para meterle lo que es afiliaciones y todo el cuento
+                    // A esta monda he de revolcarla para meterle lo que es afiliaciones
 
                     if (cliente.esAfiliado()) {
                         System.out.println("""
@@ -470,18 +467,18 @@ public class Funcionalidad5 implements Utilidad {
                         int opcionCumpleFinal = Utilidad.readInt();
 
                         if (opcionCumpleFinal == 1) {
-                            for (Trabajador cocineroEnCuestion : cocineros) {
+                            for (Trabajador cocineroEnCuestion : Trabajador.getCocineros()) {
                                 if (cocineroEnCuestion.getEspecialidad().equals("Sonmerlier")) {
                                     cocineroOcasion = cocineroEnCuestion;
                                     cocineroEnCuestion.PagoExtraServicio(Evento.getEventos(), cocineroEnCuestion.getEspecialidad());
-                                    for (Plato plato : platos_varios) {
+                                    for (Plato plato : Plato.getPlatos_varios()) {
                                         if (plato.getNombre().equals("Bagget")) {
                                             platosAfiliacionCumple.add(plato);
                                             plato.descontarPlato(numeroInvitados_meeting);
                                         }
 
                                     }
-                                    for (Plato plato : platos_varios) {
+                                    for (Plato plato : Plato.getPlatos_varios()) {
                                         if (plato.getNombre().equals("Queso mediterraneo")) {
                                             platosAfiliacionCumple.add(plato);
                                             int cantidadAdescontar = (int) Math.ceil((double) numeroInvitados_meeting / plato.getPorciones());

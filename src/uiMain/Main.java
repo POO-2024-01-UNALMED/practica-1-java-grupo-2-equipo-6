@@ -1,15 +1,12 @@
 package uiMain;
 
-import gestorAplicacion.Entorno.Casilla;
 import gestorAplicacion.Entorno.Ciudad;
 import gestorAplicacion.Entorno.Mesa;
 import gestorAplicacion.Gestion.*;
 import gestorAplicacion.Entorno.Zona;
 import gestorAplicacion.Usuario.Cliente;
 import gestorAplicacion.Usuario.Trabajador;
-import jdk.jshell.execution.Util;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -22,24 +19,7 @@ import static uiMain.Funcionalidad4.*;
 
 
 public class Main implements Utilidad {
-
-    static LocalDateTime localDateTime = LocalDateTime.now(); //Fecha a la hora de ejectuar el programa
-//    static ArrayList<Ciudad> ciudades = new ArrayList<Ciudad>(); //Lista de ciudades
-    static ArrayList<Zona> zonas = new ArrayList<Zona>(); //Lista de zonas
-    static ArrayList<Plato> platos = new ArrayList<Plato>(); //Lista de platos
-    static ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>(); //Lista de ingredientes
-
     static ArrayList<Reserva> reservasUsaquen = new ArrayList<Reserva>();
-    static ArrayList<Plato> platosCumple = new ArrayList<Plato>(); //Lista de platos cumpleaños
-//    static ArrayList<Evento> eventos = new ArrayList<Evento>();
-    static ArrayList<Plato> vinos_champanas_meeting = new ArrayList<Plato>();
-    static ArrayList<Trabajador> cocineros = new ArrayList<Trabajador>();
-    static ArrayList<Plato> platos_varios = new ArrayList<Plato>();
-    static ArrayList<ArrayList<Plato>> platos_gastronomias = new ArrayList<ArrayList<Plato>>();
-    static ArrayList<Plato> gastronomias_japonesa = new ArrayList<Plato>();
-    static ArrayList<Plato> gastronomias_italiana = new ArrayList<Plato>();
-    static ArrayList<Plato> gastronomias_marroqui = new ArrayList<Plato>();
-    static ArrayList<Plato> gastronomias_francesa = new ArrayList<Plato>();
 
     static {
         //Creamos ciudades de muestra
@@ -49,26 +29,26 @@ public class Main implements Utilidad {
         Ciudad.getCiudades().add(ciudad2);
 
         //Creamos zonas de muestra
-        zonas.add(new Zona(4378, "Robledo", ciudad1));
-        zonas.add(new Zona(7426, "Aranjuez", ciudad1));
-        zonas.add(new Zona(193134, "Kennedy", ciudad2));
+        Zona.getZonas().add(new Zona(4378, "Robledo", ciudad1));
+        Zona.getZonas().add(new Zona(7426, "Aranjuez", ciudad1));
+        Zona.getZonas().add(new Zona(193134, "Kennedy", ciudad2));
 
         //Agregamos las zonas creadas al array zonas de su respectiva ciudad
         for (Ciudad ciudad : Ciudad.getCiudades()) {
-            for (Zona zona : zonas) {
+            for (Zona zona : Zona.getZonas()) {
                 if (zona.getCiudad() == ciudad) {
-                    ciudad.getZonas().add(zona);
+                    ciudad.getZonasCiudad().add(zona);
                 }
             }
         }
-        Restaurante restaurante1 = new Restaurante(ciudad1, ciudad1.getZonas().getFirst(), true,
+        Restaurante restaurante1 = new Restaurante(ciudad1, ciudad1.getZonasCiudad().getFirst(), true,
                 "El Comecuernos");
 
         Mesa mesa1 = new Mesa(0, 0, 0, false, 4);
         restaurante1.agregarMesa(mesa1);
         mesa1.setRestaurante(restaurante1);
         ciudad1.getRestaurantes().add(restaurante1);
-        ciudad1.getZonas().get(0).getRestaurantes().add(restaurante1);
+        ciudad1.getZonasCiudad().get(0).getRestaurantes().add(restaurante1);
 
         //Creamos clientes de muestra para la mesa 1
         ArrayList <Cliente> clientes1 = new ArrayList<Cliente>();
@@ -126,8 +106,8 @@ public class Main implements Utilidad {
         clientes1.get(2).setFactura(factura3);
 
         //Creamos un restaurante de muestra
-        Restaurante restauranteMuestra = new Restaurante(ciudad1, ciudad1.getZonas().get(0), true, "Muestra");
-        ciudad1.getZonas().get(0).getRestaurantes().add(restauranteMuestra);
+        Restaurante restauranteMuestra = new Restaurante(ciudad1, ciudad1.getZonasCiudad().get(0), true, "Muestra");
+        ciudad1.getZonasCiudad().get(0).getRestaurantes().add(restauranteMuestra);
 
         //Creamos una disposición default para el restaurante de muestra
         ArrayList<ArrayList<String>> disposicion = new ArrayList<ArrayList<String>>();
@@ -249,9 +229,9 @@ public class Main implements Utilidad {
         //Plato para cumpleaños Torta grande y pequeña
         Plato platoTortaPeq = new Plato("Torta Pequeña", 120000, ingredientesTortaPequena, 7, 4);
         Plato platoTortaGra = new Plato("Torta Grande", 300000, ingredientesharinaTORTAGRANDE, 20, 5);
-        platosCumple.add(platoTortaGra);
-        platosCumple.add(platoTortaPeq);
-        Evento eventoCumple = new Evento("Cumpleanos Feliz", 210000, platosCumple);
+        Plato.getPlatosCumple().add(platoTortaGra);
+        Plato.getPlatosCumple().add(platoTortaPeq);
+        Evento eventoCumple = new Evento("Cumpleanos Feliz", 210000, Plato.getPlatosCumple());
         Evento.getEventos().add(eventoCumple);
 
         //Vinos y Champañas
@@ -262,68 +242,66 @@ public class Main implements Utilidad {
         Plato champanaBollinger = new Plato("Bollinger Spécial Cuvée Brut", 360000, 5, 6);
         Plato champanaGenerica = new Plato("Champaña Genérica", 40000, 5, 10);
 
-        vinos_champanas_meeting.add(vinoCatena);
-        vinos_champanas_meeting.add(vinoSymington);
-        vinos_champanas_meeting.add(vinoGenerico);
-        vinos_champanas_meeting.add(champanaRuinart);
-        vinos_champanas_meeting.add(champanaBollinger);
-        vinos_champanas_meeting.add(champanaGenerica);
+        Plato.getVinos_champanas_meeting().add(vinoCatena);
+        Plato.getVinos_champanas_meeting().add(vinoSymington);
+        Plato.getVinos_champanas_meeting().add(vinoGenerico);
+        Plato.getVinos_champanas_meeting().add(champanaRuinart);
+        Plato.getVinos_champanas_meeting().add(champanaBollinger);
+        Plato.getVinos_champanas_meeting().add(champanaGenerica);
 
-        Evento eventoMeeting = new Evento("Meetigns Empresarial", 450000, vinos_champanas_meeting);
+        Evento eventoMeeting = new Evento("Meetigns Empresarial", 450000, Plato.getVinos_champanas_meeting());
         Evento.getEventos().add(eventoMeeting);
         Trabajador trabajadorSonmerlier = new Trabajador("Evaristo", 12345, "Sonmerlier", 1300000);
         Trabajador trabajadorItaliano = new Trabajador("Mario Guissepe", 876543, "Italiana", 2300000);
         Trabajador trabajadorJapones = new Trabajador("Rika Miyuka", 575288, "Japonesa", 2300000);
         Trabajador trabajadorMarroqui = new Trabajador("Hakin Hasan Ibrahim", 8428257, "Marroquí", 2300000);
         Trabajador trabajadorFrances = new Trabajador("Emmanuel Macrom", 95175, "Francesa", 2300000);
-        cocineros.add(trabajadorSonmerlier);
-        cocineros.add(trabajadorItaliano);
-        cocineros.add(trabajadorJapones);
-        cocineros.add(trabajadorMarroqui);
-        cocineros.add(trabajadorFrances);
+        Trabajador.getCocineros().add(trabajadorSonmerlier);
+        Trabajador.getCocineros().add(trabajadorItaliano);
+        Trabajador.getCocineros().add(trabajadorJapones);
+        Trabajador.getCocineros().add(trabajadorMarroqui);
+        Trabajador.getCocineros().add(trabajadorFrances);
         Plato bagget = new Plato("Bagget", 2000, 1, 100);
         Plato queso = new Plato("Queso mediterraneo", 50000, 7, 100);
-        platos_varios.add(bagget);
-        platos_varios.add(queso);
+        Plato.getPlatos_varios().add(bagget);
+        Plato.getPlatos_varios().add(queso);
         Plato soppa_minestrone = new Plato("Sopa Minnestrone", 54000, 5, "Italiana");
         Plato ensalada_Caprese = new Plato("Ensalada Caprese", 35300, 8, "Italiana");
         Plato Carpaccio = new Plato("Carpaccio", 44000, 1, "Italiana");
         Plato Vitello_tonnatoe = new Plato("Vitello tonnatoe", 74000, 4, "Italiana");
-        gastronomias_italiana.add(soppa_minestrone);
-        gastronomias_italiana.add(ensalada_Caprese);
-        gastronomias_italiana.add(Carpaccio);
-        gastronomias_italiana.add(Vitello_tonnatoe);
+        Plato.getGastronomias_italiana().add(soppa_minestrone);
+        Plato.getGastronomias_italiana().add(ensalada_Caprese);
+        Plato.getGastronomias_italiana().add(Carpaccio);
+        Plato.getGastronomias_italiana().add(Vitello_tonnatoe);
         Plato sushi = new Plato("Sushi Yarigato", 54000, 5, "Japonesa");
         Plato tempura = new Plato("Tempura Ora Ora", 35300, 8, "Japonesa");
         Plato katsudon = new Plato("Katsudon Primaveral", 44000, 3, "Japonesa");
         Plato kaisedon = new Plato("Kaisedon Hokkaido", 74000, 4, "Japonesa");
-        gastronomias_japonesa.add(sushi);
-        gastronomias_japonesa.add(tempura);
-        gastronomias_japonesa.add(katsudon);
-        gastronomias_japonesa.add(kaisedon);
+        Plato.getGastronomias_japonesa().add(sushi);
+        Plato.getGastronomias_japonesa().add(tempura);
+        Plato.getGastronomias_japonesa().add(katsudon);
+        Plato.getGastronomias_japonesa().add(kaisedon);
         Plato tajin = new Plato("Tajín Avepus", 54000, 5, "Marroquí");
         Plato cuscus = new Plato("Cuscús Adriático", 35300, 8, "Marroquí");
         Plato harira = new Plato("Harira Candente", 44000, 3, "Marroquí");
         Plato briouat = new Plato("Briouat Sur", 74000, 4, "Marroquí");
-        gastronomias_marroqui.add(tajin);
-        gastronomias_marroqui.add(cuscus);
-        gastronomias_marroqui.add(harira);
-        gastronomias_marroqui.add(briouat);
+        Plato.getGastronomias_marroqui().add(tajin);
+        Plato.getGastronomias_marroqui().add(cuscus);
+        Plato.getGastronomias_marroqui().add(harira);
+        Plato.getGastronomias_marroqui().add(briouat);
         Plato ratatouille = new Plato("Ratatouille Avignon", 54000, 5, "Francesa");
         Plato escargots = new Plato("Escargots D' Bourgogne", 35300, 8, "Francesa");
         Plato fricase = new Plato("Fricasé Le Mans", 44000, 1, "Francesa");
         Plato gratin = new Plato("Le gratin dauphinois", 74000, 1, "Francesa");
-        gastronomias_francesa.add(ratatouille);
-        gastronomias_francesa.add(escargots);
-        gastronomias_francesa.add(fricase);
-        gastronomias_francesa.add(gratin);
-        platos_gastronomias.add(gastronomias_francesa);
-        platos_gastronomias.add(gastronomias_italiana);
-        platos_gastronomias.add(gastronomias_marroqui);
-        platos_gastronomias.add(gastronomias_japonesa);
-        platos_gastronomias.add(gastronomias_japonesa);
-
-        //Ok pero vaya ejecutando... QUE.
+        Plato.getGastronomias_francesa().add(ratatouille);
+        Plato.getGastronomias_francesa().add(escargots);
+        Plato.getGastronomias_francesa().add(fricase);
+        Plato.getGastronomias_francesa().add(gratin);
+        Plato.getPlatos_gastronomias().add(Plato.getGastronomias_francesa());
+        Plato.getPlatos_gastronomias().add(Plato.getGastronomias_italiana());
+        Plato.getPlatos_gastronomias().add(Plato.getGastronomias_marroqui());
+        Plato.getPlatos_gastronomias().add(Plato.getGastronomias_japonesa());
+        Plato.getPlatos_gastronomias().add(Plato.getGastronomias_japonesa());
 
     }
 

@@ -54,6 +54,9 @@ public class Ingrediente implements Serializable {
     public static ArrayList<Ingrediente> getIngredientes() {
         return ingredientes;
     }
+    public static void setIngredientes(ArrayList<Ingrediente> ingredientes) {
+        Ingrediente.ingredientes = ingredientes;
+    }
 
     @Override
     public String toString() {

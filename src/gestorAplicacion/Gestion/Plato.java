@@ -264,7 +264,7 @@ public class Plato implements Serializable {
             this.cantidadDePlato -= cantidadDePlatoPedido;
         }
         else {
-            System.out.println("Error, proceso inválido");
+            this.cantidadDePlato = 0;
         }
     }
     public int getPorciones(){

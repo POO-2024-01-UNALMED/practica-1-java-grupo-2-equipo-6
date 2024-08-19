@@ -55,7 +55,10 @@ public class Funcionalidad5 implements Utilidad {
 
                     System.out.println("Interaccion2");
                     factura = recomendarEvento();
-                    datos_horaReserva(restaurante, factura);
+
+                    if (!(factura.getEvento() == new Factura().getEvento())) {
+                        datos_horaReserva(restaurante, factura);
+                    }
 
                     encendido = false;
                     break;
@@ -349,12 +352,11 @@ public class Funcionalidad5 implements Utilidad {
     public static Factura recomendarEvento() {
         Evento evento1 = new Evento();
         Factura factura = new Factura();
-        boolean encendido = true;
         Cliente cliente = new Cliente();
         System.out.println("""
                 ¿Eres afiliado?
                 1. Si
-                2.No
+                2. No
                 """);
         int respuestaAfiliacion = Utilidad.readInt();
         if (respuestaAfiliacion == 1) {
@@ -362,254 +364,266 @@ public class Funcionalidad5 implements Utilidad {
         } else {
             System.out.println("Dale, no hay lio");
         }
-
-        System.out.println("¿Desea conocer las temáticas de Eventos especiales qué tenemos?");
-        System.out.println("1.Sí, por favor");
-        System.out.println("2.No");
-        int opcionEvento = Utilidad.readInt();
-        System.out.println("1. Cumpleaños.\n" +
-                "2. Meetings Empresariales.\n" +
-                "3. Gastronomias Mundiales.\n" +
-                "4. No, salir.\n" +
-                "Escriba un número para elegir su opción.");
-        int opcionFinal = Utilidad.readInt();
-        //Colocar el listado de los eventos
-        switch (opcionFinal) {
-            case 1:
-                Factura factura_cumple = new Factura();
-                System.out.println("¿Cuántos invitados son?");
-                int numeroInvitados = Utilidad.readInt();
-                System.out.println("El Evento tiene un coste de 210.000$, ¿Desea continuar?");
-                System.out.println("1.Sí");
-                System.out.println("2.No");
-                int RespuestaCumple = Utilidad.readInt();
-                if (RespuestaCumple == 1) {
-                    new Plato();
-                    Plato torta_seleccionada = null;
-                    String descripcionEvento = "Feliz Cumpleaños!!! Te deseamos lo mejor en esta etapa";
-                    String nombreRespuesta = "Cumpleanos Feliz";
-                    int coste = 210000;
-                    for (Evento elemento : Evento.getEventos()) {
-                        if (elemento.getNombre().equals(nombreRespuesta)) {
-                            evento1 = elemento;
-                        }
-                    }
-                    System.out.println("Perfecto! Danos el nombre del festejado:");
-                    String nombreFestejado = Utilidad.readString(); //Pendiente por meter
-                    System.out.println("A continuación verá las tortas para la ocasión: ");
-                    listadoPlatosEvento(evento1);
-                    recomendacionPorCantidad(evento1, numeroInvitados); //Planear qué pasaría sí hay un excedente
-                    System.out.println("Digite la opción de la torta: ");
-                    int pastelEscogido = Utilidad.readInt();
-                    if (!(pastelEscogido == 0)) {
-                        torta_seleccionada = evento1.getPlatos().get(pastelEscogido - 1);
-                        torta_seleccionada.descontarPlato(1);  //Hasta acá llega la parte de la planeación del excedente
-                    }
-                    ArrayList<Plato> platosDeEsteEvento = new ArrayList<>();
-                    platosDeEsteEvento.add(torta_seleccionada);  //Para esto, crear un métodp que sea meterle estas 3 cosas
-
-                    evento1.setNombreEvento(nombreRespuesta);
-                    evento1.setDescripcion(descripcionEvento);
-                    evento1.setCoste(coste);
-                    evento1.setPlatos(platosDeEsteEvento);
-                    factura_cumple.setEvento(evento1);
-//                    factura = factura_cumple;
-//                                assert torta_seleccionada != null;
-//                                System.out.println("Prueba de la torta: " + torta_seleccionada.getNombre() + " Prueba descuente " + torta_seleccionada.getCantidadDePlato());
-
-//                                factura.setEvento(evento1);
-                    break;
-
-                } else {
-                    System.out.println("Acá sería el no, Planear como devolver lo que se pide");
-                }
-                break;
-            case 2:
-                Factura factura_meeting = new Factura();
-                Plato vino_champana_final = new Plato();
-                System.out.println("El Evento tiene un coste de 450.000$, ¿Desea continuar?");
-                System.out.println("1.Sí");
-                System.out.println("2.No");
-                int RespuestaMeeting = Utilidad.readInt();
-                if (RespuestaMeeting == 1) {
-                    System.out.println("¿Cuántos asistentes son?");
-                    int numeroInvitados_meeting = Utilidad.readInt();
-                    System.out.println("Digite el NIT de la empresa: ");
-                    int NIT = Utilidad.readInt();
-                    ArrayList<Plato> platosAfiliacionCumple = new ArrayList<>();
-                    Trabajador cocineroOcasion = new Trabajador();
-                    ArrayList<Plato> platosMeeting = new ArrayList<Plato>(); //Revisar
-                    String descripcionEvento = "Una empresa que demustra su talento, seriedad y humanidad"; //Sujeto a cambio
-                    String nombreRespuesta = "Meetigns Empresarial";
-                    int coste = 450000;//Evaluar esto
-                    for (Evento elemento : Evento.getEventos()) {
-                        if (elemento.getNombre().equals(nombreRespuesta)) {
-                            evento1 = elemento;
-                        }
-                    }
-                    System.out.println("""
-                            Tenemos las siguientes opciones para acompañar el meeting:
-                            1. Vino.
-                            2. Champaña.
-                            """);
-                    int opcionVino_Champana = Utilidad.readInt();
-                    vino_champana_final = listadoPlatosEvento(evento1, numeroInvitados_meeting, opcionVino_Champana);
-                    platosMeeting.add(vino_champana_final);
-                    System.out.println(vino_champana_final.getCantidadDePlato());
-                    //He de poner la parte en que descuenta la cantidad de vinos y demas existencias
-                    // A esta monda he de revolcarla para meterle lo que es afiliaciones
-
-                    if (cliente.esAfiliado()) {
-                        System.out.println("""
-                                Vemos que eres afiliado, deseas redimir tú derecho
-                                1. Si
-                                2. No""");
-                        int opcionCumpleFinal = Utilidad.readInt();
-
-                        if (opcionCumpleFinal == 1) {
-                            for (Trabajador cocineroEnCuestion : Trabajador.getCocineros()) {
-                                if (cocineroEnCuestion.getEspecialidad().equals("Sonmerlier")) {
-                                    cocineroOcasion = cocineroEnCuestion;
-                                    cocineroEnCuestion.PagoExtraServicio(Evento.getEventos(), cocineroEnCuestion.getEspecialidad());
-                                    for (Plato plato : Plato.getPlatos_varios()) {
-                                        if (plato.getNombre().equals("Bagget")) {
-                                            platosAfiliacionCumple.add(plato);
-                                            plato.descontarPlato(numeroInvitados_meeting);
-                                        }
-
-                                    }
-                                    for (Plato plato : Plato.getPlatos_varios()) {
-                                        if (plato.getNombre().equals("Queso mediterraneo")) {
-                                            platosAfiliacionCumple.add(plato);
-                                            int cantidadAdescontar = (int) Math.ceil((double) numeroInvitados_meeting / plato.getPorciones());
-                                            plato.descontarPlato(cantidadAdescontar);
+        boolean encendido1 = true;
+        boolean encendido2 = true;
+        do {
+            System.out.println("¿Desea conocer las temáticas de Eventos especiales qué tenemos?");
+            System.out.println("1. Sí, por favor");
+            System.out.println("2. No");
+            int opcionEvento = Utilidad.readInt();
+            switch (opcionEvento) {
+                case 1:
+                    do{
+                        System.out.println("1. Cumpleaños.\n" +
+                                "2. Meetings Empresariales.\n" +
+                                "3. Gastronomias Mundiales.\n" +
+                                "4. No, salir.\n" +
+                                "Escriba un número para elegir su opción.");
+                        int opcionFinal = Utilidad.readInt();
+                        switch (opcionFinal) {
+                            case 1:
+                                Factura factura_cumple = new Factura();
+                                System.out.println("¿Cuántos invitados son?");
+                                int numeroInvitados = Utilidad.readInt();
+                                System.out.println("El Evento tiene un coste de 210.000$, ¿Desea continuar?");
+                                System.out.println("1.Sí");
+                                System.out.println("2.No");
+                                int RespuestaCumple = Utilidad.readInt();
+                                if (RespuestaCumple == 1) {
+                                    new Plato();
+                                    Plato torta_seleccionada = null;
+                                    String descripcionEvento = "Feliz Cumpleaños!!! Te deseamos lo mejor en esta etapa";
+                                    String nombreRespuesta = "Cumpleanos Feliz";
+                                    int coste = 210000;
+                                    for (Evento elemento : Evento.getEventos()) {
+                                        if (elemento.getNombre().equals(nombreRespuesta)) {
+                                            evento1 = elemento;
                                         }
                                     }
-                                }
-                            }
-                            System.out.println("Excelente, de nuestra parte os damos a nuestro mejor sonmelier " + cocineroOcasion.getNombre() + "que ha de preparar el mejor" + platosAfiliacionCumple.get(1) + "acompañado de unos deliciosos " + platosAfiliacionCumple.getFirst());
-                        }
-                    }
-                    evento1.setNombreEvento(nombreRespuesta);
-                    evento1.setDescripcion(descripcionEvento);
-                    evento1.setCoste(coste);
-                    evento1.setPlatos(platosMeeting);//Esta es prueba
-//                    factura_meeting.setEvento(evento1);
-//                    factura  = factura_meeting;
-                    break;
-                } else {
-//                            case 2:
-                    System.out.println("Prueba No Meeting");
-                    break;
-                }
-            case 3:
-                Trabajador chef;
-                ArrayList<Plato> final_gastro_evento;
-                ArrayList<Plato> platos_pedidos = new ArrayList<>();
-                ArrayList<String> gastronomias_nombres = new ArrayList<>();
-                gastronomias_nombres.add("Italiana");
-                gastronomias_nombres.add("Japonesa");
-                gastronomias_nombres.add("Marroquí");
-                gastronomias_nombres.add("Francesa");
-                System.out.println("""
-                        El servicio tiene un costo de 345000, deseas continuar:
-                        1. Sí, por favor.
-                        2. No, así está bien.
-                        """);
-                int respuesta = Utilidad.readInt();
-                if (respuesta == 1) {
-
-                    System.out.println("""
-                            Gastronomias mundiales, escoge la de tu preferencia:
-                            1.Italiana
-                            2.Japonesa
-                            3.Marroquí
-                            4.Francesa
-                            Dijite la opcion de su preferencia:\s
-                            """);
-                    int opcionGastronomias = Utilidad.readInt();
-                    String tipoEvento = gastronomias_nombres.get(opcionGastronomias-1);
-                    chef = cocineroElegido(opcionGastronomias, gastronomias_nombres);
-                    System.out.println("El/la chef " + chef.getNombre() + " te va a acopañar en esta velada");
-                    final_gastro_evento = gastronomias_mundiales(opcionGastronomias, gastronomias_nombres);
-                    boolean escoger = true;
-                    System.out.println("Cual de ellos gusta: ");
-                    int leer = Utilidad.readInt();
-                    System.out.println("Excelente, de ese plato tenemos " + final_gastro_evento.get(leer - 1).getCantidadDePlato() + ", cuantos desea?");
-                    int a = Utilidad.readInt();
-                    Plato primer_plato = final_gastro_evento.get(leer - 1);
-                    primer_plato.setVecesPedido(a);
-                    primer_plato.descontarPlato(a);
-                    platos_pedidos.add(primer_plato);
-                    final_gastro_evento.remove(leer - 1);
-                    final_gastro_evento.get(leer - 1).descontarPlato(a);
-//                    while (escoger) {
-                        System.out.println("""
-                                Desea ordenar otros platos?:
-                                1. Sí, deseo ordenar más platos
-                                2. No, así está bien\s
-                                """);
-                        int leer2 = Utilidad.readInt();
-                        if (leer2 == 1) {
-                            while (encendido)
-                                if (!(final_gastro_evento.isEmpty())) {
-                                System.out.println("Por supuesto, he aquí de nuevo el menú con el resto de plato:");
-                                int contador = 0;
-                                for (Plato dadada : final_gastro_evento) {
-                                    contador++;
-                                    System.out.println(contador + ". " + dadada.getNombre());
-                                }
-                                System.out.println("Digite el que guste pedir: ");
-                                int leer3 = Utilidad.readInt();
-                                System.out.println("Listo, este plato cuenta con " + final_gastro_evento.get(leer3 - 1).getCantidadDePlato() + " existencias, ¿Cuántas desea?");
-                                int b = Utilidad.readInt();
-                                Plato platos_venideros = final_gastro_evento.get(leer3 - 1);
-                                platos_venideros.setVecesPedido(b);
-                                platos_venideros.descontarPlato(b);
-                                platos_pedidos.add(platos_venideros);
-                                final_gastro_evento.remove(leer3 - 1);
-                                System.out.println("""
-                                        Desea seguir ordenando:
-                                        1. Sí.
-                                        2. No""");
-                                int respuesta2 = Utilidad.readInt();
-                                if (!(final_gastro_evento.isEmpty())){
-                                    if (respuesta2 == 1) {
-                                    encendido = true;
-                                    } else {
-                                    System.out.println("Dale");
-                                    encendido= false;
+                                    System.out.println("Perfecto! Danos el nombre del festejado:");
+                                    String nombreFestejado = Utilidad.readString(); //Pendiente por meter
+                                    System.out.println("A continuación verá las tortas para la ocasión: ");
+                                    listadoPlatosEvento(evento1);
+                                    recomendacionPorCantidad(evento1, numeroInvitados); //Planear qué pasaría sí hay un excedente
+                                    System.out.println("Digite la opción de la torta: ");
+                                    int pastelEscogido = Utilidad.readInt();
+                                    if (!(pastelEscogido == 0)) {
+                                        torta_seleccionada = evento1.getPlatos().get(pastelEscogido - 1);
+                                        torta_seleccionada.descontarPlato(1);  //Hasta acá llega la parte de la planeación del excedente
                                     }
+                                    ArrayList<Plato> platosDeEsteEvento = new ArrayList<>();
+                                    platosDeEsteEvento.add(torta_seleccionada);  //Para esto, crear un métodp que sea meterle estas 3 cosas
 
+                                    evento1.setNombreEvento(nombreRespuesta);
+                                    evento1.setDescripcion(descripcionEvento);
+                                    evento1.setCoste(coste);
+                                    evento1.setPlatos(platosDeEsteEvento);
+                                    factura_cumple.setEvento(evento1);
+                                    factura = factura_cumple;
+                                    encendido2 = false;
+                                } else {
+                                    System.out.println("No hay problema, te mostraremos de nuevo el menú de eventos");
+                                    encendido2 = true;
                                 }
-                                else {
-                                System.out.println("Lo sentimos, pero no hay más platos para mostrarte");
-                                encendido = false;
                                 break;
-                            }
+                            case 2:
+                                Factura factura_meeting = new Factura();
+                                Plato vino_champana_final = new Plato();
+                                System.out.println("El Evento tiene un coste de 450.000$, ¿Desea continuar?");
+                                System.out.println("1. Sí");
+                                System.out.println("2. No");
+                                int RespuestaMeeting = Utilidad.readInt();
+                                if (RespuestaMeeting == 1) {
+                                    System.out.println("¿Cuántos asistentes son?");
+                                    int numeroInvitados_meeting = Utilidad.readInt();
+                                    System.out.println("Digite el NIT de la empresa: ");
+                                    int NIT = Utilidad.readInt();
+                                    ArrayList<Plato> platosAfiliacionCumple = new ArrayList<>();
+                                    Trabajador cocineroOcasion = new Trabajador();
+                                    ArrayList<Plato> platosMeeting = new ArrayList<Plato>(); //Revisar
+                                    String descripcionEvento = "Una empresa que demustra su talento, seriedad y humanidad"; //Sujeto a cambio
+                                    String nombreRespuesta = "Meetigns Empresarial";
+                                    int coste = 450000;//Evaluar esto
+                                    for (Evento elemento : Evento.getEventos()) {
+                                        if (elemento.getNombre().equals(nombreRespuesta)) {
+                                            evento1 = elemento;
+                                        }
+                                    }
+                                    System.out.println("""
+                                            Tenemos las siguientes opciones para acompañar el meeting:
+                                            1. Vino.
+                                            2. Champaña.
+                                            """);
+                                    int opcionVino_Champana = Utilidad.readInt();
+                                    vino_champana_final = listadoPlatosEvento(evento1, numeroInvitados_meeting, opcionVino_Champana);
+                                    platosMeeting.add(vino_champana_final);
+                                    System.out.println(vino_champana_final.getCantidadDePlato());
+                                    //He de poner la parte en que descuenta la cantidad de vinos y demas existencias
+                                    // A esta monda he de revolcarla para meterle lo que es afiliaciones
+
+                                    if (cliente.esAfiliado()) {
+                                        System.out.println("""
+                                                Vemos que eres afiliado, deseas redimir tú derecho
+                                                1. Si
+                                                2. No""");
+                                        int opcionCumpleFinal = Utilidad.readInt();
+
+                                        if (opcionCumpleFinal == 1) {
+                                            for (Trabajador cocineroEnCuestion : Trabajador.getCocineros()) {
+                                                if (cocineroEnCuestion.getEspecialidad().equals("Sonmerlier")) {
+                                                    cocineroOcasion = cocineroEnCuestion;
+                                                    cocineroEnCuestion.PagoExtraServicio(Evento.getEventos(), cocineroEnCuestion.getEspecialidad());
+                                                    for (Plato plato : Plato.getPlatos_varios()) {
+                                                        if (plato.getNombre().equals("Bagget")) {
+                                                            platosAfiliacionCumple.add(plato);
+                                                            plato.descontarPlato(numeroInvitados_meeting);
+                                                        }
+
+                                                    }
+                                                    for (Plato plato : Plato.getPlatos_varios()) {
+                                                        if (plato.getNombre().equals("Queso mediterraneo")) {
+                                                            platosAfiliacionCumple.add(plato);
+                                                            int cantidadAdescontar = (int) Math.ceil((double) numeroInvitados_meeting / plato.getPorciones());
+                                                            plato.descontarPlato(cantidadAdescontar);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            System.out.println("Excelente, de nuestra parte os damos a nuestro mejor sonmelier " + cocineroOcasion.getNombre() + "que ha de preparar el mejor " + platosAfiliacionCumple.get(1).getNombre() + "acompañado de unos deliciosos " + platosAfiliacionCumple.getFirst().getNombre());
+                                        }
+                                    }
+                                    evento1.setNombreEvento(nombreRespuesta);
+                                    evento1.setDescripcion(descripcionEvento);
+                                    evento1.setCoste(coste);
+                                    evento1.setPlatos(platosMeeting);//Esta es prueba
+                                    factura_meeting.setEvento(evento1);
+                                    factura  = factura_meeting;
+                                    encendido2 = false;
+                                } else {
+                                    System.out.println("Te retornaremos al menú de eventos");
+                                    encendido2 = true;
                                 }
-                        } else {
-                            System.out.println("Agradecemos tú confianza");
-                            escoger = false;
+                                break;
+                            case 3:
+                                Trabajador chef;
+                                ArrayList<Plato> final_gastro_evento;
+                                ArrayList<Plato> platos_pedidos = new ArrayList<>();
+                                ArrayList<String> gastronomias_nombres = new ArrayList<>();
+                                gastronomias_nombres.add("Italiana");
+                                gastronomias_nombres.add("Japonesa");
+                                gastronomias_nombres.add("Marroquí");
+                                gastronomias_nombres.add("Francesa");
+                                System.out.println("""
+                                        El servicio tiene un costo de 345000, deseas continuar:
+                                        1. Sí, por favor.
+                                        2. No, así está bien.
+                                        """);
+                                int respuesta = Utilidad.readInt();
+                                if (respuesta == 1) {
+                                    System.out.println("""
+                                            Gastronomias mundiales, escoge la de tu preferencia:
+                                            1.Italiana
+                                            2.Japonesa
+                                            3.Marroquí
+                                            4.Francesa
+                                            Dijite la opcion de su preferencia:\s
+                                            """);
+                                    int opcionGastronomias = Utilidad.readInt();
+                                    String tipoEvento = gastronomias_nombres.get(opcionGastronomias - 1);
+                                    chef = cocineroElegido(opcionGastronomias, gastronomias_nombres);
+                                    System.out.println("El/la chef " + chef.getNombre() + " te va a acopañar en esta velada");
+                                    final_gastro_evento = gastronomias_mundiales(opcionGastronomias, gastronomias_nombres);
+                                    boolean escoger = true;
+                                    System.out.println("Cual de ellos gusta: ");
+                                    int leer = Utilidad.readInt();
+                                    System.out.println("Excelente, de ese plato tenemos " + final_gastro_evento.get(leer - 1).getCantidadDePlato() + ", cuantos desea?");
+                                    int a = Utilidad.readInt();
+                                    Plato primer_plato = final_gastro_evento.get(leer - 1);
+                                    primer_plato.setVecesPedido(a);
+                                    primer_plato.descontarPlato(a);
+                                    platos_pedidos.add(primer_plato);
+                                    final_gastro_evento.remove(leer - 1);
+                                    final_gastro_evento.get(leer - 1).descontarPlato(a);
+                                    //                    while (escoger) {
+                                    System.out.println("""
+                                            Desea ordenar otros platos?:
+                                            1. Sí, deseo ordenar más platos.
+                                            2. No, así está bien.
+                                            """);
+                                    int leer2 = Utilidad.readInt();
+                                    if (leer2 == 1) {
+                                        while (encendido1)
+                                            if (!(final_gastro_evento.isEmpty())) {
+                                                System.out.println("Por supuesto, he aquí de nuevo el menú con el resto de plato:");
+                                                int contador = 0;
+                                                for (Plato dadada : final_gastro_evento) {
+                                                    contador++;
+                                                    System.out.println(contador + ". " + dadada.getNombre());
+                                                }
+                                                System.out.println("Digite el que guste pedir: ");
+                                                int leer3 = Utilidad.readInt();
+                                                System.out.println("Listo, este plato cuenta con " + final_gastro_evento.get(leer3 - 1).getCantidadDePlato() + " existencias, ¿Cuántas desea?");
+                                                int b = Utilidad.readInt();
+                                                Plato platos_venideros = final_gastro_evento.get(leer3 - 1);
+                                                if (b <= platos_venideros.getCantidadDePlato()) {
+                                                    platos_venideros.setVecesPedido(b);
+                                                    platos_venideros.descontarPlato(b);
+                                                    platos_pedidos.add(platos_venideros);
+                                                    final_gastro_evento.remove(leer3 - 1);
+                                                } else {
+                                                    System.out.println("La cantidad de los pedidos excede la cantidad de existencias, por ello vamos a asiganr todos los platos disponibles");
+                                                    b = platos_venideros.getCantidadDePlato();
+                                                    platos_venideros.setVecesPedido(b);
+                                                    platos_venideros.descontarPlato(b);
+                                                    platos_pedidos.add(platos_venideros);
+                                                    final_gastro_evento.remove(leer3 - 1);
+                                                }
+                                                System.out.println("""
+                                                        Desea seguir ordenando:
+                                                        1. Sí.
+                                                        2. No""");
+                                                int respuesta2 = Utilidad.readInt();
+                                                if (!(final_gastro_evento.isEmpty())) {
+                                                    if (respuesta2 == 1) {
+                                                        encendido1 = true;
+                                                    } else {
+                                                        System.out.println("Un gusto haberle atendido");
+                                                        encendido1 = false;
+                                                    }
+
+                                                } else {
+                                                    System.out.println("Lo sentimos, pero no hay más platos para mostrarte");
+                                                    break;
+                                                }
+                                            }
+                                    } else {
+                                        System.out.println("Agradecemos tú confianza");
+                                    }
+                                    Evento eventoGastronomias = new Evento("Gastronomias mundiales", 345000, platos_pedidos, tipoEvento);
+                                    eventoGastronomias.setNombreMotivo(gastronomias_nombres.get(opcionGastronomias - 1));
+                                    eventoGastronomias.setCoste(345000);
+                                    eventoGastronomias.setDescripcion("...");
+                                    evento1 = eventoGastronomias;
+                                    factura.setEvento(eventoGastronomias);
+                                    encendido2 = false;
+                                } else {
+                                    System.out.println("Te retornaremos al menú de eventos");
+                                    encendido2 = true;
+                                }
+                                break;
+                            case 4:
+                                encendido2 = false;
+                                break;
                         }
-                        Evento eventoGastronomias = new Evento("Gastronomias mundiales", 345000, platos_pedidos, tipoEvento);
-                        eventoGastronomias.setNombreMotivo(gastronomias_nombres.get(opcionGastronomias - 1));
-                        eventoGastronomias.setCoste(345000);
-                        eventoGastronomias.setDescripcion("...");
-                        evento1 = eventoGastronomias;
-//                                        factura.setEvento(eventoGastronomias);
-
-                        break;
-
-//                    System.out.println("No gastrononmias");
-                } else {
+                    } while(encendido2);
+                case 2:
+                    encendido1 = false;
                     break;
-                }
-            case 4:
-                System.out.println("Escoge una opcion");
-        }
-        System.out.println("Prueba de si sí coge ");
-        factura.setEvento(evento1);
+                default:
+                    System.out.println("Ingrese un número válido [1 - 2].");
+                    break;
+            }
+        } while (encendido1);
         return factura;
     }
 
@@ -641,10 +655,9 @@ public class Funcionalidad5 implements Utilidad {
         System.out.println("Cliente: " + restaurante.getClientes().getFirst().getNombre());
         System.out.println("Cédula: " + restaurante.getClientes().getFirst().getCedula());
         listado_precios_factura(factura, reserva, diaFinDeSemana);
+        
 
     }
-
-
 
 
     public static String datos_horaReserva(Restaurante restaurante, Factura factura) {
@@ -674,31 +687,7 @@ public class Funcionalidad5 implements Utilidad {
                 reserva = null;
         }
         formato_factura_evento(restaurante, factura, reserva, diaFinDeSemana);
-
-
-
         return null;
     }
-//}
 
-//import java.time.LocalDate;
-//import java.time.format.DateTimeFormatter;
-//import java.util.Locale;
-//
-//public class DiaDeLaSemana {
-//    public static void main(String[] args) {
-//        // Obtener la fecha de entrada (ejemplo: 2023-11-22)
-//        String fechaString = "2023-11-22";
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        LocalDate fecha = LocalDate.parse(fechaString, formatter);
-//
-//        // Obtener el día de la semana
-//        DayOfWeek diaSemana = fecha.getDayOfWeek();
-//
-//        // Mostrar el resultado en español
-//        String diaSemanaString = diaSemana.getDisplayName(TextStyle.FULL, Locale.forLanguageTag("es"));
-//
-//        System.out.println("La fecha " + fechaString + " corresponde a un " + diaSemanaString);
-//    }
-//}
 }

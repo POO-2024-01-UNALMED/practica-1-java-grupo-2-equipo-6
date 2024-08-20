@@ -15,6 +15,7 @@ import static uiMain.Utilidad.intersectarListas;
 
 public class Restaurante implements Serializable {
     // Atributos
+    private static final long serialVersionUID = 1L;
     private ArrayList<ArrayList<Integer>> intentosReserva = new ArrayList<ArrayList<Integer>>();
     private static ArrayList<Restaurante> restaurantes = new ArrayList<Restaurante>();
     public ArrayList<Cliente> clientes = new ArrayList<Cliente>();
@@ -223,42 +224,6 @@ public class Restaurante implements Serializable {
         return sb.toString();
     }
 
-    public void actualizarFechasDisponibles() {
-        ArrayList<ArrayList<Integer>> totalFechasDisponiblesMesas = new ArrayList<ArrayList<Integer>>();
-        for (Mesa mesa : this.getMesas()) {
-            totalFechasDisponiblesMesas = intersectarListas(totalFechasDisponiblesMesas, mesa.getFechasDisponibles());
-        }
-
-        ArrayList<ArrayList<Integer>> nuevoArray = new ArrayList<ArrayList<Integer>>();
-        int anioActual = totalFechasDisponiblesMesas.get(0).get(0);
-        int mesActual = totalFechasDisponiblesMesas.get(0).get(1);
-        ArrayList<Integer> listaActual = new ArrayList<Integer>();
-        listaActual.add(anioActual);
-        listaActual.add(mesActual);
-
-        for (ArrayList<Integer> fila : totalFechasDisponiblesMesas) {
-            int anio = fila.get(0);
-            int mes = fila.get(1);
-            int dia = fila.get(2);
-
-            // Si el año o el mes cambian, agregamos la lista actual al nuevo array y creamos una nueva lista
-            if (anio != anioActual || mes != mesActual) {
-                nuevoArray.add(listaActual);
-                listaActual = new ArrayList<Integer>();
-                listaActual.add(anio);
-                listaActual.add(mes);
-                anioActual = anio;
-                mesActual = mes;
-            }
-
-            listaActual.add(dia);
-        }
-
-        nuevoArray.add(listaActual);
-
-        this.setFechasDisponibles(nuevoArray);
-    }
-
     public void restarDeBodegaIngrediente(int indice, int cantidad) {
         int cantidadPasada = Integer.parseInt(this.bodegaIngredientes.get(indice).get(1));
         String nombre = this.bodegaIngredientes.get(indice).getFirst();
@@ -267,10 +232,13 @@ public class Restaurante implements Serializable {
                 String.valueOf(cantidadPasada - cantidad))));
     }
     public void restarDeBodega(int indice, int cantidad) {
-        int cantidadPasada = Integer.parseInt(this.bodegaItems.get(indice).get(1));
-        String nombre = this.bodegaItems.get(indice).getFirst();
-        this.bodegaItems.remove(indice);
-        this.bodegaItems.add(new ArrayList<String>(Arrays.asList(nombre,
-                String.valueOf(cantidadPasada - cantidad))));
+        if (indice != -1) {
+            int cantidadPasada = Integer.parseInt(this.bodegaItems.get(indice).get(1));
+            String nombre = this.bodegaItems.get(indice).getFirst();
+            this.bodegaItems.remove(indice);
+            this.bodegaItems.add(new ArrayList<String>(Arrays.asList(nombre,
+                    String.valueOf(cantidadPasada - cantidad))));
+        }
+
     }
 }

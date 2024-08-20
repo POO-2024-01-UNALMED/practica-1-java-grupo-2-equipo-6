@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Factura implements Serializable {
     //  Atributos
+    private static final long serialVersionUID = 1L;
     private static ArrayList<Factura> facturas = new ArrayList<Factura>();
     private Evento evento;
     private static int numeroFactura = 0;
@@ -112,7 +113,7 @@ public class Factura implements Serializable {
 
     @Override
     public String toString(){
-        String factura = ("\nNúmero factura "+ Factura.numeroFactura + "\n" + calcularValor());
+        String factura = ("Número factura: " + Factura.numeroFactura);
         return factura;
     }
 

@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Trabajador extends Persona implements Serializable {
+    //Atributos
+    private static final long serialVersionUID = 1L;
     private static ArrayList<Trabajador> cocineros = new ArrayList<Trabajador>();
     private static ArrayList<Trabajador> trabajadores = new ArrayList<Trabajador>();
     private String especialidad;
@@ -20,6 +22,7 @@ public class Trabajador extends Persona implements Serializable {
 
     public enum Tipo {COCINERO, MESERO} //Caso #2 Enum
 
+    //Constructores
     public Trabajador() {}
 
     public Trabajador(String nombre, int cedula, String especialidad, int salario) {
@@ -30,6 +33,7 @@ public class Trabajador extends Persona implements Serializable {
         this.calificacion = 0;
     }
 
+    //Metodos
     public void mostrarInformacion() {
         System.out.println("Nombre: " + nombre);
         System.out.println("Cedula: " + cedula);

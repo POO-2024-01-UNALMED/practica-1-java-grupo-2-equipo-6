@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 public class Cargamento implements Serializable {
 	//Atributos
+	private static final long serialVersionUID = 1L;
 	private static ArrayList<Cargamento> cargamentos = new ArrayList<Cargamento>();
 	public static final ArrayList<String> UTILIDADES = new ArrayList<String>(Arrays.asList("Rosa", "Vela", "Globo Negro",
 			"Globo Blanco", "Globo Dorado", "Globo Rosado", "Globo Azul", "Birrete", "Angel Varon", "Angel Femenino"));

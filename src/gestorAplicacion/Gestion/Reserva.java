@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Reserva implements Serializable {
     //Atributos
+    private static final long serialVersionUID = 1L;
     private ArrayList<Cliente> clientes;
     private static ArrayList<Reserva> reservas = new ArrayList<Reserva>();
     private ArrayList<Integer> fecha; //[2024, 8, 23, 16]
@@ -58,10 +59,9 @@ public class Reserva implements Serializable {
         sb.append("\nRestaurante: ").append(restaurante.getNombre());
         sb.append("\nClientes: ").append(clientes);
         sb.append("\nFecha: ").append(fecha.get(2)).append('/').append(fecha.get(1)).append('/').append(fecha.get(0));
-        sb.append("\nHora:").append(fecha.get(3)).append(":00");
+        sb.append("\nHora: ").append(fecha.get(3)).append(":00");
         sb.append("\nMesa: #").append(clientes.getFirst().getMesa().toString());
         sb.append("\nFactura: ").append(clientes.getFirst().getFactura());
-
         return sb.toString();
     }
 }

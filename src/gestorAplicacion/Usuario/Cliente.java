@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class Cliente extends Persona implements Serializable {
     // Atributos
+    private static final long serialVersionUID = 1L;
     private static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
     private Pedido pedido;
     private Factura factura;

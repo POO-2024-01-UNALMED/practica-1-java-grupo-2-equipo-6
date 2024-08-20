@@ -5,8 +5,9 @@ import java.util.ArrayList;
 
 public class Plato implements Serializable {
     // Atributos
+    private static final long serialVersionUID = 1L;
     private static ArrayList<Plato> platos = new ArrayList<Plato>();
-    private String nombre;
+    private String nombre = "";
     private int precio;
     private ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
     private ArrayList<ArrayList<String>> cantidadIngredientes = new ArrayList<ArrayList<String>>();
@@ -14,7 +15,7 @@ public class Plato implements Serializable {
     private boolean recomendado;
     private int cantidadCalificaciones;
     private int vecesPedido;
-    private String tipo;
+    private String tipo = "";
     private int pedidosRecomendados;
     private int porciones;
     private int cantidadDePlato;
@@ -30,7 +31,6 @@ public class Plato implements Serializable {
 
     // Constructor
     public Plato() {
-        platos.add(this);
     }
 
 	

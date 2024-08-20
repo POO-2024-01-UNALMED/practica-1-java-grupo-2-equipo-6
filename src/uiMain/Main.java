@@ -5,8 +5,6 @@ Main.java desarrollado por:
 Juan José Arango Marín
 Samuel Colorado Castrillón
 Stiven Saldarriaga Mayorga
-
-
  */
 
 package uiMain;
@@ -30,7 +28,355 @@ import java.util.List;
 import java.util.Objects;
 
 public class Main implements Utilidad {
+
     public static void main(String[] args) {
+//        Ciudad ciudad1 = new Ciudad("Medellín");
+//        ciudad1.getZonasCiudad().add(new Zona(4378, "Robledo", ciudad1));
+//        Restaurante restauranteMuestra = new Restaurante(ciudad1, ciudad1.getZonasCiudad().getFirst(), true, "POO");
+//        ciudad1.getZonasCiudad().get(0).getRestaurantes().add(restauranteMuestra);
+//        ciudad1.getRestaurantes().add(restauranteMuestra);
+//        ArrayList<ArrayList<String>> disposicion = new ArrayList<ArrayList<String>>();
+//
+//        disposicion.add(new ArrayList(Arrays.asList(
+//                new String[]{"╔", "═", "╦", "╗", "║", "╠", "╬", "╣", "╚", "╩", "╝", " "})));
+//        disposicion.add(new ArrayList(Arrays.asList(
+//                new String[]{"B", "B", "B", "B", "B", "B", "B", "B", "B", "B"})));
+//        disposicion.add(new ArrayList(Arrays.asList(
+//                new String[]{"B", " ", "V", " ", "V", " ", "V", " ", "V", "B"})));
+//        disposicion.add(new ArrayList(Arrays.asList(
+//                new String[]{"W", " ", " ", " ", " ", " ", " ", " ", " ", "W"})));
+//        disposicion.add(new ArrayList(Arrays.asList(
+//                new String[]{"B", " ", "T", " ", "T", " ", "T", " ", "T", "B"})));
+//        disposicion.add(new ArrayList(Arrays.asList(
+//                new String[]{"B", " ", " ", " ", " ", " ", " ", " ", " ", "B"})));
+//        disposicion.add(new ArrayList(Arrays.asList(
+//                new String[]{"B", " ", "T", " ", "T", " ", "T", " ", " ", "B"})));
+//        disposicion.add(new ArrayList(Arrays.asList(
+//                new String[]{"B", " ", " ", " ", " ", " ", " ", " ", " ", "B"})));
+//        disposicion.add(new ArrayList(Arrays.asList(
+//                new String[]{"W", " ", "T", " ", "T", " ", "T", " ", " ", "W"})));
+//        disposicion.add(new ArrayList(Arrays.asList(
+//                new String[]{"B", " ", " ", " ", " ", " ", " ", " ", " ", "B"})));
+//        disposicion.add(new ArrayList(Arrays.asList(
+//                new String[]{"B", "B", "B", "B", "B", "B", "B", "E", "B", "B"})));
+//
+//        restauranteMuestra.setDisposicion(disposicion);
+//        restauranteMuestra.setCapacidad(1234);
+//        //mesas
+//        Mesa mesa1 = new Mesa(0, 3, 2, true, 4);
+//        mesa1.setRestaurante(restauranteMuestra);
+//        restauranteMuestra.getCasillas().add(mesa1);
+//        restauranteMuestra.getMesas().add(mesa1);
+//
+//        Mesa mesa2 = new Mesa(0, 5, 2, true, 4);
+//        mesa2.setRestaurante(restauranteMuestra);
+//        restauranteMuestra.getCasillas().add(mesa2);
+//        restauranteMuestra.getMesas().add(mesa2);
+//
+//        Mesa mesa3 = new Mesa(0, 7, 2, true, 4);
+//        mesa3.setRestaurante(restauranteMuestra);
+//        restauranteMuestra.getCasillas().add(mesa3);
+//        restauranteMuestra.getMesas().add(mesa3);
+//
+//        Mesa mesa4 = new Mesa(0, 9, 2, true, 4);
+//        mesa4.setRestaurante(restauranteMuestra);
+//        restauranteMuestra.getCasillas().add(mesa4);
+//        restauranteMuestra.getMesas().add(mesa4);
+//
+//        Mesa mesa5 = new Mesa(0, 3, 4, false, 4);
+//        mesa5.setRestaurante(restauranteMuestra);
+//        restauranteMuestra.getCasillas().add(mesa5);
+//        restauranteMuestra.getMesas().add(mesa5);
+//
+//        Mesa mesa6 = new Mesa(0, 5, 4, false, 4);
+//        mesa6.setRestaurante(restauranteMuestra);
+//        restauranteMuestra.getCasillas().add(mesa6);
+//        restauranteMuestra.getMesas().add(mesa6);
+//
+//        Mesa mesa7 = new Mesa(0, 7, 4, false, 4);
+//        mesa7.setRestaurante(restauranteMuestra);
+//        restauranteMuestra.getCasillas().add(mesa7);
+//        restauranteMuestra.getMesas().add(mesa7);
+//
+//        Mesa mesa8 = new Mesa(0, 9, 4, false, 4);
+//        mesa8.setRestaurante(restauranteMuestra);
+//        restauranteMuestra.getCasillas().add(mesa8);
+//        restauranteMuestra.getMesas().add(mesa8);
+//
+//        Mesa mesa9 = new Mesa(0, 3, 6, false, 4);
+//        mesa9.setRestaurante(restauranteMuestra);
+//        restauranteMuestra.getCasillas().add(mesa9);
+//        restauranteMuestra.getMesas().add(mesa9);
+//
+//        Mesa mesa10 = new Mesa(0, 5, 6, false, 4);
+//        mesa10.setRestaurante(restauranteMuestra);
+//        restauranteMuestra.getCasillas().add(mesa10);
+//        restauranteMuestra.getMesas().add(mesa10);
+//
+//        Mesa mesa11 = new Mesa(0, 7, 6, false, 4);
+//        mesa11.setRestaurante(restauranteMuestra);
+//        restauranteMuestra.getCasillas().add(mesa11);
+//        restauranteMuestra.getMesas().add(mesa11);
+//        Mesa mesa12 = new Mesa(0, 3, 8, false, 4);
+//        mesa12.setRestaurante(restauranteMuestra);
+//        restauranteMuestra.getCasillas().add(mesa12);
+//        restauranteMuestra.getMesas().add(mesa12);
+//
+//        Mesa mesa13 = new Mesa(0, 5, 8, false, 4);
+//        mesa13.setRestaurante(restauranteMuestra);
+//        restauranteMuestra.getCasillas().add(mesa13);
+//        restauranteMuestra.getMesas().add(mesa13);
+//
+//        Mesa mesa14 = new Mesa(0, 7, 8, false, 4);
+//        mesa14.setRestaurante(restauranteMuestra);
+//        restauranteMuestra.getCasillas().add(mesa14);
+//        restauranteMuestra.getMesas().add(mesa14);
+//
+//        //casillas
+//        Casilla casilla1 = new Casilla(1, 1, 3);
+//        restauranteMuestra.getCasillas().add(casilla1);
+//        Casilla casilla2 = new Casilla(1, 1, 8);
+//        restauranteMuestra.getCasillas().add(casilla2);
+//        Casilla casilla3 = new Casilla(1, 10, 3);
+//        restauranteMuestra.getCasillas().add(casilla3);
+//        Casilla casilla4 = new Casilla(1, 10, 8);
+//        restauranteMuestra.getCasillas().add(casilla4);
+//        Casilla casilla5 = new Casilla(2, 8, 10);
+//        restauranteMuestra.getCasillas().add(casilla5);
+//
+//        //clientes
+//        ArrayList<Cliente> clientes1 = new ArrayList<Cliente>();
+//        clientes1.add(new Cliente("Juan", 001, Cliente.Afiliacion.ESTRELLA, "1234567"));
+//        clientes1.getFirst().setMesa(mesa1);
+//        mesa1.setClientes(clientes1);
+//        Cliente.getClientes().add(clientes1.getFirst());
+//        restauranteMuestra.getClientes().addAll(clientes1);
+//
+//        clientes1.add(new Cliente("Pedro", 002, Cliente.Afiliacion.ESTRELLITA, "7654321"));
+//        clientes1.get(1).setMesa(mesa1);
+//        Cliente.getClientes().add(clientes1.get(1));
+//
+//        clientes1.add(new Cliente("María", 003, "9876543"));
+//        clientes1.get(2).setMesa(mesa1);
+//        Cliente.getClientes().add(clientes1.get(2));
+//
+//        Ingrediente tomate = new Ingrediente("Tomate", 300);
+//        Ingrediente harina = new Ingrediente("Harina", 300);
+//        Ingrediente carne = new Ingrediente("Carne", 300);
+//        Ingrediente pan = new Ingrediente("Pan", 300);
+//        Ingrediente chocolate = new Ingrediente("Chocolate", 300);
+//        Ingrediente vainilla = new Ingrediente("Vainilla", 300);
+//        Ingrediente aguaNegra = new Ingrediente("Agua Negra", 300);
+//        Ingrediente mora = new Ingrediente("Mora", 300);
+//
+//        Plato ensalada = new Plato("Ensalada", 19000, 5, "Entrada");
+//        ArrayList<Ingrediente> ingredientesEnsalada = new ArrayList<Ingrediente>();
+//        ingredientesEnsalada.add(tomate);
+//        ensalada.setIngredientes(ingredientesEnsalada);
+//        ensalada.getCantidadIngredientes().add(new ArrayList<String>(Arrays.asList("Tomate", "2")));
+//        ensalada.setCalificacion(3);
+//        restauranteMuestra.getMenu().add(ensalada);
+//
+//        Plato nachos = new Plato("Nachos", 15000, 5, "Entrada");
+//        ArrayList<Ingrediente> ingredientesNachos = new ArrayList<Ingrediente>();
+//        ingredientesNachos.add(harina);
+//        nachos.setIngredientes(ingredientesNachos);
+//        nachos.getCantidadIngredientes().add(new ArrayList<String>(Arrays.asList("Harina", "2")));
+//        nachos.setCalificacion(4.7);
+//        restauranteMuestra.getMenu().add(nachos);
+//
+//        Plato empanadas = new Plato("Empanadas", 10000, 5, "Entrada");
+//        ArrayList<Ingrediente> ingredientesEmpanadas = new ArrayList<Ingrediente>();
+//        ingredientesEmpanadas.add(harina);
+//        empanadas.setIngredientes(ingredientesEmpanadas);
+//        empanadas.getCantidadIngredientes().add(new ArrayList<String>(Arrays.asList("Harina", "2")));
+//        empanadas.setCalificacion(4);
+//        restauranteMuestra.getMenu().add(empanadas);
+//
+//        Plato hamburguesa = new Plato("Hamburguesa", 20000, 5, "Plato fuerte");
+//        ArrayList<Ingrediente> ingredientesHamburguesa = new ArrayList<Ingrediente>();
+//        ingredientesHamburguesa.add(carne);
+//        hamburguesa.setIngredientes(ingredientesHamburguesa);
+//        hamburguesa.getCantidadIngredientes().add(new ArrayList<String>(Arrays.asList("Carne", "2")));
+//        hamburguesa.setCalificacion(4);
+//        restauranteMuestra.getMenu().add(hamburguesa);
+//
+//        Plato pizza = new Plato("Pizza", 25000, 5, "Plato fuerte");
+//        ArrayList<Ingrediente> ingredientesPizza = new ArrayList<Ingrediente>();
+//        ingredientesPizza.add(pan);
+//        pizza.setIngredientes(ingredientesPizza);
+//        pizza.getCantidadIngredientes().add(new ArrayList<String>(Arrays.asList("Pan", "2")));
+//        pizza.setCalificacion(5);
+//        restauranteMuestra.getMenu().add(pizza);
+//
+//        Plato helado = new Plato("Helado", 5000, 5, "Postre");
+//        ArrayList<Ingrediente> ingredientesHelado = new ArrayList<Ingrediente>();
+//        ingredientesHelado.add(chocolate);
+//        helado.setIngredientes(ingredientesHelado);
+//        helado.getCantidadIngredientes().add(new ArrayList<String>(Arrays.asList("Chocolate", "2")));
+//        helado.setCalificacion(5);
+//        restauranteMuestra.getMenu().add(helado);
+//
+//        Plato torta = new Plato("Torta", 10000, 5, "Postre");
+//        ArrayList<Ingrediente> ingredientesTorta = new ArrayList<Ingrediente>();
+//        ingredientesTorta.add(vainilla);
+//        torta.setIngredientes(ingredientesTorta);
+//        torta.getCantidadIngredientes().add(new ArrayList<String>(Arrays.asList("Vainilla", "2")));
+//        torta.setCalificacion(4);
+//        restauranteMuestra.getMenu().add(torta);
+//
+//        Plato cajitaFeliz = new Plato("Cajita Feliz", 15000, 5, "Infantil");
+//        ArrayList<Ingrediente> ingredientesCajitaFeliz = new ArrayList<Ingrediente>();
+//        ingredientesCajitaFeliz.add(pan);
+//        cajitaFeliz.setIngredientes(ingredientesCajitaFeliz);
+//        cajitaFeliz.getCantidadIngredientes().add(new ArrayList<String>(Arrays.asList("Pan", "2")));
+//        cajitaFeliz.setCalificacion(5);
+//        restauranteMuestra.getMenu().add(cajitaFeliz);
+//
+//        Plato cocacola = new Plato("Cocacola", 3000, 5, "Bebida");
+//        ArrayList<Ingrediente> ingredientesCocacola = new ArrayList<Ingrediente>();
+//        ingredientesCocacola.add(aguaNegra);
+//        cocacola.setIngredientes(ingredientesCocacola);
+//        cocacola.getCantidadIngredientes().add(new ArrayList<String>(Arrays.asList("Agua Negra", "2")));
+//        cocacola.setCalificacion(5);
+//        restauranteMuestra.getMenu().add(cocacola);
+//
+//        Plato jugo = new Plato("Jugo", 2000, 5, "Bebida");
+//        ArrayList<Ingrediente> ingredientesJugo = new ArrayList<Ingrediente>();
+//        ingredientesJugo.add(mora);
+//        jugo.setIngredientes(ingredientesJugo);
+//        jugo.getCantidadIngredientes().add(new ArrayList<String>(Arrays.asList("Mora", "2")));
+//        jugo.setCalificacion(4);
+//        restauranteMuestra.getMenu().add(jugo);
+//
+//        Pedido pedido1 = new Pedido(clientes1.getFirst(), restauranteMuestra);
+//        Pedido pedido2 = new Pedido(clientes1.get(1), restauranteMuestra);
+//        Pedido pedido3 = new Pedido(clientes1.get(2), restauranteMuestra);
+//
+//        pedido1.agregarPlato(ensalada);
+//        pedido2.agregarPlato(nachos);
+//        pedido3.agregarPlato(empanadas);
+//
+//
+//        Factura factura1 = new Factura(pedido1);
+//        Factura factura2 = new Factura(pedido2);
+//        Factura factura3 = new Factura(pedido3);
+//
+//        clientes1.get(0).setFactura(factura1);
+//        clientes1.get(1).setFactura(factura2);
+//        clientes1.get(2).setFactura(factura3);
+//
+//        ArrayList<Integer> fechaReserva1 = new ArrayList<Integer>();
+//        fechaReserva1.add(2024);
+//        fechaReserva1.add(7);
+//        fechaReserva1.add(28);
+//        fechaReserva1.add(8);
+//        Reserva reserva1 = new Reserva(clientes1, fechaReserva1);
+//
+//        //Ingredientes Torta Pequeña Cumpleaños
+//        Ingrediente harinaTortaPequena = new Ingrediente("Harina", 5000);
+//        Ingrediente huevosTortaPequena = new Ingrediente("Huevos", 8);
+//        Ingrediente azucarTortaPequena = new Ingrediente("Azúcar", 1000);
+//        Ingrediente lecheTortaPequena = new Ingrediente("Leche", 2);
+//        ArrayList<Ingrediente> ingredientesTortaPequena = new ArrayList<Ingrediente>();
+//        ingredientesTortaPequena.add(harinaTortaPequena);
+//        ingredientesTortaPequena.add(huevosTortaPequena);
+//        ingredientesTortaPequena.add(azucarTortaPequena);
+//        ingredientesTortaPequena.add(lecheTortaPequena);
+//
+//        //Ingredientes Torta Pequeña Cumpleaños
+//        ArrayList<Ingrediente> ingredientesharinaTORTAGRANDE = new ArrayList<Ingrediente>();
+//        ingredientesharinaTORTAGRANDE.add(harinaTortaPequena);
+//        ingredientesharinaTORTAGRANDE.add(huevosTortaPequena);
+//        ingredientesharinaTORTAGRANDE.add(azucarTortaPequena);
+//        ingredientesharinaTORTAGRANDE.add(lecheTortaPequena);
+//        //Plato para cumpleaños Torta grande y pequeña
+//        Plato platoTortaPeq = new Plato("Torta Pequeña", 120000, ingredientesTortaPequena, 7, 4);
+//        Plato platoTortaGra = new Plato("Torta Grande", 300000, ingredientesharinaTORTAGRANDE, 20, 5);
+//        Plato.getPlatosCumple().add(platoTortaGra);
+//        Plato.getPlatosCumple().add(platoTortaPeq);
+//        Evento eventoCumple = new Evento("Cumpleanos Feliz", 210000, Plato.getPlatosCumple());
+//        Evento.getEventos().add(eventoCumple);
+//
+//        //Vinos y Champañas
+//        Plato vinoCatena = new Plato("Vino Catena (Argentino)", 225000, 4, 5);
+//        Plato vinoSymington = new Plato("Vino  Symington (Portugal)", 180000, 4, 4);
+//        Plato vinoGenerico = new Plato("Vino Genérico ", 45000, 4, 10);
+//        Plato champanaRuinart = new Plato("Ruinart Blanc de Blancs", 400000, 5, 5);
+//        Plato champanaBollinger = new Plato("Bollinger Spécial Cuvée Brut", 360000, 5, 6);
+//        Plato champanaGenerica = new Plato("Champaña Genérica", 40000, 5, 10);
+//
+//        Plato.getVinos_champanas_meeting().add(vinoCatena);
+//        Plato.getVinos_champanas_meeting().add(vinoSymington);
+//        Plato.getVinos_champanas_meeting().add(vinoGenerico);
+//        Plato.getVinos_champanas_meeting().add(champanaRuinart);
+//        Plato.getVinos_champanas_meeting().add(champanaBollinger);
+//        Plato.getVinos_champanas_meeting().add(champanaGenerica);
+//
+//        Evento eventoMeeting = new Evento("Meetings Empresarial", 450000, Plato.getVinos_champanas_meeting());
+//        Evento.getEventos().add(eventoMeeting);
+//        Trabajador trabajadorSonmerlier = new Trabajador("Evaristo", 12345, "Sommelier", 1300000);
+//        Trabajador trabajadorItaliano = new Trabajador("Mario Guissepe", 876543, "Italiana", 2300000);
+//        Trabajador trabajadorJapones = new Trabajador("Rika Miyuka", 575288, "Japonesa", 2300000);
+//        Trabajador trabajadorMarroqui = new Trabajador("Hakin Hasan Ibrahim", 8428257, "Marroquí", 2300000);
+//        Trabajador trabajadorFrances = new Trabajador("Emmanuel Macrom", 95175, "Francesa", 2300000);
+//        Trabajador.getCocineros().add(trabajadorSonmerlier);
+//        Trabajador.getCocineros().add(trabajadorItaliano);
+//        Trabajador.getCocineros().add(trabajadorJapones);
+//        Trabajador.getCocineros().add(trabajadorMarroqui);
+//        Trabajador.getCocineros().add(trabajadorFrances);
+//        Plato bagget = new Plato("Bagget", 2000, 100, "Meetings");
+//        Plato queso = new Plato("Queso mediterraneo", 50000, 100, "Meetings");
+//        Plato mochi = new Plato("Mochi", 4300, 100, "Japonesa");
+//        Plato postreNapolitano = new Plato("PostreNapolitano", 4300, 100, "Italiana");
+//        Plato magrud = new Plato("Maqrud", 4300, 100, "Marroquí");
+//        Plato macarons = new Plato("Macarons", 4300, 100, "Francesa");
+//        Plato.getPlatos_varios().add(bagget);
+//        Plato.getPlatos_varios().add(queso);
+//        Plato.getPlatos_varios().add(mochi);
+//        Plato.getPlatos_varios().add(postreNapolitano);
+//        Plato.getPlatos_varios().add(magrud);
+//        Plato.getPlatos_varios().add(macarons);
+//        Plato soppa_minestrone = new Plato("Sopa Minnestrone", 54000, 5, "Italiana");
+//        Plato ensalada_Caprese = new Plato("Ensalada Caprese", 35300, 8, "Italiana");
+//        Plato Carpaccio = new Plato("Carpaccio", 44000, 1, "Italiana");
+//        Plato Vitello_tonnatoe = new Plato("Vitello tonnatoe", 74000, 4, "Italiana");
+//        Plato.getGastronomias_italiana().add(soppa_minestrone);
+//        Plato.getGastronomias_italiana().add(ensalada_Caprese);
+//        Plato.getGastronomias_italiana().add(Carpaccio);
+//        Plato.getGastronomias_italiana().add(Vitello_tonnatoe);
+//        Plato sushi = new Plato("Sushi Yarigato", 54000, 5, "Japonesa");
+//        Plato tempura = new Plato("Tempura Ora Ora", 35300, 8, "Japonesa");
+//        Plato katsudon = new Plato("Katsudon Primaveral", 44000, 3, "Japonesa");
+//        Plato kaisedon = new Plato("Kaisedon Hokkaido", 74000, 4, "Japonesa");
+//        Plato.getGastronomias_japonesa().add(sushi);
+//        Plato.getGastronomias_japonesa().add(tempura);
+//        Plato.getGastronomias_japonesa().add(katsudon);
+//        Plato.getGastronomias_japonesa().add(kaisedon);
+//        Plato tajin = new Plato("Tajín Avepus", 54000, 5, "Marroquí");
+//        Plato cuscus = new Plato("Cuscús Adriático", 35300, 8, "Marroquí");
+//        Plato harira = new Plato("Harira Candente", 44000, 3, "Marroquí");
+//        Plato briouat = new Plato("Briouat Sur", 74000, 4, "Marroquí");
+//        Plato.getGastronomias_marroqui().add(tajin);
+//        Plato.getGastronomias_marroqui().add(cuscus);
+//        Plato.getGastronomias_marroqui().add(harira);
+//        Plato.getGastronomias_marroqui().add(briouat);
+//        Plato ratatouille = new Plato("Ratatouille Avignon", 54000, 5, "Francesa");
+//        Plato escargots = new Plato("Escargots D' Bourgogne", 35300, 8, "Francesa");
+//        Plato fricase = new Plato("Fricasé Le Mans", 44000, 1, "Francesa");
+//        Plato gratin = new Plato("Le gratin dauphinois", 74000, 1, "Francesa");
+//        Plato.getGastronomias_francesa().add(ratatouille);
+//        Plato.getGastronomias_francesa().add(escargots);
+//        Plato.getGastronomias_francesa().add(fricase);
+//        Plato.getGastronomias_francesa().add(gratin);
+//        Plato.getPlatos_gastronomias().add(Plato.getGastronomias_francesa());
+//        Plato.getPlatos_gastronomias().add(Plato.getGastronomias_italiana());
+//        Plato.getPlatos_gastronomias().add(Plato.getGastronomias_marroqui());
+//        Plato.getPlatos_gastronomias().add(Plato.getGastronomias_japonesa());
+//        Plato.getPlatos_gastronomias().add(Plato.getGastronomias_japonesa());
+//
+//        System.out.println(Ciudad.getCiudades().get(0).getZonasCiudad().get(0).getRestaurantes().get(0).getMenu());
+//        System.out.println(Plato.getPlatos());
         Deserializador.deserializarListas();
         menuPrincipal();
     }
@@ -70,7 +416,6 @@ public class Main implements Utilidad {
                 case 4:
                     Utilidad.limpiarPantalla();
                     Restaurante restaurante4 = agregarSede();
-                    restaurante4.actualizarFechasDisponibles();
                     break;
                 case 5:
                     Utilidad.limpiarPantalla();
@@ -237,6 +582,7 @@ public class Main implements Utilidad {
                     } else {
                         System.out.println("Lo sentimos, pero no hay mesas estándar, la mesa tendrá que ser VIP.");
                         tipoMesa = true;
+                        break;
                     }
                 }
                 break;
@@ -561,6 +907,7 @@ public class Main implements Utilidad {
                                 break;
                         }
                         cliente.getFactura().aumentarValor(cargoExtra2);
+                        System.out.println(cliente.getFactura());
                     } while (encendido1);
                 } else {
                     extrasReserva(cliente);
@@ -582,7 +929,6 @@ public class Main implements Utilidad {
         Reserva reserva = restaurante.getHistorialReservas().getLast();
         ArrayList<Cliente> clientes = reserva.getClientes();
         Factura factura = clientes.getFirst().getFactura();
-        factura.setValor(15000);
 
         System.out.println("¿Desea pagar ya mismo su reserva?\n1. Sí.\n2. No.");
         int eleccion1 = Utilidad.readInt();
@@ -592,10 +938,10 @@ public class Main implements Utilidad {
                         "un nuevo socio\n1. Sí.\n2. No.");
                 int eleccion2 = Utilidad.readInt();
                 if (eleccion2 == 1) {
-                    factura.setValor(13500); //Aplicar 10% de descuento al valor de la reserva.
+                    factura.aumentarValor(13500); //Aplicar 10% de descuento al valor de la reserva.
                     pagarReserva(restaurante, reserva, clientes, factura);
                 } else {
-                    factura.setValor(15000);
+                    factura.aumentarValor(15000);
                     pagarReserva(restaurante, reserva, clientes, factura);
                 }
             } else {
@@ -604,6 +950,7 @@ public class Main implements Utilidad {
             }
             clientes.getFirst().getFactura().setPagoPreconsumo(true);
         } else {
+            factura.aumentarValor(15000);
             System.out.println("Al realizar el pago postconsumo se solicitará una propina porcentual obligaotria.");
             System.out.println("¿Teniendo esto en cuenta, desea continuar sin realizar el pago?\n1. Sí.\n" +
                     "2. No.");
@@ -622,6 +969,7 @@ public class Main implements Utilidad {
             escogerMetodoPago(clientes.getFirst());
             boolean encendido1 = true;
             do {
+                factura.calcularValor();
                 System.out.println("¿Desea confirmar la transacción con un valor de: " +
                         factura.getValor() + "?");
                 System.out.println("""
@@ -633,6 +981,7 @@ public class Main implements Utilidad {
                     case 1:
                         System.out.println("Transacción confirmada.");
                         clientes.getFirst().getFactura().setValor(0);
+                        encendido1 = false;
                         break;
                     case 2:
                         encendido1 = false;
@@ -1070,7 +1419,7 @@ public class Main implements Utilidad {
     }
 
     //FUNCIONALIDAD TRES
-    //Este método se encarga de la interacción con el usuario para que este pueda dejar un restaurante.
+    //Este metodo se encarga de la interacción con el usuario para que este pueda dejar un restaurante.
     public static void dejarRestaurante() {
         boolean encendido = true;
         do {
@@ -2034,7 +2383,6 @@ public class Main implements Utilidad {
                 } else { //Si no se encuentra la ciudad
                     System.out.println("Por favor ingrese el nombre de la ciudad.");
                     Ciudad ciudad = new Ciudad(Utilidad.capitalize(Utilidad.readString()));
-                    Ciudad.getCiudades().add(ciudad);
                     System.out.println("Por favor ingrese la cantidad de zonas que tiene la ciudad.");
                     int cantidadZonas = Utilidad.readInt();
                     //Este ciclo for se encarga de la creación de las zonas de la nueva ciudad.
@@ -2332,6 +2680,8 @@ public class Main implements Utilidad {
                 System.out.println("El valor mínimo de ancho y largo es de 5.");
             }
         } while (encendido);
+
+        restaurante.setCapacidad(((coordX-1) * (coordY-1)) * 3);
 
         int modCoordX;
         int modCoordY;
@@ -2669,6 +3019,7 @@ public class Main implements Utilidad {
         for (Plato plato : restaurante.getMenu()) {
             System.out.println("Nombre: " + plato.getNombre() + "\nVeces pedido: " + plato.getVecesPedido());
             System.out.println("Ingredientes:");
+            plato.getCantidadIngredientes();
             for (ArrayList<String> cantidadIngredientes : plato.getCantidadIngredientes()) {
                 System.out.println("Cantidad de " + cantidadIngredientes.getFirst() + " necesitad@: " +
                         cantidadIngredientes.get(1));
@@ -2702,11 +3053,14 @@ public class Main implements Utilidad {
         int indiceExiste = 0;
         Plato platoRetorno = new Plato();
         ArrayList<ArrayList<String>> cantidadIngredientes = new ArrayList<ArrayList<String>>();
-        for (Plato plato : Plato.getPlatos()) {
-            if (plato.getNombre().equals(nombre)) {
-                existe = true;
-                indiceExiste = Plato.getPlatos().indexOf(plato);
-                break;
+        System.out.println(Plato.getPlatos());
+        if (Plato.getPlatos().isEmpty() == true) {
+            for (Plato plato : Plato.getPlatos()) {
+                if (plato.getNombre().equals(nombre)) {
+                    existe = true;
+                    indiceExiste = Plato.getPlatos().indexOf(plato);
+                    break;
+                }
             }
         }
         if (!existe) {
@@ -2796,13 +3150,13 @@ public class Main implements Utilidad {
                                         String.valueOf(cantidadIngrediente))));
                             }
                             for (int i = 0; i < (numIngredientes - numIngExistentes); i++) {
-                                crearIngrediente(cantidadIngredientes, ingredientesPlato);
+                                cantidadIngredientes = crearIngrediente(cantidadIngredientes, ingredientesPlato);
                             }
                             encendido1 = false;
                             break;
                         case 3:
                             for (int i = 0; i < numIngredientes; i++) {
-                                crearIngrediente(cantidadIngredientes, ingredientesPlato);
+                                cantidadIngredientes = crearIngrediente(cantidadIngredientes, ingredientesPlato);
                             }
                             encendido1 = false;
                             break;
@@ -2815,17 +3169,21 @@ public class Main implements Utilidad {
             } else {
                 ArrayList<Ingrediente> ingredientesPlato = new ArrayList<Ingrediente>();
                 for (int i = 0; i < numIngredientes; i++) {
-                    crearIngrediente(cantidadIngredientes, ingredientesPlato);
+                    cantidadIngredientes = crearIngrediente(cantidadIngredientes, ingredientesPlato);
                 }
                 platoRetorno = new Plato(nombre, precio, ingredientesPlato, cantidadIngredientes, 3);
             }
         } else {
             platoRetorno = Plato.getPlatos().get(indiceExiste);
         }
+        System.out.println(cantidadIngredientes);
+        for (ArrayList<String> cantidad : cantidadIngredientes) {
+            platoRetorno.getCantidadIngredientes().add(cantidad);
+        }
         return platoRetorno;
     }
 
-    public static void crearIngrediente(ArrayList<ArrayList<String>> cantidadIngredientes, ArrayList<Ingrediente> ingredientesPlato) {
+    public static ArrayList<ArrayList<String>> crearIngrediente(ArrayList<ArrayList<String>> cantidadIngredientes, ArrayList<Ingrediente> ingredientesPlato) {
         System.out.println("Ingrese el nombre del nuevo ingrediente.");
         String nombreIngrediente = Utilidad.capitalize(Utilidad.readString());
         System.out.println("Ingrese el precio unitario del nuevo ingrediente.");
@@ -2834,7 +3192,6 @@ public class Main implements Utilidad {
             precioIngrediente = 1;
         }
         Ingrediente ingrediente = new Ingrediente(nombreIngrediente, precioIngrediente);
-        Ingrediente.getIngredientes().add(ingrediente);
         ingredientesPlato.add(ingrediente);
         System.out.println("Ingresa la cantidad necesaria de este ingrediente para la " +
                 "preparación del plato");
@@ -2844,6 +3201,7 @@ public class Main implements Utilidad {
         }
         cantidadIngredientes.add(new ArrayList<String>(Arrays.asList(ingrediente.getNombre(),
                 String.valueOf(cantidadIngrediente))));
+        return cantidadIngredientes;
     }
 
     //FUNCIONALIDAD CINCO
@@ -2967,6 +3325,7 @@ public class Main implements Utilidad {
         Reserva reserva = new Reserva();
         reserva.setClientes(clientes);
         reserva.setRestaurante(restaurante);
+
         restaurante.getHistorialReservas().add(reserva);
         restaurante.setClientes(clientes);
 
@@ -2995,7 +3354,7 @@ public class Main implements Utilidad {
         return clientes;
     }
 
-    //Método de la Interacción 1, el cual busca los restaurantes con mayor capacidad para el evento
+    //Metodo de la Interacción 1, el cual busca los restaurantes con mayor capacidad para el evento
 
     public static Restaurante getRestaurante(Ciudad ciudad) {
         Restaurante restauranteMayorCapacidad = null;
@@ -3155,7 +3514,7 @@ public class Main implements Utilidad {
         }
         return escogidos;
     }
-    //Método de la Interacción 2
+    //Metodo de la Interacción 2
     public static Trabajador cocineroElegido(int opcionGastronomias, ArrayList<String> gastronomias_nombres) {
         String gastronomia_escogida = gastronomias_nombres.get(opcionGastronomias - 1);
         for (Trabajador trabajador_elegido : Trabajador.getCocineros()) {
@@ -3166,7 +3525,7 @@ public class Main implements Utilidad {
         return null;
     }
 
-    //Método de la Interacción 2
+    //Metodo de la Interacción 2
     public static void recomendacionPorCantidad(Evento evento, int numeroInvitados) {
         List<Plato> platosEvento = evento.getPlatos();
         Plato platoRecomendado = null;
@@ -3179,7 +3538,7 @@ public class Main implements Utilidad {
                 platoRecomendado = plato;
             }
         }
-        System.out.println(STR."Vemos que son \{numeroInvitados} ,Les recomendamos la torta: \{platoRecomendado.getNombre()}, que tiene porciones para \{platoRecomendado.getPorciones()} personas");
+        System.out.println("Vemos que son " + numeroInvitados + ", Les recomendamos la torta: " + platoRecomendado.getNombre() + ", que tiene porciones para " + platoRecomendado.getPorciones() + " personas");
     }
 
     //Interacción número 2
@@ -3237,7 +3596,7 @@ public class Main implements Utilidad {
                                     }
                                     System.out.println("Perfecto! Danos el nombre del festejado:");
                                     String nombreFestejado = Utilidad.readString();
-                                    String descripcionEvento = STR."Feliz Cumpleaños!!! Te deseamos lo mejor en esta etapa\{nombreFestejado}";
+                                    String descripcionEvento = ("Feliz Cumpleaños!!! Te deseamos lo mejor en esta etapa " + nombreFestejado);
                                     System.out.println("A continuación verá las tortas para la ocasión: ");
                                     listadoPlatosEvento(evento1);
                                     recomendacionPorCantidad(evento1, numeroInvitados); //Planear qué pasaría sí hay un excedente
@@ -3489,7 +3848,7 @@ public class Main implements Utilidad {
         return factura;
     }
 
-    //Método de la Interacción 3
+    //Metodo de la Interacción 3
     public static void listado_precios_factura(Factura factura, ArrayList<Integer> reserva, boolean diaFinDeSemana) {
         ArrayList<Plato> platos = factura.getEvento().getPlatos();
         System.out.println("He aquí su consumo: ");
@@ -3516,7 +3875,7 @@ public class Main implements Utilidad {
     public static void formato_factura_evento(Restaurante restaurante, Factura factura, ArrayList<Integer> reserva, boolean diaFinDeSemana){
         Utilidad.limpiarPantalla();
         Evento eventoFactura = factura.getEvento();
-        System.out.println(STR.".............. \{restaurante.getNombre()} ..............");
+        System.out.println(".............. " + restaurante.getNombre() + " ..............");
         System.out.println("Cliente: " + restaurante.getClientes().getFirst().getNombre());
         System.out.println("Cédula: " + restaurante.getClientes().getFirst().getCedula());
         listado_precios_factura(factura, reserva, diaFinDeSemana);
@@ -3527,7 +3886,7 @@ public class Main implements Utilidad {
             System.out.println(factura.getEvento().getDescripcion());
         }
         if (Objects.equals(eventoFactura.getNombre(), "Gastronomias mundiales")){
-            System.out.println(STR.".............. \{eventoFactura.getDescripcion()} ..............");
+            System.out.println(".............. " + eventoFactura.getDescripcion() +" ..............");
             if (eventoFactura.getTipoEvento() == "Italiana"){
                 System.out.println(".....grazie per aver fiducia nel nostro ristorante....");
             }
@@ -3542,10 +3901,8 @@ public class Main implements Utilidad {
             }
 
         }
-
-
-
     }
+
     //Interacción 3
     public static String datos_horaReserva(Restaurante restaurante, Factura factura) {
 //        ArrayList<Plato> platos = factura.getEvento().getPlatos();

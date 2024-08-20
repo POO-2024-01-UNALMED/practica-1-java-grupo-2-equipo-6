@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Ingrediente implements Serializable {
     //Atributos
+    private static final long serialVersionUID = 1L;
     private String nombre;
     private int precio;
     private static ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>();

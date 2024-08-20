@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Casilla implements Serializable {
+    private static final long serialVersionUID = 1L;
     private static ArrayList<Casilla> casillas = new ArrayList<Casilla>();
     private static ArrayList<String> tipos = new ArrayList<>(Arrays.asList("MESA", "VENTANA", "PUERTA"));
     public String tipo;

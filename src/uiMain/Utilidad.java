@@ -84,7 +84,7 @@ public interface Utilidad {
     //Este metodo se encarga de organizar en orden alfabético el listado de ciudades para luego imprimir un listado
     //numerado desde 1 con el nombre de estas.
     static void listadoCiudades() {
-        System.out.println(Ciudad.getCiudades());
+
         if (!Ciudad.getCiudades().isEmpty()) {
             Ciudad.getCiudades().sort(new Comparator<Ciudad>() {
                 @Override

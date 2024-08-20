@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-import static uiMain.Funcionalidad3.escogerMetodoPago;
 import static uiMain.Main.menuPrincipal;
 
 //Desarrollada por Juan José Arango y Samuel Colorado. Y STIVEN NO.

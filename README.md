@@ -46,7 +46,6 @@ Debajo se muestran los links que dan acceso a los diferentes diagramas realizado
 
 - Juan José Arango Marín.
 - Samuel Colorado Castrillón.
-- Luis Miguel Orozco Hincapié.
 - Stiven Saldarriaga Mayorga.
 
 [//]: # (Links de Referencia)

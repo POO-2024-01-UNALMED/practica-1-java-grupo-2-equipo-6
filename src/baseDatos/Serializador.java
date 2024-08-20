@@ -1,3 +1,10 @@
+/*
+Clase dirigida a la serialización de los diversos objetos creados durante la ejecución del programa.
+
+Desarrollada por:
+Juan José Arango Marín
+ */
+
 package baseDatos;
 
 import gestorAplicacion.Gestion.*;

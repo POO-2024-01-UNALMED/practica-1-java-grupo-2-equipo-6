@@ -1,3 +1,10 @@
+/*
+Clase dirigida a la deserealización de los diversos objetos serializados en la carpeta baseDatos/temp.
+
+Desarrollada por:
+Juan José Arango Marín
+ */
+
 package baseDatos;
 
 import gestorAplicacion.Gestion.*;

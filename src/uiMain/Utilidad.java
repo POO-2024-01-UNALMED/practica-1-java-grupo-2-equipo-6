@@ -1,3 +1,10 @@
+/*
+Interfaz dirigida a la creación de métodos que pueden resultar útiles en cualquiera de las insteracciones.
+
+Desarrollada por:
+Samuel Colorado Castrillón
+ */
+
 package uiMain;
 
 import gestorAplicacion.Entorno.Casilla;
@@ -13,17 +20,9 @@ import java.util.*;
 
 public interface Utilidad {
     Scanner CONSOLA = new Scanner(System.in); //Constante
+
     static String readString() {
         return CONSOLA.nextLine();
-    }
-    static char readChar() {
-        String input = readString();
-        if (input.length() == 1) {
-            return input.charAt(0);
-        } else {
-            System.out.println("Ingrese un solo carácter válido.");
-            return readChar();
-        }
     }
 
     static int readInt() {
@@ -44,15 +43,6 @@ public interface Utilidad {
             System.out.println("Ingrese un número decimal válido. Ej: 2.5, 7.2, 5.1");
             return readFloat();
         }
-    }
-
-    static ArrayList<Integer> readDateTime(int year, int month, int day, int hours){
-        ArrayList<Integer> fecha = new ArrayList<Integer>();
-        fecha.add(year);
-        fecha.add(month);
-        fecha.add(day);
-        fecha.add(hours);
-        return fecha;
     }
 
     static String capitalize(String text) {
@@ -158,22 +148,6 @@ public interface Utilidad {
         }
     }
 
-    //Este metodo se encarga de organizar en orden alfabético el listado de platos para luego imprimir un listado
-    //numerado desde 1 con el nombre de estos.
-    static void listadoPlatos() {
-        if (!Plato.getPlatos().isEmpty()) {
-            Plato.getPlatos().sort(new Comparator<Plato>() {
-                @Override
-                public int compare(Plato o1, Plato o2) {
-                    return o1.getNombre().compareToIgnoreCase(o2.getNombre());
-                }
-            });
-            for (int i = 0; i < Ingrediente.getIngredientes().size(); i++) {
-                System.out.println(String.valueOf(i + 1)+". "+Ingrediente.getIngredientes().get(i).getNombre()+ '.');
-            }
-        }
-    }
-
     //Este metodo se encarga de organizar en orden de calificación el listado de platos para luego imprimir un listado
     //numerado desde 1 hasta 10 (máximo), con el nombre de estos.
     static ArrayList<Plato> listadoPlatosCalificacion() {
@@ -194,22 +168,6 @@ public interface Utilidad {
             }
         }
         return mejoresPlatos;
-    }
-
-    //Este metodo se encarga de organizar en orden alfabético el listado de platos de una restaurante en específico para
-    //luego imprimir un listado de estoss numeradas desde el 1.
-    static void listadoPlatosRestaurante(Restaurante restaurante) {
-        if (!restaurante.getMenu().isEmpty()) {
-            restaurante.getMenu().sort(new Comparator<Plato>() {
-                @Override
-                public int compare(Plato o1, Plato o2) {
-                    return o1.getNombre().compareToIgnoreCase(o2.getNombre());
-                }
-            });
-            for (int i = 0; i < restaurante.getMenu().size(); i++) {
-                System.out.println((i + 1) + ". " + restaurante.getMenu().get(i).getNombre() + '.');
-            }
-        }
     }
 
     //Este metodo se encarga de organizar en orden alfabético el listado de ingredientes para luego imprimir un listado

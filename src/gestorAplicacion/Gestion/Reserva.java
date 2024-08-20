@@ -8,19 +8,29 @@ import java.util.ArrayList;
 public class Reserva implements Serializable {
     //Atributos
     private ArrayList<Cliente> clientes;
-    //Preguntarle a Colo por esta vaina del Date
+    private static ArrayList<Reserva> reservas = new ArrayList<Reserva>();
     private ArrayList<Integer> fecha; //[2024, 8, 23, 16]
     private Restaurante restaurante;
     private boolean satisfaccion = false;
+    private int codigoReserva;
+    public static int contadorReservas;
 
     //Constructores
-    public Reserva(){}
+    public Reserva(){
+        this.codigoReserva = contadorReservas;
+        contadorReservas++;
+    }
     public Reserva(ArrayList<Cliente> clientes, ArrayList<Integer> fecha){
         this.fecha = fecha;
         this.clientes = clientes;
+        this.codigoReserva = contadorReservas;
+        contadorReservas++;
     }
 
     //Metodos
+    public int getCodigoReserva() {
+        return codigoReserva;
+    }
     public ArrayList<Integer> getFecha(){
         return fecha;
     }
@@ -37,6 +47,8 @@ public class Reserva implements Serializable {
     public void setRestaurante(Restaurante restaurante) {this.restaurante = restaurante;}
     public boolean isSatisfaccion() {return satisfaccion;}
     public void setSatisfaccion(boolean satisfaccion) {this.satisfaccion = satisfaccion;}
+    public static ArrayList<Reserva> getReservas() {return reservas;}
+    public static void setReservas(ArrayList<Reserva> reservas) {Reserva.reservas = reservas;}
 
     @Override
     public String toString() {

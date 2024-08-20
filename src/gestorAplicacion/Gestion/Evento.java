@@ -1,9 +1,10 @@
 package gestorAplicacion.Gestion;
 import gestorAplicacion.Usuario.Cliente;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-public class Evento {
+public class Evento implements Serializable {
     private static ArrayList<Evento> eventos = new ArrayList<Evento>();
     private String nombre;
     private String descripcion;
@@ -16,26 +17,29 @@ public class Evento {
 
     public Evento(String nombre){
         this.nombre = nombre;
+        eventos.add(this);
     }
     public Evento(String nombreEvento, int coste, ArrayList<Plato> platos){
         this.coste = coste;
         this.nombre = nombreEvento;
         this.platos = platos;
-
+        eventos.add(this);
     }
     public Evento(String nombreEvento, int coste, ArrayList<Plato> platos, String tipoEvento){
         this(nombreEvento,coste, platos);
         this.tipoEvento = tipoEvento;
+        eventos.add(this);
     }
 
     Evento(Cliente clienteEvento, Date fecha){
         this.clienteEvento = clienteEvento;
         this.fecha = fecha;
+        eventos.add(this);
     }
     //UN metodo para mostrar los platos
 
     public Evento() {
-
+        eventos.add(this);
     }
 
     // Evento.getEventos().add(new Evento())

@@ -11,30 +11,27 @@ public class Casilla implements Serializable {
     private int coordX;
     private int coordY;
 
-    public Casilla(){}
+    public Casilla(){
+        casillas.add(this);
+    }
     public Casilla(int tipo, int coordX, int coordY) {
         this.tipo = tipos.get(tipo);
         this.coordX = coordX;
         this.coordY = coordY;
+        casillas.add(this);
     }
     public int getCoordX() {
         return coordX;
     }
-    public void setCoordX(int coordX) {
-        this.coordX = coordX;
-    }
+
     public int getCoordY() {
         return coordY;
     }
-    public void setCoordY(int coordY) {
-        this.coordY = coordY;
-    }
+
     public String getTipo() {
         return tipo;
     }
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
+
 
     @Override
     public String toString() {
@@ -44,5 +41,9 @@ public class Casilla implements Serializable {
         sb.append(", coordY=").append(coordY);
         sb.append('}');
         return sb.toString();
+    }
+
+    public static ArrayList<Casilla> getCasillas() {
+        return casillas;
     }
 }

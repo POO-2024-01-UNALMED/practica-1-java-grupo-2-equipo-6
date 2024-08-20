@@ -19,25 +19,38 @@ public class Cliente extends Persona implements Serializable {
     private String placaVehiculo;
     private Reserva reserva;
 
+    public enum Afiliacion {NINGUNA, ESTRELLITA, ESTRELLA, SUPERESTRELLOTA} //Caso #1 Enum
+
     // Constructores
-    public Cliente(){};
+    public Cliente(){
+        Cliente.getClientes().add(this);
+    };
+    public Cliente(int cedula) {
+        this.cedula = cedula;
+        this.afiliacion = Afiliacion.NINGUNA;
+        this.placaVehiculo = "Ninguna";
+        Cliente.getClientes().add(this);
+    }
     public Cliente (String nombre, int cedula){
         this.nombre = nombre;
         this.cedula = cedula;
         this.afiliacion = Afiliacion.NINGUNA;
         this.placaVehiculo = "Ninguna";
+        Cliente.getClientes().add(this);
     }
     public Cliente (String nombre, int cedula, Enum afiliacion, String placaVehiculo){
         this.nombre = nombre;
         this.cedula = cedula;
         this.afiliacion = afiliacion;
         this.placaVehiculo = placaVehiculo;
+        Cliente.getClientes().add(this);
     }
     public Cliente (String nombre, int cedula, String placaVehiculo){
         this.nombre = nombre;
         this.cedula = cedula;
         this.afiliacion = Afiliacion.NINGUNA;
         this.placaVehiculo = placaVehiculo;
+        Cliente.getClientes().add(this);
     }
     public Cliente (String nombre, int cedula, String placaVehiculo, Factura factura){
         this(nombre, cedula, placaVehiculo); //Caso #2 this()
@@ -112,12 +125,6 @@ public class Cliente extends Persona implements Serializable {
     public int getPuntosAcumulados(){
         return puntosAcumulados;
     }
-    public void setPlatosFavoritos(ArrayList<Plato> platosFavoritos){
-        this.platosFavoritos = platosFavoritos;
-    }
-    public ArrayList<Plato> getPlatosFavoritos(){
-        return platosFavoritos;
-    }
     public void setPlacaVehiculo(String placaVehiculo){
         this.placaVehiculo = placaVehiculo;
     }
@@ -130,10 +137,11 @@ public class Cliente extends Persona implements Serializable {
     public void setReserva(Reserva reserva) {
         this.reserva = reserva;
     }
-
-
     public void agregarPlatoFavorito(Plato plato){
         platosFavoritos.add(plato);
+    }
+    public ArrayList<Plato> getPlatosFavoritos(){
+        return platosFavoritos;
     }
 
     public void resetDatosReserva() {
@@ -151,9 +159,6 @@ public class Cliente extends Persona implements Serializable {
         return sb.toString();
     }
 
-    //Enum
-    public enum Afiliacion {NINGUNA, ESTRELLITA, ESTRELLA, SUPERESTRELLOTA}
-
     public boolean esAfiliado() {
         if (this.getAfiliacion() != Afiliacion.NINGUNA) {
             return true;
@@ -162,22 +167,4 @@ public class Cliente extends Persona implements Serializable {
         }
     }
 
-    	
-	public Pedido mostrarPedido() {
-		
-		if (pedido.getPlatos().isEmpty()) {
-			System.out.print("Todavia no  hay platos agregados");
-		}
-
-		return pedido;
-		
-		
-	}
-
-	public void agregarPedido(Pedido pedidoAgregar){
-		
-		pedido.agregarPlato(pedidoAgregar.getPlatos());
-		
-
-	}
 }

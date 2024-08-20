@@ -1,55 +1,55 @@
 package gestorAplicacion.Gestion;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Cargamento {
+public class Cargamento implements Serializable {
 	//Atributos
+	private static ArrayList<Cargamento> cargamentos = new ArrayList<Cargamento>();
 	public static final ArrayList<String> UTILIDADES = new ArrayList<String>(Arrays.asList("Rosa", "Vela", "Globo Negro",
 			"Globo Blanco", "Globo Dorado", "Globo Rosado", "Globo Azul", "Birrete", "Angel Varon", "Angel Femenino"));
 	private ArrayList<Integer> proximaEntrega;
-	private ArrayList<ArrayList<String>> ingredientes;
-	private ArrayList<Integer> utilidades;
+	private ArrayList<ArrayList<String>> ingredientes = new ArrayList<ArrayList<String>>();
+	private ArrayList<Integer> utilidades = new ArrayList<Integer>();
 	private int frecuencia;
 	private Restaurante restaurante;
 
 	//Constructor
-	public Cargamento() {}
+	public Cargamento() {
+		cargamentos.add(this);
+	}
 	public Cargamento(ArrayList<Integer> proximaEntrega, ArrayList<ArrayList<String>> ingredientes, int frecuencia) {
 		this.ingredientes = ingredientes;
 		this.frecuencia = frecuencia;
+		cargamentos.add(this);
 	}
 
 	//Metodos
-	public ArrayList<Integer> getProximaEntrega() {
-		return proximaEntrega;
-	}
+
 	public void setProximaEntrega(ArrayList<Integer> proximaEntrega) {
 		this.proximaEntrega = proximaEntrega;
 	}
-	public int getFrecuencia() {
-		return frecuencia;
-	}
+
 	public void setFrecuencia(int frecuencia) {
 		this.frecuencia = frecuencia;
 	}
 	public ArrayList<ArrayList<String>> getIngredientes() {
 		return ingredientes;
 	}
-	public void setIngredientes(ArrayList<ArrayList<String>> ingredientes) {
-		this.ingredientes = ingredientes;
-	}
+
 	public ArrayList<Integer> getUtilidades() {
 		return utilidades;
 	}
-	public void setUtilidades(ArrayList<Integer> utilidades) {
-		this.utilidades = utilidades;
-	}
+
 	public Restaurante getRestaurante() {
 		return restaurante;
 	}
 	public void setRestaurante(Restaurante restaurante) {
 		this.restaurante = restaurante;
+	}
+	public static ArrayList<Cargamento> getCargamentos() {
+		return cargamentos;
 	}
 
 	public void aumentarCantidadIngrediente(ArrayList<String> cantidadNueva) {
@@ -72,19 +72,4 @@ public class Cargamento {
 			this.ingredientes.add(cantidadNueva);
 		}
 	}
-
-	//	public static HashMap<Ingrediente, Double> ingredientes = new HashMap<>();
-//
-//    public static void agregarPedido(Ingrediente ingrediente, double d) {
-//
-//    	if (ingredientes.containsKey(ingrediente)){
-//    		System.out.print("Ya se ha realizado con pedido");
-//    		}
-//
-//    	else {
-//    		ingredientes.put(ingrediente, (double) d);
-//    	}
-//
-//    }
-
 }

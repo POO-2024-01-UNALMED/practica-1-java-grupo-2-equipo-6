@@ -4,6 +4,7 @@ import gestorAplicacion.Entorno.Ciudad;
 import gestorAplicacion.Entorno.Zona;
 import gestorAplicacion.Gestion.Factura;
 import gestorAplicacion.Entorno.Mesa;
+import gestorAplicacion.Gestion.Pedido;
 import gestorAplicacion.Gestion.Reserva;
 import gestorAplicacion.Gestion.Restaurante;
 import gestorAplicacion.Usuario.Cliente;
@@ -188,6 +189,12 @@ public class Funcionalidad1 implements Utilidad{
             case 1, 2:
                 mesasElegidas = Utilidad.calcularDistancia(restaurante, eleccion2, tipoMesa);
                 break;
+            case 3:
+                for (Mesa mesa : restaurante.getMesas()) {
+                    mesa.setDistanciaPuerta(0);
+                    mesa.setDistanciaVentana(0);
+                }
+                break;
             default:
                 System.out.println("Debido a que ingresó un dato erróneo se asume que no tiene ninguna preferencia.");
                 break;
@@ -264,10 +271,13 @@ public class Funcionalidad1 implements Utilidad{
                             fechaElegida.add(mesaElegida.getFechasDisponibles().get(indiceFechaElegida).get(horaElegida
                                     + 2));
                             Reserva reserva = new Reserva(clientes, fechaElegida);
+                            reserva.setRestaurante(restaurante);
                             mesaElegida.getFechasDisponibles().get(indiceFechaElegida).remove(horaElegida + 2);
                             restaurante.getHistorialReservas().add(reserva);
                             for (Cliente cliente1 : clientes) {
                                 cliente1.setReserva(reserva);
+                                cliente1.setMesa(mesaElegida);
+                                cliente1.setFactura(new Factura(new Pedido()));
                             }
                             System.out.println("Mesa Elegida" + mesaElegida.getFechasDisponibles());
                             System.out.println(restaurante.getHistorialReservas());
@@ -443,7 +453,7 @@ public class Funcionalidad1 implements Utilidad{
                             case 1:
                                 restaurante.restarDeBodega(Utilidad.indiceBodegaItems("rosa", restaurante), 1);
                                 restaurante.restarDeBodega(Utilidad.indiceBodegaItems("vela", restaurante), 3);
-                                restaurante.restarDeBodega(Utilidad.ingredienteBodegaIngredientes("vino blanco", restaurante), 1);
+                                restaurante.restarDeBodegaIngrediente(Utilidad.indiceBodegaIngredientes("vino blanco", restaurante), 1);
                                 cargoExtra2 = 30000;
                                 break;
                             case 2:
@@ -575,6 +585,7 @@ public class Funcionalidad1 implements Utilidad{
         if (eleccion1 == 1) {
             confirmada = true;
             System.out.println("Reserva confirmada.");
+            System.out.println("Su código de reserva es: " + reserva.getCodigoReserva());
         } else {
             confirmada = false;
             System.out.println("Reserva cancelada.");

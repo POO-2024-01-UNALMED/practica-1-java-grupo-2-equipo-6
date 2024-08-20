@@ -5,6 +5,7 @@ import gestorAplicacion.Entorno.Ciudad;
 import gestorAplicacion.Entorno.Zona;
 import gestorAplicacion.Gestion.*;
 import gestorAplicacion.Entorno.Mesa;
+import jdk.jshell.execution.Util;
 
 import static uiMain.Main.*;
 
@@ -56,6 +57,9 @@ public class Funcionalidad4 implements Utilidad {
         boolean encendido1 = true;
         do {
             //Se muestran las ciudades de las que se tienen datos
+            for (Zona zona : Zona.getZonas()) {
+                System.out.println(zona.getNombre());
+            }
             System.out.println("Ciudades:");
             Utilidad.listadoCiudades();
             System.out.println("Escriba un número para elegir la ciudad.\nEn caso de no encontrar la ciudad " +
@@ -70,7 +74,6 @@ public class Funcionalidad4 implements Utilidad {
                     if (ciudad.getRestaurantes().isEmpty()) { //Si la ciudad no tiene restaurantes
                         parametrosBasicos(ciudad, restaurante);
                     } else { //Si la ciudad tiene restaurantes
-
                         //Análisis de reservas
                         ArrayList<Reserva> reservasUltimosTreinta = new ArrayList<Reserva>();
                         ArrayList<ArrayList<Integer>> intentosUltimosTreinta = new ArrayList<ArrayList<Integer>>();
@@ -98,13 +101,15 @@ public class Funcionalidad4 implements Utilidad {
                                         reservasRestaurante.add(reserva);
                                     }
                                 }
-                                for (ArrayList<Integer> intento : restauranteZona.getIntentosReserva()) {
-                                    totalIntentos++;
-                                    LocalDate fechaToDate = LocalDate.of(intento.get(0), intento.get(1), intento.get(2));
-                                    if (fechaToDate.isAfter(LocalDate.now().minusDays(30)) &&
-                                            fechaToDate.isBefore(LocalDate.now())) {
-                                        intentosRestaurante.add(intento);
-                                    }
+                                if (restauranteZona.getIntentosReserva() != null) {
+                                    for (ArrayList<Integer> intento : restauranteZona.getIntentosReserva()) {
+                                                                        totalIntentos++;
+                                                                        LocalDate fechaToDate = LocalDate.of(intento.get(0), intento.get(1), intento.get(2));
+                                                                        if (fechaToDate.isAfter(LocalDate.now().minusDays(30)) &&
+                                                                                fechaToDate.isBefore(LocalDate.now())) {
+                                                                            intentosRestaurante.add(intento);
+                                                                        }
+                                                                    }
                                 }
 
                                 for (Mesa mesa : restauranteZona.getMesas()) {
@@ -120,56 +125,60 @@ public class Funcionalidad4 implements Utilidad {
                         int horasFuncionamiento = reservasUltimosTreinta.size();
                         int totalMesas = mesasRestaurantes.size();
 
-                        double demandaPorHora = (intentosReserva / horasFuncionamiento) / totalMesas;
+                        if (totalMesas != 0 && horasFuncionamiento != 0) {
+                            double demandaPorHora = (intentosReserva / horasFuncionamiento) / totalMesas;
 
-                        //Satisfacción del Cliente
-                        double satisfaccionDelCliente = (reservasSatisfactorias / totalMesas) * 100;
+                            //Satisfacción del Cliente
+                            double satisfaccionDelCliente = (reservasSatisfactorias / totalMesas) * 100;
 
-                        //Conclusión Análisis
-                        double conclusion = (demandaPorHora + satisfaccionDelCliente) / 2;
+                            //Conclusión Análisis
+                            double conclusion = (demandaPorHora + satisfaccionDelCliente) / 2;
 
-                        if (conclusion < 0.5) {
-                            System.out.println("Según el algoritmo de análisis hecho, no es recomendable crear un " +
-                                    "nuevo restaurante en " + ciudad.getNombre() + ".\nEsto se debe a que los " +
-                                    "restaurantes de la ciudad tienen un flujo bajo de clientes y no están " +
-                                    "cumpliendo con las expectativas de la gran mayoría de sus usuarios." +
-                                    "\nTeniendo esto en cuenta, ¿Desea crear una nueva sede?\n1. Sí.\n2. No.");
-                            boolean encendido2 = true;
-                            do {
-                                int eleccion2 = Utilidad.readInt();
-                                switch (eleccion2) {
-                                    case 1:
-                                        parametrosBasicos(ciudad, restaurante);
-                                        encendido2 = false;
-                                        break;
-                                    case 2:
-                                        encendido2 = false;
-                                        break;
-                                    default:
-                                        System.out.println("Ingrese un valor válido [1 - 2].");
-                                }
-                            } while (encendido2);
-                        } else if (conclusion >= 0.5 && conclusion <= 0.7) {
-                            System.out.println("Según el algoritmo de análisis hecho, es medianamente recomendable " +
-                                    "crear un nuevo restaurante en " + ciudad.getNombre() + ".\nEsto se debe a que " +
-                                    "los restaurantes tienen un flujo medio de clientes y están cumpliendo con las " +
-                                    "expectativas la mayoría de los usuarios.\nTeniendo esto en cuenta, ¿Desea " +
-                                    "crear una nueva sede?\n1. Sí.\n2. No.");
-                            boolean encendido3 = true;
-                            do {
-                                int eleccion2 = Utilidad.readInt();
-                                switch (eleccion2) {
-                                    case 1:
-                                        parametrosBasicos(ciudad, restaurante);
-                                        encendido3 = false;
-                                        break;
-                                    case 2:
-                                        encendido3 = false;
-                                        break;
-                                    default:
-                                        System.out.println("Ingrese un valor válido [1 - 2].");
-                                }
-                            } while (encendido3);
+                            if (conclusion < 0.5) {
+                                System.out.println("Según el algoritmo de análisis hecho, no es recomendable crear un " +
+                                        "nuevo restaurante en " + ciudad.getNombre() + ".\nEsto se debe a que los " +
+                                        "restaurantes de la ciudad tienen un flujo bajo de clientes y no están " +
+                                        "cumpliendo con las expectativas de la gran mayoría de sus usuarios." +
+                                        "\nTeniendo esto en cuenta, ¿Desea crear una nueva sede?\n1. Sí.\n2. No.");
+                                boolean encendido2 = true;
+                                do {
+                                    int eleccion2 = Utilidad.readInt();
+                                    switch (eleccion2) {
+                                        case 1:
+                                            parametrosBasicos(ciudad, restaurante);
+                                            encendido2 = false;
+                                            break;
+                                        case 2:
+                                            encendido2 = false;
+                                            break;
+                                        default:
+                                            System.out.println("Ingrese un valor válido [1 - 2].");
+                                    }
+                                } while (encendido2);
+                            } else if (conclusion >= 0.5 && conclusion <= 0.7) {
+                                System.out.println("Según el algoritmo de análisis hecho, es medianamente recomendable " +
+                                        "crear un nuevo restaurante en " + ciudad.getNombre() + ".\nEsto se debe a que " +
+                                        "los restaurantes tienen un flujo medio de clientes y están cumpliendo con las " +
+                                        "expectativas la mayoría de los usuarios.\nTeniendo esto en cuenta, ¿Desea " +
+                                        "crear una nueva sede?\n1. Sí.\n2. No.");
+                                boolean encendido3 = true;
+                                do {
+                                    int eleccion2 = Utilidad.readInt();
+                                    switch (eleccion2) {
+                                        case 1:
+                                            parametrosBasicos(ciudad, restaurante);
+                                            encendido3 = false;
+                                            break;
+                                        case 2:
+                                            encendido3 = false;
+                                            break;
+                                        default:
+                                            System.out.println("Ingrese un valor válido [1 - 2].");
+                                    }
+                                } while (encendido3);
+                            } else {
+                                parametrosBasicos(ciudad, restaurante);
+                            }
                         } else {
                             parametrosBasicos(ciudad, restaurante);
                         }
@@ -235,6 +244,7 @@ public class Funcionalidad4 implements Utilidad {
 
     //Este metodo se encarga de definir los parámetros básicos del restaurante: Ciudad, Zona, Zona VIP y Calificación
     public static void parametrosBasicos(Ciudad ciudad, Restaurante restaurante) {
+        System.out.println(ciudad.getZonasCiudad());
         System.out.println("Zonas de " + ciudad.getNombre() + ":");
         Utilidad.listadoZonasCiudad(ciudad);
         System.out.println("Escriba un número para elegir la zona.\nEn caso de no encontrar la zona " +
@@ -258,6 +268,9 @@ public class Funcionalidad4 implements Utilidad {
                     //Se enlaza el restaurante a la ciudad
                     ciudad.getRestaurantes().add(restaurante);
                     //Se establecen los parámetros básicos del restaurante
+                    System.out.println("Ingrese el nombre del restaurante:");
+                    String nombre = Utilidad.capitalize(Utilidad.readString());
+                    restaurante.setNombre(nombre);
                     System.out.println("¿El restaurante tendrá zona VIP?\n1. Sí.\n2. No.\nEscriba un número para elegir.");
                     int tieneVIP = Utilidad.readInt();
                     if (tieneVIP == 1) {
@@ -269,8 +282,108 @@ public class Funcionalidad4 implements Utilidad {
                     restaurante.setCalificacion((int) (Math.random() * 5) + 1);
                 } else { //Si la zona elegida tiene restaurantes
                     //Análisis de reservas
+                    ArrayList<Reserva> reservasUltimosTreinta = new ArrayList<Reserva>();
+                    ArrayList<ArrayList<Integer>> intentosUltimosTreinta = new ArrayList<ArrayList<Integer>>();
+                    ArrayList<Mesa> mesasRestaurantes = new ArrayList<Mesa>();
+
+                    int reservasSatisfactorias = 0;
+                    int totalIntentos = 0;
+
+                    //Agregamos los datos que corresponden a los últimos 30 días de funcionamiento de los
+                    // restaurantes de la ciudad correspondiente.
+                    for (Restaurante restauranteZona : zonaElegida.getRestaurantes()) {
+                        ArrayList<Reserva> reservasRestaurante = new ArrayList<Reserva>();
+                        ArrayList<ArrayList<Integer>> intentosRestaurante = new ArrayList<ArrayList<Integer>>();
+                        for (Reserva reserva : restauranteZona.getHistorialReservas()) {
+                            if (reserva.isSatisfaccion()) {
+                                reservasSatisfactorias++;
+                            }
+                            LocalDateTime fechaToDateTime = LocalDateTime.of(reserva.getFecha().get(0),
+                                    reserva.getFecha().get(1), reserva.getFecha().get(2),
+                                    reserva.getFecha().get(3), 0);
+                            if (fechaToDateTime.isAfter(LocalDateTime.now().minusDays(30)) &&
+                                    fechaToDateTime.isBefore(LocalDateTime.now()) &&
+                                    reservasRestaurante.contains(fechaToDateTime) == false) {
+                                reservasRestaurante.add(reserva);
+                            }
+                        }
+                        if (restauranteZona.getIntentosReserva() != null) {
+                            for (ArrayList<Integer> intento : restauranteZona.getIntentosReserva()) {
+                                totalIntentos++;
+                                LocalDate fechaToDate = LocalDate.of(intento.get(0), intento.get(1), intento.get(2));
+                                if (fechaToDate.isAfter(LocalDate.now().minusDays(30)) &&
+                                        fechaToDate.isBefore(LocalDate.now())) {
+                                    intentosRestaurante.add(intento);
+                                }
+                            }
+                        }
+
+                        for (Mesa mesa : restauranteZona.getMesas()) {
+                            mesasRestaurantes.add(mesa);
+                        }
+                        reservasUltimosTreinta.addAll(reservasRestaurante);
+                        intentosUltimosTreinta.addAll(intentosRestaurante);
+                    }
 
 
+                    //Demanda por Hora
+                    int intentosReserva = intentosUltimosTreinta.size();
+                    int horasFuncionamiento = reservasUltimosTreinta.size();
+                    int totalMesas = mesasRestaurantes.size();
+
+                    if (totalMesas != 0 && horasFuncionamiento != 0) {
+                        double demandaPorHora = (intentosReserva / horasFuncionamiento) / totalMesas;
+
+                        //Satisfacción del Cliente
+                        double satisfaccionDelCliente = (reservasSatisfactorias / totalMesas) * 100;
+
+                        //Conclusión Análisis
+                        double conclusion = (demandaPorHora + satisfaccionDelCliente) / 2;
+
+                        if (conclusion < 0.5) {
+                            System.out.println("Según el algoritmo de análisis hecho, no es recomendable crear un " +
+                                    "nuevo restaurante en " + ciudad.getNombre() + ".\nEsto se debe a que los " +
+                                    "restaurantes de la ciudad tienen un flujo bajo de clientes y no están " +
+                                    "cumpliendo con las expectativas de la gran mayoría de sus usuarios." +
+                                    "\nTeniendo esto en cuenta, ¿Desea crear una nueva sede?\n1. Sí.\n2. No.");
+                            boolean encendido2 = true;
+                            do {
+                                int eleccion2 = Utilidad.readInt();
+                                switch (eleccion2) {
+                                    case 1:
+                                        encendido2 = false;
+                                        break;
+                                    case 2:
+                                        agregarSede();
+                                        encendido2 = false;
+                                        break;
+                                    default:
+                                        System.out.println("Ingrese un valor válido [1 - 2].");
+                                }
+                            } while (encendido2);
+                        } else if (conclusion >= 0.5 && conclusion <= 0.7) {
+                            System.out.println("Según el algoritmo de análisis hecho, es medianamente recomendable " +
+                                    "crear un nuevo restaurante en " + ciudad.getNombre() + ".\nEsto se debe a que " +
+                                    "los restaurantes tienen un flujo medio de clientes y están cumpliendo con las " +
+                                    "expectativas la mayoría de los usuarios.\nTeniendo esto en cuenta, ¿Desea " +
+                                    "crear una nueva sede?\n1. Sí.\n2. No.");
+                            boolean encendido3 = true;
+                            do {
+                                int eleccion2 = Utilidad.readInt();
+                                switch (eleccion2) {
+                                    case 1:
+                                        encendido3 = false;
+                                        break;
+                                    case 2:
+                                        agregarSede();
+                                        encendido3 = false;
+                                        break;
+                                    default:
+                                        System.out.println("Ingrese un valor válido [1 - 2].");
+                                }
+                            } while (encendido3);
+                        }
+                    }
 
                     //Se enlaza la ciudad al restaurante
                     restaurante.setCiudad(ciudad);
@@ -678,6 +791,7 @@ public class Funcionalidad4 implements Utilidad {
                         }
                     } while (encendido1);
                     restaurante.setMenu(menuTransitorio);
+                    break;
                 default:
                     System.out.println("Ingrese un valor válido [1 - 2].");
                     establecerMenuYEncargos(restaurante);
@@ -685,7 +799,7 @@ public class Funcionalidad4 implements Utilidad {
             }
             
             //Establecer Encargos
-            cargamentoUtilidades(restaurante);
+            cargamento(restaurante);
         } else {
             //Establecer Menú
             ArrayList<Plato> menuRestaurante = new ArrayList<Plato>();
@@ -697,11 +811,11 @@ public class Funcionalidad4 implements Utilidad {
             restaurante.setMenu(menuRestaurante);
 
             //Establecer Encargos
-            cargamentoUtilidades(restaurante);
+            cargamento(restaurante);
         }
     }
 
-    private static void cargamentoUtilidades(Restaurante restaurante) {
+    private static void cargamento(Restaurante restaurante) {
         Cargamento cargamento = new Cargamento();
 
         System.out.println("Selección cantidad de ingredientes a encargar");
@@ -730,12 +844,11 @@ public class Funcionalidad4 implements Utilidad {
         cargamento.setFrecuencia(frecuencia);
         cargamento.setProximaEntrega(new ArrayList<Integer>(Arrays.asList(fechaActual.getYear(),
                 fechaActual.getMonthValue(), fechaActual.getDayOfMonth())));
-
         restaurante.setCargamento(cargamento);
         cargamento.setRestaurante(restaurante);
     }
 
-    private static Plato crearPlato() {
+    public static Plato crearPlato() {
         System.out.println("Ingrese el nombre del plato:");
         String nombre = Utilidad.capitalize(Utilidad.readString());
         boolean existe = false;
@@ -750,6 +863,29 @@ public class Funcionalidad4 implements Utilidad {
             }
         }
         if (!existe) {
+            System.out.println("Ingrese el tipo del plato:\n1. Entradas.\n2. Platos Fuertes.\n3. Bebidas.\n4. " +
+                    "Postres.\n5. Menú Infantil.\n6. Todos.");
+            int eleccionTipo = Utilidad.readInt();
+            switch (eleccionTipo) {
+                case 1:
+                    platoRetorno.setTipo("Entrada");
+                    break;
+                case 2:
+                    platoRetorno.setTipo("Plato Fuerte");
+                    break;
+                case 3:
+                    platoRetorno.setTipo("Bebida");
+                    break;
+                case 4:
+                    platoRetorno.setTipo("Postre");
+                    break;
+                case 5:
+                    platoRetorno.setTipo("Menú Infantil");
+                    break;
+                default:
+                    platoRetorno.setTipo("Todos");
+                    break;
+            }
             System.out.println("Ingrese el precio del plato, sin decimales.");
             int precio = Utilidad.readInt();
             System.out.println("Ingrese la cantidad de ingredientes que tiene el plato.");
@@ -842,7 +978,7 @@ public class Funcionalidad4 implements Utilidad {
         return platoRetorno;
     }
 
-    private static void crearIngrediente(ArrayList<ArrayList<String>> cantidadIngredientes, ArrayList<Ingrediente> ingredientesPlato) {
+    public static void crearIngrediente(ArrayList<ArrayList<String>> cantidadIngredientes, ArrayList<Ingrediente> ingredientesPlato) {
         System.out.println("Ingrese el nombre del nuevo ingrediente.");
         String nombreIngrediente = Utilidad.capitalize(Utilidad.readString());
         System.out.println("Ingrese el precio unitario del nuevo ingrediente.");

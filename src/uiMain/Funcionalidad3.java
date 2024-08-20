@@ -118,6 +118,7 @@ public class Funcionalidad3 implements Utilidad {
                                     boolean transaccionConfirmada = false;
                                     do {
                                         System.out.println("Descuento por afiliación: " + (valorPorPersona - valorFinalPorPersona));
+
                                         System.out.println("¿Desea confirmar la transacción con un valor de: " + valorFinalPorPersona + "?");
                                         System.out.println("""
                                                     1. Sí.
@@ -181,7 +182,6 @@ public class Funcionalidad3 implements Utilidad {
                     } else {
                         ArrayList<Cliente> clientesPagadores = new ArrayList<Cliente>(numeroPersonas);
                         int personasProcesadas = 0;
-
                         while (mesa.getValorTotal() > 0 && personasProcesadas < numeroPersonas) {
                             for (int j = 0; j < numeroPersonas; j++) {
                                 System.out.println("Ingrese la cédula de la persona que pagará la factura.");
@@ -220,7 +220,6 @@ public class Funcionalidad3 implements Utilidad {
                                 }
                             }
                         }
-
                         if (mesa.getValorTotal() != 0) {
                             System.out.println("La factura aún no ha sido pagada.");
                             System.out.println("Seleccione el cliente que pagará la factura.");
@@ -304,7 +303,6 @@ public class Funcionalidad3 implements Utilidad {
                 1. Efectivo.
                 2. Tarjeta.
                 3. Cheque.
-                4. Puntos.
                 Escriba un número para elegir su opción.""");
         int metodoPago = Utilidad.readInt();
         ArrayList<String> metodosPago = new ArrayList<String>();
@@ -321,12 +319,9 @@ public class Funcionalidad3 implements Utilidad {
                 clientePagador.getFactura().setMetodoPago("Cheque");
                 metodosPago.add("Cheque");
                 break;
-            case 4:
-                clientePagador.getFactura().setMetodoPago("Puntos");
-                metodosPago.add("Puntos");
-                break;
             default:
                 System.out.println("Número no válido");
+                escogerMetodoPago(clientePagador);
                 break;
         }
     }
@@ -586,7 +581,7 @@ public class Funcionalidad3 implements Utilidad {
             case 1:
                 System.out.println("Por favor ingrese su reseña.");
                 String reseña = Utilidad.readString();
-                cliente.getMesa().getRestaurante().añadirReseña(reseña);
+                cliente.getMesa().getRestaurante().anadirReserva(reseña);
                 if (cliente.getAfiliacion() != null) {
                     cliente.setPuntosAcumulados(cliente.getPuntosAcumulados() + 1);
                     System.out.println("Gracias por su reseña. Obtuvo un punto extra por ayudarnos a mejorar.");
@@ -659,38 +654,25 @@ public class Funcionalidad3 implements Utilidad {
                     int eleccion = Utilidad.readInt();
                     switch (eleccion){
                         case 1:
-                            System.out.println("Por favor ingrese el nombre del plato.");
-                            String nombrePlato = Utilidad.readString();
-                            System.out.println("Por favor ingrese el precio del plato.");
-                            int precioPlato = Utilidad.readInt();
-                            System.out.println("Por favor ingrese los ingredientes del plato.");
-                            ArrayList<Ingrediente> ingredientes = new ArrayList<>();
-                            while (true){
-                                System.out.println("Por favor ingrese el nombre del ingrediente o Stop para detenerse:");
-                                String nombreIngrediente = Utilidad.readString();
-                                for (Ingrediente ingrediente : Ingrediente.getIngredientes()){
-                                    if (ingrediente.getNombre().equals(nombreIngrediente)){
-                                        ingredientes.add(ingrediente);
-                                        break;
-                                    }
-                                }
-                                if (nombreIngrediente.equals("Stop")){
-                                    break;
-                                }
-                            }
-                            restaurante.agregarPlato(new Plato(nombrePlato, precioPlato, ingredientes));
+                            Plato platoNuevo = Funcionalidad4.crearPlato();
+                            restaurante.agregarPlato(platoNuevo);
                             System.out.println("Se ha añadido un nuevo plato al menú.");
                             break;
                         case 2:
-                            System.out.println("Por favor ingrese el nombre del plato.");
-//                            String nombrePlato2 = readString();
-//                            for (Restaurante restaurante1 : Restaurante.restaurantes){
-//                                for (Plato plato1 : restaurante1.getMenu()){
-//                                    if (plato1.getNombre().equals(nombrePlato2)){
-//                                        restaurante.getMenu().add(plato1);
-//                                    }
-//                                }
-//                            }
+                            ArrayList<Plato> mejoresPlatos = Utilidad.listadoPlatosCalificacion();
+                            boolean encendido1 = true;
+                            do {
+                                System.out.println("¿Cuál de los platos presentados desea agregar al menú del restaurante?");
+                                int eleccionPlato = Utilidad.readInt();
+
+                                if (eleccionPlato < 1 || eleccionPlato > mejoresPlatos.size()) {
+                                    System.out.println("Ingrese un valor válido [1 - " + mejoresPlatos.size() + "].");
+                                } else {
+                                    mesa.getRestaurante().getMenu().add(mejoresPlatos.get(eleccionPlato - 1));
+                                    System.out.println("Nuevo plato añadido al menú.");
+                                    encendido1 = false;
+                                }
+                            } while (encendido1);
                             break;
                         default:
                             System.out.println("Número no válido.");
@@ -809,6 +791,11 @@ public class Funcionalidad3 implements Utilidad {
             }
         } else {
             valorFinal = valorPorPersona;
+        }
+        if (cliente.getPuntosAcumulados() >= 10) {
+            System.out.println("Felicidades, ha obtenido un descuento de 10.000 por sus puntos acumulados.");
+            valorFinal -= 10000;
+            cliente.setPuntosAcumulados(cliente.getPuntosAcumulados() - 10);
         }
         return valorFinal;
     }

@@ -1,6 +1,9 @@
 package gestorAplicacion.Usuario;
 
-public abstract class Persona {
+import java.awt.*;
+import java.io.Serializable;
+
+public abstract class Persona implements Serializable {
     // Atributos
     protected String nombre;
     protected int cedula;

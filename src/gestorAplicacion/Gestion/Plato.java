@@ -10,15 +10,12 @@ public class Plato implements Serializable {
     private int precio;
     private ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
     private ArrayList<ArrayList<String>> cantidadIngredientes = new ArrayList<ArrayList<String>>();
-    // Ingrediente, cantidad preparacion
-//    private HashMap<Ingrediente, Double> ingredientesMenu = new HashMap<Ingrediente, Double>();
-    private float calificacion;
+    private double calificacion;
     private boolean recomendado;
     private int cantidadCalificaciones;
     private int vecesPedido;
     private String tipo;
     private int pedidosRecomendados;
-    private int valorEnPuntosCliente;
     private int porciones;
     private int cantidadDePlato;
     //Listas Stiven
@@ -32,14 +29,17 @@ public class Plato implements Serializable {
     private static ArrayList<ArrayList<Plato>> platos_gastronomias = new ArrayList<ArrayList<Plato>>();
 
     // Constructor
-    public Plato() {}
+    public Plato() {
+        platos.add(this);
+    }
 
 	
-    public Plato(String nombre, int precio,  String tipo, ArrayList<Ingrediente> ingredientes) {
-    	nombre = nombre;
-    	precio = precio;
+    public Plato(String nombre, int precio, String tipo, ArrayList<Ingrediente> ingredientes) {
+    	this.nombre = nombre;
+    	this.precio = precio;
         this.tipo = tipo;
     	this.ingredientes = ingredientes;
+        platos.add(this);
     }
 
     public Plato(String nombre, int precio, ArrayList<Ingrediente> ingredientes,
@@ -48,12 +48,14 @@ public class Plato implements Serializable {
         this.precio = precio;
         this.ingredientes = ingredientes;
         this.calificacion = calificacion;
+        platos.add(this);
     }
 
     public Plato(String nombre, int precio, ArrayList<Ingrediente> ingredientes) {
         this.nombre = nombre;
         this.precio = precio;
         this.ingredientes = ingredientes;
+        platos.add(this);
     }
 
     public Plato(String nombre, int precio, ArrayList<Ingrediente> ingredientes, float calificacion, boolean recomendado,
@@ -66,6 +68,7 @@ public class Plato implements Serializable {
         this.cantidadCalificaciones = cantidadCalificaciones;
         this.vecesPedido = vecesPedido;
         this.pedidosRecomendados = pedidosRecomendados;
+        platos.add(this);
     }
     public Plato(String nombre, int precio, ArrayList<Ingrediente> ingredientes, int porciones, int cantidadDePlato) {
         this.nombre = nombre;
@@ -73,6 +76,7 @@ public class Plato implements Serializable {
         this.ingredientes = ingredientes;
         this.porciones = porciones;
         this.cantidadDePlato = cantidadDePlato;
+        platos.add(this);
     }
     
 
@@ -82,21 +86,25 @@ public class Plato implements Serializable {
         this.precio = precio;
         this.porciones = porciones;
         this.cantidadDePlato = cantidadDePlato;
+        platos.add(this);
     }
     public Plato(String nombre, int vecesPedido, int precio){
         this.nombre = nombre;
         this.vecesPedido = vecesPedido;
         this.precio = precio;
+        platos.add(this);
     }
     public Plato(String nombre, int precio, int cantidadDePlato, String tipo){
         this.nombre = nombre;
         this.precio = precio;
         this.tipo = tipo;
         this.cantidadDePlato = cantidadDePlato;
+        platos.add(this);
     }
 
     // Métodos
-    //
+    public ArrayList<Ingrediente> getIngredientes(){return ingredientes;}
+    public void setIngredientes(ArrayList<Ingrediente> ingredientes){this.ingredientes = ingredientes;}
     public static ArrayList<Plato> getGastronomias_francesa() {
         return gastronomias_francesa;
     }
@@ -145,8 +153,6 @@ public class Plato implements Serializable {
     public static void setPlatos_gastronomias(ArrayList<ArrayList<Plato>> platos_gastronomias) {
         Plato.platos_gastronomias = platos_gastronomias;
     }
-    //
-
     public static ArrayList<Plato> getPlatos() {
         return platos;
     }
@@ -156,94 +162,54 @@ public class Plato implements Serializable {
     public String getNombre() {
         return nombre;
     }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
     public int getPrecio() {
         return precio;
     }
-
     public void setPrecio(int precio) {
         this.precio = precio;
     }
-
-    public ArrayList<Ingrediente> getIngredientes() {
-        return ingredientes;
-    }
-
-    public void setIngredientes(ArrayList<Ingrediente> ingredientes)
-     {
-        this.ingredientes = ingredientes;
-    }
-
     public ArrayList<ArrayList<String>> getCantidadIngredientes() {
         return cantidadIngredientes;
     }
-
-    public void setCantidadIngredientes(ArrayList<ArrayList<String>> cantidadIngredientes) {
-        this.cantidadIngredientes = cantidadIngredientes;
-    }
-
-    public float getCalificacion() {
+    public double getCalificacion() {
         return calificacion;
     }
-
-    public void setCalificacion(float calificacion) {
+    public void setCalificacion(double calificacion) {
         this.calificacion = (getCalificacion()+calificacion)/(cantidadCalificaciones+1);
         cantidadCalificaciones++;
     }
-
-    public boolean isRecomendado() {
-        return recomendado;
-    }
-
     public void setRecomendado(boolean recomendado) {
         this.recomendado = recomendado;
     }
-
     public int getCantidadCalificaciones() {
         return cantidadCalificaciones;
     }
-
-    public void setCantidadCalificaciones(int cantidadCalificaciones) {
-        this.cantidadCalificaciones = cantidadCalificaciones;
-    }
-
     public int getVecesPedido() {
         return vecesPedido;
     }
-
     public void setVecesPedido(int vecesPedido) {
         this.vecesPedido = vecesPedido;
     }
-
-//    public void agregarIngrediente(Ingrediente ingrediente, int cantidadd)  {
-//        this.ingredientesMenu.put(ingrediente, (double) cantidadd);
-//    }
-//    public void eliminarIngrediente(Ingrediente ingrediente) {
-//        this.ingredientesMenu.remove(ingrediente);
-//    }
-
     public void aumentarVecesPedido() {
         this.vecesPedido++;
     }
-
-    public void aumentarPedidosRecomendados() {
-        this.pedidosRecomendados++;
-    }
-
     public int getPedidosRecomendados() {
         return pedidosRecomendados;
     }
-
-    public int getValorEnPuntosCliente() {
-        return valorEnPuntosCliente;
+    public int getPorciones(){
+        return porciones;
     }
-
-    public void setValorEnPuntosCliente(int valorEnPuntosCliente) {
-        this.valorEnPuntosCliente = valorEnPuntosCliente;
+    public int getCantidadDePlato(){
+        return cantidadDePlato;
+    }
+    public String getTipo() {
+        return this.tipo;
+    }
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     @Override
@@ -256,9 +222,6 @@ public class Plato implements Serializable {
         return sb.toString();
     }
 
-    public String getTipo() {
-        return this.tipo;
-    }
     public void descontarPlato(int cantidadDePlatoPedido){
         if (cantidadDePlatoPedido <= getCantidadDePlato()) {
             this.cantidadDePlato -= cantidadDePlatoPedido;
@@ -267,14 +230,4 @@ public class Plato implements Serializable {
             this.cantidadDePlato = 0;
         }
     }
-    public int getPorciones(){
-        return porciones;
-    }
-    public void setPorciones(int porciones){
-        this.porciones = porciones;
-    }
-    public int getCantidadDePlato(){
-        return cantidadDePlato;
-    }
-
 }

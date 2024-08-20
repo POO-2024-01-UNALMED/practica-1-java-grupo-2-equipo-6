@@ -9,16 +9,15 @@ import gestorAplicacion.Usuario.Trabajador;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Arrays;
 
 import static uiMain.Utilidad.intersectarListas;
 
 public class Restaurante implements Serializable {
     // Atributos
-    private ArrayList<ArrayList<Integer>> intentosReserva;
+    private ArrayList<ArrayList<Integer>> intentosReserva = new ArrayList<ArrayList<Integer>>();
     private static ArrayList<Restaurante> restaurantes = new ArrayList<Restaurante>();
-    public ArrayList<Cliente> clientes = new ArrayList<Cliente>(); //No puede ser static, arreglar lo que conlleva cambiarlo
-    //una buena solucion seria crear una lista clientesRestaurante. Traería menos problemas (En principio).
+    public ArrayList<Cliente> clientes = new ArrayList<Cliente>();
     public ArrayList<Plato> menu = new ArrayList<Plato>();
     public static int restaurantesCreados;
     public ArrayList<Mesa> mesas = new ArrayList<Mesa>();
@@ -33,15 +32,16 @@ public class Restaurante implements Serializable {
     private float calificacion;
     private int coordX;
     private int coordY;
-    private ArrayList<Ingrediente> bodegaIngredientes = new ArrayList<Ingrediente>();
-    private ArrayList<ArrayList<String>> bodegaItems = new ArrayList<>();
+    private ArrayList<ArrayList<String>> bodegaIngredientes = new ArrayList<ArrayList<String>>();
+    private ArrayList<ArrayList<String>> bodegaItems = new ArrayList<ArrayList<String>>();
     private ArrayList<String> reseñas = new ArrayList<String>();
     private ArrayList<Plato> platosRecomendados = new ArrayList<Plato>();
     private ArrayList<Plato> platosDescuento = new ArrayList<Plato>();
     private String nombre;
     private int capacidad;
-    public static ArrayList<Trabajador> trabajadores = new ArrayList <Trabajador>();
+    private ArrayList<Trabajador> trabajadores = new ArrayList<Trabajador>();
     private Cargamento cargamento;
+    private int ganancias;
 
     // Constructores
     public Restaurante() {
@@ -50,12 +50,11 @@ public class Restaurante implements Serializable {
     public Restaurante(String nombre) {
 
     }
-    public Restaurante(int capacidad, String nombre){
+    public Restaurante(int capacidad, String nombre) {
         restaurantesCreados++;
-        this.capacidad =  capacidad;
+        this.capacidad = capacidad;
         this.nombre = nombre;
     }
-
     public Restaurante(int capacidad, String nombre, ArrayList<Reserva> historialReservas){
         this(capacidad, nombre); //Caso #3 this()
         this.historialReservas = historialReservas;
@@ -69,181 +68,42 @@ public class Restaurante implements Serializable {
     }
 
     // Métodos
-    static Scanner consola = new Scanner(System.in);
-
-    static int readInt() {
-        return Integer.parseInt(consola.nextLine());
+    public static ArrayList<Restaurante> getRestaurantes() {
+        return restaurantes;
     }
-
-    /*
-     * METODO CONFIMAR CLIENTE FUNCIONALIDAD # 2
-     * FUNCIONAMIENTO: recibe como parametro la cedula de el cliente, con este
-     * parametro se busca
-     * dentro del arryList clientes, si existe algun cliente con esta
-     * identificacion. De ser asi
-     * 1. se busca el indice dentro del arraylist que contenta el mismo numero de
-     * cedula(cc) que se le paso como argumento
-     * 2. Con el indice se busca el objeto cliente y se retorna por completo.
-     * En caso de no estar presente se llama al metodo (...) para crear un cliente-
-     */
-
-    public  boolean confirmarCliente(int cc) {
-
-        boolean in = false;
-
-        for (Cliente i : clientes) {
-
-            if (i.getCedula() == cc) {
-                in = true;
-                break;
-            }
-        }
-        return in;
+    public int getGanancias() {
+        return ganancias;
     }
-
-    // Necesario para funcionalidad #2
-
-    public  Cliente crearCliente(int cc) {
-
-        System.out.println("La cédula ingresada es: " + cc);
-        System.out.print("¿Es correcta? (1. Confirmar, 2. Cambiar): ");
-        int opcion = readInt();
-        consola.nextLine();
-
-        if (opcion == 2) {
-            System.out.print("Ingrese la nueva cédula: ");
-            cc = readInt();
-            consola.nextLine();
-        }
-
-        System.out.print("Se necesita el siguiente dato:\nNombre: ");
-        String nombre = consola.nextLine();
-
-        clientes.add(new Cliente(nombre, cc));
-        System.out.println("Cliente agregado exitosamente.");
-
-        return clientes.get(clientes.size() - 1);
-
-
+    public void setGanancias(int ganancias) {
+        this.ganancias = ganancias;
     }
-   
-    public  void platosOferta() {
-    
-        for (Plato p : menu) {
-
-            if (p.getTipo().equals("Entrada")) {
-                System.out.println((menu.indexOf(p)) + " " + p);}}
-        
-        for (Plato p : menu) {
-            
-            if (p.getTipo().equals("Fuerte")) {
-                System.out.println((menu.indexOf(p)) + " " + p);}}
-        
-        for (Plato p : menu) {
-            
-            if (p.getTipo().equals("Bebidas")) {
-                System.out.println((menu.indexOf(p)) + " " + p);}}
-        
-        for (Plato p : menu) {
-            
-            if (p.getTipo().equals("Postre")) {
-                System.out.println((menu.indexOf(p)) + " " + p);}}
-        
-        for (Plato p : menu) {
-            
-            if (p.getTipo().equals("Infantil")) {
-                System.out.println((menu.indexOf(p)) + " " + p);}}
-
-
+    public ArrayList<Trabajador> getTrabajadores() {
+        return trabajadores;
     }
-       
-    
-	public  Pedido platosOferta(String tipo) {
-    	ArrayList<Plato> platos = new ArrayList<Plato>();   	
-        Pedido pedido = new Pedido();
-        
-        switch (tipo) {
-        
-        	case "Entrada":
-        			System.out.println("Entradas Disponibles\n");
-        			for (Plato p : menu) {
-            		
-        				if (p.getTipo().equals("Entrada")) {
-        					platos.add(p);
-        				}
-            		
-        			}
-
-            case "Plato fuerte":
-    			System.out.println("Plato fuertes Disponibles\n");
-    			for (Plato p : menu) {
-        		
-    				if (p.getTipo().equals("Plato fuerte")) {
-    					platos.add(p);
-    				}
-        		
-    			}
-    			break;
-
-            case "Bebida":
-    			System.out.println("Bebidas Disponibles\n");
-    			for (Plato p : menu) {
-        		
-    				if (p.getTipo().equals("Bebida")) {
-    					platos.add(p);
-    				}
-        		
-    			}
-    			break;
-            case "Postre":
-    			System.out.println("Postres Disponibles\n");
-    			for (Plato p : menu) {
-        		
-    				if (p.getTipo().equals("Postre")) {
-    					platos.add(p);
-    				}
-        		
-    			}
-    			break;
-            case "Infantil":
-    			System.out.println("Menú infantil\n");
-    			for (Plato p : menu) {
-        		
-    				if (p.getTipo().equals("Infantil")) {
-    					platos.add(p);
-    				}
-        		
-    			}
-    			break;
-        }   
-        
-        if (platos.isEmpty()) {
-			System.out.println("No contamos con Platos de este tipo por el momento.");}
-        else {
-            for (Plato p: platos) {
-         		 System.out.println( platos.indexOf(p)+1    +". " +  p.toString());
-           } 
-           
-           System.out.println("- Ingrese el número del plato que desea.");
-           int numPlato = readInt();
-           System.out.println("- Ingrese la cantidad deseada (1, 2...)");
-           int cantidad = readInt();
-           
-           int contador = 1;
-          
-           while (contador <= cantidad) {
-           	Plato platoPedido = platos.get(numPlato-1);   // Almacena el plato deseado
-               pedido.agregarPlato(platoPedido);
-
-           	contador++;
-           	System.out.print("Su Pedido hasta ahora\nProductos\n"+pedido+"\n");
-           	
-           }
-        }
-
-        return pedido;
+    public void setTrabajadores(ArrayList<Trabajador> trabajadores) {
+        this.trabajadores = trabajadores;
     }
-
+    public int getCapacidad(){
+        return capacidad;
+    }
+    public void setCapacidad(int capacidad) {
+        this.capacidad = capacidad;
+    }
+    public ArrayList<Cliente> getClientes() {
+        return clientes;
+    }
+    public void setClientes(ArrayList<Cliente> clientes) {
+        this.clientes = clientes;
+    }
+    public ArrayList<ArrayList<Integer>> getFechasDisponibles() {
+        return fechasDisponibles;
+    }
+    public void setFechasDisponibles(ArrayList<ArrayList<Integer>> fechasDisponibles) {
+        this.fechasDisponibles = fechasDisponibles;
+    }
+    public ArrayList<Reserva> getHistorialReservas() {
+        return historialReservas;
+    }
     public Cargamento getCargamento() {
         return cargamento;
     }
@@ -283,26 +143,14 @@ public class Restaurante implements Serializable {
     public int getCoordX() {
         return coordX;
     }
-    public void setCoordX(int coordX) {
-        this.coordX = coordX;
-    }
     public int getCoordY() {
         return coordY;
-    }
-    public void setCoordY(int coordY) {
-        this.coordY = coordY;
     }
     public ArrayList<Mesa> getMesas() {
         return mesas;
     }
-    public void setMesas(ArrayList<Mesa> mesas) {
-        this.mesas = mesas;
-    }
     public ArrayList<Casilla> getCasillas() {
         return casillas;
-    }
-    public void setCasillas(ArrayList<Casilla> casillas) {
-        this.casillas = casillas;
     }
     public ArrayList<Plato> getMenu() {
         return menu;
@@ -316,7 +164,7 @@ public class Restaurante implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public void añadirReseña(String reseña) {
+    public void anadirReserva(String reseña) {
         reseñas.add(reseña);
     }
     public void agregarPlatoRecomendado(Plato plato) {
@@ -355,17 +203,11 @@ public class Restaurante implements Serializable {
     public void anadirIntentosReserva(ArrayList<Integer> intentoReserva) {
         intentosReserva.add(intentoReserva);
     }
-    public ArrayList<Ingrediente> getBodegaIngredientes() {
+    public ArrayList<ArrayList<String>> getBodegaIngredientes() {
         return bodegaIngredientes;
-    }
-    public void setBodegaIngredientes(ArrayList<Ingrediente> bodegaIngredientes) {
-        this.bodegaIngredientes = bodegaIngredientes;
     }
     public ArrayList<ArrayList<String>> getBodegaItems() {
         return bodegaItems;
-    }
-    public void setBodegaItems(ArrayList<ArrayList<String>> bodegaItems) {
-        this.bodegaItems = bodegaItems;
     }
 
     @Override
@@ -379,28 +221,6 @@ public class Restaurante implements Serializable {
         sb.append(", menu=").append(menu);
         sb.append('}');
         return sb.toString();
-    }
-
-    public int getCapacidad(){
-        return capacidad;
-    }
-    public ArrayList<Cliente> getClientes() {
-        return clientes;
-    }
-    public void setClientes(ArrayList<Cliente> clientes) {
-        this.clientes = clientes;
-    }
-    public ArrayList<ArrayList<Integer>> getFechasDisponibles() {
-        return fechasDisponibles;
-    }
-    public void setFechasDisponibles(ArrayList<ArrayList<Integer>> fechasDisponibles) {
-        this.fechasDisponibles = fechasDisponibles;
-    }
-    public ArrayList<Reserva> getHistorialReservas() {
-        return historialReservas;
-    }
-    public void setHistorialReservas(ArrayList<Reserva> historialReservas) {
-        this.historialReservas = historialReservas;
     }
 
     public void actualizarFechasDisponibles() {
@@ -436,21 +256,21 @@ public class Restaurante implements Serializable {
 
         nuevoArray.add(listaActual);
 
-        for (ArrayList<Integer> fila : nuevoArray) {
-            System.out.println(fila);
-        }
-
         this.setFechasDisponibles(nuevoArray);
     }
 
-    public void setCapacidad(int capacidad) {
-        this.capacidad = capacidad;
-    }
-
-    public void restarDeBodega(Ingrediente ingrediente, int cantidad) {
-
+    public void restarDeBodegaIngrediente(int indice, int cantidad) {
+        int cantidadPasada = Integer.parseInt(this.bodegaIngredientes.get(indice).get(1));
+        String nombre = this.bodegaIngredientes.get(indice).getFirst();
+        this.bodegaIngredientes.remove(indice);
+        this.bodegaIngredientes.add(new ArrayList<String>(Arrays.asList(nombre,
+                String.valueOf(cantidadPasada - cantidad))));
     }
     public void restarDeBodega(int indice, int cantidad) {
-
+        int cantidadPasada = Integer.parseInt(this.bodegaItems.get(indice).get(1));
+        String nombre = this.bodegaItems.get(indice).getFirst();
+        this.bodegaItems.remove(indice);
+        this.bodegaItems.add(new ArrayList<String>(Arrays.asList(nombre,
+                String.valueOf(cantidadPasada - cantidad))));
     }
 }

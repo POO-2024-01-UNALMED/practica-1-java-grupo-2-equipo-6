@@ -14,10 +14,13 @@ public class Zona implements Serializable {
     private Ciudad ciudad;
 
     //Constructores
-    public Zona(){}
+    public Zona(){
+        zonas.add(this);
+    }
     public Zona(int poblacion, String nombre) {
         this.poblacion = poblacion;
         this.nombre = nombre;
+        zonas.add(this);
     }
     public Zona(int poblacion, String nombre, Ciudad ciudad) {
         this(poblacion, nombre); //Caso #1 this()
@@ -34,9 +37,6 @@ public class Zona implements Serializable {
     public double getPoblacion() {
         return poblacion;
     }
-    public void setPoblacion(int poblacion) {
-        this.poblacion = poblacion;
-    }
     public String getNombre() {
         return nombre;
     }
@@ -46,14 +46,8 @@ public class Zona implements Serializable {
     public ArrayList<Restaurante> getRestaurantes() {
         return restaurantes;
     }
-    public void setRestaurantes(ArrayList<Restaurante> restaurantes) {
-        this.restaurantes = restaurantes;
-    }
     public static ArrayList<Zona> getZonas() {
         return zonas;
-    }
-    public static void setZonas(ArrayList<Zona> zonas) {
-        Zona.zonas = zonas;
     }
 
     @Override

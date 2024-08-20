@@ -9,26 +9,20 @@ public class Ciudad extends Zona implements Serializable {
     private ArrayList<Zona> zonasCiudad = new ArrayList<Zona>();
 
     //Construtores
-    public Ciudad(){}
+    public Ciudad(){
+        ciudades.add(this);
+    }
     public Ciudad(String nombre) {
         this.nombre = nombre;
+        ciudades.add(this);
     }
 
     //Métodos
     public ArrayList<Zona> getZonasCiudad() {
         return zonasCiudad;
     }
-    public void setZonasCiudad(ArrayList<Zona> zonasCiudad) {
-        this.zonasCiudad = zonasCiudad;
-    }
-    public void addZona(Zona zona) {
-        this.zonasCiudad.add(zona);
-    }
     public static ArrayList<Ciudad> getCiudades() {
         return ciudades;
-    }
-    public static void setCiudades(ArrayList<Ciudad> ciudades) {
-    Ciudad.ciudades = ciudades;
     }
 
     public void actualizarPoblacion() {

@@ -7,25 +7,24 @@ public class Ingrediente implements Serializable {
     //Atributos
     private String nombre;
     private int precio;
-    private int inventario;
-    private double cantidad;
     private static ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
 
     //Constructor
+    public Ingrediente() {
+        ingredientes.add(this);
+    }
     public Ingrediente(String nombre, int precio) {
         this.nombre = nombre;
         this.precio = precio;
+        ingredientes.add(this);
     }
     public Ingrediente(String nombre, double cantidad){
         this.nombre = nombre;
-        this.cantidad = cantidad;
         ingredientes.add(this);
     }
     public Ingrediente(String nombre, double cantidad, int precio, int inventario) {
         this.nombre = nombre;
-        this.cantidad = cantidad;
         this.precio = precio;
-        this.inventario = inventario;
         ingredientes.add(this);
     }
 
@@ -35,21 +34,6 @@ public class Ingrediente implements Serializable {
     }
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-    public int getPrecio() {
-        return precio;
-    }
-    public void setPrecio(int precio) {
-        this.precio = precio;
-    }
-    public int getInventario() {
-        return inventario;
-    }
-    public void setInventario(int inventario) {
-        this.inventario = inventario;
-    }
-    public double getCantidad() {
-        return cantidad;
     }
     public static ArrayList<Ingrediente> getIngredientes() {
         return ingredientes;

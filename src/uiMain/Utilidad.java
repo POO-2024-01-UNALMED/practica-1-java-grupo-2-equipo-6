@@ -94,6 +94,7 @@ public interface Utilidad {
     //Este metodo se encarga de organizar en orden alfabético el listado de ciudades para luego imprimir un listado
     //numerado desde 1 con el nombre de estas.
     static void listadoCiudades() {
+        System.out.println(Ciudad.getCiudades());
         if (!Ciudad.getCiudades().isEmpty()) {
             Ciudad.getCiudades().sort(new Comparator<Ciudad>() {
                 @Override
@@ -120,7 +121,6 @@ public interface Utilidad {
             System.out.println(String.valueOf(i + 1) + ". " + ciudad.getZonasCiudad().get(i).getNombre() + '.');
         }
         ciudad.actualizarPoblacion();
-
     }
 
     static ArrayList<Zona> listadoZonasConRestauranteCiudad(Ciudad ciudad) {
@@ -180,14 +180,14 @@ public interface Utilidad {
         Plato.getPlatos().sort(new Comparator<Plato>() {
             @Override
             public int compare(Plato o1, Plato o2) {
-                    return Float.compare(o1.getCalificacion(), o2.getCalificacion());
+                    return Double.compare(o1.getCalificacion(), o2.getCalificacion());
                 }
         });
         ArrayList<Plato> mejoresPlatos = new ArrayList<Plato>();
         for (int i = 0; i < 10; i++) {
             if (i < Plato.getPlatos().size()) {
                 mejoresPlatos.add(Plato.getPlatos().reversed().get(i));
-                System.out.println(String.valueOf(i + 1) + ". " + Plato.getPlatos().reversed().get(i).getNombre() +
+                System.out.println((i + 1) + ". " + Plato.getPlatos().reversed().get(i).getNombre() +
                         ": " + Plato.getPlatos().reversed().get(i).getCalificacion() + " Estrellas.");
             } else {
                 break;
@@ -231,12 +231,28 @@ public interface Utilidad {
     //Este metodo se encarga de retornar verdadero o falso segun si existe o no un cliente con una cedula dada.
     static boolean existeCliente(Cliente clienteActual) {
         for (Cliente cliente : Cliente.getClientes()) {
-            return clienteActual.getCedula() == cliente.getCedula();
+            if (clienteActual.getCedula() == cliente.getCedula()) {
+                return true;
+            }
         }
         return false;
     }
 
-    //Este metodo se encarga de retornar la referencia de un cliente presente en la lista de clientes de un restaurante
+    //SOBRECARGA DE METODOS:
+    //Este metodo se encarga de retornar la referencia de un cliente presente en la lista de clientes
+    static Cliente clienteCedula(Cliente clienteActual, Restaurante restaurante) {
+        for (Cliente cliente : Cliente.getClientes()) {
+            if (clienteActual.getCedula() == cliente.getCedula()) {
+                return cliente;
+            } else if (clienteActual.getCedula() == cliente.getCedula()) {
+                System.out.println("El cliente existe pero no está en el restaurante indicado.");
+            } else {
+                System.out.println("El cliente no está registrado en ningún restaurante.");
+            }
+        }
+        return clienteActual;
+    }
+
     static Cliente clienteCedula(Cliente clienteActual) {
         for (Cliente cliente : Cliente.getClientes()) {
             if (clienteActual.getCedula() == cliente.getCedula()) {
@@ -333,12 +349,12 @@ public interface Utilidad {
 
     //Este metodo se encarga de recorrer la bodega de ingredientes de un restaurante, para devolver el ingrediente
     //que tenga el nombre indicado.
-    static Ingrediente ingredienteBodegaIngredientes(String nombreItem, Restaurante restaurante) {
-        for (Ingrediente ingrediente : restaurante.getBodegaIngredientes()) {
-            if (capitalize(ingrediente.getNombre()).equals(capitalize(nombreItem))) {
-                return ingrediente;
+    static int indiceBodegaIngredientes(String nombreItem, Restaurante restaurante) {
+        for (ArrayList<String> ingredienteCantidad : restaurante.getBodegaIngredientes()) {
+            if (capitalize(ingredienteCantidad.getFirst()).equals(capitalize(nombreItem))) {
+                return restaurante.getBodegaIngredientes().indexOf(ingredienteCantidad);
             }
         }
-        return null;
+        return -1;
     }
 }

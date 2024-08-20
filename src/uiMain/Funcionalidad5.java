@@ -473,7 +473,7 @@ public class Funcionalidad5 implements Utilidad {
                                             for (Trabajador cocineroEnCuestion : Trabajador.getCocineros()) {
                                                 if (cocineroEnCuestion.getEspecialidad().equals("Sonmerlier")) {
                                                     cocineroOcasion = cocineroEnCuestion;
-                                                    cocineroEnCuestion.PagoExtraServicio(Evento.getEventos(), cocineroEnCuestion.getEspecialidad());
+                                                    cocineroEnCuestion.pagoExtraServicio(Evento.getEventos(), cocineroEnCuestion.getEspecialidad());
                                                     for (Plato plato : Plato.getPlatos_varios()) {
                                                         if (plato.getNombre().equals("Bagget")) {
                                                             platosAfiliacionMeeting.add(plato);
